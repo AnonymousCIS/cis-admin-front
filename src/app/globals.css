@@ -1,0 +1,65 @@
+/* 사이트 공통 스타일 부분 */
+
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap');
+
+* {
+  font-family: 'Gowun Batang', serif;
+  box-sizing: border-box;
+
+  /* input 태그에 Focus On시 경계선 생기는 것 */
+  outline: none;
+}
+
+html {
+  /* 1rem */
+  font-size: 13px;
+  color: #000;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+img {
+  border: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li,
+dl,
+dt,
+dd {
+  margin: 0;
+  padding: 0;
+}
+
+/* 공통 */
+.layout-width {
+  min-width: 1300px;
+  padding: 0 10px;
+}
+
+.main-content {
+  display: flex;
+}
+
+.main-content > aside {
+  width: 220px;
+  background: lightgreen;
+}
+
+.main-content > section {
+  flex-grow: 1;
+  padding: 50px;
+}
