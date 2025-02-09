@@ -16,7 +16,7 @@ export const getLogInfo = async () => {
         return result.success && result.data
     }
 }catch (err) {
-    
-}
+
+    }
 
 }

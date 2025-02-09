@@ -17,7 +17,9 @@ export const processJoin = async (params, formData: FormData) => {
 
   const redirectUrl = params?.redirectUrl ?? '/member/login'
 
-  const form = {}
+  const form: any = {
+    optionalTerms: [],
+  }
 
   let errors = {}
 
@@ -33,6 +35,11 @@ export const processJoin = async (params, formData: FormData) => {
     if (['false', 'true'].includes(value)) {
       value = value === 'true'
     }
+    if (key === 'optionalTerms') {
+      form.optionalTerms.push(value)
+      continue
+    }
+
 
     form[key] = value
   }
