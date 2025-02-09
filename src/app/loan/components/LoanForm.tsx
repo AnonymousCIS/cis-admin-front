@@ -8,6 +8,7 @@ const { primary, white } = colors
 
 const StyledForm = styled.form`
   th {
+    width: 100px;
     background: ${primary};
     color: ${white};
   }
@@ -68,7 +69,7 @@ const LoanForm = () => {
         </table>
 
         <BigButton type="submit" className="submit-btn">
-          양식 등록
+          대출 등록
         </BigButton>
       </StyledForm>
     </>
