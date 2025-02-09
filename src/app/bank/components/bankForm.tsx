@@ -16,21 +16,24 @@ const BankForm = ({ actionState }) => {
   })
 
   const [errors, formAction, isPending] = actionState
+  // 폼액션 : 폼 데이터를 서버로 전송하는 함수
+  // 팬딩 : 서버 작업여부 확인 / true, false
 
   const handleChange = (e) => {
     const { name, value } = e.target
     setForm((prevForm) => ({ ...prevForm, [name]: value }))
-  }
+  } // name, value를 사용해서 동적으로 특정 필드 업뎃 -> 여러 입력필드를 하나의 폼상태로 관리하기 위해서 이방식 사용한거
+  // ...prevForm : 기존 상태 복사하여 유지시켜줌
 
   const handleSelectChange = (selectedOption) => {
     setForm((prevForm) => ({ ...prevForm, bankName: selectedOption }))
-  }
+  } // 드롭다운에서 선택된 값을 form.bankName에 저장
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('제출 데이터:', form)
+    e.preventDefault() // 페이지 새로고침 방지
+    console.log('Option selected:', form)
 
-    formAction(form)
+    formAction(form) // 서버로 데이터를 전송!
   }
 
   return (
@@ -39,11 +42,11 @@ const BankForm = ({ actionState }) => {
       <div style={{ marginBottom: '20px' }}>
         <label>은행 기관명</label>
         <Select
-          options={bankOptions}
-          value={form.bankName}
+          options={bankOptions} // 드롭다운 항목
+          value={form.bankName} // 선택된 값
           onChange={handleSelectChange}
           placeholder="은행 종류를 선택하세요"
-          isClearable
+          isClearable // 선택 초기화 가능 여부
         />
         <Messages color="danger">{errors?.bankName}</Messages>
       </div>
