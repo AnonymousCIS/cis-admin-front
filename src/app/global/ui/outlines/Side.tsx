@@ -47,6 +47,9 @@ const Side = () => {
       <a href="/board" className={classNames({ on: menuCode === 'board' })}>
         게시판 관리
       </a>
+      <a href="/bank" className={classNames({ on: menuCode === 'bank' })}>
+        은행 관리
+      </a>
     </StyledMenus>
   )
 }

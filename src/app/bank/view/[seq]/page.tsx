@@ -3,9 +3,9 @@ import React from 'react'
 const TransactionViewPage = () => {
   return (
     <div>
-      <h1>거래 상세 보기</h1>
-      <p>거래 번호: 5678</p>
-      <p>거래 금액: 20000</p>
+      <h1>TransactionViewPage</h1>
+      <p>여긴 뭐가</p>
+      <p>보여져야할까...</p>
     </div>
   )
 }

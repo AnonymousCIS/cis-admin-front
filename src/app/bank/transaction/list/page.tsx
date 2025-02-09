@@ -3,11 +3,11 @@ import React from 'react'
 const TransactionListPage = () => {
   return (
     <div>
-      <h1>거래 내역 목록</h1>
+      <h1>은행 목록</h1>
       <ul>
-        <li>거래 1</li>
-        <li>거래 2</li>
-        <li>거래 3</li>
+        <li>여기가 하나?</li>
+        <li>은행 2</li>
+        <li>은행행 3</li>
       </ul>
     </div>
   )
