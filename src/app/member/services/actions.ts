@@ -17,7 +17,11 @@ export const processJoin = async (params, formData: FormData) => {
 
   const redirectUrl = params?.redirectUrl ?? '/member/login'
 
-  const form = {}
+  console.log('redirectUrl', redirectUrl)
+
+  const form: any = {
+    optionalTerms: [],
+  }
 
   let errors = {}
 
@@ -32,6 +36,11 @@ export const processJoin = async (params, formData: FormData) => {
 
     if (['false', 'true'].includes(value)) {
       value = value === 'true'
+    }
+
+    if (key === 'optionalTerms') {
+      form.optionalTerms.push(value)
+      continue
     }
 
     form[key] = value
@@ -115,6 +124,7 @@ export const processJoin = async (params, formData: FormData) => {
   // 회원 가입 완료후 이동
   redirect(redirectUrl)
 }
+
 
 /**
  * 로그인 처리
