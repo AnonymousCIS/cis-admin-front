@@ -1,14 +1,18 @@
-import React from 'react'
+'use client'
 
-const TransactionInfoPage = () => {
+import React, { useEffect, useState } from 'react'
+import { processBankUpdate } from '@/app/bank/services/actions'
+
+const BankTransactionInfoPage = () => {
+  useEffect(() => {
+    document.title = '거래 내역 단일'
+  }, [])
+
   return (
     <div>
-      <h1>계좌 정보</h1>
-      <p>...</p>
-      <p>으릅당</p>
-      <p>입출금?</p>
+      <h1>거래 내역 단일</h1>
     </div>
   )
 }
 
-export default TransactionInfoPage
+export default BankTransactionInfoPage

@@ -1,16 +1,18 @@
-import React from 'react'
+'use client'
 
-const TransactionListPage = () => {
+import React, { useEffect, useState } from 'react'
+import { processBankUpdate } from '@/app/bank/services/actions'
+
+const BankTransactionListPage = () => {
+  useEffect(() => {
+    document.title = '거래 목록 일괄'
+  }, [])
+
   return (
     <div>
-      <h1>은행 목록</h1>
-      <ul>
-        <li>여기가 하나?</li>
-        <li>은행 2</li>
-        <li>은행행 3</li>
-      </ul>
+      <h1>거래 목록 일괄</h1>
     </div>
   )
 }
 
-export default TransactionListPage
+export default BankTransactionListPage

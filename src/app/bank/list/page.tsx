@@ -1,14 +1,16 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect, useState } from 'react'
+import { processBankUpdate } from '@/app/bank/services/actions'
 
 const BankListPage = () => {
+  useEffect(() => {
+    document.title = '계좌 목록 수정'
+  }, [])
+
   return (
     <div>
-      <h1>은행 계좌 목록</h1>
-      <ul>
-        <li>하나은행?</li>
-        <li>계좌 2</li>
-        <li>계좌 3</li>
-      </ul>
+      <h1>계좌 목록 수정</h1>
     </div>
   )
 }
