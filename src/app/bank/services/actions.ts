@@ -7,6 +7,7 @@ import { revalidatePath } from 'next/cache'
 
 /**
  * 은행 계좌 수정 검증 및 저장 처리
+ * @param params : 쿼리스트링값
  * @param formData : 은행명, 계좌번호
  * @returns 오류 메시지 또는 성공 처리
  */
@@ -21,12 +22,20 @@ export const processBankUpdate = async (params, formData: FormData) => {
   // 필수 항목 검증 S
   const requiredFields = {
     bankName: '은행명을 입력하세요.'
-    accountNumber: '계좌 번호를 입력하세요.'}
-
-  const errors: { [key: string]: string[] } = {}
-  let hasErrors = false
+    accountNumber: '계좌 번호를 입력하세요.'};
 
 
+  const errors: { [key: string]: string[] } = {};
+  let hasErrors = false;
+
+
+  for (const [key, message] of Object.entries(requiredFields)) {
+    if (!formData[key] || !formData[key].trim()) {
+      errors[key] = errors[key] ?? [];
+      errors[key].push(message);
+      hasErrors = true;
+    }
+  }
   // 입력값 검증
   if (!formData.bankName || !formData.bankName.trim()) {
     errors.bankName = ['은행명을 입력해주세요.']
