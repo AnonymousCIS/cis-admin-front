@@ -1,9 +1,10 @@
 import LoanContainer from '../containers/LoanContainer'
+import { MainTitle } from '@/app/global/components/StyledTitle'
 
 const LoanCreate = () => {
   return (
     <>
-      <h1>대출 생성</h1>
+      <MainTitle>대출 생성</MainTitle>
       <LoanContainer />
     </>
   )
