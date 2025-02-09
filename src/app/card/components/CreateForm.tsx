@@ -46,9 +46,10 @@ const CreateForm = ({ form, onClick, onChange, actionState }) => {
           value={form?.cardType ?? ''}
           onChange={onChange}
         /> */}
-        <span>카드 종류</span><br/>
+        <span>카드 종류</span>
+        <br />
         <select>
-          <option value="form?.">개인 체크</option>
+          <option value="PersonalCheck">개인 체크</option>
           <option value="PersonalCredit">개인 신용</option>
           <option value="CorporateCheck">법인 체크</option>
           <option value="CorporateCredit">신용 체크</option>
