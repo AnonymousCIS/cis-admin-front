@@ -47,9 +47,6 @@ const Side = () => {
       <a href="/board" className={classNames({ on: menuCode === 'board' })}>
         게시판 관리
       </a>
-      <a href='/email/list' className={classNames({on: menuCode === "eamil"})}>
-        이메일 로그 관리
-      </a>
     </StyledMenus>
   )
 }
