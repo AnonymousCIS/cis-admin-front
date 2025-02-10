@@ -1,7 +1,7 @@
 // 로그인 회원 정보 전역 유지
 'use client'
 
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState } from 'react'
 
 const UserContext = createContext({
   state: { userInfo: undefined, isLogin: false, isAdmin: false },
