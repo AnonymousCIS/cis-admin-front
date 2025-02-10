@@ -38,22 +38,22 @@ const CreateForm = ({ form, onClick, onChange, actionState }) => {
         <Messages color="danger">{errors?.annualFee}</Messages>
 
         {/* 카드타입 */}
-        {/* <Input
+        <Input
           type="text"
           name="cardType"
           placeholder="카드 종류"
           color="dark"
           value={form?.cardType ?? ''}
           onChange={onChange}
-        /> */}
+        />
         <span>카드 종류</span>
-        <br />
-        <select>
+      
+        {/* <select>
           <option value="PersonalCheck">개인 체크</option>
           <option value="PersonalCredit">개인 신용</option>
           <option value="CorporateCheck">법인 체크</option>
           <option value="CorporateCredit">신용 체크</option>
-        </select>
+        </select> */}
 
         <Messages color="danger">{errors?.cardType}</Messages>
 

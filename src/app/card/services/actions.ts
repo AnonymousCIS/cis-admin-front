@@ -49,7 +49,7 @@ export const processCreate = async (params, formData: FormData) => {
 
   /* Server 요청 처리 S */
   if (!hasErrors) {
-    //const apiUrl = process.env.API_URL + '/card/admin/create'
+    // const apiUrl = process.env.API_URL + '/card/admin/create'
 
     // 이부분 임시로 테스트위해 주소를 실제로 입력한것
     const apiUrl = 'https://cis-card-service.jinilog.com/admin/create'
