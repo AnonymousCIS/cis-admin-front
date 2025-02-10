@@ -17,8 +17,6 @@ export const processJoin = async (params, formData: FormData) => {
 
   const redirectUrl = params?.redirectUrl ?? '/member/login'
 
-  console.log('redirectUrl', redirectUrl)
-
   const form: any = {
     optionalTerms: [],
   }
@@ -36,6 +34,15 @@ export const processJoin = async (params, formData: FormData) => {
 
     if (['false', 'true'].includes(value)) {
       value = value === 'true'
+    }
+    if (key === 'optionalTerms') {
+      form.optionalTerms.push(value)
+      continue
+    }
+
+    if (key === 'optionalTerms') {
+      form.optionalTerms.push(value)
+      continue
     }
 
     if (key === 'optionalTerms') {
@@ -133,7 +140,6 @@ export const processJoin = async (params, formData: FormData) => {
  */
 export const processLogin = async (params, formData: FormData) => {
   const redirectUrl = params?.redirectUrl ?? '/'
-  console.log('redirectUrl', redirectUrl)
 
   let errors = {}
 
@@ -226,61 +232,4 @@ export const getUserInfo = async () => {
   } catch (err) {
     // cookie.delete('token')
   }
-}
-
-export const processFind = async (params, formData: FormData) => {
-  const redirectUrl = params?.redirectUrl ?? '/member/password/find'
-  console.log('redirectUrl', redirectUrl)
-
-  let errors = {}
-
-  let hasErrors = false
-
-  /* 필수 항목 검증 S */
-
-  const name = formData.get('userName')
-  const phoneNumber = formData.get('phoneNumber')
-  formData.set('origin', redirectUrl)
-  const origin = formData.get('origin')
-  if (!name || !name.trim()) {
-    errors.username = errors.email ?? []
-    errors.username.push('이름을 입력하세요.')
-    hasErrors = true
-  }
-  if (!phoneNumber || !phoneNumber.trim()) {
-    errors.phoneNumber = errors.phoneNumber ?? []
-    errors.phoneNumber.push('휴대폰번호를 입력하세요.')
-    hasErrors = true
-  }
-
-  /* 필수 항목 검증 E */
-
-  if (!hasErrors) {
-    const apiUrl = process.env.API_URL + '/member/password/find'
-    console.log('apiUrl', apiUrl)
-    console.log('origin', origin)
-
-    try {
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, phoneNumber, origin }),
-      })
-      const result = await res.status
-      console.log(result)
-      if (result === 204) {
-        console.log('성공')
-      } else {
-        // errors = result.message
-        hasErrors = true
-        console.log('실패')
-      }
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
-  if (hasErrors) return errors
 }
