@@ -1,3 +1,5 @@
+import { SmallButton } from '@/app/global/components/Buttons'
+import { TableRows } from '@/app/global/components/Tables'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -7,19 +9,25 @@ const ViewForm = () => {
   return (
     <>
       <StyledForm>
-        <dl>
-          <dt>제목</dt>
-          <dd></dd>
-        </dl>
-        <dl>
-          <dt>보낸 사람 이메일</dt>
-          <dd></dd>
-        </dl>
-        <dl>
-          <dt>내용</dt>
-          <dd></dd>
-        </dl>
-      </StyledForm>
+              <TableRows>
+                <thead>
+                  <tr>
+                    <th>
+                    <SmallButton type='button' color='secondary'>삭제</SmallButton>
+                    </th>
+                    <th>필터</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colSpan={5} className="no-data">
+                      쪽지가 없습니다.
+                    </td>
+                  </tr>
+                </tbody>
+              </TableRows>
+            </StyledForm>
     </>
   )
 }

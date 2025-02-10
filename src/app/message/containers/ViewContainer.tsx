@@ -1,14 +1,10 @@
 'use client'
 
-import React from "react"
-import ViewForm from "../components/ViewForm"
+import React from 'react'
+import ViewForm from '../components/ViewForm'
 
 const ViewConatiner = () => {
-
-    return (
-        <ViewForm />
-    )
-
+  return <ViewForm />
 }
 
 export default React.memo(ViewConatiner)
