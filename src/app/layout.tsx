@@ -34,7 +34,7 @@ export default async function RootLayout({
             <Header />
             <main className="main-content">
               <CommonProvider>
-                <section>{children}</section>
+                {children}
                 {/* <Footer /> */}
               </CommonProvider>
             </main>
