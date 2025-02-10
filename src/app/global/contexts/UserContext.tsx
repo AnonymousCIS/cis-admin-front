@@ -1,7 +1,7 @@
 // 로그인 회원 정보 전역 유지
 'use client'
 
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState } from 'react'
 
 const UserContext = createContext({
   state: { userInfo: undefined, isLogin: false, isAdmin: false },
@@ -21,11 +21,8 @@ const UserProvider = ({ children, _userInfo }) => {
     _userInfo && _userInfo._authorities.includes('ADMIN'),
   )
 
-  useEffect(() => {
-    if (_userInfo) {
-      setUserInfo(_userInfo)
-    }
-  }, [_userInfo])
+  // const [isLogin, setIsLogin] = useState(true)
+  // const [isAdmin, setIsAdmin] = useState(true)
 
   const value = {
     state: { userInfo, isLogin, isAdmin },

@@ -41,6 +41,11 @@ export const processJoin = async (params, formData: FormData) => {
     }
 
 
+    if (key === 'optionalTerms') {
+      form.optionalTerms.push(value)
+      continue
+    }
+
     form[key] = value
   }
 
@@ -219,7 +224,7 @@ export const getUserInfo = async () => {
       const result = await res.json()
 
       return result.success && result.data
-    } 
+    }
   } catch (err) {
     // cookie.delete('token')
   }
