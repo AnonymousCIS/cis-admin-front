@@ -9,13 +9,9 @@ const JoinContainer = () => {
   // QueryString 값 받는 용
   const searchParams = useSearchParams()
 
-  const params = { redirectUrl: searchParams.get('redirectUrl') }
+  const actionState = useActionState(processJoin, searchParams)
 
-  const actionState = useActionState(processJoin, params)
-
-  const [form, setForm] = useState({
-    gender: 'MALE',
-  })
+  const [form, setForm] = useState({})
 
   const onChange = useCallback((e) => {
     setForm((form) => ({ ...form, [e.target.name]: e.target.value }))

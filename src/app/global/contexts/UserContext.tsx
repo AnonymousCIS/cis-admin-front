@@ -21,9 +21,6 @@ const UserProvider = ({ children, _userInfo }) => {
     _userInfo && _userInfo._authorities.includes('ADMIN'),
   )
 
-  // const [isLogin, setIsLogin] = useState(true)
-  // const [isAdmin, setIsAdmin] = useState(true)
-
   const value = {
     state: { userInfo, isLogin, isAdmin },
     actions: { setUserInfo, setIsLogin, setIsAdmin },

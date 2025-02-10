@@ -3,6 +3,7 @@
 import { cookies } from 'next/headers'
 
 export default async function apiRequest(url, method = 'GET', body) {
+  
   const apiUrl = /^http[s]?/.test(url) ? url : process.env.API_URL + url
 
   const cookie = await cookies()

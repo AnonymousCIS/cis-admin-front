@@ -46,6 +46,11 @@ export const processJoin = async (params, formData: FormData) => {
       continue
     }
 
+    if (key === 'optionalTerms') {
+      form.optionalTerms.push(value)
+      continue
+    }
+
     form[key] = value
   }
 
