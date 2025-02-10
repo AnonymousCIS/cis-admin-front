@@ -1,11 +1,10 @@
 'use client'
-import React from "react"
-import ListForm from "../components/ListForm"
+import React from 'react'
+import ListForm from '../components/ListForm'
+import useMenuCode from '@/app/global/hooks/useMenuCode'
 const ListContainer = () => {
-
-    return (
-        <ListForm />
-    )
+  useMenuCode('message', 'listForm')
+  return <ListForm />
 }
 
 export default React.memo(ListContainer)
