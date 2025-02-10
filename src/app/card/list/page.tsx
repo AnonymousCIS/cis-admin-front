@@ -1,5 +1,14 @@
+import React from 'react'
+import { MainTitle } from '@/app/global/components/StyledTitle'
+import ListContainer from '../containers/ListContainer'
+
 const ListPage = () => {
-  return <h1>카드 목록 페이지</h1>
+  return (
+    <>
+      <MainTitle>카드 목록</MainTitle>
+      <ListContainer />
+    </>
+  )
 }
 
-export default ListPage
+export default React.memo(ListPage)

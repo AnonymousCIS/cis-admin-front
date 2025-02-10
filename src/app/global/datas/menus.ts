@@ -8,7 +8,10 @@ export const menus = {
   email: [],
   message: [],
   bank: [],
-  card: [],
+  card: [
+    { code: 'create', name: '카드 등록', url: '/card/create' },
+    { code: 'list', name: '카드 목록', url: '/card/list' },
+  ],
   loan: [],
 }
 

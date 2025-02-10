@@ -12,6 +12,7 @@ const commonStyle = css`
   width: 100%;
   height: 35px;
   border-radius: 2px;
+  cursor: pointer;
 
   & + & {
     margin-left: 3px;
