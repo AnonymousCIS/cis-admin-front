@@ -12,10 +12,6 @@ const ListContainer = () => {
   const [form, setForm] = useState({ skey: params })
   const [logs, setLogs] = useState([])
 
-  const onChange = useCallback((e) => {
-    setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
-  }, [])
-
   useEffect(() => {
     const emailLogs = async () => {
       const data = await getLogInfo()
@@ -24,7 +20,17 @@ const ListContainer = () => {
     emailLogs()
   }, [])
 
-  return <ListForm form={form} onChange={onChange} logs={logs} />
+  const onChange = useCallback((e) => {
+    setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
+  }, [])
+
+  const onSubmit = useCallback((e) => {
+    e.preventDefault()
+  }, [])
+
+  return (
+    <ListForm form={form} onChange={onChange} logs={logs} onSubmit={onSubmit} />
+  )
 }
 
 export default React.memo(ListContainer)
