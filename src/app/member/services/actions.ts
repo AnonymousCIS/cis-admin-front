@@ -16,7 +16,7 @@ export const processJoin = async (params, formData: FormData) => {
   // 검증 실패시의 메세지 등
 
   const redirectUrl = params?.redirectUrl ?? '/member/login'
-
+  
   const form: any = {
     optionalTerms: [],
   }
@@ -40,6 +40,11 @@ export const processJoin = async (params, formData: FormData) => {
       continue
     }
     
+    if (key === 'optionalTerms') {
+      form.optionalTerms.push(value)
+      continue
+    }
+
     if (key === 'optionalTerms') {
       form.optionalTerms.push(value)
       continue
@@ -131,6 +136,7 @@ export const processJoin = async (params, formData: FormData) => {
   // 회원 가입 완료후 이동
   redirect(redirectUrl)
 }
+
 
 /**
  * 로그인 처리
