@@ -44,8 +44,30 @@ const Side = () => {
       <a href="/member" className={classNames({ on: menuCode === 'member' })}>
         회원 관리
       </a>
-      <a href="/board" className={classNames({ on: menuCode === 'board' })}>
+
+      <a href="/board/config/list" className={classNames({ on: menuCode === 'board' })}>
         게시판 관리
+      </a>
+      <a href="/bank" className={classNames({ on: menuCode === 'bank' })}>
+        은행 관리
+      </a>
+      <a href="/card/list" className={classNames({ on: menuCode === 'card' })}>
+        카드 관리
+      </a>
+      <a href="/loan/list" className={classNames({ on: menuCode === 'loan' })}>
+        대출 관리
+      </a>
+      <a
+        href="/message/list"
+        className={classNames({ on: menuCode === 'message' })}
+      >
+        쪽지 관리
+      </a>
+      <a
+        href="/email/list"
+        className={classNames({ on: menuCode === 'email' })}
+      >
+        이메일 로그
       </a>
     </StyledMenus>
   )

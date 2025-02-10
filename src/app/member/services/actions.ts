@@ -16,9 +16,7 @@ export const processJoin = async (params, formData: FormData) => {
   // 검증 실패시의 메세지 등
 
   const redirectUrl = params?.redirectUrl ?? '/member/login'
-
-  console.log('redirectUrl', redirectUrl)
-
+  
   const form: any = {
     optionalTerms: [],
   }
@@ -36,6 +34,20 @@ export const processJoin = async (params, formData: FormData) => {
 
     if (['false', 'true'].includes(value)) {
       value = value === 'true'
+    }
+    if (key === 'optionalTerms') {
+      form.optionalTerms.push(value)
+      continue
+    }
+    
+    if (key === 'optionalTerms') {
+      form.optionalTerms.push(value)
+      continue
+    }
+
+    if (key === 'optionalTerms') {
+      form.optionalTerms.push(value)
+      continue
     }
 
     if (key === 'optionalTerms') {
@@ -222,7 +234,7 @@ export const getUserInfo = async () => {
       const result = await res.json()
 
       return result.success && result.data
-    } 
+    }
   } catch (err) {
     // cookie.delete('token')
   }
