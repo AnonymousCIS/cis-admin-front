@@ -1,15 +1,19 @@
 'use client'
 
 import React, { useState, useCallback, useActionState } from 'react'
-import { useSearchParams } from 'next/navigation'
-import JoinForm from '../components/JoinForm'
-import { processJoin } from '../services/actions'
 
-const JoinContainer = () => {
-  // QueryString 값 받는 용
+import { useSearchParams } from 'next/navigation'
+
+import CreateForm from '../components/CreateForm'
+
+import { processCreate } from '../services/actions'
+
+const CreateContainer = () => {
   const searchParams = useSearchParams()
 
-  const actionState = useActionState(processJoin, searchParams)
+  const params = { redirectUrl: searchParams.get('redirectUrl') }
+
+  const actionState = useActionState(processCreate, params)
 
   const [form, setForm] = useState({})
 
@@ -17,24 +21,18 @@ const JoinContainer = () => {
     setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
   }, [])
 
-  // Radio Button & Check Box에서 사용
   const onClick = useCallback((field, value) => {
     setForm((form) => ({ ...form, [field]: value }))
   }, [])
 
-  const onSelectDate = useCallback((date) => {
-    setForm((form) => ({ ...form, birthDt: date }))
-  }, [])
-
   return (
-    <JoinForm
+    <CreateForm
       actionState={actionState}
       form={form}
       onChange={onChange}
       onClick={onClick}
-      onSelectDate={onSelectDate}
     />
   )
 }
 
-export default React.memo(JoinContainer)
+export default React.memo(CreateContainer)

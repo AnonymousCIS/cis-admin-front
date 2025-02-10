@@ -39,7 +39,7 @@ export const processJoin = async (params, formData: FormData) => {
       form.optionalTerms.push(value)
       continue
     }
-
+    
     if (key === 'optionalTerms') {
       form.optionalTerms.push(value)
       continue
