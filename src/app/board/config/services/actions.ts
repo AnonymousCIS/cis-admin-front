@@ -53,6 +53,9 @@ export const updateBoard = async (params, formData: FormData) => {
     }
   }
   /* Server 요청 처리 E */
+  if (hasErrors) {
+    return errors
+  }
 
   return redirect('/board/config/list')
 }

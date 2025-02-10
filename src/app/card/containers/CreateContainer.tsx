@@ -8,7 +8,11 @@ import CreateForm from '../components/CreateForm'
 
 import { processCreate } from '../services/actions'
 
+import useMenuCode from '@/app/global/hooks/useMenuCode'
+
 const CreateContainer = () => {
+  useMenuCode('card', 'create')
+
   const searchParams = useSearchParams()
 
   const params = { redirectUrl: searchParams.get('redirectUrl') }

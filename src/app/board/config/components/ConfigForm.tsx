@@ -32,7 +32,7 @@ const StyledForm = styled.form`
   }
 `
 
-const ConfigForm = ({ form, onChange, onClick, actionState }) => {
+const ConfigForm = ({ form, onChange, onClick, onReset, actionState }) => {
   const [errors, formAction, isPending] = actionState
 
   return (
@@ -108,7 +108,7 @@ const ConfigForm = ({ form, onChange, onClick, actionState }) => {
               {form?.mode === 'edit' ? (
                 <>
                   {form?.bid}
-                  <input type="hidden" name="bid" value={form?.bid} />
+                  <input type="hidden" name="bid" value={form?.bid ?? ''} />
                 </>
               ) : (
                 <>
@@ -485,12 +485,18 @@ const ConfigForm = ({ form, onChange, onClick, actionState }) => {
       </TableCols>
 
       <ButtonGroup width={450} className="button-group center">
-        <BigButton type="reset" color="white" disabled={isPending}>
+        <BigButton
+          type="reset"
+          color="info"
+          disabled={isPending}
+          onClick={onReset}
+        >
           재입력
         </BigButton>
         <BigButton type="submit" color="dark" disabled={isPending}>
           등록
         </BigButton>
+        <Messages color="danger">{errors?.global}</Messages>
       </ButtonGroup>
     </StyledForm>
   )

@@ -8,7 +8,7 @@ import classNames from 'classnames'
 import colors from '../styles/colors'
 import sizes from '../styles/sizes'
 
-const { primary, info, white, lightgreen } = colors
+const { primary, info, white } = colors
 const { medium } = sizes
 
 const StyledMenu = styled.nav`

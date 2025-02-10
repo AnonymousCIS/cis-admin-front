@@ -58,11 +58,16 @@ const ConfigContainer = ({ bid }: { bid?: string | undefined } | undefined) => {
     setForm((form) => ({ ...form, [field]: value }))
   }, [])
 
+  const onReset = useCallback((e) => {
+    setForm(initialValue)
+  }, [])
+
   return (
     <ConfigForm
       form={form}
       onChange={onChange}
       onClick={onClick}
+      onReset={onReset}
       actionState={actionState}
     />
   )
