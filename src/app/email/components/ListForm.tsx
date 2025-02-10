@@ -1,48 +1,97 @@
-import React from "react";
-import { styled } from "styled-components";
-import colors from "@/app/global/styles/colors";
-import sizes from "@/app/global/styles/sizes";
-import { FaSearch } from "react-icons/fa";
+'use client';
 
-const { white, secondary } = colors;
-const { big, medium } = sizes;
+import React, { useState, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'next/navigation';
+import styled from 'styled-components';
+import { FaSearch } from 'react-icons/fa';
+import { getLogInfo } from '../services/actions'; // 이메일 로그 조회 API
 
 const StyledForm = styled.form`
-  width: 500px;
-  display: flex;
-  border: 3px solid ${secondary};
+  table {
+    margin-bottom: 30px;
 
-  margin-right: 400px;
-   button {
-    width: 45px;
-    background: ${secondary};
-    color: ${white};
-    border: 0;
-    cursor: pointer;
+    th {
+      width: 180px;
+      background: #007bff;
+      color: #fff;
+    }
 
-    svg {
-      font-size: ${big};
+    td {
+      & > * + * {
+        margin-left: 20px;
+      }
+    }
+
+    &:last-of-type {
+      margin-bottom: 30px;
     }
   }
 
   input {
-    flex-grow: 1;
-    border: 0;
-    padding: 10px;
-    font-size: ${medium};
+    width: 60%;
+    padding: 8px;
+    font-size: 14px;
   }
-`
-const ListForm = ({form, onChange, logs}) => {
+`;
+
+const TableCols = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+`;
+
+const SubTitle = styled.h2`
+  font-size: 18px;
+  color: #333;
+`;
+
+const ListForm = ({ form, onChange, logs }) => {
   return (
-    <div className="Log-search">
-      <StyledForm method="GET" action="/email/search" autoComplete="off">
-        <input type="text" name="skey" placeholder="검색어를 입력하세요" value={form?.skey ?? ""} onChange={onChange} />
-        <button type="submit">
-          <FaSearch />
-        </button>
-      </StyledForm>
-    </div>
-  )
-}
+    <StyledForm method="GET" action="/email/search" autoComplete="off">
+      <SubTitle>검색</SubTitle>
+      <TableCols>
+        <thead>
+          <tr>
+            <th>검색어</th>
+            <td>
+              <div style={{ position: 'relative' }}>
+                <input
+                  type="text"
+                  name="skey"
+                  placeholder="검색어를 입력하세요"
+                  value={form?.skey ?? ''}
+                  onChange={onChange}
+                />
+                <FaSearch />
+              </div>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>로그 조회</th>
+            <td>
+              <table>
+                <thead>
+                  <tr>
+                    <th>번호</th>
+                    <th>수신자</th>
+                    <th>제목</th>
+                    <th>내용</th>
+                    <th>발송일</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <td colSpan="5">로그가 없습니다.</td>
+                    </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </TableCols>
+    </StyledForm>
+  );
+};
 
 export default React.memo(ListForm);

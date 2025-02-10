@@ -7,16 +7,20 @@ import apiRequest from '@/app/global/libs/apiRequest'
 import { revalidatePath } from 'next/cache'
 
 export const getLogInfo = async () => {
-    const res = await apiRequest('/email')
+  
 
-    try{
-    if (res.status == 200) {
-        const result = await res.json()
+    try {
+        const res = await apiRequest('/email/admin/list', "GET")
+        if (res.status === 200) {
+          const result = await res.json();
+          return result.success && result.data;
+        } else {
 
-        return result.success && result.data
-    }
-}catch (err) {
+          console.error('Error fetching logs:', res.status);
+        }
+      } catch (err) {
 
-    }
+        console.error('Error:', err);
+      }
 
 }
