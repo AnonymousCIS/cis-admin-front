@@ -9,14 +9,14 @@ import sizes from '../../styles/sizes'
 
 const { big } = sizes
 
-const { light, dark, white } = colors
+const { primary, info, white } = colors
 
 const StyledMenus = styled.aside`
   min-height: 800px;
-  background: ${light};
+  background: ${primary};
 
   a {
-    color: ${dark};
+    color: ${white};
     font-size: ${big};
     display: block;
     height: 55px;
@@ -25,12 +25,12 @@ const StyledMenus = styled.aside`
   }
 
   a.on {
-    background: ${dark};
+    background: ${info};
     color: ${white};
   }
 
   a + a {
-    border-top: 2px solid ${dark};
+    border-top: 2px solid ${info};
   }
 `
 
@@ -45,7 +45,10 @@ const Side = () => {
         회원 관리
       </a>
 
-      <a href="/board/config/list" className={classNames({ on: menuCode === 'board' })}>
+      <a
+        href="/board/config/list"
+        className={classNames({ on: menuCode === 'board' })}
+      >
         게시판 관리
       </a>
       <a href="/bank" className={classNames({ on: menuCode === 'bank' })}>

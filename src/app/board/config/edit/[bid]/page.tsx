@@ -9,7 +9,7 @@ const EditPage = ({ params }) => {
   return (
     <>
       <MainTitle>게시판 설정 수정</MainTitle>
-      <ConfigContainer />
+      <ConfigContainer bid={bid} />
     </>
   )
 }
