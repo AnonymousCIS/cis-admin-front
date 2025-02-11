@@ -42,21 +42,6 @@ export const processJoin = async (params, formData: FormData) => {
       continue
     }
 
-    if (key === 'optionalTerms') {
-      form.optionalTerms.push(value)
-      continue
-    }
-
-    if (key === 'optionalTerms') {
-      form.optionalTerms.push(value)
-      continue
-    }
-
-    if (key === 'optionalTerms') {
-      form.optionalTerms.push(value)
-      continue
-    }
-
     form[key] = _value
   }
 
@@ -240,4 +225,53 @@ export const getUserInfo = async () => {
     // cookie.delete('token')
     console.error(err)
   }
+}
+
+/**
+ * 회원조회
+ *
+ * @param bid
+ */
+export const getMember = async (seq) => {
+  try {
+    const res = await apiRequest(`/member/info/${seq}`)
+
+    if (res.status === 200) {
+      const result = await res.json()
+      return result.success && result.data
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const updateMember = async (params, formData: FormData) => {
+  const form: any = {
+    optionalTerms: [],
+  }
+
+  let errors: any = {}
+
+  let hasErrors = false
+  for (const [key, value] of formData.entries()) {
+    if (key.includes('$ACTION')) continue
+
+    let _value: string | boolean = value.toString()
+
+    if (key === 'birthDt' && _value && _value.trim()) {
+      _value = format(new Date(_value), 'yyyy-MM-dd')
+    }
+
+    if (['false', 'true'].includes(_value)) {
+      _value = _value === 'true'
+    }
+    if (key === 'optionalTerms') {
+      form.optionalTerms.push(value)
+      continue
+    }
+
+    form[key] = _value
+  }
+
+  console.log('form', form)
 }
