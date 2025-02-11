@@ -9,6 +9,7 @@ const StyledForm = styled.form``
 
 const BankForm = ({ form, onClick, onChange, actionState }) => {
   const [errors, formAction, isPending] = actionState
+
   return (
     <>
       <StyledForm action={formAction} autoComplete="off">
@@ -98,7 +99,7 @@ const BankForm = ({ form, onClick, onChange, actionState }) => {
           </tbody>
         </table>
         <BigButton type="submit" className="submit-btn" disabled={isPending}>
-          확인
+          저장
         </BigButton>
       </StyledForm>
     </>

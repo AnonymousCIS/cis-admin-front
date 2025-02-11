@@ -1,11 +1,8 @@
 'use client'
 
 import React from 'react'
-
-import bankListForm from '../components/bankListForm'
-
 import useMenuCode from '@/app/global/hooks/useMenuCode'
-import BankListForm from '../components/bankListForm'
+import BankListForm from '../components/BankListForm'
 
 const BankListContainer = () => {
   useMenuCode('bank', 'list')

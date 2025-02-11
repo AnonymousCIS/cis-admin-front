@@ -2,7 +2,9 @@
 import { redirect } from 'next/navigation'
 import apiRequest from '@/app/global/libs/apiRequest'
 
-export const processBank = async () => {
+export const processBank = async (params, formData: FormData) => {
+  const redirectUrl = params?.redirectUrl ?? '/card/list'
+
   const form: any = {}
   let errors: any = {}
   let hasErrors = false
