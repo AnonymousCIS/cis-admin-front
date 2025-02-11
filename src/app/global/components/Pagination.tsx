@@ -33,6 +33,7 @@ const Wrapper = styled.div`
     border: 1px solid ${secondary};
     border-radius: 3px;
     cursor: pointer;
+    color: ${secondary};
   }
   .page + .page {
     margin-left: 3px;

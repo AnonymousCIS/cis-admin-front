@@ -10,6 +10,7 @@ import { FaSearch } from 'react-icons/fa'
 
 const StyledForm = styled.form<CommonType>`
   margin-bottom: 35px;
+  
   button[type='submit'] {
     display: block;
     margin: 15px auto 0;

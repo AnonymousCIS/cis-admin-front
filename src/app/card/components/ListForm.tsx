@@ -9,15 +9,19 @@ const StyledForm = styled.form`
   }
 
   th:nth-of-type(2) {
-    width: 150px;
-  }
-
-  th:nth-of-type(3) {
     width: 250px;
   }
 
+  th:nth-of-type(3) {
+    width: 150px;
+  }
+
   th:nth-of-type(4) {
-    width: 100px;
+    width: 150px;
+  }
+
+  th:nth-of-type(5) {
+    width: 120px;
   }
 `
 
