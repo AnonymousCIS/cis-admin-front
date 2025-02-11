@@ -7,7 +7,7 @@ import Messages from '@/app/global/components/Messages'
 
 const StyledForm = styled.form``
 
-const bankForm = ({ form, onClick, onChange, actionState }) => {
+const BankForm = ({ form, onClick, onChange, actionState }) => {
   const [errors, formAction, isPending] = actionState
   return (
     <>
@@ -105,4 +105,4 @@ const bankForm = ({ form, onClick, onChange, actionState }) => {
   )
 }
 
-export default React.memo(bankForm)
+export default React.memo(BankForm)

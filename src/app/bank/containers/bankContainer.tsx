@@ -3,10 +3,10 @@
 import React, { useState, useCallback, useActionState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { processBank } from '../services/actions'
-import BankForm from '../components/BankForm'
+import BankForm from '../components/bankForm'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 
-const bankContainer = () => {
+const BankContainer = () => {
   useMenuCode('bank', 'edit')
 
   const searchParams = useSearchParams()
@@ -37,4 +37,4 @@ const bankContainer = () => {
   )
 }
 
-export default React.memo(bankContainer)
+export default React.memo(BankContainer)

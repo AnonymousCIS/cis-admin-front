@@ -6,7 +6,7 @@ import { MainTitle } from '@/app/global/components/StyledTitle'
 import WithUserContainer from '@/app/global/containers/WithUserContainer'
 import { MainContentBox } from '@/app/global/components/ContentBox'
 
-const CreateContainer = loadable(() => import('../containers/BankContainer'))
+const CreateContainer = loadable(() => import('../containers/bankContainer'))
 
 const EditPage = () => {
   return WithUserContainer(

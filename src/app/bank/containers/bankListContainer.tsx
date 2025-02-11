@@ -2,17 +2,18 @@
 
 import React from 'react'
 
-import ListForm from '../components/BankListForm'
+import bankListForm from '../components/bankListForm'
 
 import useMenuCode from '@/app/global/hooks/useMenuCode'
+import BankListForm from '../components/bankListForm'
 
-const bankListContainer = () => {
+const BankListContainer = () => {
   useMenuCode('bank', 'list')
   return (
     <>
-      <ListForm />
+      <BankListForm />
     </>
   )
 }
 
-export default React.memo(bankListContainer)
+export default React.memo(BankListContainer)

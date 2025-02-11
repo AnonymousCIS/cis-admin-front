@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Input } from '@/app/global/components/FormComponents'
 import Select from 'react-select'
-import { bankOptions } from './BankSelect'
+import { bankOptions } from './bankSelect'
 import Messages from '@/app/global/components/Messages'
 import { BigButton } from '@/app/global/components/Buttons'
 
