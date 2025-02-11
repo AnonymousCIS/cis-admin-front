@@ -1,13 +1,20 @@
+'use client'
+
 import React from 'react'
-import ConfigListContainer from '../containers/ConfigListContainer'
+import loadable from '@loadable/component'
 import { MainTitle } from '@/app/global/components/StyledTitle'
+import WithUserContainer from '@/app/global/containers/WithUserContainer'
+
+const ConfigListContainer = loadable(
+  () => import('../containers/ConfigListContainer'),
+)
 
 const ListPage = () => {
-  return (
+  return WithUserContainer(
     <>
       <MainTitle>게시판 목록</MainTitle>
       <ConfigListContainer />
-    </>
+    </>,
   )
 }
 

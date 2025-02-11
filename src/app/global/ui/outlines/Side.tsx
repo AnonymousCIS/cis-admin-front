@@ -10,6 +10,7 @@ import { SiPorkbun } from 'react-icons/si'
 import { GiMoneyStack } from 'react-icons/gi'
 import { FaCreditCard } from 'react-icons/fa'
 import { BsFilePostFill } from 'react-icons/bs'
+import { FaRegMessage } from 'react-icons/fa6'
 
 const { big } = sizes
 
@@ -74,6 +75,7 @@ const Side = () => {
         href="/message/list"
         className={classNames({ on: menuCode === 'message' })}
       >
+        <FaRegMessage />
         쪽지 관리
       </a>
       <a

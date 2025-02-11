@@ -1,13 +1,18 @@
+'use client'
+
 import React from 'react'
+import loadable from '@loadable/component'
 import { MainTitle } from '@/app/global/components/StyledTitle'
-import ListContainer from '../containers/ListContainer'
+import WithUserContainer from '@/app/global/containers/WithUserContainer'
+
+const ListContainer = loadable(() => import('../containers/ListContainer'))
 
 const ListPage = () => {
-  return (
+  return WithUserContainer(
     <>
       <MainTitle>카드 목록</MainTitle>
       <ListContainer />
-    </>
+    </>,
   )
 }
 
