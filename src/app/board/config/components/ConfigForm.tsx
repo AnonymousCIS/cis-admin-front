@@ -496,7 +496,7 @@ const ConfigForm = ({ form, onChange, onClick, onReset, actionState }) => {
         <BigButton type="submit" color="dark" disabled={isPending}>
           {form?.mode === 'edit' ? '수정' : '등록'}
         </BigButton>
-        <Messages color="danger">{errors?.global}</Messages>
+        
       </ButtonGroup>
     </StyledForm>
   )

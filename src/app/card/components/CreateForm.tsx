@@ -1,114 +1,196 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Input } from '@/app/global/components/FormComponents'
+import { Input, Select, Textarea } from '@/app/global/components/FormComponents'
+import { TableCols } from '@/app/global/components/Tables'
+import { CommonType } from '@/app/global/types/styledType'
 
-import { BigButton } from '@/app/global/components/Buttons'
+import { BigButton, ButtonGroup } from '@/app/global/components/Buttons'
+import { SubTitle } from '@/app/global/components/StyledTitle'
 
 import Messages from '@/app/global/components/Messages'
 
-const StyledForm = styled.form``
+import colors from '@/app/global/styles/colors'
+
+const { primary, white } = colors
+
+const StyledForm = styled.form<CommonType>``
+
+const cardTypeOptions = [
+  { value: 'PersonalCheck', label: '개인 체크' },
+  { value: 'PersonalCredit', label: '개인 신용' },
+  { value: 'CorporateCheck', label: '법인 체크' },
+  { value: 'CorporateCredit', label: '개인 신용' },
+]
+
+const bankNameOptions = [
+  { value: 'HANKUK', label: '한국은행' },
+  { value: 'KB', label: '국민은행' },
+  { value: 'SC', label: '제일은행' },
+  { value: 'CITY', label: '한국시티은행' },
+  { value: 'HANA', label: '하나은행' },
+  { value: 'SHINHAN', label: '신한은행' },
+  { value: 'KBANK', label: 'K-뱅크' },
+  { value: 'KAKAO', label: '카카오' },
+  { value: 'TOSS', label: '토스' },
+  { value: 'SUHYUP', label: '수협은행' },
+  { value: 'BUSAN', label: '부산은행' },
+  { value: 'KYUNGNAM', label: '경남은행' },
+  { value: 'KYANGJOO', label: '광주은행' },
+  { value: 'JUNBOK', label: '전북은행' },
+  { value: 'JEJOO', label: '제주은행' },
+  { value: 'LOTTE', label: '롯데카드' },
+  { value: 'NONGHYUP', label: '농협은행' },
+  { value: 'SAMSUNG', label: '삼성카드' },
+  { value: 'HYUNDAI', label: '현대카드' },
+  { value: 'WOORI', label: '우리은행' },
+  { value: 'SINHYUP', label: '신협은행' },
+  { value: 'SAEMAEULGEUMGO', label: '새마을금고' },
+  { value: 'WOOCAEKUK', label: '우체국' },
+]
+
+const categoryOptions = [
+  { value: 'SHOPPING', label: '쇼핑' },
+  { value: 'LIFE', label: '여가' },
+  { value: 'TRAVEL', label: '여행' },
+  { value: 'LIVING', label: '생활' },
+]
 
 // const CreateForm = ({ form, onClick, onChange, actionState }) => {
-const CreateForm = ({ form, onChange, actionState }) => {
+const CreateForm = ({ form, onChange, onReset, actionState }) => {
   const [errors, formAction, isPending] = actionState
 
   return (
     <>
       <StyledForm action={formAction} autoComplete="off">
-        <Input
-          type="text"
-          name="cardName"
-          placeholder="카드명"
-          color="dark"
-          value={form?.cardName ?? ''}
-          onChange={onChange}
-        />
+        <SubTitle>카드 설정</SubTitle>
+        <TableCols>
+          <tbody>
+            <tr>
+              <th>카드명</th>
+              <td>
+                <Input
+                  type="text"
+                  name="cardName"
+                  placeholder="카드명"
+                  color="dark"
+                  value={form?.cardName ?? ''}
+                  onChange={onChange}
+                />
+                <Messages color="danger">{errors?.cardName}</Messages>
+              </td>
+            </tr>
 
-        <Messages color="danger">{errors?.cardName}</Messages>
+            <tr>
+              <th>연회비</th>
+              <td>
+                <Input
+                  type="text"
+                  name="annualFee"
+                  placeholder="연회비"
+                  color="dark"
+                  value={form?.annualFee ?? ''}
+                  onChange={onChange}
+                />
 
-        <Input
-          type="text"
-          name="annualFee"
-          placeholder="연회비"
-          color="dark"
-          value={form?.annualFee ?? ''}
-          onChange={onChange}
-        />
+                <Messages color="danger">{errors?.annualFee}</Messages>
+              </td>
+            </tr>
+        
+            <tr>
+              <th>카드 한도</th>
+              <td>
+                <Input
+                  type="text"
+                  name="limit"
+                  placeholder="카드 한도"
+                  color="dark"
+                  value={form?.limit ?? ''}
+                  onChange={onChange}
+                />
 
-        <Messages color="danger">{errors?.annualFee}</Messages>
+                <Messages color="danger">{errors?.limit}</Messages>
+              </td>
+            </tr>
 
-        {/* 카드타입 */}
-        <Input
-          type="text"
-          name="cardType"
-          placeholder="카드 종류"
-          color="dark"
-          value={form?.cardType ?? ''}
-          onChange={onChange}
-        />
-        <span>카드 종류</span>
+            <tr>
+              <th>카드 종류</th>
+              <td>
+                <Select
+                  name="cardType"
+                  options={cardTypeOptions}
+                  selected={form?.cardType ?? ''}
+                  onChange={onChange}
+                  width={180}
+                />
 
-        {/* <select>
-          <option value="PersonalCheck">개인 체크</option>
-          <option value="PersonalCredit">개인 신용</option>
-          <option value="CorporateCheck">법인 체크</option>
-          <option value="CorporateCredit">신용 체크</option>
-        </select> */}
+                <Messages color="danger">{errors?.cardType}</Messages>
+              </td>
+            </tr>
 
-        <Messages color="danger">{errors?.cardType}</Messages>
+            <tr>
+              <th>은행 종류</th>
+              <td>
+                <Select
+                  name="bankName"
+                  options={bankNameOptions}
+                  selected={form?.bankName ?? ''}
+                  onChange={onChange}
+                  width={180}
+                />
 
-        <Input
-          type="text"
-          name="limit"
-          placeholder="카드 한도"
-          color="dark"
-          value={form?.limit ?? ''}
-          onChange={onChange}
-        />
+                <Messages color="danger">{errors?.bankName}</Messages>
+              </td>
+            </tr>
 
-        <Messages color="danger">{errors?.limit}</Messages>
+            <tr>
+              <th>카테고리</th>
+              <td>
+                <Select
+                  name="category"
+                  options={categoryOptions}
+                  selected={form?.category ?? ''}
+                  onChange={onChange}
+                  width={180}
+                />
 
-        {/* 은행 종류 */}
-        <Input
-          type="text"
-          name="bankName"
-          placeholder="은행 종류"
-          color="dark"
-          value={form?.bankName ?? ''}
-          onChange={onChange}
-        />
+                <Messages color="danger">{errors?.category}</Messages>
+              </td>
+            </tr>
 
-        <Messages color="danger">{errors?.bankName}</Messages>
+            <tr>
+              <th>카드 설명</th>
+              <td>
+                <Textarea
+                  type="text"
+                  name="cardDescription"
+                  placeholder="카드 설명"
+                  color="dark"
+                  value={form?.cardDescription ?? ''}
+                  onChange={onChange}
+                  height={100}
+                />
 
-        {/* 카테고리 */}
+                <Messages color="danger">{errors?.cardDescription}</Messages>
+              </td>
+            </tr>
+          </tbody>
+        </TableCols>
 
-        <Input
-          type="text"
-          name="category"
-          placeholder="카테고리"
-          color="dark"
-          value={form?.category ?? ''}
-          onChange={onChange}
-        />
-
-        <Messages color="danger">{errors?.category}</Messages>
-
-        <Input
-          type="text"
-          name="cardDescription"
-          placeholder="카드 설명"
-          color="dark"
-          value={form?.cardDescription ?? ''}
-          onChange={onChange}
-        />
-
-        <Messages color="danger">{errors?.cardDescription}</Messages>
-
-        <div className="row"></div>
-        <BigButton type="submit" className="submit-btn" disabled={isPending}>
-          카드 등록
-        </BigButton>
+        <ButtonGroup width={450} className="button-group center">
+          <BigButton
+            type="reset"
+            color="info"
+            disabled={isPending}
+            onClick={onReset}
+          >
+            재입력
+          </BigButton>
+          <BigButton type="submit" color="dark" disabled={isPending}>
+            {form?.mode === 'edit' ? '수정' : '등록'}
+          </BigButton>
+          <Messages color="danger">{errors?.global}</Messages>
+        </ButtonGroup>
       </StyledForm>
     </>
   )

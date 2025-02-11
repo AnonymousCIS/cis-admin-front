@@ -25,6 +25,10 @@ const CreateContainer = () => {
     setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
   }, [])
 
+  const onReset = useCallback(() => {
+    setForm({ ...form })
+  }, [])
+
   // const onClick = useCallback((field, value) => {
   //   setForm((form) => ({ ...form, [field]: value }))
   // }, [])
@@ -34,6 +38,7 @@ const CreateContainer = () => {
       actionState={actionState}
       form={form}
       onChange={onChange}
+      onReset={onReset}
       /* onClick={onClick} */
     />
   )
