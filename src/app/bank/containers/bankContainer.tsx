@@ -34,7 +34,7 @@ const BankContainer = ({ redirectUrl }: Props) => {
     <BankForm
       actionState={actionState}
       form={form}
-      onChange={onChange}
+      handleChange={onChange}
       onClick={onClick}
     />
   )

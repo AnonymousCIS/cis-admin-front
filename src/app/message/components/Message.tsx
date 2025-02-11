@@ -32,3 +32,5 @@ const Messages = ({ children, color }) => {
 
 
 }
+
+export default Messages

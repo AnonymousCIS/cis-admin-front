@@ -8,17 +8,18 @@ import { BigButton } from '@/app/global/components/Buttons'
 
 const StyledForm = styled.form``
 
-const BankForm = ({ actionState }) => {
+const BankForm = ({ actionState,form, handleSelectChange, handleChange  }) => {
+  /*
   const [form, setForm] = useState({
     bankName: null,
     accountNumber: '',
     name: '',
   })
-
+  */
   const [errors, formAction, isPending] = actionState
   // 폼액션 : 폼 데이터를 서버로 전송하는 함수
   // 팬딩 : 서버 작업여부 확인 / true, false
-
+/*
   const handleChange = (e) => {
     const { name, value } = e.target
     setForm((prevForm) => ({ ...prevForm, [name]: value }))
@@ -35,9 +36,9 @@ const BankForm = ({ actionState }) => {
 
     formAction(form) // 서버로 데이터를 전송!
   }
-
+  */
   return (
-    <StyledForm onSubmit={handleSubmit}>
+    <StyledForm action={formAction}>
       {/* 은행 종류 */}
       <div style={{ marginBottom: '20px' }}>
         <label>은행 기관명</label>
