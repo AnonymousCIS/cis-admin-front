@@ -6,11 +6,10 @@ import { useSearchParams } from 'next/navigation'
 import ListForm from '../components/ListForm'
 import { getLogInfo } from '../services/actions'
 
-const ListContainer = () => {
-  const searchParams = useSearchParams()
-  const params = searchParams.get('skey')
 
-  const [form, setForm] = useState({ skey: params })
+const ListContainer = () => {
+
+
   const [logs, setLogs] = useState([])
 
   useEffect(() => {
@@ -21,16 +20,13 @@ const ListContainer = () => {
     emailLogs()
   }, [])
 
-  const onChange = useCallback((e) => {
-    setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
-  }, [])
 
   const onSubmit = useCallback((e) => {
     e.preventDefault()
   }, [])
 
   return (
-    <ListForm form={form} onChange={onChange} logs={logs} onSubmit={onSubmit} />
+    <ListForm  logs={logs} />
   )
 }
 
