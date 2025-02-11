@@ -1,30 +1,11 @@
 'use server'
-
 import { redirect } from 'next/navigation'
-import { unauthorized } from 'next/navigation'
-// import apiRequest from '@/app/global/libs/apiRequest'
-/**
- * 카드 생성 처리
- * @param params : QueryString 값
- * @param formData
- */
-export const processCreate = async (params, formData: FormData) => {
-  const redirectUrl = params?.redirectUrl ?? '/bank/list'
+import apiRequest from '@/app/global/libs/apiRequest'
 
-  const form : any = {}
-
-  let errors : any = {}
-
+export const processBank = async () => {
+  const form: any = {}
+  let errors: any = {}
   let hasErrors = false
-
-  for (const [key, value] of formData.entries()) {
-
-    if (key.includes('$ACTION')) continue
-
-    const _value : string | boolean = value.toString()
-
-    form[key] = _value
-  }
 
   /* 필수 항목 검증 S */
   const requiredFields = {
@@ -45,42 +26,23 @@ export const processCreate = async (params, formData: FormData) => {
       hasErrors = true
     }
   }
-  /* 필수 항목 검증 E */
+  // 필수 항목 검증 E
 
-  /* 서버 요청 처리 S */
+  // 서버 요청 처리 S
   if (!hasErrors) {
-    //const apiUrl = process.env.API_URL + '/card/admin/create'
+    const res = await apiRequest('/bank/admin/edit', 'POST', form)
 
-    const apiUrl = process.env.API_URL + '/bank/list'
-    try {
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-      })
-
-      console.log('res', res)
-      // 요청 성공
-      if (res.status !== 200) {
-        // 클라이언트 요청 잘못.
-        if (res.status === 400) {
-          unauthorized()
-          return
-        }
-        const result = await res.json()
-        console.log('result', result)
-        errors = result.message
-        hasErrors = true
-      }
-    } catch (err) {
-      console.error(err)
+    if (res.status !== 200) {
+      const result = await res.json()
+      errors = result.message
+      hasErrors = true
     }
   }
-  /* Server 요청 처리 E */
+  // 서버 요청 처리 E
 
-  if (hasErrors) return errors
+  if (hasErrors) {
+    return errors
+  }
 
-  redirect(redirectUrl)
+  return redirect('/bank/list')
 }
