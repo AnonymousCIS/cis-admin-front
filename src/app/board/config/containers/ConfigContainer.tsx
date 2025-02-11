@@ -34,7 +34,7 @@ const ConfigContainer = ({ bid }: { bid?: string | undefined } | undefined) => {
 
   const [form, setForm] = useState(initialValue)
 
-  const actionState = useActionState(updateBoard)
+  const actionState = useActionState(updateBoard, undefined)
 
   useLayoutEffect(() => {
     ;(async () => {
