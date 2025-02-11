@@ -6,15 +6,15 @@ import { MainTitle } from '@/app/global/components/StyledTitle'
 import WithUserContainer from '@/app/global/containers/WithUserContainer'
 // import { MainContentBox } from '@/app/global/components/ContentBox';
 
-const ListContainer = loadable(() => import('../containers/ListContainer'))
+const ListSearchContainer = loadable(() => import('../containers/ListSearchContainer'))
 
 const ListPage = () => {
   return WithUserContainer(
     <>
       <MainTitle>로그 목록 조회</MainTitle>
-      <ListContainer />
+      <ListSearchContainer />
     </>,
   )
 }
 
-export default ListPage
+export default React.memo(ListPage)
