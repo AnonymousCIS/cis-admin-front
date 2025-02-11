@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { Input } from '@/app/global/components/FormComponents'
 import Select from 'react-select'
@@ -8,7 +9,7 @@ import { BigButton } from '@/app/global/components/Buttons'
 
 const StyledForm = styled.form``
 
-const BankForm = ({ actionState,form, handleSelectChange, handleChange  }) => {
+const BankForm = ({ actionState, form, handleSelectChange, handleChange }) => {
   /*
   const [form, setForm] = useState({
     bankName: null,
@@ -19,7 +20,7 @@ const BankForm = ({ actionState,form, handleSelectChange, handleChange  }) => {
   const [errors, formAction, isPending] = actionState
   // 폼액션 : 폼 데이터를 서버로 전송하는 함수
   // 팬딩 : 서버 작업여부 확인 / true, false
-/*
+  /*
   const handleChange = (e) => {
     const { name, value } = e.target
     setForm((prevForm) => ({ ...prevForm, [name]: value }))
