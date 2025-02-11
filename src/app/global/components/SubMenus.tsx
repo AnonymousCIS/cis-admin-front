@@ -32,7 +32,7 @@ const StyledMenu = styled.nav`
 `
 
 const SubMenus = () => {
-  const [menus, setMenus] = useState()
+  const [menus, setMenus] = useState([])
 
   const {
     state: { menuCode, subMenuCode },

@@ -11,14 +11,13 @@ import apiRequest from '@/app/global/libs/apiRequest'
 export const processCreate = async (params, formData: FormData) => {
   const redirectUrl = params?.redirectUrl ?? '/card/list'
 
-  const form = {}
+  const form: any = {}
 
-  let errors = {}
+  let errors: any = {}
 
   let hasErrors = false
 
   for (const [key, value] of formData.entries()) {
-
     if (key.includes('$ACTION')) continue
 
     const _value: string | boolean = value.toString()

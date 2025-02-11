@@ -33,7 +33,7 @@ export const updateBoard = async (params, formData: FormData) => {
   }
 
   for (const [field, msg] of Object.entries(requiredFields)) {
-    const value = formData.get(field)
+    const value = formData.get(field).toString()
 
     if (!value || !value.trim()) {
       // 필수 항목 누락
