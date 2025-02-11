@@ -25,7 +25,7 @@ export default function WithUserContainer(UserContainer) {
   // 로그인 상태일 경우 현재 컨테이너
   // 로그인 상태가 아닐 경우 로그인 컨테이너쪽 페이지로, 이후 로그인시 원래 접근하려던 주소로 이동
   return isLogin ? (
-    <UserContainer />
+    UserContainer
   ) : (
     <MainContentBox max={450} min={350}>
       <MainTitle>로그인</MainTitle>

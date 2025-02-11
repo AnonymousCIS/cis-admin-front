@@ -18,6 +18,10 @@ const commonStyle = css`
   & + & {
     margin-left: 3px;
   }
+
+  &:disabled {
+    opacity: 0.7;
+  }
 `
 
 function changeColor(color: string) {

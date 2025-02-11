@@ -494,7 +494,7 @@ const ConfigForm = ({ form, onChange, onClick, onReset, actionState }) => {
           재입력
         </BigButton>
         <BigButton type="submit" color="dark" disabled={isPending}>
-          등록
+          {form?.mode === 'edit' ? '수정' : '등록'}
         </BigButton>
         <Messages color="danger">{errors?.global}</Messages>
       </ButtonGroup>
