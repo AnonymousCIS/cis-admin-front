@@ -21,6 +21,7 @@ const bankForm = ({ form, onClick, onChange, actionState }) => {
                   type="text"
                   name="bankName"
                   placeholder="은행 기관명을 선택하세요."
+                  color="dark"
                   value={form?.bankName ?? ''}
                   onChange={onChange}
                 />
@@ -34,6 +35,7 @@ const bankForm = ({ form, onClick, onChange, actionState }) => {
                   name="accountNumber"
                   type="number"
                   placeholder="계좌번호를 입력하세요."
+                  color="dark"
                   value={form?.accountNumber ?? ''}
                   onChange={onChange}
                 />
@@ -47,6 +49,7 @@ const bankForm = ({ form, onClick, onChange, actionState }) => {
                   type="text"
                   name="name"
                   placeholder="예금주를 입력하세요."
+                  color="dark"
                   value={form?.name ?? ''}
                   onChange={onChange}
                 />
@@ -59,7 +62,8 @@ const bankForm = ({ form, onClick, onChange, actionState }) => {
                 <Input
                   type="text"
                   name="password"
-                  placeholder="계좌 비밀번호를 입력하세요요."
+                  placeholder="계좌 비밀번호를 입력하세요."
+                  color="dark"
                   value={form?.password ?? ''}
                   onChange={onChange}
                 />
@@ -94,7 +98,7 @@ const bankForm = ({ form, onClick, onChange, actionState }) => {
           </tbody>
         </table>
         <BigButton type="submit" className="submit-btn" disabled={isPending}>
-          은행 등록
+          확인
         </BigButton>
       </StyledForm>
     </>

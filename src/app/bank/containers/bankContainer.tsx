@@ -4,11 +4,17 @@ import React, { useState, useCallback, useActionState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { processBank } from '../services/actions'
 import BankForm from '../components/bankForm'
+import useMenuCode from '@/app/global/hooks/useMenuCode'
 
 const bankContainer = () => {
+  useMenuCode('card', 'create')
+
   const searchParams = useSearchParams()
+
   const params = { redirectUrl: searchParams.get('redirectUrl') }
+
   const actionState = useActionState(processBank, params)
+
   const [form, setForm] = useState({
     isOpen: false,
   })

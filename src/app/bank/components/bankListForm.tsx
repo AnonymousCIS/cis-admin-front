@@ -8,6 +8,7 @@ const StyledForm = styled.form``
 const bankListForm = () => {
   return (
     <>
+      <h1>은행목록나와라얍!</h1>
       <StyledForm autoComplete="off"></StyledForm>
     </>
   )

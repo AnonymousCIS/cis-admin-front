@@ -1,22 +1,19 @@
 'use client'
 
-// import React, { useEffect, useState } from 'react'
-import React, { useEffect } from 'react'
-// import { processBankUpdate } from '@/app/bank/services/actions'
-// import loadable from '@loadable/component'
-// import { MainTitle } from '@/app/global/components/StyledTitle'
+import React from 'react'
+import loadable from '@loadable/component'
+import { MainTitle } from '@/app/global/components/StyledTitle'
 import WithUserContainer from '@/app/global/containers/WithUserContainer'
 
-const BankListPage = () => {
-  useEffect(() => {
-    document.title = '계좌 목록 수정'
-  }, [])
+const ListContainer = loadable(() => import('../containers/bankListContainer'))
 
+const ListPage = () => {
   return WithUserContainer(
-    <div>
-      <h1>계좌 목록 수정</h1>
-    </div>,
+    <>
+      <MainTitle>은행 목록</MainTitle>
+      <ListContainer />
+    </>,
   )
 }
 
-export default BankListPage
+export default React.memo(ListPage)
