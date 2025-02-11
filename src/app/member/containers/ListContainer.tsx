@@ -1,16 +1,15 @@
 'use client'
 
 import React, { useState, useCallback, useEffect } from 'react'
-import ConfigList from '../components/ConfigList'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
-import ConfigSearch from '../components/ConfigSearch'
+import ListForm from '../components/ListForm'
 import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
 import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
+import MemberSearch from '../components/MemberSearch'
 
 const Loading = () => <BulletList />
-
 type SearchType = {
   sopt?: string
   skey?: string
@@ -18,10 +17,9 @@ type SearchType = {
   limit?: number
 }
 
-const ConfigListContainer = () => {
-  useMenuCode('board', 'configList')
-
+const ListContainer = () => {
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
+  useMenuCode('member', 'list')
   const [search, setSearch] = useState<SearchType>({})
 
   // 임시로 값 담는 곳
@@ -34,7 +32,7 @@ const ConfigListContainer = () => {
   const qs = toQueryString(search)
 
   const { data, error, isLoading } = useRequest(
-    `/board/api/config/list${qs.trim() ? '?' + qs : ''}`,
+    `/member/api/list${qs.trim() ? '?' + qs : ''}`,
   )
 
   const onChange = useCallback((e) => {
@@ -43,19 +41,15 @@ const ConfigListContainer = () => {
 
   useEffect(() => {
     if (data) {
-      setItems(data.data.items)
+      setItems(data.data.data)
       setPagination(data.data.pagination)
-      console.log(data)
+      console.log(data.data.data)
     }
   }, [data])
 
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault()
-
-      console.log('_search', _search)
-
-      // Submit 했을때 Search 값을 새로운 객체로 깊은 복사해 교체하면서 Rerendering
       setSearch({ ..._search })
     },
     [_search],
@@ -65,11 +59,10 @@ const ConfigListContainer = () => {
     page = page ?? 1
     setSearch((search) => ({ ...search, page }))
   }, [])
-
   return (
     <>
-      <ConfigSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
-      {isLoading ? <Loading /> : <ConfigList />}
+      <MemberSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
+      {isLoading ? <Loading /> : <ListForm form={items} />}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
@@ -77,4 +70,4 @@ const ConfigListContainer = () => {
   )
 }
 
-export default React.memo(ConfigListContainer)
+export default React.memo(ListContainer)
