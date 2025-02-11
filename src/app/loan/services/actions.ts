@@ -53,7 +53,7 @@ export const processLoan = async (params, formData: FormData) => {
   // 필수 항목 검증 E
 
   // 서버 요청 처리 S
-  /* 
+
   if (!hasErrors) {
     const res = await apiRequest('/loan/admin/create', 'POST', form)
     console.log('res.status의 값은 : ', res.status)
@@ -67,10 +67,9 @@ export const processLoan = async (params, formData: FormData) => {
     }
   }
   // 서버 요청 처리 E
-   */
 
   /* Server 요청 처리 S */
-  if (!hasErrors) {
+  /* if (!hasErrors) {
     const apiUrl = process.env.API_URL + '/loan/config/create'
 
     try {
@@ -90,7 +89,7 @@ export const processLoan = async (params, formData: FormData) => {
     } catch (err) {
       console.error(err)
     }
-  }
+  } */
   /* Server 요청 처리 E */
 
   if (hasErrors) {
