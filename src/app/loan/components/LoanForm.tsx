@@ -3,10 +3,10 @@ import styled from 'styled-components'
 import { MdRadioButtonUnchecked, MdRadioButtonChecked } from 'react-icons/md'
 import { Input } from '@/app/global/components/FormComponents'
 import { BigButton } from '@/app/global/components/Buttons'
-import colors from '@/app/global/styles/colors'
+// import colors from '@/app/global/styles/colors'
 import Messages from '@/app/global/components/Messages'
 
-const { primary, white, info } = colors
+// const { primary, white, info } = colors
 
 const StyledForm = styled.form``
 

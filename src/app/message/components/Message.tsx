@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import colors from "@/app/global/styles/colors";
+// import colors from "@/app/global/styles/colors";
 import sizes from "@/app/global/styles/sizes";
 
 const {small} = sizes

@@ -1,8 +1,7 @@
-import React from "react";
+// import React from "react";
 
-import styled from 'styled-components'
+// import styled from 'styled-components'
 
-import { SmallButton } from "@/app/global/components/Buttons";
+// import { SmallButton } from "@/app/global/components/Buttons";
 
-import Messages from "@/app/global/components/Messages";
-
+// import Messages from "@/app/global/components/Messages";

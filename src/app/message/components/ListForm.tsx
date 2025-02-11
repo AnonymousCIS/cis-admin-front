@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
-import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
+// import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
+import { MdCheckBoxOutlineBlank } from 'react-icons/md'
 import { SmallButton } from '@/app/global/components/Buttons'
 
 const StyledForm = styled.form`

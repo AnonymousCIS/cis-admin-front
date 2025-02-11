@@ -4,7 +4,7 @@ import React, { useState, useCallback, useActionState } from 'react'
 // 메모사용
 import { useSearchParams } from 'next/navigation'
 // 쿼리파라미터 가져올때
-import CreateForm from '../components/bankForm'
+// import CreateForm from '../components/bankForm'
 // 폼 UI
 import { processCreate } from '../services/actions'
 import BankForm from '../components/bankForm'

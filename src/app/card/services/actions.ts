@@ -17,10 +17,13 @@ export const processCreate = async (params, formData: FormData) => {
 
   let hasErrors = false
 
-  for (let [key, value] of formData.entries()) {
+  for (const [key, value] of formData.entries()) {
+
     if (key.includes('$ACTION')) continue
 
-    form[key] = value
+    const _value: string | boolean = value.toString()
+
+    form[key] = _value
   }
 
   /* 필수 항목 검증 S */

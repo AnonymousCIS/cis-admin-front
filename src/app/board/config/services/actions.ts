@@ -13,14 +13,17 @@ import apiRequest from '@/app/global/libs/apiRequest'
  * @returns
  */
 export const updateBoard = async (params, formData: FormData) => {
-  let errors = {}
+  let errors: any = {}
   let hasErrors = false
 
-  const form = {}
+  const form: any = {}
 
-  for (const [k, v] of formData.entries()) {
-    if (k.includes('$ACTION')) continue
-    form[k] = v
+  for (const [key, value] of formData.entries()) {
+    if (key.includes('$ACTION')) continue
+
+    const _value: string | boolean = value.toString()
+
+    form[key] = _value
   }
 
   /* 필수 항목 검증 S */

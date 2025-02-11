@@ -2,12 +2,13 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import colors from '../styles/colors'
 import sizes from '../styles/sizes'
+import type { CommonType } from '../types/styledType'
 
 const { info } = colors
 
 const { small } = sizes
 
-const Message = styled.div`
+const Message = styled.div<CommonType>`
   box-shadow: 2px 2px 5px ${info};
   color: ${info};
   font-size: ${small};
@@ -27,7 +28,13 @@ const Message = styled.div`
     `}
 `
 
-const Messages = ({ children, color }) => {
+const Messages = ({
+  children,
+  color,
+}: {
+  children: string | string[]
+  color?: string
+}) => {
   if (!children) return <></>
 
   // 배열이 아닐 경우 배열로 감싸줌
