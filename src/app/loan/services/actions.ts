@@ -12,12 +12,20 @@ import apiRequest from '@/app/global/libs/apiRequest'
  * @param formData
  */
 // export const processLoan = async (params, formData: FormData) => {
-export const processLoan = async () => {
-  // const redirectUrl = params?.redirectUrl ?? '/loan/list'
+export const processLoan = async (params, formData: FormData) => {
+  const redirectUrl = params?.redirectUrl ?? '/loan/list'
 
-  const form : any = {}
-  let errors : any = {}
+  const form: any = {}
+  let errors: any = {}
   let hasErrors = false
+
+  for (const [key, value] of formData.entries()) {
+    if (key.includes('$ACTION')) continue
+
+    const _value: string | boolean = value.toString()
+
+    form[key] = _value
+  }
 
   // 필수 항목 검증 S
   const requiredFields = {
@@ -28,7 +36,6 @@ export const processLoan = async () => {
     repaymentYear: '한도년도를 입력해주세오.',
     loanDescription: '대출 설명을 입력해주세요.',
     interestRate: '이자율을 입력해주세요.',
-    isOpen: '사용 여뷰 선탹해주세요.',
   }
 
   for (const [field, msg] of Object.entries(requiredFields)) {
@@ -36,24 +43,55 @@ export const processLoan = async () => {
       !form[field] ||
       (typeof form[field] === 'string' && !form[field].trim())
     ) {
+      console.log('errors[field]' + field)
       errors[field] = errors[field] ?? []
       errors[field].push(msg)
       hasErrors = true
     }
   }
+
   // 필수 항목 검증 E
 
   // 서버 요청 처리 S
+  /* 
   if (!hasErrors) {
     const res = await apiRequest('/loan/admin/create', 'POST', form)
+    console.log('res.status의 값은 : ', res.status)
+    console.log('form : ' + JSON.stringify(form))
 
     if (res.status !== 200) {
       const result = await res.json()
+      console.log('result', result)
       errors = result.message
       hasErrors = true
     }
   }
   // 서버 요청 처리 E
+   */
+
+  /* Server 요청 처리 S */
+  if (!hasErrors) {
+    const apiUrl = process.env.API_URL + '/loan/config/create'
+
+    try {
+      const res = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      })
+
+      if (res.status !== 200) {
+        // 검증 실패시
+        const result = await res.json()
+        errors = result.message
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+  /* Server 요청 처리 E */
 
   if (hasErrors) {
     return errors

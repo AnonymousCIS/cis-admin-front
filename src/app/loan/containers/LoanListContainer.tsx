@@ -1,14 +1,17 @@
 'use client'
 
 import React from 'react'
-// import LoanForm from '../components/LoanForm'
-// import { useSearchParams } from 'next/navigation'
+import LoanListForm from '../components/LoanListForm'
+import useMenuCode from '@/app/global/hooks/useMenuCode'
 
 const LoanListContainer = () => {
-  // const searchParams = useSearchParams()
+  useMenuCode('loan', 'list')
 
-  // return <LoanForm />
-  return <></>
+  return (
+    <>
+      <LoanListForm />
+    </>
+  )
 }
 
 export default React.memo(LoanListContainer)

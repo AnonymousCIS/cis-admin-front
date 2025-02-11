@@ -4,8 +4,11 @@ import React, { useState, useCallback, useActionState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import LoanForm from '../components/LoanForm'
 import { processLoan } from '../services/actions'
+import useMenuCode from '@/app/global/hooks/useMenuCode'
 
 const LoanContainer = () => {
+  useMenuCode('loan', 'create')
+
   const searchParams = useSearchParams()
   const params = { redirectUrl: searchParams.get('redirectUrl') }
   const actionState = useActionState(processLoan, params)
