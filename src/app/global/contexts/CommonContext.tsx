@@ -11,7 +11,7 @@ import useUser from '../hooks/useUser'
 const Side = loadable(() => import('../ui/outlines/Side'))
 const SubMenus = loadable(() => import('../components/SubMenus'))
 
-setDefaultLocale(ko)
+setDefaultLocale(ko.code)
 
 type ContextType = {
   state?: { title?: string; menuCode?: string; subMenuCode?: string }

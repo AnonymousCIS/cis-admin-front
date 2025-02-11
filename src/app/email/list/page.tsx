@@ -1,5 +1,5 @@
 import ListContainer from '../containers/ListContainer';
-import { MainContentBox } from '@/app/global/components/ContentBox';
+// import { MainContentBox } from '@/app/global/components/ContentBox';
 import { MainTitle } from '@/app/global/components/StyledTitle';
 
 const ListPage = () => {

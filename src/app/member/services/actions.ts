@@ -16,30 +16,27 @@ export const processJoin = async (params, formData: FormData) => {
   // 검증 실패시의 메세지 등
 
   const redirectUrl = params?.redirectUrl ?? '/member/login'
-  
+
   const form: any = {
     optionalTerms: [],
   }
 
-  let errors = {}
+  let errors: any = {}
 
   let hasErrors = false
 
-  for (let [key, value] of formData.entries()) {
+  for (const [key, value] of formData.entries()) {
     if (key.includes('$ACTION')) continue
 
-    if (key === 'birthDt' && value && value.trim()) {
-      value = format(new Date(value), 'yyyy-MM-dd')
+    let _value: string | boolean = value.toString()
+
+    if (key === 'birthDt' && _value && _value.trim()) {
+      _value = format(new Date(_value), 'yyyy-MM-dd')
     }
 
-    if (['false', 'true'].includes(value)) {
-      value = value === 'true'
+    if (['false', 'true'].includes(_value)) {
+      _value = _value === 'true'
     }
-    if (key === 'optionalTerms') {
-      form.optionalTerms.push(value)
-      continue
-    }
-    
     if (key === 'optionalTerms') {
       form.optionalTerms.push(value)
       continue
@@ -55,7 +52,12 @@ export const processJoin = async (params, formData: FormData) => {
       continue
     }
 
-    form[key] = value
+    if (key === 'optionalTerms') {
+      form.optionalTerms.push(value)
+      continue
+    }
+
+    form[key] = _value
   }
 
   /* 필수 항목 검증 S */
@@ -137,7 +139,6 @@ export const processJoin = async (params, formData: FormData) => {
   redirect(redirectUrl)
 }
 
-
 /**
  * 로그인 처리
  *
@@ -147,14 +148,14 @@ export const processJoin = async (params, formData: FormData) => {
 export const processLogin = async (params, formData: FormData) => {
   const redirectUrl = params?.redirectUrl ?? '/'
 
-  let errors = {}
+  let errors: any = {}
 
   let hasErrors = false
 
   /* 필수 항목 검증 S */
 
-  const email = formData.get('email')
-  const password = formData.get('password')
+  const email = formData.get('email').toString()
+  const password = formData.get('password').toString()
 
   if (!email || !email.trim()) {
     errors.email = errors.email ?? []
@@ -237,5 +238,6 @@ export const getUserInfo = async () => {
     }
   } catch (err) {
     // cookie.delete('token')
+    console.error(err)
   }
 }

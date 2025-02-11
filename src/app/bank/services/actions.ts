@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation'
 import { unauthorized } from 'next/navigation'
-import apiRequest from '@/app/global/libs/apiRequest'
+// import apiRequest from '@/app/global/libs/apiRequest'
 /**
  * 카드 생성 처리
  * @param params : QueryString 값
@@ -11,16 +11,19 @@ import apiRequest from '@/app/global/libs/apiRequest'
 export const processCreate = async (params, formData: FormData) => {
   const redirectUrl = params?.redirectUrl ?? '/bank/list'
 
-  const form = {}
+  const form : any = {}
 
-  let errors = {}
+  let errors : any = {}
 
   let hasErrors = false
 
-  for (let [key, value] of formData.entries()) {
+  for (const [key, value] of formData.entries()) {
+
     if (key.includes('$ACTION')) continue
 
-    form[key] = value
+    const _value : string | boolean = value.toString()
+
+    form[key] = _value
   }
 
   /* 필수 항목 검증 S */

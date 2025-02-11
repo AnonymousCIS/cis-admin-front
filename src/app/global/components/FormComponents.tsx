@@ -3,6 +3,7 @@
 import styled, { css } from 'styled-components'
 import colors from '../styles/colors'
 import sizes from '../styles/sizes'
+import type { CommonType } from '../types/styledType'
 
 const { light, dark } = colors
 
@@ -22,7 +23,7 @@ const commonStyle = css`
 `
 
 /* 입력 항목 */
-export const Input = styled.input`
+export const Input = styled.input<CommonType>`
   ${commonStyle}
   height: 40px;
   border-color: ${({ color }) => (color ? colors[color] ?? light : light)};
@@ -31,7 +32,7 @@ export const Input = styled.input`
   `}
 `
 
-export const Textarea = styled.textarea`
+export const Textarea = styled.textarea<CommonType>`
   ${commonStyle}
   height: 150px;
   resize: none;

@@ -9,7 +9,8 @@ import Messages from '@/app/global/components/Messages'
 
 const StyledForm = styled.form``
 
-const CreateForm = ({ form, onClick, onChange, actionState }) => {
+// const CreateForm = ({ form, onClick, onChange, actionState }) => {
+const CreateForm = ({ form, onChange, actionState }) => {
   const [errors, formAction, isPending] = actionState
 
   return (
@@ -47,7 +48,7 @@ const CreateForm = ({ form, onClick, onChange, actionState }) => {
           onChange={onChange}
         />
         <span>카드 종류</span>
-      
+
         {/* <select>
           <option value="PersonalCheck">개인 체크</option>
           <option value="PersonalCredit">개인 신용</option>

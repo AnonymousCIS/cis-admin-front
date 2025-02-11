@@ -1,7 +1,8 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import { processBankUpdate } from '@/app/bank/services/actions'
+// import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+// import { processBankUpdate } from '@/app/bank/services/actions'
 
 const BankTransactionListPage = () => {
   useEffect(() => {

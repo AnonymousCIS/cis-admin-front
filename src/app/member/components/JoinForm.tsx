@@ -175,7 +175,7 @@ const JoinForm = ({ form, onClick, onChange, onSelectDate, actionState }) => {
           <div>
             <DatePicker
               selected={form?.birthDt ?? ''}
-              onChange={(date) => onSelectDate(date)}
+              onChange={(date: Data | null) => onSelectDate(date)}
             />
           </div>
         </div>

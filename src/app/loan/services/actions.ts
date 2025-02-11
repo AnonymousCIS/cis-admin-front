@@ -1,9 +1,9 @@
 'use server'
 import { redirect } from 'next/navigation'
-import { format } from 'date-fns'
-import { cookies } from 'next/headers'
+// import { format } from 'date-fns'
+// import { cookies } from 'next/headers'
 import apiRequest from '@/app/global/libs/apiRequest'
-import { revalidatePath } from 'next/cache'
+// import { revalidatePath } from 'next/cache'
 
 /**
  * Loan 생성
@@ -11,11 +11,12 @@ import { revalidatePath } from 'next/cache'
  * @param params : 쿼리스트링값
  * @param formData
  */
-export const processLoan = async (params, formData: FormData) => {
-  const redirectUrl = params?.redirectUrl ?? '/loan/list'
+// export const processLoan = async (params, formData: FormData) => {
+export const processLoan = async () => {
+  // const redirectUrl = params?.redirectUrl ?? '/loan/list'
 
-  const form = {}
-  let errors = {}
+  const form : any = {}
+  let errors : any = {}
   let hasErrors = false
 
   // 필수 항목 검증 S
