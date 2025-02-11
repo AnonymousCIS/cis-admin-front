@@ -14,7 +14,27 @@ import colors from '@/app/global/styles/colors'
 
 const { primary, white } = colors
 
-const StyledForm = styled.form<CommonType>``
+const StyledForm = styled.form<CommonType>`
+  table {
+    margin-bottom: 30px;
+
+    th {
+      width: 180px;
+      background: ${primary};
+      color: ${white};
+    }
+
+    td {
+      & > * + * {
+        margin-left: 20px;
+      }
+    }
+
+    &:last-of-type {
+      margin-bottom: 30px;
+    }
+  }
+`
 
 const cardTypeOptions = [
   { value: 'PersonalCheck', label: '개인 체크' },
@@ -73,7 +93,6 @@ const CreateForm = ({ form, onChange, onReset, actionState }) => {
                   type="text"
                   name="cardName"
                   placeholder="카드명"
-                  color="dark"
                   value={form?.cardName ?? ''}
                   onChange={onChange}
                 />
@@ -85,27 +104,23 @@ const CreateForm = ({ form, onChange, onReset, actionState }) => {
               <th>연회비</th>
               <td>
                 <Input
-                  type="text"
+                  type="number"
                   name="annualFee"
-                  placeholder="연회비"
-                  color="dark"
-                  value={form?.annualFee ?? ''}
+                  value={form?.annualFee ?? 20000}
                   onChange={onChange}
                 />
 
                 <Messages color="danger">{errors?.annualFee}</Messages>
               </td>
             </tr>
-        
+
             <tr>
               <th>카드 한도</th>
               <td>
                 <Input
-                  type="text"
+                  type="number"
                   name="limit"
-                  placeholder="카드 한도"
-                  color="dark"
-                  value={form?.limit ?? ''}
+                  value={form?.limit ?? 2000000}
                   onChange={onChange}
                 />
 
@@ -165,7 +180,6 @@ const CreateForm = ({ form, onChange, onReset, actionState }) => {
                   type="text"
                   name="cardDescription"
                   placeholder="카드 설명"
-                  color="dark"
                   value={form?.cardDescription ?? ''}
                   onChange={onChange}
                   height={100}

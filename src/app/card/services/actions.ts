@@ -55,7 +55,8 @@ export const processCreate = async (params, formData: FormData) => {
 
   /* Server 요청 처리 S */
   if (!hasErrors) {
-    const res = await apiRequest('/card/admin/create', 'POST', form)
+    const res = await apiRequest('/card/admin/create', 'POST', { ...form })
+    console.log(form)
 
     if (res.status !== 200) {
       // 검증 실패시

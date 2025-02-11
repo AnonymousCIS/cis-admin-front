@@ -35,8 +35,8 @@ const StyledForm = styled.form<CommonType>`
 // configSearch 내부에서 정의하면 렌더링될때마다 변수가 생기므로 밖에 정의하는 것이 일반적
 const options = [
   { value: 'ALL', label: '통합 검색' },
-  { value: 'BID', label: '게시판 ID' },
-  { value: 'NAME', label: '게시판명' },
+  { value: 'NAME', label: '카드명' },
+  { value: 'CATEGORY', label: '카테고리' },
 ]
 
 const ConfigSearch = ({ form, onChange, onSubmit }) => {
