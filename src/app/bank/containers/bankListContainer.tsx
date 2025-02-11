@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import ListForm from '../components/bankListForm'
+import ListForm from '../components/BankListForm'
 
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 

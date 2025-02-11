@@ -5,7 +5,7 @@ import loadable from '@loadable/component'
 import { MainTitle } from '@/app/global/components/StyledTitle'
 import WithUserContainer from '@/app/global/containers/WithUserContainer'
 
-const ListContainer = loadable(() => import('../containers/bankListContainer'))
+const ListContainer = loadable(() => import('../containers/BankListContainer'))
 
 const ListPage = () => {
   return WithUserContainer(

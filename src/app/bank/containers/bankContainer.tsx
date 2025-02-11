@@ -3,11 +3,11 @@
 import React, { useState, useCallback, useActionState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { processBank } from '../services/actions'
-import BankForm from '../components/bankForm'
+import BankForm from '../components/BankForm'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 
 const bankContainer = () => {
-  useMenuCode('card', 'create')
+  useMenuCode('bank', 'edit')
 
   const searchParams = useSearchParams()
 
