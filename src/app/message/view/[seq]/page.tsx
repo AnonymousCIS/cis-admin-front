@@ -10,10 +10,8 @@ import ViewContainer from '../../containers/ViewContainer'
 const ViewPage = () => {
   return WithUserContainer(
     <>
-      <MainContentBox max={450} min={350}>
         <MainTitle>쪽지 조회</MainTitle>
         <ViewContainer />
-      </MainContentBox>
     </>,
   )
 }
