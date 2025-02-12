@@ -250,9 +250,9 @@ export const updateMember = async (params, formData: FormData) => {
     optionalTerms: [],
   }
 
-  let errors: any = {}
+  const errors: any = {}
 
-  let hasErrors = false
+  const hasErrors = false
   for (const [key, value] of formData.entries()) {
     if (key.includes('$ACTION')) continue
 

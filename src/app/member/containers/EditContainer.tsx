@@ -51,7 +51,7 @@ const EditContainer = ({ seq }: { seq?: any | undefined } | undefined) => {
         console.error(err)
       }
     })()
-  }, [])
+  }, [seq])
   return (
     <>
       {/* {memberFound ? (

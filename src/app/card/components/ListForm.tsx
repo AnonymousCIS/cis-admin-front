@@ -44,7 +44,7 @@ const ListForm = () => {
           </thead>
           <tbody>
             <tr>
-              <td colSpan={5} className="no-data">
+              <td colSpan={6} className="no-data">
                 조회 카드가 없습니다.
               </td>
             </tr>

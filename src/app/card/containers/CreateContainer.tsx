@@ -26,7 +26,7 @@ const CreateContainer = () => {
   }, [])
 
   const onReset = useCallback(() => {
-    setForm({ ...form })
+    setForm(form => ({...form}))
   }, [])
 
   return (
