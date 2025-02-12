@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
 import { MdCheckBoxOutlineBlank } from 'react-icons/md'
-import { flushAllTraces } from 'next/dist/trace'
 
 const StyledForm = styled.form`
   th:nth-of-type(1) {
@@ -95,7 +94,7 @@ const ListForm = ({ form }) => {
           <tbody>
             <tr>
               <td colSpan={14} className="no-data">
-                조회 게시판이 없습니다.
+                조회된 회원이 없습니다.
               </td>
             </tr>
           </tbody>
