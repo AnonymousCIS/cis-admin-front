@@ -2,12 +2,20 @@
 import { redirect } from 'next/navigation'
 import apiRequest from '@/app/global/libs/apiRequest'
 
-export const processBank = async (params, formData: FormData) => {
-  const redirectUrl = params?.redirectUrl ?? '/card/list'
+export const processEdit = async (params, formData: FormData) => {
+  const redirectUrl = params?.redirectUrl ?? '/bank/list'
 
   const form: any = {}
   let errors: any = {}
   let hasErrors = false
+
+  for (const [key, value] of formData.entries()) {
+    if (key.includes('$ACTION')) continue
+
+    const _value: string | boolean = value.toString()
+
+    form[key] = _value
+  }
 
   /* 필수 항목 검증 S */
   const requiredFields = {
@@ -19,10 +27,9 @@ export const processBank = async (params, formData: FormData) => {
   }
 
   for (const [field, msg] of Object.entries(requiredFields)) {
-    if (
-      !form[field] ||
-      (typeof form[field] === 'string' && !form[field].trim())
-    ) {
+    const value = formData.get(field).toString()
+
+    if (!value || !value.trim()) {
       errors[field] = errors[field] ?? []
       errors[field].push(msg)
       hasErrors = true
@@ -32,19 +39,38 @@ export const processBank = async (params, formData: FormData) => {
 
   // 서버 요청 처리 S
   if (!hasErrors) {
-    const res = await apiRequest('/bank/admin/edit', 'POST', form)
+    const res = await apiRequest('/bank/admin/edit', 'POST', { ...form })
 
     if (res.status !== 200) {
       const result = await res.json()
+      console.log('result', result)
       errors = result.message
       hasErrors = true
     }
   }
   // 서버 요청 처리 E
 
-  if (hasErrors) {
-    return errors
-  }
+  if (hasErrors) return errors
 
-  return redirect('/bank/list')
+  return redirect(redirectUrl)
+}
+
+/**
+ * 계좌 단일 조회
+ *
+ * @param seq
+ * @returns
+ */
+export const getBank = async (seq) => {
+  try {
+    const res = await apiRequest(`/bank/view/${seq}`)
+
+    if (res.status === 200) {
+      const result = await res.json()
+      console.log('result', result)
+      return result.success && result.data
+    }
+  } catch (err) {
+    console.error(err)
+  }
 }
