@@ -50,7 +50,7 @@ export const TableRows = styled.table`
   tbody {
     td {
       border-bottom: 1px solid #ccc;
-      padding: 5px 10px;
+      padding: 10px;
     }
 
     tr:nth-of-type(2n) {

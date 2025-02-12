@@ -52,21 +52,21 @@ const ListForm = ({ form }) => {
             <tr>
               <th>카드 종류</th>
               <td>
-                <span>{form?.cardType ?? ''}</span>
+                <span>{form?.cardTypeStr ?? ''}</span>
               </td>
             </tr>
 
             <tr>
               <th>카테고리</th>
               <td>
-                <span>{form?.category ?? ''}</span>
+                <span>{form?.categoryStr ?? ''}</span>
               </td>
             </tr>
 
             <tr>
               <th>은행명</th>
               <td>
-                <span>{form?.bankName ?? ''}</span>
+                <span>{form?.bankNameStr ?? ''}</span>
               </td>
             </tr>
 
