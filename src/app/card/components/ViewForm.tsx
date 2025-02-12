@@ -116,7 +116,7 @@ const ViewForm = ({ form, onRemove }) => {
           </a>
           <MediumButton
             type="button"
-            color="primary"
+            color="dark"
             width={120}
             onClick={onRemove}
           >
