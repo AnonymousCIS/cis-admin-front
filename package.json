@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev -p 3100 --turbopack",
     "build": "next build",
-    "start": "next start -p 3100",
+    "start": "next start -p 6000",
+    "server": "pm2 start ecosystem.config.js",
     "lint": "next lint"
   },
   "dependencies": {
@@ -14,6 +15,7 @@
     "date-fns": "^4.1.0",
     "modal": "^1.2.0",
     "next": "15.1.6",
+    "pm2": "^5.4.3",
     "react": "^19.0.0",
     "react-content-loader": "^7.0.2",
     "react-datepicker": "^8.0.0",
