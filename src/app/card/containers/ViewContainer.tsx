@@ -1,9 +1,10 @@
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useCallback, useLayoutEffect, useState } from 'react'
 import ViewForm from '../components/ViewForm'
 //import { BulletList } from 'react-content-loader'
 import { notFound } from 'next/navigation'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
-import { getCard } from '../services/actions'
+import { getCard, removeCard } from '../services/actions'
+import { useSearchParams } from 'next/navigation'
 
 // const Loading = () => <BulletList />
 
@@ -11,6 +12,10 @@ const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
   useMenuCode('card', 'list')
 
   const [form, setForm] = useState([])
+
+  const onRemove = useCallback(() => {
+    removeCard(seq)
+  }, [])
 
   useLayoutEffect(() => {
     ;(async () => {
@@ -28,7 +33,7 @@ const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
     })()
   }, [seq])
 
-  return <ViewForm form={form} />
+  return <ViewForm form={form} onRemove={onRemove} />
 }
 
 export default React.memo(ViewContainer)

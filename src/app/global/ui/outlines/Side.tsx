@@ -11,6 +11,7 @@ import { GiMoneyStack, GiBank } from 'react-icons/gi'
 import { FaCreditCard } from 'react-icons/fa'
 import { BsFilePostFill } from 'react-icons/bs'
 import { FaRegMessage } from 'react-icons/fa6'
+import { IoPersonCircleOutline } from 'react-icons/io5'
 
 const { big } = sizes
 
@@ -50,6 +51,7 @@ const Side = () => {
         href="/member/list"
         className={classNames({ on: menuCode === 'member' })}
       >
+        <IoPersonCircleOutline />
         회원 관리
       </a>
 

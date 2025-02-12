@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { TableRows } from '@/app/global/components/Tables'
-import { BigButton, ButtonGroup } from '@/app/global/components/Buttons'
+import { TableCols } from '@/app/global/components/Tables'
+import { MediumButton } from '@/app/global/components/Buttons'
 import { CommonType } from '@/app/global/types/styledType'
 import colors from '@/app/global/styles/colors'
+import Messages from '@/app/global/components/Messages'
 
 const { primary, white } = colors
 
@@ -27,13 +28,24 @@ const StyledForm = styled.form<CommonType>`
       margin-bottom: 30px;
     }
   }
+
+  & > .center {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+
+    & > * {
+      display: block;
+    }
+  }
 `
 
-const ListForm = ({ form }) => {
+const ViewForm = ({ form, onRemove }) => {
+  const { seq } = form
   return (
     <>
       <StyledForm>
-        <TableRows>
+        <TableCols>
           <tbody>
             <tr>
               <th>카드 ID</th>
@@ -87,22 +99,33 @@ const ListForm = ({ form }) => {
             <tr>
               <th>공개 여부</th>
               <td>
-                <span>{form?.open ?? ''}</span>
+                <span>
+                  {form?.open !== null && form?.open === true
+                    ? '공개'
+                    : '미공개'}
+                </span>
               </td>
             </tr>
           </tbody>
-        </TableRows>
-        <ButtonGroup width={450} className="button-group center">
-          <BigButton type="button" color="info">
-            수정
-          </BigButton>
-          <BigButton type="button" color="primary">
+        </TableCols>
+        <div className="center">
+          <a href={'/card/update/' + seq}>
+            <MediumButton type="button" color="info" width={120}>
+              수정
+            </MediumButton>
+          </a>
+          <MediumButton
+            type="button"
+            color="primary"
+            width={120}
+            onClick={onRemove}
+          >
             삭제
-          </BigButton>
-        </ButtonGroup>
+          </MediumButton>
+        </div>
       </StyledForm>
     </>
   )
 }
 
-export default React.memo(ListForm)
+export default React.memo(ViewForm)

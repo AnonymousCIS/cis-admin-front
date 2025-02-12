@@ -3,7 +3,6 @@
 import React, { useState, useCallback, useEffect } from 'react'
 
 import ListForm from '../components/ListForm'
-import CardSearch from '../components/CardSearch'
 
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import { toQueryString } from '@/app/global/libs/utils'
@@ -70,7 +69,7 @@ const ListContainer = () => {
   return (
     <>
       <CardSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
-      {isLoading ? <Loading /> : <ListForm />}
+      {isLoading ? <Loading /> : <ListForm items={items} />}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}

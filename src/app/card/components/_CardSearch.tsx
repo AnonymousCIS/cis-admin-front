@@ -10,7 +10,7 @@ import { FaSearch } from 'react-icons/fa'
 
 const StyledForm = styled.form<CommonType>`
   margin-bottom: 35px;
-  
+
   button[type='submit'] {
     display: block;
     margin: 15px auto 0;
@@ -36,11 +36,11 @@ const StyledForm = styled.form<CommonType>`
 // configSearch 내부에서 정의하면 렌더링될때마다 변수가 생기므로 밖에 정의하는 것이 일반적
 const options = [
   { value: 'ALL', label: '통합 검색' },
-  { value: 'NAME', label: '카드명' },
+  { value: 'CARDNAME', label: '카드명' },
   { value: 'CATEGORY', label: '카테고리' },
 ]
 
-const ConfigSearch = ({ form, onChange, onSubmit }) => {
+const CardSearch = ({ form, onChange, onSubmit }) => {
   return (
     <StyledForm onSubmit={onSubmit} autoComplete="off">
       <TableCols>
@@ -73,4 +73,4 @@ const ConfigSearch = ({ form, onChange, onSubmit }) => {
   )
 }
 
-export default React.memo(ConfigSearch)
+export default React.memo(CardSearch)

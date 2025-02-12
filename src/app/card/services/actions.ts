@@ -2,9 +2,12 @@
 
 import { redirect } from 'next/navigation'
 import apiRequest from '@/app/global/libs/apiRequest'
+import { toQueryString } from '@/app/global/libs/utils'
+import { notFound } from 'next/navigation'
 
 /**
  * 카드 생성 처리
+ *
  * @param params : QueryString 값
  * @param formData
  */
@@ -86,8 +89,34 @@ export const getCard = async (seq) => {
     if (res.status === 200) {
       const result = await res.json()
       return result.success && result.data
+    } 
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+/**
+ * 카드 단일 & 목록 일괄 삭제 처리
+ *
+ * @param params
+ * @param formData
+ * @returns
+ */
+export const removeCard = async (seq) => {
+  
+  const qs = toQueryString({ seq: [seq] })
+
+  try {
+    const res = await apiRequest(`/card/admin/removes?${qs}`, 'DELETE')
+
+    if (res.status === 200) {
+      const result = await res.json()
+      console.log('result', result)
+    } else {
+      return
     }
   } catch (err) {
     console.error(err)
   }
+  redirect('/card/list')
 }
