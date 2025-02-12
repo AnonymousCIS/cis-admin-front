@@ -28,12 +28,12 @@ const LoanItem = ({ item }) => {
       <td>{repaymentYear}</td>
       <td>{isOpen}</td>
       <td>
-        <a href="/">
+        <a href="#">
           <SmallButton type="button" color="info" width={120}>
             수정
           </SmallButton>
         </a>
-        <a href="/">
+        <a href="#">
           <SmallButton type="button" color="danger" width={120}>
             삭제
           </SmallButton>

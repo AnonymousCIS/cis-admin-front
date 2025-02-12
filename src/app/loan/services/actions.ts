@@ -105,9 +105,10 @@ export const processLoan = async (params, formData: FormData) => {
  */
 export const getLoanInfo = async (seq) => {
   try {
-    const res = await apiRequest(`/loan/info/${seq}`)
-
+    const res = await apiRequest(`/loan/view/${seq}`)
+    console.log('res.status : ' + res.status)
     if (res.status === 200) {
+      console.log('진입 성공')
       const result = await res.json()
       return result.success && result.data
     }
