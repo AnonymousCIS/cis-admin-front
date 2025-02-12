@@ -92,6 +92,7 @@ const EditForm = ({ form, onChange, onReset, onClick, actionState }) => {
                 <Input
                   type="number"
                   name="accountNumber"
+                  placeholder="' - ' 를 제외한 숫자만 입력하세요"
                   value={form?.accountNumber ?? ''}
                   onChange={onChange}
                 />
@@ -106,6 +107,7 @@ const EditForm = ({ form, onChange, onReset, onClick, actionState }) => {
                 <Input
                   type="text"
                   name="name"
+                  placeholder="예금주 성명을 입력하세요"
                   value={form?.name ?? ''}
                   onChange={onChange}
                 />
