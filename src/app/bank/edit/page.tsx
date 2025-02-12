@@ -4,19 +4,16 @@ import React from 'react'
 import loadable from '@loadable/component'
 import { MainTitle } from '@/app/global/components/StyledTitle'
 import WithUserContainer from '@/app/global/containers/WithUserContainer'
-import { MainContentBox } from '@/app/global/components/ContentBox'
 
-const BankContainer = loadable(() => import('../containers/BankContainer'))
+const EditContainer = loadable(() => import('../containers/EditContainer'))
 
-const EditPage = () => {
+const CreatePage = () => {
   return WithUserContainer(
     <>
-      <MainContentBox max={750} min={650}>
-        <MainTitle>은행 계좌 수정</MainTitle>
-        <BankContainer />
-      </MainContentBox>
+      <MainTitle>계좌수정 및 변경</MainTitle>
+      <EditContainer />
     </>,
   )
 }
 
-export default EditPage
+export default CreatePage

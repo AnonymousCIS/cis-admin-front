@@ -2,25 +2,27 @@
 
 import React, { useState, useCallback, useActionState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { processBank } from '../services/actions'
-import BankForm from '../components/BankForm'
+import { processEdit } from '../services/actions'
+import EditForm from '../components/EditForm'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 
-const BankContainer = () => {
+const EditContainer = () => {
   useMenuCode('bank', 'edit')
 
   const searchParams = useSearchParams()
 
   const params = { redirectUrl: searchParams.get('redirectUrl') }
 
-  const actionState = useActionState(processBank, params)
+  const actionState = useActionState(processEdit, params)
 
-  const [form, setForm] = useState({
-    isOpen: false,
-  })
+  const [form, setForm] = useState({ isOpen: false, listUnderView: true })
 
   const onChange = useCallback((e) => {
     setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
+  }, [])
+
+  const onReset = useCallback(() => {
+    setForm((form) => ({ ...form }))
   }, [])
 
   const onClick = useCallback((field, value) => {
@@ -28,13 +30,14 @@ const BankContainer = () => {
   }, [])
 
   return (
-    <BankForm
+    <EditForm
+      actionState={actionState}
       form={form}
       onChange={onChange}
+      onReset={onReset}
       onClick={onClick}
-      actionState={actionState}
     />
   )
 }
 
-export default React.memo(BankContainer)
+export default React.memo(EditContainer)
