@@ -1,49 +1,59 @@
 import React from 'react'
 import styled from 'styled-components'
 import { MdRadioButtonUnchecked, MdRadioButtonChecked } from 'react-icons/md'
-import { Input } from '@/app/global/components/FormComponents'
+import { Input, Textarea } from '@/app/global/components/FormComponents'
 import { BigButton } from '@/app/global/components/Buttons'
 import colors from '@/app/global/styles/colors'
+import sizes from '@/app/global/styles/sizes'
 import Messages from '@/app/global/components/Messages'
+import { TableCols } from '@/app/global/components/Tables'
 
 const { secondary, dark } = colors
+const { medium } = sizes
 
 const StyledForm = styled.form`
   table {
-    border: 1px solid ${dark};
-    width: 100%;
+    margin-bottom: 30px;
 
-    tr {
-      border: 1px solid ${dark};
+    th {
+      width: 180px;
+      background: ${secondary};
+      color: ${dark};
+      text-align: center;
+    }
 
-      th {
-        background: ${secondary};
-        width: 150px;
-        height: 50px;
+    td {
+      align-items: center;
+
+      & > * + * {
+        margin-left: 20px;
       }
 
-      td {
-        input {
-          border: 1px solid ${dark};
-        }
+      /* Chrome, Safari, Edge, Opera에서 넘버링 없애기 */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
 
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
-        }
+      /* Firefox 에서 넘버링 없애기 */
+      input[type='number'] {
+        -moz-appearance: textfield;
+      }
 
-        textarea {
-          width: 100%;
-          min-height: 200px;
-          resize: none;
-        }
+      span {
+        font-size: ${medium};
+        cursor: default;
       }
     }
-  }
 
-  button {
-    margin-top: 30px;
+    &:last-of-type {
+      margin-bottom: 30px;
+    }
+
+    button {
+      margin-top: 30px;
+    }
   }
 `
 
@@ -52,7 +62,7 @@ const LoanForm = ({ form, onClick, onChange, actionState }) => {
   return (
     <>
       <StyledForm action={formAction} autoComplete="off">
-        <table>
+        <TableCols>
           <tbody>
             <tr>
               <th>대출명</th>
@@ -122,7 +132,7 @@ const LoanForm = ({ form, onClick, onChange, actionState }) => {
             <tr>
               <th>대출 설명</th>
               <td>
-                <textarea
+                <Textarea
                   name="loanDescription"
                   placeholder="대출에 대한 설명을 남겨주세요."
                   value={form?.loanDescription ?? ''}
@@ -170,7 +180,7 @@ const LoanForm = ({ form, onClick, onChange, actionState }) => {
               </td>
             </tr>
           </tbody>
-        </table>
+        </TableCols>
         <BigButton type="submit" className="submit-btn" disabled={isPending}>
           대출 등록
         </BigButton>
