@@ -42,6 +42,10 @@ const ListContainer = () => {
     _setSearch((_search) => ({ ..._search, [e.target.name]: e.target.value }))
   }, [])
 
+  const onClick = useCallback((field, value) => {
+    _setSearch((_search) => ({ ..._search, [field]: value }))
+  }, [])
+
   useEffect(() => {
     if (data) {
       setItems(data.data.items)
@@ -68,7 +72,12 @@ const ListContainer = () => {
 
   return (
     <>
-      <CardSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
+      <CardSearch
+        form={_search}
+        onChange={onChange}
+        onSubmit={onSubmit}
+        onClick={onClick}
+      />
       {isLoading ? <Loading /> : <ListForm items={items} />}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
