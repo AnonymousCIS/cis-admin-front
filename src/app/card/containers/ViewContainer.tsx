@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react'
 import ViewForm from '../components/ViewForm'
-import { BulletList } from 'react-content-loader'
+//import { BulletList } from 'react-content-loader'
+import { notFound } from 'next/navigation'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import { getCard } from '../services/actions'
 
@@ -15,9 +16,14 @@ const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
     ;(async () => {
       try {
         const card = await getCard(seq)
-        setForm(card)
+        console.log('card', card)
+        if (!card) notFound()
+        else {
+          setForm(card)
+        }
       } catch (err) {
         console.error(err)
+        notFound()
       }
     })()
   }, [seq])
