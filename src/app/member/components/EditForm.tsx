@@ -46,6 +46,16 @@ const EditForm = ({ form, onClick, onChange, actionState, onReset }) => {
   const [errors, formAction, isPending] = actionState
   return (
     <StyledForm action={formAction} autoComplete="off">
+      <input
+        type="hidden"
+        name="optionalTerms"
+        value={form?.optionalTerms ?? 'list'}
+      />
+      <input
+        type="hidden"
+        name="_authorities"
+        value={form?._authorities ?? 'list'}
+      />
       <SubTitle>유저 설정</SubTitle>
       <TableCols>
         <tbody>
@@ -72,12 +82,7 @@ const EditForm = ({ form, onClick, onChange, actionState, onReset }) => {
           <tr>
             <th>비밀번호</th>
             <td>
-              <Input
-                type="password"
-                name="password"
-                value={form?.passwordCheck ?? ''}
-                onChange={onChange}
-              />
+              <Input type="password" name="password" onChange={onChange} />
             </td>
           </tr>
 
@@ -87,7 +92,6 @@ const EditForm = ({ form, onClick, onChange, actionState, onReset }) => {
               <Input
                 type="password"
                 name="comfirmPassword"
-                value={form?.comfirmPassword ?? ''}
                 onChange={onChange}
               />
             </td>
@@ -101,6 +105,7 @@ const EditForm = ({ form, onClick, onChange, actionState, onReset }) => {
                 name="name"
                 value={form?.name ?? ''}
                 onChange={onChange}
+                readOnly
               />
             </td>
           </tr>
@@ -177,7 +182,7 @@ const EditForm = ({ form, onClick, onChange, actionState, onReset }) => {
           <tr>
             <th>권한</th>
             <td>
-              <span onClick={() => onClick('authorities', 'USER')}>
+              <span onClick={() => onClick('_authorities', 'USER')}>
                 {form?._authorities == 'USER' ? (
                   <MdRadioButtonChecked />
                 ) : (
@@ -185,7 +190,7 @@ const EditForm = ({ form, onClick, onChange, actionState, onReset }) => {
                 )}
                 유저
               </span>
-              <span onClick={() => onClick('authorities', 'ADMIN')}>
+              <span onClick={() => onClick('_authorities', 'ADMIN')}>
                 {form?._authorities == 'ADMIN' ? (
                   <MdRadioButtonChecked />
                 ) : (

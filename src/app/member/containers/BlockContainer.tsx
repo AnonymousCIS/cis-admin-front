@@ -28,9 +28,7 @@ const BlockContainer = () => {
 
   const qs = toQueryString(search)
 
-  const { data, error, isLoading } = useRequest(
-    `/member/api/block${qs.trim() ? '?' + qs : ''}`,
-  )
+  const { data, error, isLoading } = useRequest(`/member/api/block`)
 
   const onChange = useCallback((e) => {
     _setSearch((_search) => ({ ..._search, [e.target.name]: e.target.value }))
@@ -40,7 +38,6 @@ const BlockContainer = () => {
     if (data) {
       setItems(data.data.data)
       setPagination(data.data.pagination)
-      console.log(data.data.data)
     }
   }, [data])
 
@@ -56,10 +53,35 @@ const BlockContainer = () => {
     page = page ?? 1
     setSearch((search) => ({ ...search, page }))
   }, [])
+
+  const onClick = useCallback((seq, field, value) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.seq === seq ? { ...item, [field]: value } : item,
+      ),
+    )
+  }, [])
+
+  const onToggleCheck = useCallback((seq) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.seq === seq ? { ...item, checked: !item.checked } : item,
+      ),
+    )
+  }, [])
+
   return (
     <>
       <MemberSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
-      {isLoading ? <Loading /> : <BlockForm form={items} />}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <BlockForm
+          form={items}
+          onClick={onClick}
+          onToggleCheck={onToggleCheck}
+        />
+      )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}

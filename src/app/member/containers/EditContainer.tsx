@@ -8,22 +8,21 @@ import React, {
 import { getMember } from '../services/actions'
 import EditForm from '../components/EditForm'
 import { updateMember } from '../services/actions'
-import { notFound } from 'next/navigation'
+import { BulletList } from 'react-content-loader'
+import useRequest from '@/app/global/hooks/useRequest'
+
+const Loading = () => <BulletList />
 
 const EditContainer = ({ seq }: { seq?: any | undefined } | undefined) => {
   const [form, setForm] = useState({})
+
+  const { data, error, isLoading } = useRequest(`/member/api/info/${seq}`)
 
   useLayoutEffect(() => {
     ;(async () => {
       try {
         const member = await getMember(seq)
-        if (member) {
-          setForm(member)
-          console.log('member', member)
-        } else {
-          console.log('test', seq)
-          notFound()
-        }
+        setForm(member)
       } catch (err) {
         console.error(err)
       }
@@ -38,13 +37,15 @@ const EditContainer = ({ seq }: { seq?: any | undefined } | undefined) => {
 
   const onClick = useCallback((field, value) => {
     setForm((form) => ({ ...form, [field]: value }))
+    console.log(field, value)
+    console.log(form)
   }, [])
 
   const onReset = useCallback(() => {
     ;(async () => {
       try {
         const member = await getMember(seq)
-        if (member) {
+        if (!member) {
           setForm(member)
         }
       } catch (err) {
@@ -54,18 +55,17 @@ const EditContainer = ({ seq }: { seq?: any | undefined } | undefined) => {
   }, [seq])
   return (
     <>
-      {/* {memberFound ? (
-
+      {isLoading ? (
+        <Loading />
       ) : (
-        notFound()
-      )} */}
-      <EditForm
-        form={form}
-        onChange={onChange}
-        onClick={onClick}
-        actionState={actionState}
-        onReset={onReset}
-      />
+        <EditForm
+          form={form}
+          onChange={onChange}
+          onClick={onClick}
+          actionState={actionState}
+          onReset={onReset}
+        />
+      )}
     </>
   )
 }

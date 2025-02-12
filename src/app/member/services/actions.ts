@@ -5,7 +5,7 @@ import { format } from 'date-fns'
 import { cookies } from 'next/headers'
 import apiRequest from '@/app/global/libs/apiRequest'
 import { revalidatePath } from 'next/cache'
-
+import { notFound } from 'next/navigation'
 /**
  * 회원 가입 처리
  *
@@ -246,13 +246,15 @@ export const getMember = async (seq) => {
 }
 
 export const updateMember = async (params, formData: FormData) => {
+  const redirectUrl = params?.redirectUrl ?? '/member/list'
   const form: any = {
     optionalTerms: [],
+    authorities: [],
   }
 
   const errors: any = {}
 
-  const hasErrors = false
+  let hasErrors = false
   for (const [key, value] of formData.entries()) {
     if (key.includes('$ACTION')) continue
 
@@ -269,9 +271,89 @@ export const updateMember = async (params, formData: FormData) => {
       form.optionalTerms.push(value)
       continue
     }
+    if (key === '_authorities') {
+      form.authorities.push(value)
+      continue
+    }
 
     form[key] = _value
   }
+  /* 1. 필수항목 검증 S */
 
-  console.log('form', form)
+  const email = formData.get('email').toString()
+  const zipCode = formData.get('zipCode').toString()
+  const address = formData.get('address').toString()
+  const phoneNumber = formData.get('phoneNumber').toString()
+
+  if (!email || !email.trim()) {
+    errors.email = errors.email ?? []
+    errors.email.push('이메일을 입력하세요.')
+    hasErrors = true
+  }
+
+  if (!zipCode || !zipCode.trim()) {
+    errors.zipCode = errors.zipCode ?? []
+    errors.zipCode.push('우편번호를 입력하세요')
+    hasErrors = true
+  }
+
+  if (!address || !address.trim()) {
+    errors.address = errors.address ?? []
+    errors.address.push('주소를 입력하세요.')
+    hasErrors = true
+  }
+
+  if (!phoneNumber || !phoneNumber.trim()) {
+    errors.phoneNumber = errors.phoneNumber ?? []
+    errors.phoneNumber.push('휴대폰번호를 입력하세요')
+    hasErrors = true
+  }
+
+  /* 1. 필수항목 검증 E */
+
+  /* 2. Server 요청 처리 S*/
+
+  if (!hasErrors) {
+    try {
+      const res = await apiRequest('/member/admin/update', 'PATCH', form)
+      console.log('res', res)
+      const result = await res.status
+      if (result !== 200) {
+        errors.global = errors.global ?? []
+        errors.global.push('정보가 잘못되었습니다.')
+        hasErrors = true
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if (hasErrors) return errors
+
+  revalidatePath('/', 'layout')
+
+  redirect(redirectUrl)
+
+  /* 2. Server 요청 처리 E*/
+}
+
+export const deleteMember = async (params, formData: FormData) => {
+  const redirectUrl = params?.redirectUrl ?? '/member/list'
+  const seq = formData.get('seq')
+  console.log('seq', seq)
+
+  try {
+    const res = await apiRequest(`/member/admin/delete/${seq}`, 'DELETE')
+    console.log('res', res)
+    const result = await res.status
+    if (result !== 200) {
+      console.log('이상발생')
+    }
+  } catch (err) {
+    console.error(err)
+  }
+
+  revalidatePath('/', 'layout')
+
+  redirect(redirectUrl)
 }
