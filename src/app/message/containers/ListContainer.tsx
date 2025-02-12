@@ -15,15 +15,17 @@ type SearchType = {
   skey?: string
   page?: number
   limit?: number
+  mode: 'SEND' | 'RECEIVE'
+  status: 'UNREAD' | 'READ'
 }
 
 const ListContainer = () => {
   useMenuCode('message', 'listForm')
 
-  const [search, setSearch] = useState<SearchType>({})
+  const [search, setSearch] = useState<SearchType>({mode:'SEND', status:'UNREAD'})
 
   // 임시값
-  const [_search, _setSearch] = useState<SearchType>({})
+  const [_search, _setSearch] = useState<SearchType>({mode:'SEND', status:'UNREAD'})
 
   const [items, setItems] = useState([])
 
@@ -41,8 +43,8 @@ const ListContainer = () => {
 
   useEffect(() => {
     if (data) {
-      // setItems(data.data.items)
-      // setPagination(data.data.pagination)
+      setItems(data.data.items)
+      setPagination(data.data.pagination)
       console.log(data)
     }
   }, [data])
