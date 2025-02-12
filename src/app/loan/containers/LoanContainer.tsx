@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useState, useCallback, useActionState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import LoanForm from '../components/LoanForm'

@@ -4,7 +4,10 @@ import React from 'react'
 import loadable from '@loadable/component'
 import { MainTitle } from '@/app/global/components/StyledTitle'
 import WithUserContainer from '@/app/global/containers/WithUserContainer'
-import LoanListContainer from '../containers/LoanListContainer'
+
+const LoanListContainer = loadable(
+  () => import('../containers/LoanListContainer'),
+)
 
 const LoanList = () => {
   return WithUserContainer(
@@ -15,4 +18,4 @@ const LoanList = () => {
   )
 }
 
-export default LoanList
+export default React.memo(LoanList)

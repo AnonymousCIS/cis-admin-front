@@ -2,13 +2,12 @@
 
 import React, { useState, useCallback, useEffect } from 'react'
 import LoanList from '../components/LoanList'
+import useMenuCode from '@/app/global/hooks/useMenuCode'
 import LoanSearch from '../components/LoanSearch'
 import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
 import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
-
-import useMenuCode from '@/app/global/hooks/useMenuCode'
 
 const Loading = () => <BulletList />
 
@@ -35,7 +34,7 @@ const LoanListContainer = () => {
   const qs = toQueryString(search)
 
   const { data, error, isLoading } = useRequest(
-    `/loan/api/loan/list${qs.trim() ? '?' + qs : ''}`,
+    `/loan/api/list${qs.trim() ? '?' + qs : ''}`,
   )
 
   const onChange = useCallback((e) => {
@@ -70,7 +69,7 @@ const LoanListContainer = () => {
   return (
     <>
       <LoanSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
-      {isLoading ? <Loading /> : <LoanList />}
+      {isLoading ? <Loading /> : <LoanList items={items} />}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
