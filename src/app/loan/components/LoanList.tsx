@@ -25,7 +25,7 @@ const LoanListForm = () => {
           </thead>
           <tbody>
             <tr>
-              <td colSpan={5} className="no-data">
+              <td colSpan={7} className="no-data">
                 조회 게시판이 없습니다.
               </td>
             </tr>

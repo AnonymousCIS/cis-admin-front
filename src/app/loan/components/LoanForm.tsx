@@ -1,13 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import { TableCols } from '@/app/global/components/Tables'
 import { MdRadioButtonUnchecked, MdRadioButtonChecked } from 'react-icons/md'
 import { Input } from '@/app/global/components/FormComponents'
 import { BigButton } from '@/app/global/components/Buttons'
 import colors from '@/app/global/styles/colors'
 import Messages from '@/app/global/components/Messages'
 
-const { secondary, white, info, dark } = colors
+const { secondary, dark } = colors
 
 const StyledForm = styled.form`
   table {
