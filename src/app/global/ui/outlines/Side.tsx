@@ -7,7 +7,7 @@ import CommonContext from '../../contexts/CommonContext'
 import colors from '../../styles/colors'
 import sizes from '../../styles/sizes'
 import { SiPorkbun } from 'react-icons/si'
-import { GiMoneyStack } from 'react-icons/gi'
+import { GiMoneyStack, GiBank } from 'react-icons/gi'
 import { FaCreditCard } from 'react-icons/fa'
 import { BsFilePostFill } from 'react-icons/bs'
 import { FaRegMessage } from 'react-icons/fa6'
@@ -61,6 +61,7 @@ const Side = () => {
         게시판 관리
       </a>
       <a href="/bank/list" className={classNames({ on: menuCode === 'bank' })}>
+        <GiBank />
         은행 관리
       </a>
       <a href="/card/list" className={classNames({ on: menuCode === 'card' })}>

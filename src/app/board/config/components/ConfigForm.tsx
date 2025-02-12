@@ -7,10 +7,11 @@ import { BigButton, ButtonGroup } from '@/app/global/components/Buttons'
 import Messages from '@/app/global/components/Messages'
 import { SubTitle } from '@/app/global/components/StyledTitle'
 import colors from '@/app/global/styles/colors'
+import { CommonType } from '@/app/global/types/styledType'
 
 const { primary, white } = colors
 
-const StyledForm = styled.form`
+const StyledForm = styled.form<CommonType>`
   table {
     margin-bottom: 30px;
 
@@ -496,7 +497,6 @@ const ConfigForm = ({ form, onChange, onClick, onReset, actionState }) => {
         <BigButton type="submit" color="dark" disabled={isPending}>
           {form?.mode === 'edit' ? '수정' : '등록'}
         </BigButton>
-        <Messages color="danger">{errors?.global}</Messages>
       </ButtonGroup>
     </StyledForm>
   )

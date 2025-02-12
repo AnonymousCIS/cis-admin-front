@@ -1,8 +1,8 @@
 'use server'
 
 import { redirect } from 'next/navigation'
-import { unauthorized } from 'next/navigation'
 import apiRequest from '@/app/global/libs/apiRequest'
+
 /**
  * 카드 생성 처리
  * @param params : QueryString 값
@@ -37,11 +37,15 @@ export const processCreate = async (params, formData: FormData) => {
   }
 
   for (const [field, msg] of Object.entries(requiredFields)) {
-    if (
-      !form[field] ||
-      (typeof form[field] === 'string' && !form[field].trim())
-    ) {
+    const value = formData.get(field).toString()
+
+    if (!value || !value.trim()) {
+      // if (
+      //   !form[field] ||
+      //   (typeof form[field] === 'string' && !form[field].trim())
+      // ) {
       // 필수 항목 누락
+
       errors[field] = errors[field] ?? []
       errors[field].push(msg)
       hasErrors = true
@@ -51,32 +55,20 @@ export const processCreate = async (params, formData: FormData) => {
 
   /* Server 요청 처리 S */
   if (!hasErrors) {
-    // const apiUrl = process.env.API_URL + '/card/admin/create'
+    const res = await apiRequest('/card/admin/create', 'POST', { ...form })
+    console.log(form)
 
-    // 이부분 임시로 테스트위해 주소를 실제로 입력한것
-    const apiUrl = 'https://cis-card-service.jinilog.com/admin/create'
-    try {
-      const res = await apiRequest(apiUrl, 'POST', form)
-
-      console.log('res', res)
-      if (res.status !== 200) {
-        // 검증 실패시
-        if (res.status === 401) {
-          unauthorized()
-          return
-        }
-        const result = await res.json()
-        console.log('result', result)
-        errors = result.message
-        hasErrors = true
-      }
-    } catch (err) {
-      console.error(err)
+    if (res.status !== 200) {
+      // 검증 실패시
+      const result = await res.json()
+      console.log('result', result)
+      errors = result.message
+      hasErrors = true
     }
   }
   /* Server 요청 처리 E */
 
   if (hasErrors) return errors
 
-  redirect(redirectUrl)
+  return redirect(redirectUrl)
 }
