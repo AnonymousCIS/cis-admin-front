@@ -7,7 +7,6 @@ import { Button } from '@/app/global/components/Buttons'
 import sizes from '@/app/global/styles/sizes'
 import { Select } from '@/app/global/components/FormComponents'
 import { CommonType } from '@/app/global/types/styledType'
-const { normal } = sizes
 
 const StyledForm = styled.form<CommonType>`
   th:nth-of-type(1) {
@@ -40,7 +39,7 @@ const status = [
   { value: 'UNREAD', label: '안읽은 메세지' },
 ]
 
-const ListForm = (form, onChange) => {
+const ListForm = ({form, onChange}) => {
   return (
     <>
       <StyledForm>

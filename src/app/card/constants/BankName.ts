@@ -1,3 +1,4 @@
+/*
 export enum BankName {
   HANKUK = [0, '한국은행'],
   KB = [1, '국민은행'],
@@ -22,4 +23,4 @@ export enum BankName {
   SINHYUP = [20, '신협은행'],
   SAEMAEULGEUMGO = [21, '새마을금고'],
   WOOCAEKUK = [22, '우체국'],
-}
+}*/
