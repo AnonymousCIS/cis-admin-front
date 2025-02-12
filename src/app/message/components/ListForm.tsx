@@ -39,7 +39,7 @@ const status = [
   { value: 'UNREAD', label: '안읽은 메세지' },
 ]
 
-const ListForm = ({form, onChange}) => {
+const ListForm = ({ form, onChange }) => {
   return (
     <>
       <StyledForm>
@@ -72,7 +72,7 @@ const ListForm = ({form, onChange}) => {
                 <Select
                   name="status"
                   options={status}
-                  selected={form?.filter ?? 'UNREAD'}
+                  selected={form?.status ?? 'UNREAD'}
                   onChange={onChange}
                   width={150}
                 />
