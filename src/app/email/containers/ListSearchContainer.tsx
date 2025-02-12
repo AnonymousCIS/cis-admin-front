@@ -7,6 +7,7 @@ import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
 import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
+import ListItem from "../components/ListForm"
 
 const Loading = () => <BulletList />
 
@@ -67,7 +68,7 @@ const ListSearchContainer = () => {
   return (
     <>
       <ListSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
-      {isLoading ? <Loading /> : <ListForm />}
+      {isLoading ? <Loading /> : <ListItem items={items} />}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}

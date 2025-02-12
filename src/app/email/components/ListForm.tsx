@@ -1,76 +1,78 @@
 'use client'
 
-import React, { useLayoutEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { FaSearch } from 'react-icons/fa'
-import { TableRows, TableCols } from '@/app/global/components/Tables'
+import { TableRows } from '@/app/global/components/Tables'
 import { SubTitle } from '@/app/global/components/StyledTitle'
-import { SmallButton } from '@/app/global/components/Buttons'
-import { getLogInfo } from '../services/actions'
+
 const StyledForm = styled.form`
-  table {
-    margin-bottom: 30px;
-
-    th {
-      width: 180px;
-    }
-
-    td {
-      & > * + * {
-        margin-left: 20px;
-      }
-    }
-
-    &:last-of-type {
-      margin-bottom: 30px;
-    }
+  th:nth-of-type(1) {
+    width: 50px;
   }
 
-  input {
-    width: 60%;
-    padding: 8px;
-    font-size: 14px;
+  th:nth-of-type(2) {
+    width: 150px;
+  }
+
+  th:nth-of-type(3) {
+    width: 200px;
+  }
+
+  th:nth-of-type(4) {
+    width: 300px;
+  }
+
+  th:nth-of-type(5) {
+    width: 150px;
+  }
+
+  td {
+    text-align: center;
   }
 `
-const ListForm = ({ logs = [] } ) => {
 
-return(
-  <>
-    <StyledForm>
-      <SubTitle>로그 목록</SubTitle>
-        <TableRows>
-          <thead>
-            <tr>
-              <th>번호</th>
-              <th>수신자</th>
-              <th>제목</th>
-              <th>내용</th>
-              <th>발송일</th>
-            </tr>
-          </thead>
-          <tbody>
-            {logs.length > 0 ? (
-              logs.map((log, i) => (
-                <tr key={'log_' + i}>
-                  <td>{log.id}</td>
-                  <td>{log.receiver}</td>
-                  <td>{log.subject}</td>
-                  <td>{log.content}</td>
-                  <td>{log.date}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={5} className="no-data">
-                  로그가 없습니다.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </TableRows>
-        </StyledForm>
-    </>
+const ListLogItem = ({ item }) => {
+  const { seq, to, subject, content, createdAt } = item
+
+  return (
+    <tr>
+      <td>{seq}</td>
+      <td>{to}</td>
+      <td>{subject}</td>
+      <td>{content}</td>
+      <td>{createdAt}</td>
+    </tr>
   )
 }
 
-export default React.memo(ListForm)
+const ListItem = ({ items }) => {
+  return (
+    <StyledForm>
+      <SubTitle>로그 목록</SubTitle>
+      <TableRows>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>받는 사람</th>
+            <th>제목</th>
+            <th>내용</th>
+            <th>보낸 날짜</th>
+          </tr>
+        </thead>
+        <tbody>
+          {items && items.length > 0 ? (
+            items.map((log) => <ListLogItem key={'logs_' + log.seq} item={log} />)
+          ) : (
+            <tr>
+              <td colSpan={5} className="no-data">
+                로그가 없습니다.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </TableRows>
+    </StyledForm>
+  )
+}
+
+export default React.memo(ListItem)
