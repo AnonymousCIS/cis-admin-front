@@ -2,8 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
 // import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
-import { MdCheckBoxOutlineBlank } from 'react-icons/md'
-import { Button } from '@/app/global/components/Buttons'
+import {
+  MdCheckBoxOutlineBlank,
+  MdRadioButtonChecked,
+  MdRadioButtonUnchecked,
+} from 'react-icons/md'
+import { Button, SmallButton } from '@/app/global/components/Buttons'
 import sizes from '@/app/global/styles/sizes'
 import { Select } from '@/app/global/components/FormComponents'
 import { CommonType } from '@/app/global/types/styledType'
@@ -14,7 +18,7 @@ const StyledForm = styled.form<CommonType>`
   }
 
   th:nth-of-type(2) {
-    width: 60px;
+    width: 120px;
   }
 
   th:nth-of-type(3) {
@@ -28,6 +32,10 @@ const StyledForm = styled.form<CommonType>`
   th:nth-of-type(5) {
     width: 60px;
   }
+
+  th:nth-of-type(6) {
+    width: 60px;
+  }
 `
 
 const mode = [
@@ -39,7 +47,30 @@ const status = [
   { value: 'UNREAD', label: '안읽은 메세지' },
 ]
 
-const ListForm = ({ form, onChange }) => {
+const ListItem = ({ item }) => {
+  const { seq, name, open } = item
+
+  const frontUrl = process.env.NEXT_PUBLIC_FRONT_URL + `/board/list`
+
+  return (
+    <tr>
+      <td></td>
+      <td>{seq}</td>
+      <td>{name}</td>
+      <td></td>
+
+      <td>
+        <a href={'/message/deletes'}>
+          <SmallButton type="button" color="info" width={120}>
+            삭제
+          </SmallButton>
+        </a>
+      </td>
+    </tr>
+  )
+}
+
+const ListForm = ({ form, onChange, items }) => {
   return (
     <>
       <StyledForm>
@@ -48,6 +79,9 @@ const ListForm = ({ form, onChange }) => {
             <tr>
               <th>
                 <MdCheckBoxOutlineBlank />
+              </th>
+              <th>
+                제목
               </th>
               <th>
                 <Button type="button" color="secondary">
@@ -77,15 +111,23 @@ const ListForm = ({ form, onChange }) => {
                   width={150}
                 />
               </th>
-              <th></th>
+              <th>
+                내용
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td colSpan={6} className="no-data">
-                쪽지가 없습니다.
-              </td>
-            </tr>
+            {items && items.length > 0 ? (
+              items.map((item) => {
+                ;<ListItem item={item} />
+              })
+            ) : (
+              <tr>
+                <td colSpan={7} className="no-data">
+                  쪽지가 없습니다.
+                </td>
+              </tr>
+            )}
           </tbody>
         </TableRows>
       </StyledForm>
