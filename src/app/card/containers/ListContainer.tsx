@@ -14,7 +14,6 @@ import Pagination from '@/app/global/components/Pagination'
 const Loading = () => <BulletList />
 
 type SearchType = {
-  sopt?: string
   skey?: string
   page?: number
   limit?: number
@@ -43,6 +42,10 @@ const ListContainer = () => {
     _setSearch((_search) => ({ ..._search, [e.target.name]: e.target.value }))
   }, [])
 
+  const onClick = useCallback((field, value) => {
+    _setSearch((_search) => ({ ..._search, [field]: value }))
+  }, [])
+
   useEffect(() => {
     if (data) {
       setItems(data.data.items)
@@ -69,8 +72,13 @@ const ListContainer = () => {
 
   return (
     <>
-      <CardSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
-      {isLoading ? <Loading /> : <ListForm />}
+      <CardSearch
+        form={_search}
+        onChange={onChange}
+        onSubmit={onSubmit}
+        onClick={onClick}
+      />
+      {isLoading ? <Loading /> : <ListForm items={items} />}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}

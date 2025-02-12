@@ -1,7 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
-import { MdCheckBoxOutlineBlank } from 'react-icons/md'
+import {
+  MdCheckBoxOutlineBlank,
+  MdRadioButtonUnchecked,
+  MdRadioButtonChecked,
+} from 'react-icons/md'
+import { SmallButton } from '@/app/global/components/Buttons'
 
 const StyledForm = styled.form`
   th:nth-of-type(1) {
@@ -9,23 +14,71 @@ const StyledForm = styled.form`
   }
 
   th:nth-of-type(2) {
-    width: 250px;
+    width: 80px;
   }
 
   th:nth-of-type(3) {
-    width: 150px;
+    width: 100px;
   }
 
   th:nth-of-type(4) {
-    width: 150px;
+    width: 100px;
   }
 
   th:nth-of-type(5) {
-    width: 120px;
+    width: 100px;
+  }
+
+  th:nth-of-type(6) {
+    width: 80px;
+  }
+
+  td:nth-of-type(1),
+  td:nth-of-type(2),
+  td:nth-of-type(3),
+  td:nth-of-type(4),
+  td:nth-of-type(5) {
+    text-align: center;
   }
 `
 
-const ListForm = () => {
+const CardItem = ({ item }) => {
+  const { seq, cardName, cardTypeStr, categoryStr, open } = item
+
+  const frontUrl = process.env.NEXT_PUBLIC_FRONT_URL + `/card/list/${seq}`
+
+  return (
+    <tr>
+      <td></td>
+      <td>{seq}</td>
+      <td>{cardName}</td>
+      <td>{cardTypeStr}</td>
+      <td>{categoryStr}</td>
+      <td>
+        <span>
+          {open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
+        </span>
+        <span>
+          {open ? <MdRadioButtonUnchecked /> : <MdRadioButtonChecked />} 미사용
+        </span>
+      </td>
+
+      <td>
+        <a href={'/card/edit/' + seq}>
+          <SmallButton type="button" color="info" width={120}>
+            수정
+          </SmallButton>
+        </a>
+        <a href={frontUrl} target="_blank">
+          <SmallButton type="button" color="primary" width={120}>
+            미리보기
+          </SmallButton>
+        </a>
+      </td>
+    </tr>
+  )
+}
+const ListForm = ({ items }) => {
   return (
     <>
       <StyledForm>
@@ -35,19 +88,26 @@ const ListForm = () => {
               <th>
                 <MdCheckBoxOutlineBlank />
               </th>
+              <th>카드 ID</th>
               <th>카드명</th>
               <th>카드 종류</th>
               <th>카테고리</th>
-              <th>사용 여부</th>
+              <th>공개 여부</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td colSpan={6} className="no-data">
-                조회 카드가 없습니다.
-              </td>
-            </tr>
+            {items && items.length > 0 ? (
+              items.map((item) => (
+                <CardItem key={'card_' + item.seq} item={item} />
+              ))
+            ) : (
+              <tr>
+                <td colSpan={7} className="no-data">
+                  조회 카드가 없습니다.
+                </td>
+              </tr>
+            )}
           </tbody>
         </TableRows>
       </StyledForm>
