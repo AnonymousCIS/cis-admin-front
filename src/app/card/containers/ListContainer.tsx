@@ -3,6 +3,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
 
 import ListForm from '../components/ListForm'
+import CardSearch from '../components/CardSearch'
 
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import { toQueryString } from '@/app/global/libs/utils'
@@ -13,7 +14,6 @@ import Pagination from '@/app/global/components/Pagination'
 const Loading = () => <BulletList />
 
 type SearchType = {
-  sopt?: string
   skey?: string
   page?: number
   limit?: number
