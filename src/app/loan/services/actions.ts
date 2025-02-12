@@ -103,10 +103,15 @@ export const processLoan = async (params, formData: FormData) => {
  * 대출 상세 조회
  *
  */
-export const getLoanInfo = async () => {}
+export const getLoanInfo = async (seq) => {
+  try {
+    const res = await apiRequest(`/loan/info/${seq}`)
 
-/**
- * 대출 목록 조회
- *
- */
-export const getLoanList = async () => {}
+    if (res.status === 200) {
+      const result = await res.json()
+      return result.success && result.data
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
