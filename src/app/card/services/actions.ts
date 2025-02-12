@@ -85,7 +85,6 @@ export const getCard = async (seq) => {
 
     if (res.status === 200) {
       const result = await res.json()
-      console.log('result', result)
       return result.success && result.data
     }
   } catch (err) {

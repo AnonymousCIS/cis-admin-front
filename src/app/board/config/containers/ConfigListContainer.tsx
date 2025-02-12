@@ -69,7 +69,7 @@ const ConfigListContainer = () => {
   return (
     <>
       <ConfigSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
-      {isLoading ? <Loading /> : <ConfigList />}
+      {isLoading ? <Loading /> : <ConfigList items={items}/>}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}

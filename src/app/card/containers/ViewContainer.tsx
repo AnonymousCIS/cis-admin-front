@@ -4,7 +4,7 @@ import { BulletList } from 'react-content-loader'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import { getCard } from '../services/actions'
 
-const Loading = () => <BulletList />
+// const Loading = () => <BulletList />
 
 const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
   useMenuCode('card', 'list')
