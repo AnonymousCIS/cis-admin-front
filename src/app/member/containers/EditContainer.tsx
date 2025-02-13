@@ -10,6 +10,7 @@ import EditForm from '../components/EditForm'
 import { updateMember } from '../services/actions'
 import { BulletList } from 'react-content-loader'
 import useRequest from '@/app/global/hooks/useRequest'
+import { notFound } from 'next/navigation'
 
 const Loading = () => <BulletList />
 
@@ -53,6 +54,11 @@ const EditContainer = ({ seq }: { seq?: any | undefined } | undefined) => {
       }
     })()
   }, [seq])
+
+  if (data === false) {
+    notFound()
+  }
+
   return (
     <>
       {isLoading ? (
