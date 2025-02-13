@@ -158,25 +158,22 @@ const LoanForm = ({ form, onClick, onChange, actionState }) => {
             <tr>
               <th>사용여부</th>
               <td>
-                {/* member-gender 처럼 선택하는 형식으로 만들 것. 틀을 위해 임시적으로만 사용한 것  */}
-                <div className="radio-buttons">
-                  <span onClick={() => onClick('isOpen', true)}>
-                    {form?.isOpen === true ? (
-                      <MdRadioButtonChecked />
-                    ) : (
-                      <MdRadioButtonUnchecked />
-                    )}
-                    사용
-                  </span>
-                  <span onClick={() => onClick('isOpen', false)}>
-                    {form?.isOpen === false ? (
-                      <MdRadioButtonChecked />
-                    ) : (
-                      <MdRadioButtonUnchecked />
-                    )}
-                    미사용
-                  </span>
-                </div>
+                <span onClick={() => onClick('isOpen', true)}>
+                  {form?.isOpen === true ? (
+                    <MdRadioButtonChecked />
+                  ) : (
+                    <MdRadioButtonUnchecked />
+                  )}
+                  사용
+                </span>
+                <span onClick={() => onClick('isOpen', false)}>
+                  {form?.isOpen === false ? (
+                    <MdRadioButtonChecked />
+                  ) : (
+                    <MdRadioButtonUnchecked />
+                  )}
+                  미사용
+                </span>
               </td>
             </tr>
           </tbody>

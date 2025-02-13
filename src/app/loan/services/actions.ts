@@ -39,6 +39,7 @@ export const processLoan = async (params, formData: FormData) => {
   }
 
   for (const [field, msg] of Object.entries(requiredFields)) {
+    const value = formData.get(field).toString()
     if (
       !form[field] ||
       (typeof form[field] === 'string' && !form[field].trim())

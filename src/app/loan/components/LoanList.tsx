@@ -2,31 +2,43 @@ import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
 import { SmallButton } from '@/app/global/components/Buttons'
-import { MdCheckBoxOutlineBlank } from 'react-icons/md'
+import {
+  MdCheckBoxOutlineBlank,
+  MdRadioButtonUnchecked,
+  MdRadioButtonChecked,
+} from 'react-icons/md'
 
 const StyledForm = styled.form``
 
 const LoanItem = ({ item }) => {
   const {
     loanName,
-    bankName,
-    category,
+    categoryStr,
     limit,
     interestRate,
     repaymentYear,
     isOpen,
+    bankNameStr,
   } = item
 
   return (
     <tr>
       <td></td>
       <td>{loanName}</td>
-      <td>{bankName}</td>
-      <td>{category}</td>
+      <td>{bankNameStr}</td>
+      <td>{categoryStr}</td>
       <td>{limit}</td>
       <td>{interestRate}</td>
       <td>{repaymentYear}</td>
-      <td>{isOpen}</td>
+      <td>
+        <span>
+          {isOpen ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
+        </span>
+        <span>
+          {isOpen ? <MdRadioButtonUnchecked /> : <MdRadioButtonChecked />}{' '}
+          미사용
+        </span>
+      </td>
       <td>
         <a href="#">
           <SmallButton type="button" color="info" width={120}>
@@ -66,7 +78,7 @@ const LoanList = ({ items }) => {
           <tbody>
             {items && items.length > 0 ? (
               items.map((item) => (
-                <LoanItem key={'config_' + item.bid} item={item} />
+                <LoanItem key={'config_' + item.seq} item={item} />
               ))
             ) : (
               <tr>
