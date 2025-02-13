@@ -48,220 +48,273 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 name="skey"
                 value={form?.skey ?? ''}
                 onChange={onChange}
-                placeholder='검색어를 입력해주세요'
+                placeholder="검색어를 입력해주세요"
               />
             </td>
           </tr>
           <tr>
             <th>카드 종류</th>
-            <td
-              onClick={() => onClick('', !Boolean(form?.skey))}
-              className="table-check"
-            >
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              개인 체크
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              개인 신용
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              법인 체크
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              법인 신용
+            <td className="table-check">
+              <span onClick={() => onClick('cardTypes', 'PersonalCheck')}>
+                {form?.cardTypess === 'PersonalCheck' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                개인 체크
+              </span>
+              <span onClick={() => onClick('cardTypes', 'PersonalCredit')}>
+                {form?.cardTypes === 'PersonalCredit' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                개인 신용
+              </span>
+              <span onClick={() => onClick('cardTypes', 'CorporateCheck')}>
+                {form?.cardTypes === 'CorporateCheck' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                법인 체크
+              </span>
+              <span onClick={() => onClick('cardTypes', 'CorporateCredit')}>
+                {form?.cardTypes === 'CorporateCredit' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                법인 신용
+              </span>
             </td>
           </tr>
 
           <tr>
             <th>카테고리</th>
-            <td
-              onClick={() => onClick('', !Boolean(form?.skey))}
-              className="table-check"
-            >
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              SHOPPING
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              LIFE
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              TRAVEL
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              LIVING
+            <td>
+              <span onClick={() => onClick('categories', 'SHOPPING')}>
+                {form?.categories === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                SHOPPING
+              </span>
+              <span onClick={() => onClick('categories', 'LIFE')}>
+                {form?.categories === 'LIFE' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                LIFE
+              </span>
+              <span onClick={() => onClick('categories', 'TRAVEL')}>
+                {form?.categories === 'TRAVEL' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                TRAVEL
+              </span>
+              <span onClick={() => onClick('categories', 'LIVING')}>
+                {form?.categories === 'LIVING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                LIVING
+              </span>
             </td>
           </tr>
 
           <tr>
             <th>은행명</th>
-            <td
-              onClick={() => onClick('', !Boolean(form?.skey))}
-              className="table-check"
-            >
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              한국은행
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              국민은행
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              제일은행
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              한국시티은행
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              하나은행
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              신한은행
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              K-뱅크
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              카카오
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              토스
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              수협은행
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              부산은행
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              경남은행
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              광주은행
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              전북은행
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              제주은행
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              롯데카드
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              농협은행
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              삼성카드
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              현대카드
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              우리은행
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              신협은행
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              새마을금고
-              {form?.skey === 'PersonalCheck' ? (
-                <MdOutlineCheckBox />
-              ) : (
-                <MdCheckBoxOutlineBlank />
-              )}
-              우체국
+            <td>
+              <span onClick={() => onClick('bankName', 'HANKUK')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                한국은행
+              </span>
+              <span onClick={() => onClick('bankName', 'KB')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                국민은행
+              </span>
+              <span onClick={() => onClick('bankName', 'SC')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                제일은행
+              </span>
+              <span onClick={() => onClick('bankName', 'CITY')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                한국시티은행
+              </span>
+              <span onClick={() => onClick('bankName', 'HANA')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                하나은행
+              </span>
+              <span onClick={() => onClick('bankName', 'SHINHAN')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                신한은행
+              </span>
+              <span onClick={() => onClick('bankName', 'KBANK')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                K-뱅크
+              </span>
+              <span onClick={() => onClick('bankName', 'KAKAO')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                카카오
+              </span>
+              <span onClick={() => onClick('bankName', 'TOSS')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                토스
+              </span>
+              <span onClick={() => onClick('bankName', 'SUHYUP')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                수협은행
+              </span>
+              <span onClick={() => onClick('bankName', 'BUSAN')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                부산은행
+              </span>
+              <span onClick={() => onClick('bankName', 'KYUNGNAM')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                경남은행
+              </span>
+              <span onClick={() => onClick('bankName', 'KYANGJOO')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                광주은행
+              </span>
+              <span onClick={() => onClick('bankName', 'JUNBOK')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                전북은행
+              </span>
+              <span onClick={() => onClick('bankName', 'JEJOO')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                제주은행
+              </span>
+              <span onClick={() => onClick('bankName', 'LOTTE')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                롯데카드
+              </span>
+              <span onClick={() => onClick('bankName', 'NONGHYUP')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                농협은행
+              </span>
+              <span onClick={() => onClick('bankName', 'SAMSUNG')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                삼성카드
+              </span>
+              <span onClick={() => onClick('bankName', 'HYUNDAI')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                현대카드
+              </span>
+              <span onClick={() => onClick('bankName', 'WOORI')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                우리은행
+              </span>
+              <span onClick={() => onClick('bankName', 'SINHYUP')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                신협은행
+              </span>
+              <span onClick={() => onClick('bankName', 'SAEMAEULGEUMGO')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                새마을금고
+              </span>
+              <span onClick={() => onClick('bankName', 'WOOCAEKUK')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                우체국
+              </span>
             </td>
           </tr>
 
