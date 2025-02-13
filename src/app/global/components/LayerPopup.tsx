@@ -13,7 +13,6 @@ const { big, normal } = sizes
 
 const Wrapper = styled.div<CommonType>`
   position: relative;
-
   font-size: ${normal};
 
   .close {

@@ -3,9 +3,8 @@ import Link from 'next/link'
 export default function NotFound() {
   return (
     <div>
-      <h2>Not Found</h2>
-      <p>Could not find requested resource</p>
-      <Link href="/">Return Home</Link>
+      <h2>찾을 수 없습니다..</h2>
+      <a href="/member/list">메인으로</a>
     </div>
   )
 }

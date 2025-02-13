@@ -38,8 +38,6 @@ const EditContainer = ({ seq }: { seq?: any | undefined } | undefined) => {
 
   const onClick = useCallback((field, value) => {
     setForm((form) => ({ ...form, [field]: value }))
-    console.log(field, value)
-    console.log(form)
   }, [])
 
   const onReset = useCallback(() => {
