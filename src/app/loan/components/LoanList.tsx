@@ -34,7 +34,7 @@ const LoanItem = ({ item }) => {
           </SmallButton>
         </a>
         <a href="#">
-          <SmallButton type="button" color="danger" width={120}>
+          <SmallButton type="button" color="dark" width={120}>
             삭제
           </SmallButton>
         </a>
