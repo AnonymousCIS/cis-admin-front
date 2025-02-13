@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import apiRequest from '@/app/global/libs/apiRequest'
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest, {searchParams}) {
   const qs = request.nextUrl.searchParams.toString()
 
   const apiUrl =

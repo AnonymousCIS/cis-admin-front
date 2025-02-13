@@ -28,7 +28,7 @@ export default async function RootLayout({
 
   return (
     <html lang="ko">
-      <body>
+      <body id="root">
         <StyledComponentsRegistry>
           <UserProvider _userInfo={userInfo}>
             <Header />
