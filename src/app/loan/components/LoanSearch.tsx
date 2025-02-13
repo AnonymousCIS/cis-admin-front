@@ -33,12 +33,12 @@ const StyledForm = styled.form<CommonType>`
 `
 
 // LoanSearch 내부에서 정의하면 렌더링될때마다 변수가 생기므로 밖에 정의하는 것이 일반적
-const options = [
+/* const options = [
   { value: 'ALL', label: '통합 검색' },
   { value: 'LNAME', label: '대출명' },
   { value: 'BNAME', label: '은행명' },
   { value: 'DESC', label: '대출 설명' },
-]
+] */
 
 const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
   return (
@@ -90,17 +90,17 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
               </span>
               <span onClick={() => onClick('bankName', 'KB')}>
                 {form?.bankName === 'KB' ? (
-                  <MdCheckBoxOutlineBlank />
-                ) : (
                   <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
                 )}
                 국민은행
               </span>
               <span onClick={() => onClick('bankName', 'SC')}>
                 {form?.bankName === 'SC' ? (
-                  <MdCheckBoxOutlineBlank />
-                ) : (
                   <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
                 )}
                 제일은행
               </span>
