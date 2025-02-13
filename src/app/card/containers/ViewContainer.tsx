@@ -33,6 +33,10 @@ const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
     })()
   }, [seq])
 
+  // if (!form) {
+  //   notFound()
+  // }
+
   return <ViewForm form={form} onRemove={onRemove} />
 }
 
