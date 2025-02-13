@@ -1,18 +1,18 @@
 import React from 'react'
-import styled from 'styled-components'
 import { TableCols } from '@/app/global/components/Tables'
-import { MediumButton } from '@/app/global/components/Buttons'
-import { CommonType } from '@/app/global/types/styledType'
+import { SubTitle } from '@/app/global/components/StyledTitle'
 import colors from '@/app/global/styles/colors'
+import { BigButton } from '@/app/global/components/Buttons'
+import styled from 'styled-components'
 
 const { primary, white } = colors
 
-const StyledForm = styled.form<CommonType>`
+const StyledForm = styled.form`
   table {
     margin-bottom: 30px;
 
     th {
-      width: 180px;
+      width: 120px;
       background: ${primary};
       color: ${white};
     }
@@ -27,23 +27,19 @@ const StyledForm = styled.form<CommonType>`
       margin-bottom: 30px;
     }
   }
-
-  & > .center {
+  div {
     display: flex;
     justify-content: center;
-    gap: 5px;
-
-    & > * {
-      display: block;
-    }
+    gap: 20px;
   }
 `
 
-const ViewForm = ({ form, onRemove }) => {
-  const { seq } = form
+const ModalForm = ({ form, actionState, closeModal }) => {
+  const [errors, formAction, isPending] = actionState
   return (
     <>
-      <StyledForm>
+      <StyledForm action={formAction} autoComplete="off">
+        <SubTitle>카드 상세</SubTitle>
         <TableCols>
           <tbody>
             <tr>
@@ -107,24 +103,28 @@ const ViewForm = ({ form, onRemove }) => {
             </tr>
           </tbody>
         </TableCols>
-        <div className="center">
-          <a href={'/card/update/' + seq}>
-            <MediumButton type="button" color="info" width={120}>
-              수정
-            </MediumButton>
-          </a>
-          <MediumButton
-            type="button"
+        <div>
+          <BigButton
+            type="submit"
             color="dark"
-            width={120}
-            onClick={onRemove}
+            width={100}
+            disabled={isPending}
           >
             삭제
-          </MediumButton>
+          </BigButton>
+          <BigButton
+            type="button"
+            color="info"
+            width={100}
+            disabled={isPending}
+            onClick={closeModal}
+          >
+            취소
+          </BigButton>
         </div>
       </StyledForm>
     </>
   )
 }
 
-export default React.memo(ViewForm)
+export default React.memo(ModalForm)

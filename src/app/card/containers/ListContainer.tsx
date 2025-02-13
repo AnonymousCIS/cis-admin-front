@@ -4,12 +4,16 @@ import React, { useState, useCallback, useEffect } from 'react'
 
 import ListForm from '../components/ListForm'
 import CardSearch from '../components/CardSearch'
+// import { removeCard } from '../services/actions'
 
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
 import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
+
+import LayerPopup from '@/app/global/components/LayerPopup'
+import DeleteContainer from './DeleteContainer'
 
 const Loading = () => <BulletList />
 
@@ -37,6 +41,9 @@ const ListContainer = () => {
 
   const [pagination, setPagination] = useState()
 
+  const [isOpen, setIsOpen] = useState(false)
+  const [seq, setSeq] = useState(null)
+
   const qs = toQueryString(search)
 
   const { data, error, isLoading } = useRequest(
@@ -61,22 +68,9 @@ const ListContainer = () => {
       _setSearch((_search) => ({ ..._search, [field]: value }))
     }
   }, [])
-  // const onClick = useCallback((field, value) => {
-  //   _setSearch((prev) => {
-  //     if (['cardTypes', 'bankName', 'categories'].includes(field)) {
-  //       const set = new Set(prev[field] ?? [])
 
-  //       // 조건문으로 바꾸기
-  //       if (set.has(value)) {
-  //         set.delete(value) // value가 있으면 삭제
-  //       } else {
-  //         set.add(value) // 없으면 추가
-  //       }
-
-  //       return { ...prev, [field]: [...set] }
-  //     }
-  //     return { ...prev, [field]: value }
-  //   })
+  // const onRemove = useCallback(() => {
+  //   removeCard()
   // }, [])
 
   useEffect(() => {
@@ -103,6 +97,16 @@ const ListContainer = () => {
     setSearch((search) => ({ ...search, page }))
   }, [])
 
+  const onRemove = useCallback((seq) => {
+    setSeq(seq)
+    setIsOpen(true)
+  }, [])
+
+  const closeModal = useCallback(() => {
+    setIsOpen(false)
+    setSeq(null)
+  }, [])
+
   return (
     <>
       <CardSearch
@@ -111,10 +115,19 @@ const ListContainer = () => {
         onSubmit={onSubmit}
         onClick={onClick}
       />
-      {isLoading ? <Loading /> : <ListForm items={items} />}
+      {isLoading ? <Loading /> : <ListForm items={items} onRemove={onRemove} />}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
+      <LayerPopup
+        isOpen={isOpen}
+        onClose={closeModal}
+        title="카드 삭제"
+        width={750}
+        height={600}
+      >
+        <DeleteContainer seq={seq} closeModal={closeModal} />
+      </LayerPopup>
     </>
   )
 }
