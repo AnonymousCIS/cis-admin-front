@@ -55,7 +55,7 @@ const EditContainer = ({ seq }: { seq?: any | undefined } | undefined) => {
     })()
   }, [seq])
 
-  if (data === false) {
+  if (!form) {
     notFound()
   }
 
