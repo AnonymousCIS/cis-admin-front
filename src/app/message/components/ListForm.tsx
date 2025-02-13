@@ -48,16 +48,19 @@ const status = [
 ]
 
 const ListItem = ({ item }) => {
-  const { seq, name, open } = item
+  const { title, name ,content} = item
 
   const frontUrl = process.env.NEXT_PUBLIC_FRONT_URL + `/board/list`
 
   return (
     <tr>
       <td></td>
-      <td>{seq}</td>
+      <td>{title}</td>
       <td>{name}</td>
       <td></td>
+      <td></td>
+      <td></td>
+      <td>{content}</td>
 
       <td>
         <a href={'/message/deletes'}>
