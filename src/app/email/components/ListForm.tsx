@@ -4,6 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
 import { SubTitle } from '@/app/global/components/StyledTitle'
+import { SmallButton } from '@/app/global/components/Buttons'
 
 const StyledForm = styled.form`
   th:nth-of-type(1) {
@@ -25,6 +26,9 @@ const StyledForm = styled.form`
   th:nth-of-type(5) {
     width: 150px;
   }
+  th:nth-of-type(6) {
+    width: 100px; 
+}
 
   td {
     text-align: center;
@@ -41,6 +45,15 @@ const ListLogItem = ({ item }) => {
       <td>{subject}</td>
       <td>{content}</td>
       <td>{createdAt}</td>
+      <td>
+        <div>
+         <a href={'/email/view/' + seq}>
+              <SmallButton type="button" color="primary" width={80}>
+                  조회하기
+              </SmallButton>
+                    </a>
+        </div>
+      </td>
     </tr>
   )
 }
@@ -57,6 +70,7 @@ const ListItem = ({ items }) => {
             <th>제목</th>
             <th>내용</th>
             <th>보낸 날짜</th>
+            <th>조회하기</th>
           </tr>
         </thead>
         <tbody>
