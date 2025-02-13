@@ -39,7 +39,7 @@ export const processEdit = async (params, formData: FormData) => {
 
   // 서버 요청 처리 S
   if (!hasErrors) {
-    const res = await apiRequest('/bank/admin/edit', 'POST', { ...form })
+    const res = await apiRequest('/bank/admin/edit/', 'POST', { ...form })
 
     if (res.status !== 200) {
       const result = await res.json()

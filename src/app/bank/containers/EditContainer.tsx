@@ -1,32 +1,48 @@
 'use client'
 
-import React, { useState, useCallback, useActionState } from 'react'
-import { useSearchParams } from 'next/navigation'
-import { processEdit } from '../services/actions'
+import React, { useState, useLayoutEffect, useCallback, useActionState } from 'react'
+import { getBank, processEdit } from '../services/actions'
 import EditForm from '../components/EditForm'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 
-const EditContainer = () => {
+const initialValue = {
+  mode: 'edit',
+  bankName: '',
+  accountNumber: '',
+  name: '',
+  password: '',
+}
+
+const EditContainer = ({ seq }: { seq?: string | undefined }) => {
   useMenuCode('bank', 'edit')
 
-  const searchParams = useSearchParams()
+  const [form, setForm] = useState(initialValue) 
 
-  const params = { redirectUrl: searchParams.get('redirectUrl') }
+  const actionState = useActionState(processEdit, undefined)
 
-  const actionState = useActionState(processEdit, params)
-
-  const [form, setForm] = useState({ isOpen: false, listUnderView: true })
+  useLayoutEffect(() => {
+    ;(async () => {
+      try {
+        const bank = await getBank(seq)
+        if (bank) {
+          setForm({ ...bank, mode: 'edit' })
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    })()
+  }, [seq])
 
   const onChange = useCallback((e) => {
     setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
   }, [])
 
-  const onReset = useCallback(() => {
-    setForm((form) => ({ ...form }))
-  }, [])
-
   const onClick = useCallback((field, value) => {
     setForm((form) => ({ ...form, [field]: value }))
+  }, [])
+
+  const onReset = useCallback(() => {
+    setForm(initialValue)
   }, [])
 
   return (
