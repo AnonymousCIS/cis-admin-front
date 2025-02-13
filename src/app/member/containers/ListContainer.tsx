@@ -8,6 +8,8 @@ import useRequest from '@/app/global/hooks/useRequest'
 import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
 import MemberSearch from '../components/MemberSearch'
+import LayerPopup from '@/app/global/components/LayerPopup'
+import DeleteContainer from './DeleteContainer'
 
 const Loading = () => <BulletList />
 type SearchType = {
@@ -28,6 +30,9 @@ const ListContainer = () => {
   const [items, setItems] = useState([])
 
   const [pagination, setPagination] = useState()
+
+  const [isopen, setIsOpen] = useState(false)
+  const [seq, setSeq] = useState(null)
 
   const qs = toQueryString(search)
 
@@ -59,13 +64,37 @@ const ListContainer = () => {
     page = page ?? 1
     setSearch((search) => ({ ...search, page }))
   }, [])
+
+  const handleDeleteClick = useCallback((seq) => {
+    setSeq(seq)
+    setIsOpen(true)
+  }, [])
+
+  const closeModal = useCallback(() => {
+    setIsOpen(false)
+    setSeq(null)
+  }, [])
+
   return (
     <>
       <MemberSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
-      {isLoading ? <Loading /> : <ListForm form={items} />}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <ListForm form={items} onDeleteClick={handleDeleteClick} />
+      )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
+      <LayerPopup
+        isOpen={isopen}
+        onClose={closeModal}
+        title="회원 삭제"
+        width={750}
+        height={650}
+      >
+        <DeleteContainer seq={seq} closeModal={closeModal} />
+      </LayerPopup>
     </>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useActionState } from 'react'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
@@ -6,6 +6,7 @@ import { BulletList } from 'react-content-loader'
 import MemberSearch from '../components/MemberSearch'
 import BlockForm from '../components/BlockForm'
 import Pagination from '@/app/global/components/Pagination'
+import { blockDelete } from '../services/actions'
 
 const Loading = () => <BulletList />
 type SearchType = {
@@ -70,6 +71,8 @@ const BlockContainer = () => {
     )
   }, [])
 
+  const actionState = useActionState(blockDelete, undefined)
+
   return (
     <>
       <MemberSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
@@ -80,6 +83,7 @@ const BlockContainer = () => {
           form={items}
           onClick={onClick}
           onToggleCheck={onToggleCheck}
+          actionState={actionState}
         />
       )}
       {pagination && (
