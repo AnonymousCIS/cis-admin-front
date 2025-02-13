@@ -357,3 +357,7 @@ export const deleteMember = async (params, formData: FormData) => {
 
   redirect(redirectUrl)
 }
+
+export const blockDelete = async (params, formData: FormData) => {
+  console.log('formData', formData)
+}

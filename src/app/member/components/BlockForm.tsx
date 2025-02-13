@@ -66,7 +66,7 @@ const MemberItems = ({ item, onClick, onToggleCheck }) => {
       <td>{type}</td>
       <td>
         <span onClick={() => onClick(seq, 'memberStatus', 'ALL')}>
-          {memberStatus === 'ALL' ? (
+          {item?.memberStatus === 'ALL' ? (
             <MdRadioButtonChecked />
           ) : (
             <MdRadioButtonUnchecked />
@@ -74,7 +74,7 @@ const MemberItems = ({ item, onClick, onToggleCheck }) => {
           ALL
         </span>
         <span onClick={() => onClick(seq, 'memberStatus', 'BLOCK')}>
-          {memberStatus === 'BLOCK' ? (
+          {item?.memberStatus === 'BLOCK' ? (
             <MdRadioButtonChecked />
           ) : (
             <MdRadioButtonUnchecked />
@@ -87,9 +87,17 @@ const MemberItems = ({ item, onClick, onToggleCheck }) => {
   )
 }
 
-const BlockForm = ({ form, onClick, onToggleCheck }) => {
+const BlockForm = ({ form, onClick, onToggleCheck, actionState }) => {
+  const [errors, formAction, isPending] = actionState
+  console.log('form', form)
   return (
-    <StyledForm>
+    <StyledForm action={formAction} autoComplete="off">
+      <input type="hidden" name="seq" value={form?.seq ?? ''}></input>
+      <input
+        type="hidden"
+        name="memberStatus"
+        value={form?.memberStatus ?? ''}
+      ></input>
       <TableRows>
         <thead>
           <tr>
@@ -125,10 +133,10 @@ const BlockForm = ({ form, onClick, onToggleCheck }) => {
         </tbody>
       </TableRows>
       <ButtonGroup width={450} className="button-group center">
-        <BigButton type="submit" color="info">
+        <BigButton type="submit" color="info" disabled={isPending}>
           수정
         </BigButton>
-        <BigButton type="submit" color="danger">
+        <BigButton type="submit" color="danger" disabled={isPending}>
           삭제
         </BigButton>
       </ButtonGroup>

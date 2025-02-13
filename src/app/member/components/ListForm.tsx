@@ -78,7 +78,7 @@ const StyledForm = styled.form`
   }
 `
 
-const MemberItems = ({ item }) => {
+const MemberItems = ({ item, onDeleteClick }) => {
   const {
     seq,
     email,
@@ -121,18 +121,21 @@ const MemberItems = ({ item }) => {
               수정
             </SmallButton>
           </a>
-          <a href={'/member/delete/' + seq}>
-            <SmallButton type="button" color="dark" width={80}>
-              삭제하기
-            </SmallButton>
-          </a>
+          <SmallButton
+            type="button"
+            color="dark"
+            width={80}
+            onClick={() => onDeleteClick(seq)}
+          >
+            삭제하기
+          </SmallButton>
         </div>
       </td>
     </tr>
   )
 }
 
-const ListForm = ({ form }) => {
+const ListForm = ({ form, onDeleteClick }) => {
   return (
     <>
       <StyledForm>
@@ -161,7 +164,13 @@ const ListForm = ({ form }) => {
           </thead>
           <tbody>
             {form ? (
-              form.map((item, i) => <MemberItems key={i} item={item} />)
+              form.map((item, i) => (
+                <MemberItems
+                  key={i}
+                  item={item}
+                  onDeleteClick={onDeleteClick}
+                />
+              ))
             ) : (
               <tr>
                 <td colSpan={14} className="no-data">
