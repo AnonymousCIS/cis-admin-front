@@ -1,12 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { CommonType } from '@/app/global/types/styledType'
+import { CommonType } from '@/app/global/types/StyledType'
 import { TableCols } from '@/app/global/components/Tables'
-import { Input, Select } from '@/app/global/components/FormComponents'
-// import { Input } from '@/app/global/components/FormComponents'
-// import Select from 'react-select/base'
+import { Input } from '@/app/global/components/FormComponents'
 import { BigButton } from '@/app/global/components/Buttons'
 import { FaSearch } from 'react-icons/fa'
+import { MdOutlineCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
 
 const StyledForm = styled.form<CommonType>`
   margin-bottom: 35px;
@@ -41,7 +40,7 @@ const options = [
   { value: 'DESC', label: '대출 설명' },
 ]
 
-const LoanSearch = ({ form, onChange, onSubmit }) => {
+const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
   return (
     <StyledForm onSubmit={onSubmit} autoComplete="off">
       <TableCols>
@@ -49,19 +48,222 @@ const LoanSearch = ({ form, onChange, onSubmit }) => {
           <tr>
             <th>검색 분류</th>
             <td className="flex">
-              <Select
-                name="sopt"
-                options={options}
-                selected={form?.sopt ?? 'ALL'}
-                onChange={onChange}
-                width={180}
-              />
               <Input
                 type="text"
                 name="skey"
                 value={form?.skey ?? ''}
                 onChange={onChange}
               />
+            </td>
+          </tr>
+          <tr>
+            <th>대출 카테고리</th>
+            <td>
+              <span onClick={() => onClick('categories', 'CREDITLOAN')}>
+                {form?.categories === 'CREDITLOAN' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                신용대출
+              </span>
+              <span onClick={() => onClick('categories', 'MORTGAGELOAN')}>
+                {form?.categories === 'MORTGAGELOAN' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                담보대출
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th>은행명</th>
+            <td>
+              <span onClick={() => onClick('bankName', 'HANKUK')}>
+                {form?.bankName === 'HANKUK' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                한국은행
+              </span>
+              <span onClick={() => onClick('bankName', 'KB')}>
+                {form?.bankName === 'KB' ? (
+                  <MdCheckBoxOutlineBlank />
+                ) : (
+                  <MdOutlineCheckBox />
+                )}
+                국민은행
+              </span>
+              <span onClick={() => onClick('bankName', 'SC')}>
+                {form?.bankName === 'SC' ? (
+                  <MdCheckBoxOutlineBlank />
+                ) : (
+                  <MdOutlineCheckBox />
+                )}
+                제일은행
+              </span>
+              <span onClick={() => onClick('bankName', 'CITY')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                한국시티은행
+              </span>
+              <span onClick={() => onClick('bankName', 'HANA')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                하나은행
+              </span>
+              <span onClick={() => onClick('bankName', 'SHINHAN')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                신한은행
+              </span>
+              <span onClick={() => onClick('bankName', 'KBANK')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                K-뱅크
+              </span>
+              <span onClick={() => onClick('bankName', 'KAKAO')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                카카오
+              </span>
+              <span onClick={() => onClick('bankName', 'TOSS')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                토스
+              </span>
+              <span onClick={() => onClick('bankName', 'SUHYUP')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                수협은행
+              </span>
+              <span onClick={() => onClick('bankName', 'BUSAN')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                부산은행
+              </span>
+              <span onClick={() => onClick('bankName', 'KYUNGNAM')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                경남은행
+              </span>
+              <span onClick={() => onClick('bankName', 'KYANGJOO')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                광주은행
+              </span>
+              <span onClick={() => onClick('bankName', 'JUNBOK')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                전북은행
+              </span>
+              <span onClick={() => onClick('bankName', 'JEJOO')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                제주은행
+              </span>
+              <span onClick={() => onClick('bankName', 'LOTTE')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                롯데카드
+              </span>
+              <span onClick={() => onClick('bankName', 'NONGHYUP')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                농협은행
+              </span>
+              <span onClick={() => onClick('bankName', 'SAMSUNG')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                삼성카드
+              </span>
+              <span onClick={() => onClick('bankName', 'HYUNDAI')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                현대카드
+              </span>
+              <span onClick={() => onClick('bankName', 'WOORI')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                우리은행
+              </span>
+              <span onClick={() => onClick('bankName', 'SINHYUP')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                신협은행
+              </span>
+              <span onClick={() => onClick('bankName', 'SAEMAEULGEUMGO')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                새마을금고
+              </span>
+              <span onClick={() => onClick('bankName', 'WOOCAEKUK')}>
+                {form?.bankName === 'SHOPPING' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                우체국
+              </span>
             </td>
           </tr>
         </tbody>

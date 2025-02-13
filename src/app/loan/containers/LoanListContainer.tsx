@@ -1,21 +1,22 @@
 'use client'
 
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useContext } from 'react'
 import LoanList from '../components/LoanList'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import LoanSearch from '../components/LoanSearch'
 import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
-import { BulletList } from 'react-content-loader'
+import { BulletList, List } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
 
 const Loading = () => <BulletList />
 
 type SearchType = {
-  sopt?: string
   skey?: string
   page?: number
   limit?: number
+  loanName?: string
+  bankName?: string[]
 }
 
 const LoanListContainer = () => {
@@ -37,6 +38,20 @@ const LoanListContainer = () => {
     `/loan/api/list${qs.trim() ? '?' + qs : ''}`,
   )
 
+  const onClick = useCallback((field, value) => {
+    if (['loanName', 'bankName', 'categories'].includes(field)) {
+      const set = new Set(_search.loanName ?? [])
+      if (set.has(value)) {
+        set.delete(value)
+      } else {
+        set.add(value)
+      }
+      _setSearch((_search) => ({ ...search, [field]: [...set.values()] }))
+    } else {
+      _setSearch((_search) => ({ ..._search, [field]: value }))
+    }
+  }, [])
+
   const onChange = useCallback((e) => {
     _setSearch((_search) => ({ ..._search, [e.target.name]: e.target.value }))
   }, [])
@@ -45,7 +60,6 @@ const LoanListContainer = () => {
     if (data) {
       setItems(data.data.items)
       setPagination(data.data.pagination)
-      console.log(data)
     }
   }, [data])
 
@@ -68,7 +82,12 @@ const LoanListContainer = () => {
 
   return (
     <>
-      <LoanSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
+      <LoanSearch
+        form={_search}
+        onChange={onChange}
+        onSubmit={onSubmit}
+        onClick={onClick}
+      />
       {isLoading ? <Loading /> : <LoanList items={items} />}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />

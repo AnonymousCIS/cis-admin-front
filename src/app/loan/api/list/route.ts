@@ -10,7 +10,6 @@ export async function GET(request: NextRequest) {
 
   if (res.status === 200) {
     // 성공시
-
     const result = await res.json()
 
     return NextResponse.json(result)
