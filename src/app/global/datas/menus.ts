@@ -8,7 +8,7 @@ export const menus = {
     { code: 'configWrite', name: '게시판 등록', url: '/board/config/write' },
     { code: 'list', name: '게시글 목록', url: '/board/list' },
   ],
-  email: [],
+  email: [{code:'list', name: "로그 조회", url: '/email/list'}],
   message: [],
   bank: [
     { code: 'list', name: '계좌 목록', url: '/bank/list' },

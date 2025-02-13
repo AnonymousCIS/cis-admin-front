@@ -9,7 +9,7 @@ import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
 import ListItem from "../components/ListForm"
 
-const Loading = () => <BulletList />
+const Loading = () => <BulletList width={"30%"}/>
 
 type SearchType = {
   sopt?: string
@@ -19,7 +19,7 @@ type SearchType = {
 }
 
 const ListSearchContainer = () => {
-  useMenuCode('email', 'listForm')
+  useMenuCode('email', 'list')
 
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
   const [search, setSearch] = useState<SearchType>({})
