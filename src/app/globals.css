@@ -68,3 +68,7 @@ dd {
   flex-grow: 1;
   padding: 50px;
 }
+
+.ReactModal__Overlay {
+  background: rgba(0, 0, 0, 0.7) !important;
+}

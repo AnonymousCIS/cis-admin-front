@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import apiRequest from '@/app/global/libs/apiRequest'
 
-export async function GET(request: NextRequest, { params }) {
-  const qs = request.nextUrl.searchParams.toString()
+export async function GET(request: NextRequest) {
+  const seq = request.nextUrl.pathname.split('/').pop()
 
-  const apiUrl = process.env.API_URL + `/card/list${qs.trim() ? '?' + qs : ''}`
+  const apiUrl = process.env.API_URL + `/card/view/${seq}`
 
   const res = await apiRequest(apiUrl)
 
@@ -17,5 +17,5 @@ export async function GET(request: NextRequest, { params }) {
   }
 
   // 실패시
-  return NextResponse.json({ sucess: false })
+  return NextResponse.json(false)
 }
