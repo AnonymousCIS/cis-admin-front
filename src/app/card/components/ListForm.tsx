@@ -46,7 +46,6 @@ const CardItem = ({ item }) => {
   const { seq, cardName, cardTypeStr, categoryStr, open } = item
 
   const frontUrl = process.env.NEXT_PUBLIC_FRONT_URL + `/card/list`
-  console.log('frountUrl', frontUrl)
   return (
     <tr>
       <td></td>
