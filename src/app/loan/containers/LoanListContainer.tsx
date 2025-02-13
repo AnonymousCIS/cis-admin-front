@@ -6,7 +6,7 @@ import useMenuCode from '@/app/global/hooks/useMenuCode'
 import LoanSearch from '../components/LoanSearch'
 import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
-import { BulletList, List } from 'react-content-loader'
+import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
 
 const Loading = () => <BulletList />
@@ -16,6 +16,7 @@ type SearchType = {
   page?: number
   limit?: number
   loanName?: string
+  categories?: string[]
   bankName?: string[]
 }
 
@@ -39,16 +40,35 @@ const LoanListContainer = () => {
   )
 
   const onClick = useCallback((field, value) => {
-    if (['loanName', 'bankName', 'categories'].includes(field)) {
-      const set = new Set(_search.loanName ?? [])
+    field = []
+    value = []
+    const set = new Set(_search.loanName ?? [])
+    if (['loanName'].includes(field)) {
       if (set.has(value)) {
         set.delete(value)
       } else {
         set.add(value)
       }
       _setSearch((_search) => ({ ...search, [field]: [...set.values()] }))
-    } else {
-      _setSearch((_search) => ({ ..._search, [field]: value }))
+      console.log(set)
+    } else if (['bankName'].includes(field)) {
+      const set2 = new Set(_search.bankName ?? [])
+      if (set2.has(value)) {
+        set2.delete(value)
+      } else {
+        set2.add(value)
+      }
+      _setSearch((_search) => ({ ...search, [field]: [...set2.values()] }))
+      console.log(set2)
+    } else if (['categories'].includes(field)) {
+      const set3 = new Set(_search.categories ?? [])
+      if (set3.has(value)) {
+        set3.delete(value)
+      } else {
+        set3.add(value)
+      }
+      _setSearch((_search) => ({ ...search, [field]: [...set3.values()] }))
+      console.log(set3)
     }
   }, [])
 
