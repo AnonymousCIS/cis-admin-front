@@ -92,7 +92,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
 
           <tr>
             <th>카테고리</th>
-            <td>
+            <td className="table-check">
               <span onClick={() => onClick('categories', 'SHOPPING')}>
                 {form?.categories === 'SHOPPING' ? (
                   <MdOutlineCheckBox />
@@ -130,7 +130,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
 
           <tr>
             <th>은행명</th>
-            <td>
+            <td className="table-check">
               <span onClick={() => onClick('bankName', 'HANKUK')}>
                 {form?.bankName === 'SHOPPING' ? (
                   <MdOutlineCheckBox />
@@ -321,9 +321,23 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
           <tr>
             <th>카드 한도</th>
             <td>
-              <Input type="number" width={250} placeholder="최소 금액" />
+              <Input
+                type="number"
+                width={250}
+                placeholder="최소 금액"
+                name="cardLimitMin"
+                value={form?.cardLimitMin ?? ''}
+                onChange={onChange}
+              />
               ~
-              <Input type="number" width={250} placeholder="최대 금액" />
+              <Input
+                type="number"
+                width={250}
+                placeholder="최대 금액"
+                name="cardLimitMax"
+                value={form?.cardLimitMax ?? ''}
+                onChange={onChange}
+              />
             </td>
           </tr>
         </tbody>
