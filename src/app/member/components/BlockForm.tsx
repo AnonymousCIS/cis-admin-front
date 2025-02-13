@@ -128,7 +128,7 @@ const BlockForm = ({ form, onClick, onToggleCheck }) => {
         <BigButton type="submit" color="info">
           수정
         </BigButton>
-        <BigButton type="submit" color="dark">
+        <BigButton type="submit" color="danger">
           삭제
         </BigButton>
       </ButtonGroup>
