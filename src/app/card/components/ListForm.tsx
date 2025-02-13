@@ -33,19 +33,36 @@ const StyledForm = styled.form`
     width: 80px;
   }
 
+  th:nth-of-type(7) {
+    width: 120px;
+  }
+
+  th:nth-of-type(8) {
+    width: 140px;
+  }
+
+  th:nth-of-type(9) {
+    width: 300px;
+  }
+
   td:nth-of-type(1),
   td:nth-of-type(2),
   td:nth-of-type(3),
   td:nth-of-type(4),
-  td:nth-of-type(5) {
+  td:nth-of-type(5),
+  td:nth-of-type(6),
+  td:nth-of-type(7),
+  td:nth-of-type(8),
+  td:nth-of-type(9) {
     text-align: center;
   }
 `
 
-const CardItem = ({ item }) => {
-  const { seq, cardName, cardTypeStr, categoryStr, open } = item
+const CardItem = ({ item, onRemove }) => {
+  const { seq, cardName, cardTypeStr, categoryStr, open, limit, annualFee } =
+    item
 
-  const frontUrl = process.env.NEXT_PUBLIC_FRONT_URL + `/card/list`
+  // const frontUrl = process.env.NEXT_PUBLIC_FRONT_URL + `/card/list`
   return (
     <tr>
       <td></td>
@@ -53,6 +70,8 @@ const CardItem = ({ item }) => {
       <td>{cardName}</td>
       <td>{cardTypeStr}</td>
       <td>{categoryStr}</td>
+      <td>{annualFee}</td>
+      <td>{limit}</td>
       <td>
         <span>
           {open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
@@ -63,21 +82,24 @@ const CardItem = ({ item }) => {
       </td>
 
       <td>
-        <a href={'/card/edit/' + seq}>
+        <a href={'/card/update/' + seq}>
           <SmallButton type="button" color="info" width={120}>
             수정
           </SmallButton>
         </a>
-        <a href={frontUrl} target="_blank">
-          <SmallButton type="button" color="primary" width={120}>
-            미리보기
-          </SmallButton>
-        </a>
+        <SmallButton
+          type="button"
+          color="dark"
+          width={120}
+          onClick={() => onRemove(seq)}
+        >
+          삭제
+        </SmallButton>
       </td>
     </tr>
   )
 }
-const ListForm = ({ items }) => {
+const ListForm = ({ items, onRemove }) => {
   return (
     <>
       <StyledForm>
@@ -91,14 +113,20 @@ const ListForm = ({ items }) => {
               <th>카드명</th>
               <th>카드 종류</th>
               <th>카테고리</th>
+              <th>연회비</th>
+              <th>한도</th>
               <th>공개 여부</th>
-              <th></th>
+              <th>관리</th>
             </tr>
           </thead>
           <tbody>
             {items && items.length > 0 ? (
               items.map((item) => (
-                <CardItem key={'card_' + item.seq} item={item} />
+                <CardItem
+                  key={'card_' + item.seq}
+                  item={item}
+                  onRemove={onRemove}
+                />
               ))
             ) : (
               <tr>
