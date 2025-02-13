@@ -56,7 +56,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
             <th>카드 종류</th>
             <td className="table-check">
               <span onClick={() => onClick('cardTypes', 'PersonalCheck')}>
-                {form?.cardTypess === 'PersonalCheck' ? (
+                {form?.cardTypes == 'PersonalCheck' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -64,7 +64,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 개인 체크
               </span>
               <span onClick={() => onClick('cardTypes', 'PersonalCredit')}>
-                {form?.cardTypes === 'PersonalCredit' ? (
+                {form?.cardTypes == 'PersonalCredit' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -72,7 +72,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 개인 신용
               </span>
               <span onClick={() => onClick('cardTypes', 'CorporateCheck')}>
-                {form?.cardTypes === 'CorporateCheck' ? (
+                {form?.cardTypes == 'CorporateCheck' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -80,7 +80,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 법인 체크
               </span>
               <span onClick={() => onClick('cardTypes', 'CorporateCredit')}>
-                {form?.cardTypes === 'CorporateCredit' ? (
+                {form?.cardTypes == 'CorporateCredit' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
