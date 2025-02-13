@@ -17,6 +17,11 @@ type SearchType = {
   skey?: string
   page?: number
   limit?: number
+  cardTypes?: string[]
+  categories?: string[]
+  bankName?: string[]
+  cardLimitMin?: number
+  cardLimitMax?: number
 }
 
 const ListContainer = () => {
@@ -42,14 +47,42 @@ const ListContainer = () => {
     _setSearch((_search) => ({ ..._search, [e.target.name]: e.target.value }))
   }, [])
 
+  // const onClick = useCallback((field, value) => {
+  //   if (['cardTypes', 'bankName', 'categories'].includes(field)) {
+  //     const set = new Set(_search.cardTypes ?? [])
+  //     if (set.has(value)) {
+  //       set.delete(value)
+  //     } else {
+  //       set.add(value)
+  //     }
+  //     _setSearch((_search) => ({ ...search, [field]: [...set.values()] }))
+  //   } else {
+  //     _setSearch((_search) => ({ ..._search, [field]: value }))
+  //   }
+  // }, [])
   const onClick = useCallback((field, value) => {
-    _setSearch((_search) => ({ ..._search, [field]: value }))
+    _setSearch((prev) => {
+      if (['cardTypes', 'bankName', 'categories'].includes(field)) {
+        const set = new Set(prev[field] ?? [])
+
+        // 조건문으로 바꾸기
+        if (set.has(value)) {
+          set.delete(value) // value가 있으면 삭제
+        } else {
+          set.add(value) // 없으면 추가
+        }
+
+        return { ...prev, [field]: [...set] }
+      }
+      return { ...prev, [field]: value }
+    })
   }, [])
 
   useEffect(() => {
     if (data) {
       setItems(data.data.items)
       setPagination(data.data.pagination)
+      console.log(data)
     }
   }, [data])
 
