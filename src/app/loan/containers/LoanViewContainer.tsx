@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react'
 import LoanView from '../components/LoanView'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
-import { getLoanInfo } from '../services/actions'
+import { getLoan } from '../services/actions'
 import { notFound } from 'next/navigation'
 
 const LoanViewContainer = ({
@@ -14,7 +14,7 @@ const LoanViewContainer = ({
   useLayoutEffect(() => {
     ;(async () => {
       try {
-        const loan = await getLoanInfo(seq)
+        const loan = await getLoan(seq)
         if (loan) {
           loan.mode = 'edit'
           setForm(loan)

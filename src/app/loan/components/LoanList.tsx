@@ -8,10 +8,15 @@ import {
   MdRadioButtonChecked,
 } from 'react-icons/md'
 
-const StyledForm = styled.form``
+const StyledForm = styled.form`
+  table {
+    text-align: center;
+  }
+`
 
 const LoanItem = ({ item }) => {
   const {
+    seq,
     loanName,
     categoryStr,
     limit,
@@ -23,7 +28,11 @@ const LoanItem = ({ item }) => {
 
   return (
     <tr>
-      <td></td>
+      <td>
+        <span>
+          <MdCheckBoxOutlineBlank />
+        </span>
+      </td>
       <td>{loanName}</td>
       <td>{bankNameStr}</td>
       <td>{categoryStr}</td>
@@ -40,16 +49,19 @@ const LoanItem = ({ item }) => {
         </span>
       </td>
       <td>
-        <a href="#">
+        <a href={'/loan/view/' + seq}>
+          <SmallButton type="button" color="info" width={120}>
+            상세보기
+          </SmallButton>
+        </a>
+        <a href={'/loan/update/' + seq}>
           <SmallButton type="button" color="info" width={120}>
             수정
           </SmallButton>
         </a>
-        <a href="#">
-          <SmallButton type="button" color="dark" width={120}>
-            삭제
-          </SmallButton>
-        </a>
+        <SmallButton type="button" color="dark" width={120}>
+          삭제
+        </SmallButton>
       </td>
     </tr>
   )
