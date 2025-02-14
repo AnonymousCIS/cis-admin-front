@@ -4,8 +4,8 @@ import { TableRows } from '@/app/global/components/Tables'
 // import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
 import {
   MdCheckBoxOutlineBlank,
-  MdRadioButtonChecked,
-  MdRadioButtonUnchecked,
+  // MdRadioButtonChecked,
+  // MdRadioButtonUnchecked,
 } from 'react-icons/md'
 import { Button, SmallButton } from '@/app/global/components/Buttons'
 import sizes from '@/app/global/styles/sizes'
@@ -25,43 +25,25 @@ const StyledForm = styled.form<CommonType>`
     width: 60px;
   }
 
-  th:nth-of-type(4) {
-    width: 60px;
-  }
-
   th:nth-of-type(5) {
-    width: 60px;
-  }
-
-  th:nth-of-type(6) {
-    width: 60px;
+    width: 30px;
   }
 `
-
-const mode = [
-  { value: 'RECEIVE', label: '받는 사람' },
-  { value: 'SEND', label: '보낸 사람' },
-]
 const status = [
   { value: 'READ', label: '읽은 메세지' },
   { value: 'UNREAD', label: '안읽은 메세지' },
 ]
 
 const ListItem = ({ item }) => {
-  const { title, name ,content} = item
-
-  const frontUrl = process.env.NEXT_PUBLIC_FRONT_URL + `/board/list`
+  const { subject, name, content } = item
+  console.log('item', item)
 
   return (
     <tr>
       <td></td>
-      <td>{title}</td>
+      <td>{subject}</td>
       <td>{name}</td>
-      <td></td>
-      <td></td>
-      <td></td>
       <td>{content}</td>
-
       <td>
         <a href={'/message/deletes'}>
           <SmallButton type="button" color="info" width={120}>
@@ -74,6 +56,7 @@ const ListItem = ({ item }) => {
 }
 
 const ListForm = ({ form, onChange, items }) => {
+  console.log('items', items)
   return (
     <>
       <StyledForm>
@@ -83,20 +66,8 @@ const ListForm = ({ form, onChange, items }) => {
               <th>
                 <MdCheckBoxOutlineBlank />
               </th>
-              <th>
-                제목
-              </th>
-              <th>
-                <Button type="button" color="secondary">
-                  읽음
-                </Button>
-              </th>
-              <th>
-                <Button type="button" color="secondary">
-                  삭제
-                </Button>
-              </th>
-              <th>
+              <th>제목</th>
+              {/* <th>
                 <Select
                   name="mode"
                   options={mode}
@@ -104,7 +75,7 @@ const ListForm = ({ form, onChange, items }) => {
                   onChange={onChange}
                   width={150}
                 />
-              </th>
+              </th> */}
               <th>
                 <Select
                   name="status"
@@ -114,16 +85,13 @@ const ListForm = ({ form, onChange, items }) => {
                   width={150}
                 />
               </th>
-              <th>
-                내용
-              </th>
+              <th>내용</th>
+              <th>삭제</th>
             </tr>
           </thead>
           <tbody>
-            {items && items.length > 0 ? (
-              items.map((item) => {
-                ;<ListItem item={item} />
-              })
+            {items ? (
+              items.map((item) => <ListItem key={item?.seq} item={item} />)
             ) : (
               <tr>
                 <td colSpan={7} className="no-data">

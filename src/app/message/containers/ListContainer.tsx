@@ -45,16 +45,12 @@ const ListContainer = () => {
     if (data) {
       setItems(data.data.items)
       setPagination(data.data.pagination)
-      console.log('data', data)
     }
   }, [data])
 
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault()
-
-      console.log('_search', _search)
-
       setSearch({ ..._search })
     },
     [_search],
@@ -64,12 +60,15 @@ const ListContainer = () => {
     page = page ?? 1
     setSearch((search) => ({ ...search, page }))
   }, [])
-  console.log('items', items)
 
   return (
     <>
       <Search form={_search} onChange={onChange} onSubmit={onSubmit} />
-      {isLoading ? <Loading /> : <ListForm items={items} onChange={onChange} form={_search} />}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <ListForm items={items} onChange={onChange} form={_search} />
+      )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
