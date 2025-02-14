@@ -26,7 +26,7 @@ const StyledForm = styled.form<CommonType>`
   }
 
   th:nth-of-type(5) {
-    width: 30px;
+    width: 260px;
   }
 `
 const status = [
@@ -35,17 +35,22 @@ const status = [
 ]
 
 const ListItem = ({ item }) => {
-  const { subject, name, content } = item
+  const { subject, status, content, seq } = item
   console.log('item', item)
 
   return (
     <tr>
       <td></td>
       <td>{subject}</td>
-      <td>{name}</td>
+      <td>{status}</td>
       <td>{content}</td>
       <td>
-        <a href={'/message/deletes'}>
+      <a href={`/message/view/${seq}`}>
+          <SmallButton type="button" color="primary" width={120}>
+            조회
+          </SmallButton>
+        </a>
+      <a href={'/message/deletes'}>
           <SmallButton type="button" color="dark" width={120}>
             삭제
           </SmallButton>
@@ -86,7 +91,7 @@ const ListForm = ({ form, onChange, items }) => {
                 />
               </th>
               <th>내용</th>
-              <th>삭제</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
