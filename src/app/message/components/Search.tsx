@@ -1,7 +1,7 @@
 import { BigButton } from '@/app/global/components/Buttons'
 import { Input, Select } from '@/app/global/components/FormComponents'
 import { TableCols } from '@/app/global/components/Tables'
-import { CommonType } from '@/app/global/types/styledType'
+import { CommonType } from '@/app/global/types/StyledType'
 import React from 'react'
 import { FaSearch } from 'react-icons/fa'
 import styled from 'styled-components'

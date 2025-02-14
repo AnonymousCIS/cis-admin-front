@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { Input, Select, Textarea } from '@/app/global/components/FormComponents'
 import { TableCols } from '@/app/global/components/Tables'
-import { CommonType } from '@/app/global/types/styledType'
+import { CommonType } from '@/app/global/types/StyledType'
 
 import { BigButton, ButtonGroup } from '@/app/global/components/Buttons'
 import { SubTitle } from '@/app/global/components/StyledTitle'

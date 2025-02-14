@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import CommonContext from '../contexts/CommonContext'
 import sizes from '../styles/sizes'
 import colors from '../styles/colors'
-import type { CommonType } from '../types/styledType'
+import type { CommonType } from '../types/StyledType'
 
 const { medium, big } = sizes
 

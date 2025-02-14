@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { TableCols } from '@/app/global/components/Tables'
 import { MediumButton } from '@/app/global/components/Buttons'
-import { CommonType } from '@/app/global/types/styledType'
+import { CommonType } from '@/app/global/types/StyledType'
 import colors from '@/app/global/styles/colors'
 
 const { primary, white } = colors

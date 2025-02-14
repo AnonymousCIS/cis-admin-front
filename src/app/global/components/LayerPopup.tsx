@@ -3,7 +3,7 @@
 import React, { useMemo } from 'react'
 import Modal from 'react-modal'
 import styled from 'styled-components'
-import type { CommonType } from '../types/styledType'
+import type { CommonType } from '../types/StyledType'
 import colors from '../styles/colors'
 import sizes from '../styles/sizes'
 import { AiOutlineCloseSquare } from 'react-icons/ai'
