@@ -15,7 +15,6 @@ type SearchType = {
   skey?: string
   page?: number
   limit?: number
-  mode?: 'SEND' | 'RECEIVE'
   status?: 'UNREAD' | 'READ'
 }
 

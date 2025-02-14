@@ -7,14 +7,12 @@ import apiRequest from '@/app/global/libs/apiRequest'
  * @param seq
  * @returns
  */
-export const getMessage = async (seq) => {
+export const getMessage = async ({seq}: {seq: number}) => {
   let apiUrl = process.env.API_URL + `/message/view/${seq}`
-
   const res = await apiRequest(apiUrl)
   const result = await res.json()
-  if (res.status === 200 && result.sucess) {
+  if (res.status === 200 && result.success) {
     const data = result.data
-
     /* 파일 데이터 조회 및 처리 S */
     const { gid } = data
     apiUrl = process.env.API_URL + `/file/list/${gid}`

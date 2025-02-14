@@ -1,5 +1,3 @@
-'use client'
-
 import { TableCols } from '@/app/global/components/Tables'
 import React from 'react'
 import styled from 'styled-components'
@@ -33,7 +31,8 @@ const StyledForm = styled.form`
 `
 
 const ViewForm = ({data}) => {
-  const {subject, content, ReceiverEmail} = data
+  console.log('data', data)
+  const {subject, content, senderEmail} = data
   return (
     <>
       <StyledForm>
@@ -46,7 +45,7 @@ const ViewForm = ({data}) => {
 
             <tr>
               <th>보낸사람</th>
-              <td>{ReceiverEmail}</td>
+              <td>{senderEmail}</td>
             </tr>
 
             <tr>
