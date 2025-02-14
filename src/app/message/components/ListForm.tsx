@@ -10,7 +10,7 @@ import {
 import { Button, SmallButton } from '@/app/global/components/Buttons'
 import sizes from '@/app/global/styles/sizes'
 import { Select } from '@/app/global/components/FormComponents'
-import { CommonType } from '@/app/global/types/styledType'
+import { CommonType } from '@/app/global/types/StyledType'
 
 const StyledForm = styled.form<CommonType>`
   th:nth-of-type(1) {

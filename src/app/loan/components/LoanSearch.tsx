@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { CommonType } from '@/app/global/types/styledType'
+import { CommonType } from '@/app/global/types/StyledType'
 import { TableCols } from '@/app/global/components/Tables'
 import { Input } from '@/app/global/components/FormComponents'
 import { BigButton } from '@/app/global/components/Buttons'
