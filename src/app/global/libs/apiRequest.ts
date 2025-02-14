@@ -19,7 +19,7 @@ export default async function apiRequest(
     method,
   }
 
-  if (token.value && token.value?.trim()) {
+  if (token && token.value && token.value?.trim()) {
     headers = {
       Authorization: `Bearer ${token.value}`,
     }
