@@ -5,8 +5,10 @@ export async function GET(request: NextRequest) {
   const qs = request.nextUrl.searchParams.toString()
 
   const apiUrl =
-    process.env.API_URL + `/message/list${qs.trim() ? '?' + qs : ''}`
-
+    process.env.API_URL + `/message/admin/list${qs.trim() ? '?' + qs : ''}`
+  /* const apiUrl = `https://cis-message-service.koreait.xyz/list${
+    qs.trim() ? '?' + qs : ''
+  }` */
   const res = await apiRequest(apiUrl)
   console.log('res', res)
 
