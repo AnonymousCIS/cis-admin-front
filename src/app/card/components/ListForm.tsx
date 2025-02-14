@@ -56,6 +56,18 @@ const StyledForm = styled.form`
   td:nth-of-type(9) {
     text-align: center;
   }
+
+  .btn {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .check {
+    span + span {
+      margin-left: 15px;
+    }
+  }
 `
 
 const CardItem = ({ item, onRemove }) => {
@@ -65,23 +77,25 @@ const CardItem = ({ item, onRemove }) => {
   // const frontUrl = process.env.NEXT_PUBLIC_FRONT_URL + `/card/list`
   return (
     <tr>
-      <td></td>
+      <td>
+        <MdCheckBoxOutlineBlank />
+      </td>
       <td>{seq}</td>
       <td>{cardName}</td>
       <td>{cardTypeStr}</td>
       <td>{categoryStr}</td>
       <td>{annualFee}</td>
       <td>{limit}</td>
-      <td>
-        <span>
+      <td className="check">
+        {/* <span onClick={() => onClick('open', !Boolean(item?.open))}>
           {open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
         </span>
-        <span>
+        <span onClick={() => onClick('open', !Boolean(item?.open))}>
           {open ? <MdRadioButtonUnchecked /> : <MdRadioButtonChecked />} 미사용
-        </span>
+        </span> */}
       </td>
 
-      <td>
+      <td className="btn">
         <a href={'/card/view/' + seq}>
           <SmallButton type="button" color="primary" width={80}>
             상세보기
