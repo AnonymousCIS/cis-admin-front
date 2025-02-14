@@ -104,7 +104,7 @@ export const processLoan = async (params, formData: FormData) => {
  * 대출 상세 조회
  *
  */
-export const getLoanInfo = async (seq) => {
+export const getLoan = async (seq) => {
   try {
     const res = await apiRequest(`/loan/view/${seq}`)
     console.log('res.status : ' + res.status)
@@ -116,4 +116,68 @@ export const getLoanInfo = async (seq) => {
   } catch (err) {
     console.error(err)
   }
+}
+
+export const updateLoan = async (params, formData: FormData) => {
+  const form: any = {}
+  const errors: any = {}
+  let hasErrors = false
+
+  for (const [key, value] of formData.entries()) {
+    const _value = ['true', 'false'].includes(value.toString())
+      ? Boolean(value.toString())
+      : value.toString()
+
+    form[key] = _value
+  }
+  const { locationAfterWriting } = await getLoan(form.seq)
+
+  let redirectUrl = `/loan/list`
+  /* 필수 항목 검증 S */
+
+  const requiredFields = {
+    loanName: '대출명은 필수항목입니다.',
+    limit: '대출 한도는 필수항목입니다.',
+    category: '내용을 입력하세요',
+    bankName: '잘못된 접근입니다',
+    repaymentYear: '잘못된 접근입니다',
+    loanDescription: '',
+    interestRate: '',
+  }
+
+  for (const [field, msg] of Object.entries(requiredFields)) {
+    if (
+      !form[field] ||
+      (typeof form[field] === 'string' && !form[field].trim())
+    ) {
+      errors[field] = errors[field] ?? []
+      errors[field].push(msg)
+      hasErrors = true
+    }
+  }
+
+  /* 필수 항목 검증 E */
+
+  /* Server 처리 요청 S */
+
+  if (!hasErrors) {
+    form.status = 'ALL'
+    const res = await apiRequest('/board/save', 'POST', form)
+    const result = await res.json()
+    if (res.status !== 200 || !result.success) {
+      // 게시글 등록 & 수정 실패
+      return result.message
+    } else {
+      // 게시글 등록 & 수정 성공
+      const { seq } = result.data
+      redirectUrl =
+        locationAfterWriting === 'view' ? `/board/view/${seq}` : redirectUrl
+    }
+  }
+
+  /* Server 처리 요청 E */
+
+  if (hasErrors) return errors
+
+  redirect(redirectUrl)
 }
