@@ -46,7 +46,7 @@ const ListItem = ({ item }) => {
       <td>{content}</td>
       <td>
         <a href={'/message/deletes'}>
-          <SmallButton type="button" color="info" width={120}>
+          <SmallButton type="button" color="dark" width={120}>
             삭제
           </SmallButton>
         </a>
