@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 // import colors from '@/app/global/styles/colors'
-import { CommonType } from '@/app/global/types/StyledType'
+import { CommonType } from '@/app/global/types/styledType'
 import { TableCols } from '@/app/global/components/Tables'
 import { SmallButton, ButtonGroup } from '@/app/global/components/Buttons'
 
