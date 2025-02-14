@@ -35,7 +35,7 @@ const LoanItem = ({ item }) => {
           {isOpen ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
         </span>
         <span>
-          {isOpen ? <MdRadioButtonUnchecked /> : <MdRadioButtonChecked />}{' '}
+          {!isOpen ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />}{' '}
           미사용
         </span>
       </td>

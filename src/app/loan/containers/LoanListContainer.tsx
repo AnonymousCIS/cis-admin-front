@@ -39,38 +39,39 @@ const LoanListContainer = () => {
     `/loan/api/list${qs.trim() ? '?' + qs : ''}`,
   )
 
-  const onClick = useCallback((field, value) => {
-    field = []
-    value = []
-    const set = new Set(_search.loanName ?? [])
-    if (['loanName'].includes(field)) {
-      if (set.has(value)) {
-        set.delete(value)
-      } else {
-        set.add(value)
+  const onClick = useCallback(
+    (field, value) => {
+      const set = new Set(_search.loanName ?? [])
+      if (['loanName'].includes(field)) {
+        if (set.has(value)) {
+          set.delete(value)
+        } else {
+          set.add(value)
+        }
+        _setSearch((_search) => ({ ...search, [field]: [...set.values()] }))
+        console.log(set)
+      } else if (['bankName'].includes(field)) {
+        const set2 = new Set(_search.bankName ?? [])
+        if (set2.has(value)) {
+          set2.delete(value)
+        } else {
+          set2.add(value)
+        }
+        _setSearch((_search) => ({ ...search, [field]: [...set2.values()] }))
+        console.log(set2)
+      } else if (['categories'].includes(field)) {
+        const set3 = new Set(_search.categories ?? [])
+        if (set3.has(value)) {
+          set3.delete(value)
+        } else {
+          set3.add(value)
+        }
+        _setSearch((_search) => ({ ...search, [field]: [...set3.values()] }))
+        console.log(set3)
       }
-      _setSearch((_search) => ({ ...search, [field]: [...set.values()] }))
-      console.log(set)
-    } else if (['bankName'].includes(field)) {
-      const set2 = new Set(_search.bankName ?? [])
-      if (set2.has(value)) {
-        set2.delete(value)
-      } else {
-        set2.add(value)
-      }
-      _setSearch((_search) => ({ ...search, [field]: [...set2.values()] }))
-      console.log(set2)
-    } else if (['categories'].includes(field)) {
-      const set3 = new Set(_search.categories ?? [])
-      if (set3.has(value)) {
-        set3.delete(value)
-      } else {
-        set3.add(value)
-      }
-      _setSearch((_search) => ({ ...search, [field]: [...set3.values()] }))
-      console.log(set3)
-    }
-  }, [])
+    },
+    [_search.bankName, _search.categories, _search.loanName, search],
+  )
 
   const onChange = useCallback((e) => {
     _setSearch((_search) => ({ ..._search, [e.target.name]: e.target.value }))
