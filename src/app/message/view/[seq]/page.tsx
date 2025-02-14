@@ -2,19 +2,14 @@
 
 import React from 'react'
 import loadable from '@loadable/component'
-import { MainTitle } from '@/app/global/components/StyledTitle'
-import { MainContentBox } from '@/app/global/components/ContentBox'
 import WithUserContainer from '@/app/global/containers/WithUserContainer'
 
 const ViewContainer = loadable(() => import('../../containers/ViewContainer'))
 
-const ViewPage = () => {
-  return WithUserContainer(
-    <>
-        <MainTitle>쪽지 조회</MainTitle>
-        <ViewContainer />
-    </>,
-  )
+const ViewPage = async ({ params }) => {
+  const { seq } = await params
+
+  return WithUserContainer(<ViewContainer seq={seq} />)
 }
 
-export default ViewPage
+export default React.memo(ViewPage)

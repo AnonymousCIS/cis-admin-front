@@ -1,6 +1,5 @@
 'use client'
 
-import { SmallButton } from '@/app/global/components/Buttons'
 import { TableCols } from '@/app/global/components/Tables'
 import React from 'react'
 import styled from 'styled-components'
@@ -33,7 +32,8 @@ const StyledForm = styled.form`
   }
 `
 
-const ViewForm = () => {
+const ViewForm = ({data}) => {
+  const {subject, content, ReceiverEmail} = data
   return (
     <>
       <StyledForm>
@@ -41,17 +41,17 @@ const ViewForm = () => {
           <tbody>
             <tr>
               <th>제목</th>
-              <td>3123</td>
+              <td>{subject}</td>
             </tr>
 
             <tr>
               <th>보낸사람</th>
-              <td>123</td>
+              <td>{ReceiverEmail}</td>
             </tr>
 
             <tr>
               <th>내용</th>
-              <td className='content'></td>
+              <td className='content' dangerouslySetInnerHTML={{__html: {content}}}></td>
             </tr>
           </tbody>
         </TableCols>
