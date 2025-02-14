@@ -82,15 +82,20 @@ const CardItem = ({ item, onRemove }) => {
       </td>
 
       <td>
+        <a href={'/card/view/' + seq}>
+          <SmallButton type="button" color="primary" width={80}>
+            상세보기
+          </SmallButton>
+        </a>
         <a href={'/card/update/' + seq}>
-          <SmallButton type="button" color="info" width={120}>
+          <SmallButton type="button" color="info" width={80}>
             수정
           </SmallButton>
         </a>
         <SmallButton
           type="button"
           color="dark"
-          width={120}
+          width={80}
           onClick={() => onRemove(seq)}
         >
           삭제

@@ -4,7 +4,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 
 import ListForm from '../components/ListForm'
 import CardSearch from '../components/CardSearch'
-// import { removeCard } from '../services/actions'
+import { removeCard } from '../services/actions'
 
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import { toQueryString } from '@/app/global/libs/utils'
