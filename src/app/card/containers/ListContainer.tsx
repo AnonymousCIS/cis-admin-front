@@ -4,7 +4,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 
 import ListForm from '../components/ListForm'
 import CardSearch from '../components/CardSearch'
-import { removeCard } from '../services/actions'
+// import { removeCard } from '../services/actions'
 
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import { toQueryString } from '@/app/global/libs/utils'
@@ -68,6 +68,10 @@ const ListContainer = () => {
       _setSearch((_search) => ({ ..._search, [field]: value }))
     }
   }, [])
+
+  // const onSelect = useCallback((field, value) => {
+
+  // })
 
   // const onRemove = useCallback(() => {
   //   removeCard()
