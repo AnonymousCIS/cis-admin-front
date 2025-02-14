@@ -358,6 +358,10 @@ export const deleteMember = async (params, formData: FormData) => {
   redirect(redirectUrl)
 }
 
-export const blockDelete = async (params, formData: FormData) => {
-  console.log('formData', formData)
+export const blockDelete = async (items) => {
+  const _items = items.filter((item) => item.checked)
+
+  const apiUrl = process.env.API_URL + `/member/admin/status`
+
+  const res = await apiRequest(apiUrl, 'PATCH', _items)
 }

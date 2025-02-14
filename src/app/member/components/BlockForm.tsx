@@ -87,17 +87,9 @@ const MemberItems = ({ item, onClick, onToggleCheck }) => {
   )
 }
 
-const BlockForm = ({ form, onClick, onToggleCheck, actionState }) => {
-  const [errors, formAction, isPending] = actionState
-  console.log('form', form)
+const BlockForm = ({ form, onClick, onToggleCheck, onProcess }) => {
   return (
-    <StyledForm action={formAction} autoComplete="off">
-      <input type="hidden" name="seq" value={form?.seq ?? ''}></input>
-      <input
-        type="hidden"
-        name="memberStatus"
-        value={form?.memberStatus ?? ''}
-      ></input>
+    <StyledForm autoComplete="off">
       <TableRows>
         <thead>
           <tr>
@@ -133,10 +125,14 @@ const BlockForm = ({ form, onClick, onToggleCheck, actionState }) => {
         </tbody>
       </TableRows>
       <ButtonGroup width={450} className="button-group center">
-        <BigButton type="submit" color="info" disabled={isPending}>
+        <BigButton type="button" color="info" onClick={() => onProcess('edit')}>
           수정
         </BigButton>
-        <BigButton type="submit" color="danger" disabled={isPending}>
+        <BigButton
+          type="button"
+          color="danger"
+          onClick={() => onProcess('delete')}
+        >
           삭제
         </BigButton>
       </ButtonGroup>

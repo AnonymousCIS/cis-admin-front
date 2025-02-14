@@ -24,7 +24,6 @@ const BlockContainer = () => {
   const [_search, _setSearch] = useState<SearchType>({})
 
   const [items, setItems] = useState([])
-
   const [pagination, setPagination] = useState()
 
   const qs = toQueryString(search)
@@ -71,7 +70,18 @@ const BlockContainer = () => {
     )
   }, [])
 
-  const actionState = useActionState(blockDelete, undefined)
+  const onProcess = useCallback(
+    (mode) => {
+      ;(async () => {
+        if (mode === 'edit') {
+        } else {
+          // 삭제
+          const res = await blockDelete(items)
+        }
+      })()
+    },
+    [items],
+  )
 
   return (
     <>
@@ -83,7 +93,7 @@ const BlockContainer = () => {
           form={items}
           onClick={onClick}
           onToggleCheck={onToggleCheck}
-          actionState={actionState}
+          onProcess={onProcess}
         />
       )}
       {pagination && (
