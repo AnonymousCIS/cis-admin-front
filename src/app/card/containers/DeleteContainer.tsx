@@ -1,6 +1,11 @@
 'use client'
 
-import React, { useLayoutEffect, useState, useActionState } from 'react'
+import React, {
+  useLayoutEffect,
+  useState,
+  useActionState,
+  useCallback,
+} from 'react'
 import { getCard } from '../services/actions'
 import { removeCard } from '../services/actions'
 import { BulletList } from 'react-content-loader'
@@ -19,7 +24,7 @@ const DeleteContainer = ({ seq, closeModal }: Props | undefined) => {
 
   const { data, isLoading } = useRequest(`/card/api/card/view/${seq}`)
 
-  console.log('data', data)
+  // console.log('data', data)
 
   useLayoutEffect(() => {
     ;(async () => {
@@ -34,6 +39,14 @@ const DeleteContainer = ({ seq, closeModal }: Props | undefined) => {
 
   const actionState = useActionState(removeCard, undefined)
 
+  const onRemove = useCallback((seq) => {
+    removeCard(seq)
+    closeModal()
+
+    // 새로고침 임시용 주석삭제 XX
+    // window.location.reload()
+  }, [])
+
   return (
     <>
       {isLoading ? (
@@ -43,6 +56,7 @@ const DeleteContainer = ({ seq, closeModal }: Props | undefined) => {
           form={form}
           actionState={actionState}
           closeModal={closeModal}
+          onRemove={onRemove}
         />
       )}
     </>
