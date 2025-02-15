@@ -56,18 +56,30 @@ const ListContainer = () => {
 
   const onClick = useCallback((field, value) => {
     if (['cardTypes', 'bankName', 'categories'].includes(field)) {
-      const set = new Set(_search.cardTypes ?? [])
-      console.log(set)
+      addToggle(value, field)
+    } else {
+      _setSearch((_search) => ({ ..._search, [field]: value }))
+    }
+  }, [])
+
+  /**
+   * Set을 이용해 중복 제거 & 값을 토글 형태로 받는 공통 함수
+   * 
+   * 입력하는 값 & 필드명(type)
+   */
+  const addToggle = useCallback(
+    (value, type) => {
+      const set = new Set(_search[type])
       if (set.has(value)) {
         set.delete(value)
       } else {
         set.add(value)
       }
-      _setSearch((_search) => ({ ...search, [field]: [...set.values()] }))
-    } else {
-      _setSearch((_search) => ({ ..._search, [field]: value }))
-    }
-  }, [])
+
+      _setSearch({ ...search, [type]: [...set.values()] })
+    },
+    [_search],
+  )
 
   // const onSelect = useCallback((field, value) => {
 
