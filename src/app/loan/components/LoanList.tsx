@@ -14,7 +14,7 @@ const StyledForm = styled.form`
   }
 `
 
-const LoanItem = ({ item }) => {
+const LoanItem = ({ item, onOpen, onClose, PopupOpen }) => {
   const {
     seq,
     loanName,
@@ -22,7 +22,7 @@ const LoanItem = ({ item }) => {
     limit,
     interestRate,
     repaymentYear,
-    isOpen,
+    open,
     bankNameStr,
   } = item
 
@@ -41,16 +41,28 @@ const LoanItem = ({ item }) => {
       <td>{repaymentYear}</td>
       <td>
         <span>
-          {isOpen ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
+          {open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
         </span>
         <span>
-          {!isOpen ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />}{' '}
-          미사용
+          {!open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 미사용
         </span>
       </td>
       <td>
+        {/* <SmallButton type="button" color="primary" width={120} onClick={onOpen}>
+          상세보기
+        </SmallButton>
+        <LayerPopup
+          onClose={onClose}
+          isOpen={PopupOpen}
+          title="대출 상세 정보"
+          width={750}
+          height={650}
+        >
+          <h2>{seq} 상세보기</h2>
+          <LoanView form={item} seq={seq} />
+        </LayerPopup> */}
         <a href={'/loan/view/' + seq}>
-          <SmallButton type="button" color="info" width={120}>
+          <SmallButton type="button" color="primary" width={120}>
             상세보기
           </SmallButton>
         </a>
@@ -67,7 +79,7 @@ const LoanItem = ({ item }) => {
   )
 }
 
-const LoanList = ({ items }) => {
+const LoanList = ({ items, onOpen, onClose, PopupOpen }) => {
   return (
     <>
       <StyledForm>
@@ -90,7 +102,13 @@ const LoanList = ({ items }) => {
           <tbody>
             {items && items.length > 0 ? (
               items.map((item) => (
-                <LoanItem key={'config_' + item.seq} item={item} />
+                <LoanItem
+                  key={'config_' + item.seq}
+                  item={item}
+                  PopupOpen={PopupOpen}
+                  onOpen={onOpen}
+                  onClose={onClose}
+                />
               ))
             ) : (
               <tr>

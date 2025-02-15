@@ -1,9 +1,6 @@
 'use server'
 import { redirect } from 'next/navigation'
-// import { format } from 'date-fns'
-// import { cookies } from 'next/headers'
 import apiRequest from '@/app/global/libs/apiRequest'
-// import { revalidatePath } from 'next/cache'
 
 /**
  * Loan 생성
@@ -118,6 +115,13 @@ export const getLoan = async (seq) => {
   }
 }
 
+/**
+ * 대출 삭제
+ *
+ * @param params
+ * @param formData
+ * @returns
+ */
 export const updateLoan = async (params, formData: FormData) => {
   const form: any = {}
   const errors: any = {}
@@ -138,11 +142,11 @@ export const updateLoan = async (params, formData: FormData) => {
   const requiredFields = {
     loanName: '대출명은 필수항목입니다.',
     limit: '대출 한도는 필수항목입니다.',
-    category: '내용을 입력하세요',
-    bankName: '잘못된 접근입니다',
-    repaymentYear: '잘못된 접근입니다',
-    loanDescription: '',
-    interestRate: '',
+    category: '대출 카테고리는 필수항목입니다.',
+    bankName: '은행명은 필수항목입니다.',
+    repaymentYear: '상환년도는 필수항목입니다.',
+    loanDescription: '대출 설명은 필수항목입니다.',
+    interestRate: '이자율은 필수항목입니다.',
   }
 
   for (const [field, msg] of Object.entries(requiredFields)) {
@@ -162,7 +166,7 @@ export const updateLoan = async (params, formData: FormData) => {
 
   if (!hasErrors) {
     form.status = 'ALL'
-    const res = await apiRequest('/board/save', 'POST', form)
+    const res = await apiRequest('/loan/admin/updates', 'POST', form)
     const result = await res.json()
     if (res.status !== 200 || !result.success) {
       // 게시글 등록 & 수정 실패
@@ -171,7 +175,7 @@ export const updateLoan = async (params, formData: FormData) => {
       // 게시글 등록 & 수정 성공
       const { seq } = result.data
       redirectUrl =
-        locationAfterWriting === 'view' ? `/board/view/${seq}` : redirectUrl
+        locationAfterWriting === 'view' ? `/loan/view/${seq}` : redirectUrl
     }
   }
 
@@ -182,6 +186,22 @@ export const updateLoan = async (params, formData: FormData) => {
   redirect(redirectUrl)
 }
 
+export const deleteLoan = async (params, formData: FormData) => {
+  const redirectUrl = params?.redirectUrl ?? '/loan/list'
+  const seq = formData.get('seq')
+
+  try {
+    const res = await apiRequest(`/loan/admin/deletes/${seq}`, 'DELETE')
+    const result = await res.status
+    if (result !== 200) {
+      console.log('result : ' + result)
+    }
+  } catch (err) {
+    console.error(err)
+  }
+
+  redirect(redirectUrl)
+  
 export const loanTrain = async () => {
   try {
     const res = await apiRequest('/loan/admin/train')
