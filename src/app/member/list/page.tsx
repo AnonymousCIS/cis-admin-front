@@ -7,13 +7,13 @@ import WithUserContainer from '@/app/global/containers/WithUserContainer'
 
 const ListContainer = loadable(() => import('../containers/ListContainer'))
 
-const ListPage = () => {
-  return WithUserContainer(
+const MmemberListPage = () => {
+  return (
     <>
       <MainTitle>회원 목록 조회</MainTitle>
       <ListContainer />
-    </>,
+    </>
   )
 }
 
-export default React.memo(ListPage)
+export default React.memo(MmemberListPage)

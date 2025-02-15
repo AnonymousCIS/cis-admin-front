@@ -7,8 +7,6 @@ export async function GET(request: NextRequest) {
   const apiUrl =
     process.env.API_URL + `/member/admin/list${qs.trim() ? '?' + qs : ''}`
 
-  console.log(apiUrl)
-
   const res = await apiRequest(apiUrl)
 
   if (res.status === 200) {
@@ -20,5 +18,5 @@ export async function GET(request: NextRequest) {
   }
 
   // 실패시
-  return NextResponse.json({ sucess: false })
+  return NextResponse.json({ success: false })
 }

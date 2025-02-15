@@ -181,3 +181,16 @@ export const updateLoan = async (params, formData: FormData) => {
 
   redirect(redirectUrl)
 }
+
+export const loanTrain = async () => {
+  try {
+    const res = await apiRequest('/loan/admin/train')
+    console.log('res', res)
+    if (res.status === 200) {
+      return '훈련 완료'
+    }
+    // return result.success && result.data
+  } catch (err) {
+    console.error(err)
+  }
+}
