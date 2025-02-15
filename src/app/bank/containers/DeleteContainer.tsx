@@ -5,7 +5,7 @@ import { getBank } from '../services/actions'
 import { removeBank } from '../services/actions'
 import { BulletList } from 'react-content-loader'
 import useRequest from '@/app/global/hooks/useRequest'
-import ModalForm from '../components/ModalForm'
+//import ModalForm from '../components/ModalForm'
 
 type Props = {
   seq?: number | undefined
@@ -34,19 +34,19 @@ const DeleteContainer = ({ seq, closeModal }: Props | undefined) => {
 
   const actionState = useActionState(removeBank, undefined)
 
-  return (
-    <>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <ModalForm
-          form={form}
-          actionState={actionState}
-          closeModal={closeModal}
-        />
-      )}
-    </>
-  )
+  //   return (
+  //     <>
+  //       {isLoading ? (
+  //         <Loading />
+  //       ) : (
+  //         <ModalForm
+  //           form={form}
+  //           actionState={actionState}
+  //           closeModal={closeModal}
+  //         />
+  //       )}
+  //     </>
+  //   )
 }
 
-export default React.memo(DeleteContainer)
+//export default React.memo(DeleteContainer)
