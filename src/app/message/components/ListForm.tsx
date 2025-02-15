@@ -18,14 +18,22 @@ const StyledForm = styled.form<CommonType>`
   }
 
   th:nth-of-type(2) {
-    width: 120px;
+    width: 100px;
   }
 
   th:nth-of-type(3) {
-    width: 60px;
+    width: 120px;
+  }
+
+  th:nth-of-type(4) {
+    width: 120px;
   }
 
   th:nth-of-type(5) {
+    width: 60px;
+  }
+
+  th:nth-of-type(7) {
     width: 260px;
   }
 `
@@ -35,13 +43,15 @@ const status = [
 ]
 
 const ListItem = ({ item }) => {
-  const { subject, status, content, seq } = item
+  const { subject, status, content, seq, senderEmail, receiverEmail } = item
   console.log('item', item)
 
   return (
     <tr>
       <td></td>
       <td>{subject}</td>
+      <td>{senderEmail}</td>
+      <td>{receiverEmail}</td>
       <td>{status}</td>
       <td>{content}</td>
       <td>
@@ -81,6 +91,8 @@ const ListForm = ({ form, onChange, items }) => {
                   width={150}
                 />
               </th> */}
+              <th>보낸 사람 이메일</th>
+              <th>받은 사람 이메일</th>
               <th>
                 <Select
                   name="status"
