@@ -41,9 +41,8 @@ const LoanListContainer = () => {
     `/loan/api/list${qs.trim() ? '?' + qs : ''}`,
   )
 
-  const map = new Map<string, Set<string>>()
-
   const onClick = useCallback((k: string, v: string) => {
+    let map = new Map<string, Set<string>>()
     if (!map.has(k)) {
       console.log(k + '라는 존자하지 않아 생성')
       map.set(k, new Set<string>())
