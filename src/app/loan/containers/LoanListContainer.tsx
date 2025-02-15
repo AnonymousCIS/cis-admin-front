@@ -101,6 +101,8 @@ const LoanListContainer = () => {
     setSearch((search) => ({ ...search, page }))
   }, [])
 
+  console.log('data', data)
+
   return (
     <>
       <LoanSearch

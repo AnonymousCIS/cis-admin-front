@@ -8,7 +8,7 @@ export const menus = {
     { code: 'configWrite', name: '게시판 등록', url: '/board/config/write' },
     { code: 'list', name: '게시글 목록', url: '/board/list' },
   ],
-  email: [{code:'list', name: "로그 조회", url: '/email/list'}],
+  email: [{ code: 'list', name: '로그 조회', url: '/email/list' }],
   message: [],
   bank: [
     { code: 'list', name: '계좌 목록', url: '/bank/list' },
@@ -21,8 +21,9 @@ export const menus = {
       url: '/card/list',
     },
     { code: 'create', name: '카드 등록', url: '/card/create' },
+    { code: 'train', name: '카드 학습', url: '/card/train' },
   ],
-  loan: [],
+  loan: [{ code: 'train', name: '대출 학습', url: '/loan/train' }],
 }
 
 export default function getMenus(menuCode) {
