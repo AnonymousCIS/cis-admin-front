@@ -92,6 +92,7 @@ const LoanListContainer = () => {
   const [popupOpen, setPopupOpen] = useState<boolean>(false)
   const onClose = useCallback(() => setPopupOpen(false), [])
   const onOpen = useCallback(() => setPopupOpen(true), [])
+  console.log('data', data)
 
   return (
     <>

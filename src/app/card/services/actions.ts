@@ -89,7 +89,7 @@ export const getCard = async (seq) => {
     if (res.status === 200) {
       const result = await res.json()
       return result.success && result.data
-    } 
+    }
   } catch (err) {
     console.error(err)
   }
@@ -103,7 +103,6 @@ export const getCard = async (seq) => {
  * @returns
  */
 export const removeCard = async (seq) => {
-  
   const qs = toQueryString({ seq: [seq] })
 
   try {
@@ -119,4 +118,17 @@ export const removeCard = async (seq) => {
     console.error(err)
   }
   redirect('/card/list')
+}
+
+export const cardTrain = async () => {
+  try {
+    const res = await apiRequest('/card/admin/train')
+    console.log('res', res)
+    if (res.status === 200) {
+      return '훈련 완료'
+    }
+    // return result.success && result.data
+  } catch (err) {
+    console.error(err)
+  }
 }

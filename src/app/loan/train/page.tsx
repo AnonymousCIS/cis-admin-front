@@ -5,15 +5,15 @@ import loadable from '@loadable/component'
 import { MainTitle } from '@/app/global/components/StyledTitle'
 import WithUserContainer from '@/app/global/containers/WithUserContainer'
 
-const ListContainer = loadable(() => import('../containers/ListContainer'))
+const TrainContainer = loadable(() => import('../containers/TrainContainer'))
 
-const ListPage = () => {
+const UpdatePage = () => {
   return WithUserContainer(
     <>
-      <MainTitle>계좌 목록</MainTitle>
-      <ListContainer />
+      <MainTitle>머신러닝 학습</MainTitle>
+      <TrainContainer />
     </>,
   )
 }
 
-export default React.memo(ListPage)
+export default React.memo(UpdatePage)

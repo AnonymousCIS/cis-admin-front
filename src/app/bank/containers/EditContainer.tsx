@@ -1,6 +1,11 @@
 'use client'
 
-import React, { useState, useLayoutEffect, useCallback, useActionState } from 'react'
+import React, {
+  useState,
+  useLayoutEffect,
+  useCallback,
+  useActionState,
+} from 'react'
 import { getBank, processEdit } from '../services/actions'
 import EditForm from '../components/EditForm'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
@@ -13,10 +18,9 @@ const initialValue = {
   password: '',
 }
 
-const EditContainer = ({ seq }: { seq?: string | undefined }) => {
-  useMenuCode('bank', 'edit')
-
-  const [form, setForm] = useState(initialValue) 
+const EditContainer = ({ seq }: { seq?: string | undefined } | undefined) => {
+  useMenuCode('bank', 'editForm')
+  const [form, setForm] = useState(initialValue)
 
   const actionState = useActionState(processEdit, undefined)
 
@@ -25,7 +29,8 @@ const EditContainer = ({ seq }: { seq?: string | undefined }) => {
       try {
         const bank = await getBank(seq)
         if (bank) {
-          setForm({ ...bank, mode: 'edit' })
+          bank.mode = 'edit'
+          setForm(bank)
         }
       } catch (err) {
         console.error(err)
@@ -47,11 +52,11 @@ const EditContainer = ({ seq }: { seq?: string | undefined }) => {
 
   return (
     <EditForm
-      actionState={actionState}
       form={form}
       onChange={onChange}
       onReset={onReset}
       onClick={onClick}
+      actionState={actionState}
     />
   )
 }

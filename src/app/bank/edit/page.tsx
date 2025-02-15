@@ -7,13 +7,15 @@ import WithUserContainer from '@/app/global/containers/WithUserContainer'
 
 const EditContainer = loadable(() => import('../containers/EditContainer'))
 
-const CreatePage = () => {
+const EditPage = ({ params }) => {
+  const { seq } = React.use<{ seq: string }>(params)
+
   return WithUserContainer(
     <>
       <MainTitle>계좌수정 및 변경</MainTitle>
-      <EditContainer />
+      <EditContainer bid={seq} />
     </>,
   )
 }
 
-export default CreatePage
+export default React.memo(EditPage)

@@ -31,7 +31,7 @@ const ListContainer = () => {
 
   const [pagination, setPagination] = useState()
 
-  const [isopen, setIsOpen] = useState(false)
+  const [isopen, setIsOpen] = useState<boolean>(false)
   const [seq, setSeq] = useState(null)
 
   const qs = toQueryString(search)
@@ -45,12 +45,13 @@ const ListContainer = () => {
   }, [])
 
   useEffect(() => {
-    if (data) {
+    if (data?.success) {
       setItems(data.data.data)
       setPagination(data.data.pagination)
       console.log(data.data.data)
     }
   }, [data])
+  console.log('data', data)
 
   const onSubmit = useCallback(
     (e) => {
@@ -78,7 +79,7 @@ const ListContainer = () => {
   return (
     <>
       <MemberSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
-      {isLoading ? (
+      {isLoading || !data?.success ? (
         <Loading />
       ) : (
         <ListForm form={items} onDeleteClick={handleDeleteClick} />

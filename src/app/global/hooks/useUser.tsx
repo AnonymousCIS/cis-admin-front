@@ -9,7 +9,6 @@ export default function useUser() {
     state: { userInfo, isLogin, isAdmin },
     actions: { setUserInfo, setIsLogin, setIsAdmin },
   } = useContext(UserContext)
-
   useEffect(() => {
     if (!userInfo) {
       ;(async () => {
