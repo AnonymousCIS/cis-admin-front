@@ -60,11 +60,9 @@ const ListItem = ({ item }) => {
             조회
           </SmallButton>
         </a>
-      <a href={'/message/deletes'}>
           <SmallButton type="button" color="dark" width={120}>
             삭제
           </SmallButton>
-        </a>
       </td>
     </tr>
   )
