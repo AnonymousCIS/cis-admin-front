@@ -1,7 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
-import { BigButton, ButtonGroup } from '@/app/global/components/Buttons'
+import {
+  BigButton,
+  ButtonGroup,
+  MediumButton,
+} from '@/app/global/components/Buttons'
 import { CommonType } from '@/app/global/types/StyledType'
 import colors from '@/app/global/styles/colors'
 
@@ -29,7 +33,8 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
-const ViewForm = ({ form }) => {
+const ViewForm = ({ form, onRemove }) => {
+  const { seq } = form
   return (
     <>
       <StyledForm>
@@ -79,6 +84,22 @@ const ViewForm = ({ form }) => {
             미사용
           </BigButton>
         </ButtonGroup>
+
+        <div className="center">
+          <a href={'/card/update/' + seq}>
+            <MediumButton type="button" color="info" width={120}>
+              수정
+            </MediumButton>
+          </a>
+          <MediumButton
+            type="button"
+            color="dark"
+            width={120}
+            onClick={onRemove}
+          >
+            삭제
+          </MediumButton>
+        </div>
       </StyledForm>
     </>
   )

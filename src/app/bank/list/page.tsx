@@ -10,7 +10,7 @@ const ListContainer = loadable(() => import('../containers/ListContainer'))
 const ListPage = () => {
   return WithUserContainer(
     <>
-      <MainTitle>은행 목록</MainTitle>
+      <MainTitle>계좌 목록</MainTitle>
       <ListContainer />
     </>,
   )

@@ -22,7 +22,7 @@ const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
     })()
   }, [seq])
 
-  return <ViewForm form={form} />
+  // return <ViewForm form={form} />
 }
 
-export default React.memo(ViewContainer)
+// export default React.memo(ViewContainer)

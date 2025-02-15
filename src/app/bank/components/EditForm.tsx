@@ -68,7 +68,7 @@ const EditForm = ({ form, onChange, onReset, onClick, actionState }) => {
   return (
     <>
       <StyledForm action={formAction} autoComplete="off">
-        <SubTitle>계좌 수정</SubTitle>
+        {/* <SubTitle>계좌 수정</SubTitle> */}
         <TableCols>
           <tbody>
             <tr>
