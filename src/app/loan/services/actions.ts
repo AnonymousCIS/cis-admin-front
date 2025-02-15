@@ -201,7 +201,8 @@ export const deleteLoan = async (params, formData: FormData) => {
   }
 
   redirect(redirectUrl)
-  
+}
+
 export const loanTrain = async () => {
   try {
     const res = await apiRequest('/loan/admin/train')
