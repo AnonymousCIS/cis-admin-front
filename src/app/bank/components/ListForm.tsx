@@ -10,23 +10,23 @@ import { SmallButton } from '@/app/global/components/Buttons'
 
 const StyledForm = styled.form`
   th:nth-of-type(1) {
-    width: 40px;
+    width: 30px;
   }
 
   th:nth-of-type(2) {
-    width: 250px;
+    width: 100px;
   }
 
   th:nth-of-type(3) {
-    width: 150px;
+    width: 170px;
   }
 
   th:nth-of-type(4) {
-    width: 150px;
+    width: 250px;
   }
 
   th:nth-of-type(5) {
-    width: 120px;
+    width: 110px;
   }
 `
 
@@ -44,12 +44,12 @@ const BankItem = ({ item, onRemove }) => {
       <td>{accountNumber}</td>
       <td>{name}</td>
       <td className="check">
-        {/* <span onClick={() => onClick('open', !Boolean(item?.open))}>
+        <span onClick={() => onClick('open', !Boolean(item?.open))}>
           {open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
         </span>
         <span onClick={() => onClick('open', !Boolean(item?.open))}>
           {open ? <MdRadioButtonUnchecked /> : <MdRadioButtonChecked />} 미사용
-        </span> */}
+        </span>
       </td>
 
       <td className="btn">
@@ -86,6 +86,7 @@ const ListForm = ({ items, onRemove }) => {
               <th>
                 <MdCheckBoxOutlineBlank />
               </th>
+              <th>등록번호</th>
               <th>은행 기관명</th>
               <th>계좌 번호</th>
               <th>예금주</th>
