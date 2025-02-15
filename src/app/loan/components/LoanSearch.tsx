@@ -60,7 +60,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
             <th>대출 카테고리</th>
             <td>
               <span onClick={() => onClick('categories', 'CREDITLOAN')}>
-                {form?.categories === 'CREDITLOAN' ? (
+                {'CREDITLOAN'.includes(form?.categories) ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -68,7 +68,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 신용대출
               </span>
               <span onClick={() => onClick('categories', 'MORTGAGELOAN')}>
-                {form?.categories === 'MORTGAGELOAN' ? (
+                {'MORTGAGELOAN'.includes(form?.categories) ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />

@@ -8,6 +8,7 @@ import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
 import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
+import { log } from 'console'
 
 const Loading = () => <BulletList />
 
@@ -18,6 +19,7 @@ type SearchType = {
   loanName?: string
   categories?: string[]
   bankName?: string[]
+  check?: Map<string, Set<string>>
 }
 
 const LoanListContainer = () => {
@@ -39,39 +41,24 @@ const LoanListContainer = () => {
     `/loan/api/list${qs.trim() ? '?' + qs : ''}`,
   )
 
-  const onClick = useCallback(
-    (field, value) => {
-      const set = new Set(_search.loanName ?? [])
-      if (['loanName'].includes(field)) {
-        if (set.has(value)) {
-          set.delete(value)
-        } else {
-          set.add(value)
-        }
-        _setSearch((_search) => ({ ...search, [field]: [...set.values()] }))
-        console.log(set)
-      } else if (['bankName'].includes(field)) {
-        const set2 = new Set(_search.bankName ?? [])
-        if (set2.has(value)) {
-          set2.delete(value)
-        } else {
-          set2.add(value)
-        }
-        _setSearch((_search) => ({ ...search, [field]: [...set2.values()] }))
-        console.log(set2)
-      } else if (['categories'].includes(field)) {
-        const set3 = new Set(_search.categories ?? [])
-        if (set3.has(value)) {
-          set3.delete(value)
-        } else {
-          set3.add(value)
-        }
-        _setSearch((_search) => ({ ...search, [field]: [...set3.values()] }))
-        console.log(set3)
-      }
-    },
-    [_search.bankName, _search.categories, _search.loanName, search],
-  )
+  const map = new Map<string, Set<string>>()
+
+  const onClick = useCallback((k: string, v: string) => {
+    if (!map.has(k)) {
+      console.log(k + '라는 존자하지 않아 생성')
+      map.set(k, new Set<string>())
+    }
+    map.get(k)?.add(v)
+
+    if (map.get(k)?.has(v)) {
+      map.get(k).delete(v)
+    } else {
+      map.get(k).add(v)
+    }
+    console.log('map - keys : ' + map.keys().toArray())
+    console.log('map - values : ' + map.values())
+    _setSearch((_search) => ({ ..._search, [k]: [...map.values()] }))
+  }, [])
 
   const onChange = useCallback((e) => {
     _setSearch((_search) => ({ ..._search, [e.target.name]: e.target.value }))
