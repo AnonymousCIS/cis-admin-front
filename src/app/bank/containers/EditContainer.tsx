@@ -1,9 +1,16 @@
 'use client'
 
-import React, { useState, useLayoutEffect, useCallback, useActionState } from 'react'
+import React, {
+  useState,
+  useLayoutEffect,
+  useCallback,
+  useActionState,
+} from 'react'
 import { getBank, processEdit } from '../services/actions'
+import { BulletList } from 'react-content-loader'
 import EditForm from '../components/EditForm'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
+import useRequest from '@/app/global/hooks/useRequest'
 
 const initialValue = {
   mode: 'edit',
@@ -13,12 +20,17 @@ const initialValue = {
   password: '',
 }
 
-const EditContainer = ({ seq }: { seq?: string | undefined }) => {
-  useMenuCode('bank', 'edit')
+type Props = {
+  seq?: number | undefined
+  closeModal: any | undefined
+}
 
-  const [form, setForm] = useState(initialValue) 
+const EditContainer = ({ seq, closeModal }: Props | undefined) => {
+  const [form, setForm] = useState({})
 
-  const actionState = useActionState(processEdit, undefined)
+  const { data, isLoading } = useRequest(`/bank/api/view/${seq}`)
+
+  console.log('data', data)
 
   useLayoutEffect(() => {
     ;(async () => {
