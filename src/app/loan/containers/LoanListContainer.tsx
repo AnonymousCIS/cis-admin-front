@@ -101,6 +101,10 @@ const LoanListContainer = () => {
     setSearch((search) => ({ ...search, page }))
   }, [])
 
+  const [popupOpen, setPopupOpen] = useState<boolean>(false)
+  const onClose = useCallback(() => setPopupOpen(false), [])
+  const onOpen = useCallback(() => setPopupOpen(true), [])
+
   return (
     <>
       <LoanSearch
@@ -109,7 +113,16 @@ const LoanListContainer = () => {
         onSubmit={onSubmit}
         onClick={onClick}
       />
-      {isLoading ? <Loading /> : <LoanList items={items} />}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <LoanList
+          items={items}
+          onOpen={onOpen}
+          onClose={onClose}
+          PopupOpen={popupOpen}
+        />
+      )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
