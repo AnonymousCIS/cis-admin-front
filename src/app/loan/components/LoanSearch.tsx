@@ -7,6 +7,9 @@ import { Input } from '@/app/global/components/FormComponents'
 import { BigButton } from '@/app/global/components/Buttons'
 import { FaSearch } from 'react-icons/fa'
 import { MdOutlineCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
+import colors from '@/app/global/styles/colors'
+
+const { white, info, dark } = colors
 
 const { white, info, dark, lightgray } = colors
 
@@ -26,19 +29,17 @@ const StyledForm = styled.form<CommonType>`
   }
 
   td {
-    border-bottom: 1px solid ${lightgray};
+    border-bottom: 1px solid ${info};
   }
 
   tr:first-of-type {
     td {
-      border-top: 1px solid ${lightgray};
+      border-top: 1px solid ${info};
     }
   }
-
-  .table-check {
-    * + * {
-      margin-left: 15px;
-    }
+  
+  .flex {
+    display: flex;
   }
 `
 

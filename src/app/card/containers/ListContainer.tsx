@@ -57,6 +57,7 @@ const ListContainer = () => {
   const onClick = useCallback((field, value) => {
     if (['cardTypes', 'bankName', 'categories'].includes(field)) {
       addToggle(value, field)
+      _setSearch((_search) => ({ ..._search, [field]: value }))
     } else {
       _setSearch((_search) => ({ ..._search, [field]: value }))
     }
@@ -64,7 +65,7 @@ const ListContainer = () => {
 
   /**
    * Set을 이용해 중복 제거 & 값을 토글 형태로 받는 공통 함수
-   * 
+   *
    * 입력하는 값 & 필드명(type)
    */
   const addToggle = useCallback(
@@ -75,7 +76,6 @@ const ListContainer = () => {
       } else {
         set.add(value)
       }
-
       _setSearch({ ...search, [type]: [...set.values()] })
     },
     [_search],
@@ -131,7 +131,11 @@ const ListContainer = () => {
         onSubmit={onSubmit}
         onClick={onClick}
       />
-      {isLoading ? <Loading /> : <ListForm items={items} onRemove={onRemove} />}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <ListForm items={items} onRemove={onRemove} onClick={onClick} />
+      )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
