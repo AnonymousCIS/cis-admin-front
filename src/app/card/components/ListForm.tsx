@@ -6,18 +6,9 @@ import {
   MdRadioButtonUnchecked,
   MdRadioButtonChecked,
 } from 'react-icons/md'
-import colors from '@/app/global/styles/colors'
 import { SmallButton } from '@/app/global/components/Buttons'
 
-const { primary, white } = colors
-
 const StyledForm = styled.form`
-  th {
-    width: 180px;
-    background: ${primary};
-    color: ${white};
-  }
-
   th:nth-of-type(1) {
     width: 40px;
   }
@@ -84,7 +75,7 @@ const StyledForm = styled.form`
   }
 `
 
-const CardItem = ({ item, onRemove }) => {
+const CardItem = ({ item, onRemove, onClick }) => {
   const {
     seq,
     bankNameStr,
@@ -110,12 +101,12 @@ const CardItem = ({ item, onRemove }) => {
       <td>{annualFee}</td>
       <td>{limit}</td>
       <td className="check">
-        {/* <span onClick={() => onClick('open', !Boolean(item?.open))}>
+        <span onClick={() => onClick('open', !Boolean(item?.open))}>
           {open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
         </span>
         <span onClick={() => onClick('open', !Boolean(item?.open))}>
           {open ? <MdRadioButtonUnchecked /> : <MdRadioButtonChecked />} 미사용
-        </span> */}
+        </span>
       </td>
 
       <td className="btn">
@@ -141,7 +132,7 @@ const CardItem = ({ item, onRemove }) => {
     </tr>
   )
 }
-const ListForm = ({ items, onRemove }) => {
+const ListForm = ({ items, onRemove, onClick }) => {
   return (
     <>
       <StyledForm>
@@ -169,11 +160,12 @@ const ListForm = ({ items, onRemove }) => {
                   key={'card_' + item.seq}
                   item={item}
                   onRemove={onRemove}
+                  onClick={onClick}
                 />
               ))
             ) : (
               <tr>
-                <td colSpan={7} className="no-data">
+                <td colSpan={10} className="no-data">
                   조회 카드가 없습니다.
                 </td>
               </tr>

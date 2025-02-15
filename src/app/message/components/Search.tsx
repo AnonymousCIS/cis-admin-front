@@ -5,6 +5,9 @@ import { CommonType } from '@/app/global/types/StyledType'
 import React from 'react'
 import { FaSearch } from 'react-icons/fa'
 import styled from 'styled-components'
+import colors from '@/app/global/styles/colors'
+
+const { white, info, dark } = colors
 
 const StyledForm = styled.form<CommonType>`
   margin-bottom: 35px;
@@ -14,18 +17,21 @@ const StyledForm = styled.form<CommonType>`
   }
 
   th {
-    width: 180px;
+    width: 150px;
+    background: ${info};
+    color: ${dark};
+    border-bottom: 1px solid ${white};
   }
 
   .flex {
     display: flex;
 
-    select{
-        margin-right: 5px;
+    select {
+      margin-right: 5px;
     }
 
     select + input {
-        flex-grow: 1;
+      flex-grow: 1;
     }
   }
 `
@@ -37,7 +43,7 @@ const options = [
 
 const Search = ({ form, onChange, onSubmit }) => {
   return (
-    <StyledForm onSubmit={onSubmit} autoComplete='off'>
+    <StyledForm onSubmit={onSubmit} autoComplete="off">
       <TableCols>
         <tbody>
           <tr>

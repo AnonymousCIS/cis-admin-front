@@ -7,6 +7,9 @@ import { Input, Select } from '@/app/global/components/FormComponents'
 // import Select from 'react-select/base'
 import { BigButton } from '@/app/global/components/Buttons'
 import { FaSearch } from 'react-icons/fa'
+import colors from '@/app/global/styles/colors'
+
+const { white, info, dark } = colors
 
 const StyledForm = styled.form<CommonType>`
   margin-bottom: 35px;
@@ -16,7 +19,10 @@ const StyledForm = styled.form<CommonType>`
   }
 
   th {
-    width: 180px;
+    width: 150px;
+    background: ${info};
+    color: ${dark};
+    border-bottom: 1px solid ${white};
   }
 
   .flex {
