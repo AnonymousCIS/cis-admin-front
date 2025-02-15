@@ -31,9 +31,8 @@ const StyledForm = styled.form`
 `
 
 const BankItem = ({ item, onRemove }) => {
-  const { seq, bankName, accountNumber, name } = item
+  const { seq, bankName, accountNumber, name, isOpen } = item
 
-  // const frontUrl = process.env.NEXT_PUBLIC_FRONT_URL + `/bank/list`
   return (
     <tr>
       <td>
@@ -44,16 +43,17 @@ const BankItem = ({ item, onRemove }) => {
       <td>{accountNumber}</td>
       <td>{name}</td>
       <td className="check">
-        <span onClick={() => onClick('open', !Boolean(item?.open))}>
-          {open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
+        <span>
+          {isOpen ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
         </span>
-        <span onClick={() => onClick('open', !Boolean(item?.open))}>
-          {open ? <MdRadioButtonUnchecked /> : <MdRadioButtonChecked />} 미사용
+        <span>
+          {!isOpen ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />}{' '}
+          미사용
         </span>
       </td>
 
       <td className="btn">
-        {/* <a href={'/card/view/' + seq}>
+        {/* <a href={'/bank/view/' + seq}>
           <SmallButton type="button" color="primary" width={80}>
             상세보기
           </SmallButton>
