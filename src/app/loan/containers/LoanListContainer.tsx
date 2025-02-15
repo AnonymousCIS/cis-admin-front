@@ -54,8 +54,10 @@ const LoanListContainer = () => {
     } else {
       map.get(k).add(v)
     }
+
     console.log('map - keys : ' + map.keys().toArray())
-    console.log('map - values : ' + map.get(k).size)
+
+    console.log('map - ' + k + '의 values : ' + map.get(k).size)
     _setSearch((_search) => ({ ..._search, [k]: [...map.values()] }))
   }, [])
 
