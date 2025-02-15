@@ -11,6 +11,9 @@ import useRequest from '@/app/global/hooks/useRequest'
 import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
 
+// import LayerPopup from '@/app/global/components/LayerPopup'
+// import DeleteContainer from './DeleteContainer'
+
 const Loading = () => <BulletList />
 
 type SearchType = {
@@ -33,10 +36,13 @@ const ListContainer = () => {
 
   const [pagination, setPagination] = useState()
 
+  const [isOpen, setIsOpen] = useState(false)
+  const [seq, setSeq] = useState(null)
+
   const qs = toQueryString(search) // page=2&limit=10
 
   const { data, error, isLoading } = useRequest(
-    `/bank/api/bank/list${qs.trim() ? '?' + qs : ''}`,
+    `/bank/api/list${qs.trim() ? '?' + qs : ''}`,
   )
 
   const onChange = useCallback((e) => {
@@ -67,10 +73,15 @@ const ListContainer = () => {
     setSearch((search) => ({ ...search, page }))
   }, []) // 클릭한 페이지번호를 서치로..
 
+  const onRemove = useCallback((seq) => {
+    setSeq(seq)
+    setIsOpen(true)
+  }, [])
+
   return (
     <>
       <BankSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
-      {isLoading ? <Loading /> : <ListForm />}
+      {isLoading ? <Loading /> : <ListForm items={items} onRemove={onRemove} />}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
