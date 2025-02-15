@@ -35,6 +35,9 @@ const LoanListContainer = () => {
 
   const [pagination, setPagination] = useState()
 
+  const [seq, setSeq] = useState(null)
+  const [isOpen, setIsOpen] = useState(false)
+
   const qs = toQueryString(search)
 
   const { data, error, isLoading } = useRequest(
@@ -89,10 +92,10 @@ const LoanListContainer = () => {
     setSearch((search) => ({ ...search, page }))
   }, [])
 
-  const [popupOpen, setPopupOpen] = useState<boolean>(false)
-  const onClose = useCallback(() => setPopupOpen(false), [])
-  const onOpen = useCallback(() => setPopupOpen(true), [])
-  console.log('data', data)
+  const onRemove = useCallback((seq) => {
+    setSeq(seq)
+    setIsOpen(true)
+  }, [])
 
   return (
     <>
@@ -102,16 +105,7 @@ const LoanListContainer = () => {
         onSubmit={onSubmit}
         onClick={onClick}
       />
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <LoanList
-          items={items}
-          onOpen={onOpen}
-          onClose={onClose}
-          PopupOpen={popupOpen}
-        />
-      )}
+      {isLoading ? <Loading /> : <LoanList items={items} onRemove={onRemove} />}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
