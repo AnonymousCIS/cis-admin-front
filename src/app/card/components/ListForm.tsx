@@ -6,9 +6,18 @@ import {
   MdRadioButtonUnchecked,
   MdRadioButtonChecked,
 } from 'react-icons/md'
+import colors from '@/app/global/styles/colors'
 import { SmallButton } from '@/app/global/components/Buttons'
 
+const { primary, white } = colors
+
 const StyledForm = styled.form`
+  th {
+    width: 180px;
+    background: ${primary};
+    color: ${white};
+  }
+
   th:nth-of-type(1) {
     width: 40px;
   }
@@ -30,18 +39,22 @@ const StyledForm = styled.form`
   }
 
   th:nth-of-type(6) {
-    width: 80px;
+    width: 100px;
   }
 
   th:nth-of-type(7) {
-    width: 120px;
+    width: 80px;
   }
 
   th:nth-of-type(8) {
-    width: 140px;
+    width: 120px;
   }
 
   th:nth-of-type(9) {
+    width: 140px;
+  }
+
+  th:nth-of-type(10) {
     width: 300px;
   }
 
@@ -53,7 +66,8 @@ const StyledForm = styled.form`
   td:nth-of-type(6),
   td:nth-of-type(7),
   td:nth-of-type(8),
-  td:nth-of-type(9) {
+  td:nth-of-type(9),
+  td:nth-of-type(10) {
     text-align: center;
   }
 
@@ -71,8 +85,16 @@ const StyledForm = styled.form`
 `
 
 const CardItem = ({ item, onRemove }) => {
-  const { seq, cardName, cardTypeStr, categoryStr, open, limit, annualFee } =
-    item
+  const {
+    seq,
+    bankNameStr,
+    cardName,
+    cardTypeStr,
+    categoryStr,
+    open,
+    limit,
+    annualFee,
+  } = item
 
   // const frontUrl = process.env.NEXT_PUBLIC_FRONT_URL + `/card/list`
   return (
@@ -82,6 +104,7 @@ const CardItem = ({ item, onRemove }) => {
       </td>
       <td>{seq}</td>
       <td>{cardName}</td>
+      <td>{bankNameStr}</td>
       <td>{cardTypeStr}</td>
       <td>{categoryStr}</td>
       <td>{annualFee}</td>
@@ -130,6 +153,7 @@ const ListForm = ({ items, onRemove }) => {
               </th>
               <th>카드 ID</th>
               <th>카드명</th>
+              <th>은행명</th>
               <th>카드 종류</th>
               <th>카테고리</th>
               <th>연회비</th>

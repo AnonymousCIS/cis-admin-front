@@ -337,6 +337,11 @@ export const updateMember = async (params, formData: FormData) => {
   /* 2. Server 요청 처리 E*/
 }
 
+/**
+ * 회원 삭제
+ * @param params
+ * @param formData 
+ */
 export const deleteMember = async (params, formData: FormData) => {
   const redirectUrl = params?.redirectUrl ?? '/member/list'
   const seq = formData.get('seq')
