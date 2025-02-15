@@ -7,8 +7,6 @@ import {
   MdRadioButtonUnchecked,
   MdRadioButtonChecked,
 } from 'react-icons/md'
-import LayerPopup from '@/app/global/components/LayerPopup'
-import LoanView from './LoanView'
 
 const StyledForm = styled.form`
   table {
@@ -24,7 +22,7 @@ const LoanItem = ({ item, onOpen, onClose, PopupOpen }) => {
     limit,
     interestRate,
     repaymentYear,
-    isOpen,
+    open,
     bankNameStr,
   } = item
 
@@ -43,11 +41,10 @@ const LoanItem = ({ item, onOpen, onClose, PopupOpen }) => {
       <td>{repaymentYear}</td>
       <td>
         <span>
-          {isOpen ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
+          {open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
         </span>
         <span>
-          {!isOpen ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />}{' '}
-          미사용
+          {!open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 미사용
         </span>
       </td>
       <td>
