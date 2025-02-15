@@ -14,7 +14,7 @@ const StyledForm = styled.form`
   }
 `
 
-const LoanItem = ({ item, onOpen, onClose, PopupOpen }) => {
+const LoanItem = ({ item, onRemove }) => {
   const {
     seq,
     loanName,
@@ -71,7 +71,12 @@ const LoanItem = ({ item, onOpen, onClose, PopupOpen }) => {
             수정
           </SmallButton>
         </a>
-        <SmallButton type="button" color="dark" width={120}>
+        <SmallButton
+          type="button"
+          color="dark"
+          width={80}
+          onClick={() => onRemove(seq)}
+        >
           삭제
         </SmallButton>
       </td>
@@ -79,7 +84,7 @@ const LoanItem = ({ item, onOpen, onClose, PopupOpen }) => {
   )
 }
 
-const LoanList = ({ items, onOpen, onClose, PopupOpen }) => {
+const LoanList = ({ items, onRemove }) => {
   return (
     <>
       <StyledForm>
@@ -103,17 +108,15 @@ const LoanList = ({ items, onOpen, onClose, PopupOpen }) => {
             {items && items.length > 0 ? (
               items.map((item) => (
                 <LoanItem
-                  key={'config_' + item.seq}
+                  key={'loan' + item.seq}
                   item={item}
-                  PopupOpen={PopupOpen}
-                  onOpen={onOpen}
-                  onClose={onClose}
+                  onRemove={onRemove}
                 />
               ))
             ) : (
               <tr>
                 <td colSpan={9} className="no-data">
-                  조회 게시판이 없습니다.
+                  대출 목록이 없습니다.
                 </td>
               </tr>
             )}

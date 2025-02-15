@@ -1,11 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
+import colors from '@/app/global/styles/colors'
 import { CommonType } from '@/app/global/types/StyledType'
 import { TableCols } from '@/app/global/components/Tables'
 import { Input } from '@/app/global/components/FormComponents'
 import { BigButton } from '@/app/global/components/Buttons'
 import { FaSearch } from 'react-icons/fa'
 import { MdOutlineCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
+
+const { white, info, dark, lightgray } = colors
 
 const StyledForm = styled.form<CommonType>`
   margin-bottom: 35px;
@@ -16,18 +19,25 @@ const StyledForm = styled.form<CommonType>`
   }
 
   th {
-    width: 180px;
+    width: 150px;
+    background: ${info};
+    color: ${dark};
+    border-bottom: 1px solid ${white};
   }
 
-  .flex {
-    display: flex;
+  td {
+    border-bottom: 1px solid ${lightgray};
+  }
 
-    select {
-      margin-right: 5px;
+  tr:first-of-type {
+    td {
+      border-top: 1px solid ${lightgray};
     }
+  }
 
-    select + input {
-      flex-grow: 1;
+  .table-check {
+    * + * {
+      margin-left: 15px;
     }
   }
 `
