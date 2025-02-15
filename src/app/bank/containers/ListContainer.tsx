@@ -51,6 +51,7 @@ const ListContainer = () => {
 
   useEffect(() => {
     if (data) {
+      console.log('data', data)
       setItems(data.data.items)
       setPagination(data.data.pagination)
     }
