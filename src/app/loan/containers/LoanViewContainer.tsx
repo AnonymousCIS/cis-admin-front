@@ -26,7 +26,7 @@ const LoanViewContainer = ({
     })()
   }, [seq])
 
-  return <LoanView form={form} seq={seq} />
+  return <LoanView form={form} />
 }
 
 export default React.memo(LoanViewContainer)
