@@ -7,10 +7,8 @@ import React, {
   useActionState,
 } from 'react'
 import { getBank, processEdit } from '../services/actions'
-import { BulletList } from 'react-content-loader'
 import EditForm from '../components/EditForm'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
-import useRequest from '@/app/global/hooks/useRequest'
 
 const initialValue = {
   mode: 'edit',
@@ -20,24 +18,19 @@ const initialValue = {
   password: '',
 }
 
-type Props = {
-  seq?: number | undefined
-  closeModal: any | undefined
-}
+const EditContainer = ({ seq }: { seq?: string | undefined } | undefined) => {
+  useMenuCode('bank', 'editForm')
+  const [form, setForm] = useState(initialValue)
 
-const EditContainer = ({ seq, closeModal }: Props | undefined) => {
-  const [form, setForm] = useState({})
-
-  const { data, isLoading } = useRequest(`/bank/api/view/${seq}`)
-
-  console.log('data', data)
+  const actionState = useActionState(processEdit, undefined)
 
   useLayoutEffect(() => {
     ;(async () => {
       try {
         const bank = await getBank(seq)
         if (bank) {
-          setForm({ ...bank, mode: 'edit' })
+          bank.mode = 'edit'
+          setForm(bank)
         }
       } catch (err) {
         console.error(err)
@@ -59,11 +52,11 @@ const EditContainer = ({ seq, closeModal }: Props | undefined) => {
 
   return (
     <EditForm
-      actionState={actionState}
       form={form}
       onChange={onChange}
       onReset={onReset}
       onClick={onClick}
+      actionState={actionState}
     />
   )
 }
