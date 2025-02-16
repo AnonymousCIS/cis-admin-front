@@ -7,28 +7,29 @@ import React, {
   useLayoutEffect,
 } from 'react'
 import LoanForm from '../components/LoanForm'
-import { processLoan } from '../services/actions'
+import { processLoan, updateLoan } from '../services/actions'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
-import { getBoard } from '@/app/board/config/services/actions'
+import { getLoan } from '../services/actions'
 
 const initialValue = {
   isOpen: false,
+  category: 'CREDITLOAN',
 }
 
 const LoanContainer = ({ seq }: { seq?: number | undefined }) => {
   useMenuCode('loan', 'create')
 
-  const [form, setForm] = useState({ initialValue })
+  const [form, setForm] = useState(initialValue)
 
   const actionState = useActionState(processLoan, undefined)
 
   useLayoutEffect(() => {
     ;(async () => {
       try {
-        const board = await getBoard(seq)
-        if (board) {
-          board.mode = 'edit'
-          setForm(board)
+        const loan = await getLoan(seq)
+        if (loan) {
+          loan.mode = 'update'
+          setForm(loan)
         }
       } catch (err) {
         console.error(err)

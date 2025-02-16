@@ -58,7 +58,7 @@ const StyledForm = styled.form`
   }
 `
 
-const LoanForm = ({ form, onClick, onChange, actionState }) => {
+const LoanEdit = ({ form, onClick, onChange, actionState }) => {
   const [errors, formAction, isPending] = actionState
 
   return (
@@ -204,12 +204,22 @@ const LoanForm = ({ form, onClick, onChange, actionState }) => {
           className="submit-btn"
           disabled={isPending}
           width={200}
+          color="primary"
         >
-          대출 등록
+          대출 수정
+        </BigButton>
+
+        <BigButton
+          type="submit"
+          className="submit-btn"
+          disabled={isPending}
+          width={200}
+        >
+          취소
         </BigButton>
       </StyledForm>
     </>
   )
 }
 
-export default React.memo(LoanForm)
+export default React.memo(LoanEdit)
