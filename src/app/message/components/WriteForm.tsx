@@ -5,7 +5,7 @@ import { SmallButton } from '@/app/global/components/Buttons'
 import { TableCols } from '@/app/global/components/Tables'
 import colors from '@/app/global/styles/colors'
 import Messages from '@/app/global/components/Messages'
-const {primary, white} = colors
+const { primary, white } = colors
 
 const StyledForm = styled.form`
   table {
@@ -43,13 +43,17 @@ const WriteForm = ({
   email,
   onClick,
   onChange,
+  actionState,
   //   onEditor,
   //   onEditorImage,
 }) => {
+  const [errors, formAction, isPending] = actionState
   return (
     <>
       <StyledForm>
-        <SmallButton type='button' color='primary' width={120}>보내기</SmallButton>
+        <SmallButton type="button" color="primary" width={120}>
+          보내기
+        </SmallButton>
         <TableCols>
           <tbody>
             <tr>

@@ -54,16 +54,16 @@ export const writeMessage = async (params, formData: FormData) => {
   for (const [key, value] of formData.entries()) {
     if (key.includes('$ACTION')) continue
 
-    const _value : string | boolean = value.toString()
+    const _value: string | boolean = value.toString()
 
     form[key] = _value
   }
 
   // 필수 항목 검증
 
-  const requiredFileds = {
+  const requiredFields = {
     subject: '제목을 입력하세요.',
-    content: '내용을 입력하세요.'
+    content: '내용을 입력하세요.',
   }
 
   for (const [field, msg] of Object.entries(requiredFields)) {
