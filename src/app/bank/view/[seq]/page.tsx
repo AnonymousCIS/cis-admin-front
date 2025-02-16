@@ -7,13 +7,15 @@ import WithUserContainer from '@/app/global/containers/WithUserContainer'
 
 const ListContainer = loadable(() => import('../../containers/ViewContainer'))
 
-const RecommendViewPage = () => {
+const ViewPage = ({ params }) => {
+  const { seq } = React.use<{ seq: number }>(params)
+
   return WithUserContainer(
     <>
       <MainTitle>계좌 단일 조회</MainTitle>
-      <ListContainer />
+      <ListContainer seq={seq} />
     </>,
   )
 }
 
-export default React.memo(RecommendViewPage)
+export default React.memo(ViewPage)

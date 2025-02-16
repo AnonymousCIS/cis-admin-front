@@ -8,7 +8,7 @@ import WithUserContainer from '@/app/global/containers/WithUserContainer'
 const EditContainer = loadable(() => import('../containers/EditContainer'))
 
 const EditPage = ({ params }) => {
-  const { seq } = React.use<{ seq: string }>(params)
+  const { seq } = React.use<{ seq: number }>(params)
 
   return WithUserContainer(
     <>
