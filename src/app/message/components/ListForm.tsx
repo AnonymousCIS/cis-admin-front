@@ -42,13 +42,13 @@ const status = [
   { value: 'UNREAD', label: '안읽은 메세지' },
 ]
 
-const ListItem = ({ item }) => {
+const ListItem = ({ item, onModal }) => {
   const { subject, status, content, seq, senderEmail, receiverEmail } = item
   console.log('item', item)
 
   return (
     <tr>
-      <td></td>
+      <td><MdCheckBoxOutlineBlank /></td>
       <td>{subject}</td>
       <td>{senderEmail}</td>
       <td>{receiverEmail}</td>
@@ -60,7 +60,7 @@ const ListItem = ({ item }) => {
             조회
           </SmallButton>
         </a>
-          <SmallButton type="button" color="dark" width={120}>
+          <SmallButton type="button" color="dark" width={120} onClick={() => onModal()}>
             삭제
           </SmallButton>
       </td>
@@ -68,7 +68,7 @@ const ListItem = ({ item }) => {
   )
 }
 
-const ListForm = ({ form, onChange, items }) => {
+const ListForm = ({ form, onChange, onModal, items }) => {
   console.log('items', items)
   return (
     <>
@@ -106,7 +106,7 @@ const ListForm = ({ form, onChange, items }) => {
           </thead>
           <tbody>
             {items ? (
-              items.map((item) => <ListItem key={item?.seq} item={item} />)
+              items.map((item) => <ListItem key={item?.seq} item={item} onModal={onModal} />)
             ) : (
               <tr>
                 <td colSpan={7} className="no-data">
