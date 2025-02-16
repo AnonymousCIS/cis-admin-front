@@ -28,6 +28,10 @@ const StyledMenus = styled.aside`
     height: 55px;
     line-height: 53px;
     text-align: center;
+
+    * + * {
+      margin-left: 10px;
+    }
   }
 
   a.on {
@@ -52,7 +56,7 @@ const Side = () => {
         className={classNames({ on: menuCode === 'member' })}
       >
         <IoPersonCircleOutline />
-        회원 관리
+        <span>회원 관리</span>
       </a>
 
       <a
@@ -60,33 +64,33 @@ const Side = () => {
         className={classNames({ on: menuCode === 'board' })}
       >
         <BsFilePostFill />
-        게시판 관리
+        <span>게시판 관리</span>
       </a>
       <a href="/bank/list" className={classNames({ on: menuCode === 'bank' })}>
         <GiBank />
-        은행 관리
+        <span>은행 관리</span>
       </a>
       <a href="/card/list" className={classNames({ on: menuCode === 'card' })}>
         <FaCreditCard />
-        카드 관리
+        <span>카드 관리</span>
       </a>
       <a href="/loan/list" className={classNames({ on: menuCode === 'loan' })}>
         <GiMoneyStack />
-        대출 관리
+        <span>대출 관리</span>
       </a>
       <a
         href="/message/list"
         className={classNames({ on: menuCode === 'message' })}
       >
         <FaRegMessage />
-        쪽지 관리
+        <span>쪽지 관리</span>
       </a>
       <a
         href="/email/list"
         className={classNames({ on: menuCode === 'email' })}
       >
         <SiPorkbun />
-        이메일 로그
+        <span>이메일 로그</span>
       </a>
     </StyledMenus>
   )

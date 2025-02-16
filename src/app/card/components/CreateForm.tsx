@@ -85,6 +85,7 @@ const CreateForm = ({ form, onChange, onClick, onReset, actionState }) => {
       <StyledForm action={formAction} autoComplete="off">
         <input type="hidden" name="mode" value={form?.mode ?? 'add'} />
         <input type="hidden" name="isOpen" value={form?.isOpen ?? false} />
+        <input type="hidden" name="seq" value={form?.seq ?? ''} />
         <SubTitle>카드 설정</SubTitle>
         <TableCols>
           <tbody>
