@@ -57,29 +57,24 @@ export const processCreate = async (params, formData: FormData) => {
 
   /* Server 요청 처리 S */
   if (!hasErrors) {
-    const qs = toQueryString({ ...form })
-
-    // @RequestBody List<RequestCard>
-
-    console.log('qs', qs)
-
+    
     const apiUrl =
       form.mode == 'add' ? '/card/admin/create' : `/card/admin/updates`
 
     const reqMethod = form.mode == 'add' ? 'POST' : 'PATCH'
 
-    // const reqBody = form.mode == 'add' ? { ...form } : [form]
-    // const reqBody = form.mode == 'add' ? { ...form } : ''
+    const reqBody = form.mode == 'add' ? { ...form } : [form]
 
-    // const res = await apiRequest(apiUrl, reqMethod, reqBody)
-    const res = await apiRequest(apiUrl, reqMethod, { ...form })
-    console.log(form)
-    console.log('res', res)
+    // console.log('reqBody', reqBody)
+
+    const res = await apiRequest(apiUrl, reqMethod, reqBody)
+    // console.log(form)
+    // console.log('res', res)
 
     if (res.status !== 200) {
       // 검증 실패시
       const result = await res.json()
-      console.log('result', result)
+      // console.log('result', result)
       errors = result.message
       hasErrors = true
     }
@@ -118,7 +113,10 @@ export const getCard = async (seq) => {
  * @returns
  */
 export const removeCard = async (seq) => {
+  
   const qs = toQueryString({ seq: [seq] })
+
+  // console.log('qs', qs)
 
   try {
     const res = await apiRequest(`/card/admin/removes?${qs}`, 'DELETE')
