@@ -92,6 +92,7 @@ const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
       <StyledForm action={formAction} autoComplete="off">
         <input type="hidden" name="mode" value={form?.mode ?? 'add'} />
         <input type="hidden" name="isOpen" value={form?.isOpen ?? false} />
+        <input type="hidden" name="seq" value={form?.seq ?? ''} />
         <input
           type="hidden"
           name="category"

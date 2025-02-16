@@ -61,7 +61,7 @@ export const processLoan = async (params, formData: FormData) => {
     const res = await apiRequest(apiUrl, reqMethod, reqBody)
     console.log('form의 값 : ' + form)
     console.log('res.status의 값은 : ', res.status)
-    console.log('form : ' + JSON.stringify(form))
+    console.log('form : ' + form)
 
     if (res.status !== 200) {
       const result = await res.json()
