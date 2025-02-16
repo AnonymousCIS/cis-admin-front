@@ -23,7 +23,11 @@ export const menus = {
     { code: 'create', name: '카드 등록', url: '/card/create' },
     { code: 'train', name: '카드 학습', url: '/card/train' },
   ],
-  loan: [{ code: 'train', name: '대출 학습', url: '/loan/train' }],
+  loan: [
+    { code: 'list', name: '대출 목록', url: '/loan/list' },
+    { code: 'create', name: '대출 등록', url: '/loan/create' },
+    { code: 'train', name: '대출 학습', url: '/loan/train' },
+  ],
 }
 
 export default function getMenus(menuCode) {
