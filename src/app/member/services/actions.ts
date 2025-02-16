@@ -220,6 +220,8 @@ export const getUserInfo = async () => {
       const result = await res.json()
 
       return result.success && result.data
+    } else {
+      cookie.delete('token')
     }
   } catch (err) {
     // cookie.delete('token')
@@ -340,7 +342,7 @@ export const updateMember = async (params, formData: FormData) => {
 /**
  * 회원 삭제
  * @param params
- * @param formData 
+ * @param formData
  */
 export const deleteMember = async (params, formData: FormData) => {
   const redirectUrl = params?.redirectUrl ?? '/member/list'
