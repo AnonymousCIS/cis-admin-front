@@ -7,6 +7,7 @@ import React, {
   useCallback,
 } from 'react'
 import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/router'
 import { getCard } from '../services/actions'
 import { removeCard } from '../services/actions'
 import { BulletList } from 'react-content-loader'
@@ -42,13 +43,16 @@ const DeleteContainer = ({ seq, closeModal }: Props | undefined) => {
 
   const actionState = useActionState(removeCard, undefined)
 
-  const onRemove = useCallback((seq) => {
-    removeCard(seq)
-    closeModal()
+  const onRemove = useCallback(
+    (seq) => {
+      removeCard(seq)
+      closeModal()
 
-    // 새로고침 임시용 주석삭제 XX
-    router.reload()
-  }, [closeModal, router])
+      // 새로고침 임시용 주석삭제 XX
+      router.refresh()
+    },
+    [closeModal, router],
+  )
 
   return (
     <>

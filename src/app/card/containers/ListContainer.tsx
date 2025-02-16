@@ -32,7 +32,7 @@ type SearchType = {
 const ListContainer = () => {
   useMenuCode('card', 'list')
 
-  const _qs = useQueryString(['cardTypes', 'bankName', 'categories'])
+  const _qs = useQueryString(['cardTypes', 'bankName', 'categories', 'skey'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
   const [search, setSearch] = useState<SearchType>(_qs)
 
@@ -82,7 +82,7 @@ const ListContainer = () => {
     (field, value) => {
       if (['cardTypes', 'bankName', 'categories'].includes(field)) {
         addToggle(value, field)
-        //_setSearch((_search) => ({ ..._search, [field]: value }))
+        // _setSearch((_search) => ({ ..._search, [field]: value }))
       } else {
         _setSearch((_search) => ({ ..._search, [field]: value }))
       }
