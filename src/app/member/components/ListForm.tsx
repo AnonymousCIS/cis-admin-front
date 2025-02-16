@@ -2,11 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
 import { SmallButton } from '@/app/global/components/Buttons'
-import {
-  MdCheckBoxOutlineBlank,
-  MdRadioButtonUnchecked,
-  MdRadioButtonChecked,
-} from 'react-icons/md'
 
 const StyledForm = styled.form`
   th:nth-of-type(1) {
