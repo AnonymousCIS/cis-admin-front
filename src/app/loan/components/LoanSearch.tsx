@@ -35,6 +35,12 @@ const StyledForm = styled.form<CommonType>`
     }
   }
 
+  tr:last-of-type {
+    td {
+      display: flex;
+    }
+  }
+
   .flex {
     display: flex;
   }
@@ -277,9 +283,19 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
           <tr>
             <th>한도 범위</th>
             <td>
-              <Input type="number" placeholder="최저 한도" />
+              <Input
+                type="number"
+                placeholder="최저 한도"
+                name="minLimit"
+                width={150}
+              />
               ~
-              <Input type="number" placeholder="최고 한도" />
+              <Input
+                type="number"
+                placeholder="최고 한도"
+                name="maxLimit"
+                width={150}
+              />
             </td>
           </tr>
         </tbody>
