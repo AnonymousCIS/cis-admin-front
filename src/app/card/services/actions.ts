@@ -59,7 +59,7 @@ export const processCreate = async (params, formData: FormData) => {
   if (!hasErrors) {
     const qs = toQueryString({ ...form })
 
-    // @RequestBody List<RequestCard> 
+    // @RequestBody List<RequestCard>
 
     console.log('qs', qs)
 

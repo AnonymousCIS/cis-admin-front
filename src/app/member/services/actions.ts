@@ -221,7 +221,7 @@ export const getUserInfo = async () => {
 
       return result.success && result.data
     } else {
-      cookie.delete('token')
+      cookie.set('token', '')
     }
   } catch (err) {
     // cookie.delete('token')
