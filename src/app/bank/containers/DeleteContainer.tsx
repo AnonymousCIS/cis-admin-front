@@ -17,7 +17,7 @@ const Loading = () => <BulletList />
 const DeleteContainer = ({ seq, closeModal }: Props | undefined) => {
   const [form, setForm] = useState({})
 
-  const { data, isLoading } = useRequest(`/bank/api/view/${seq}`)
+  const { data, isLoading } = useRequest(`/bank/api/bank/view/${seq}`)
 
   console.log('data', data)
 

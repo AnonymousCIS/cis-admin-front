@@ -34,61 +34,32 @@ const StyledForm = styled.form`
   }
 `
 
-// const ModalForm = ({ form, actionState, closeModal, onRemove }) => {
 const ModalForm = ({ form, actionState, closeModal }) => {
   const [errors, formAction, isPending] = actionState
   return (
     <>
       <StyledForm action={formAction} autoComplete="off">
-        <SubTitle>카드 상세</SubTitle>
+        <SubTitle>계좌 상세</SubTitle>
         <TableCols>
           <tbody>
             <tr>
-              <th>카드 ID</th>
+              <th>계좌 ID</th>
               <td>
                 <span>{form?.seq ?? ''}</span>
               </td>
             </tr>
 
             <tr>
-              <th>카드명</th>
+              <th>은행 기관명</th>
               <td>
-                <span>{form?.cardName ?? ''}</span>
+                <span>{form?.bankName ?? ''}</span>
               </td>
             </tr>
 
             <tr>
-              <th>카드 종류</th>
+              <th>계좌 잔액</th>
               <td>
-                <span>{form?.cardTypeStr ?? ''}</span>
-              </td>
-            </tr>
-
-            <tr>
-              <th>카테고리</th>
-              <td>
-                <span>{form?.categoryStr ?? ''}</span>
-              </td>
-            </tr>
-
-            <tr>
-              <th>은행명</th>
-              <td>
-                <span>{form?.bankNameStr ?? ''}</span>
-              </td>
-            </tr>
-
-            <tr>
-              <th>카드 한도</th>
-              <td>
-                <span>{form?.limit ?? ''}</span>
-              </td>
-            </tr>
-
-            <tr>
-              <th>카드 설명</th>
-              <td>
-                <span>{form?.cardDescription ?? ''}</span>
+                <span>{form?.accountBalance ?? ''}</span>
               </td>
             </tr>
 

@@ -53,11 +53,11 @@ const BankItem = ({ item, onRemove }) => {
       </td>
 
       <td className="btn">
-        {/* <a href={'/bank/view/' + seq}>
+        <a href={'/bank/view/' + seq}>
           <SmallButton type="button" color="primary" width={80}>
             상세보기
           </SmallButton>
-        </a> */}
+        </a>
         <a href={'/bank/edit/' + seq}>
           <SmallButton type="button" color="info" width={80}>
             수정
