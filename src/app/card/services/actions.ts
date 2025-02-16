@@ -57,6 +57,7 @@ export const processCreate = async (params, formData: FormData) => {
 
   /* Server 요청 처리 S */
   if (!hasErrors) {
+    
     const apiUrl =
       form.mode == 'add' ? '/card/admin/create' : `/card/admin/updates`
 

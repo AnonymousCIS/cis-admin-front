@@ -47,16 +47,17 @@ const Wrapper = styled.div`
 `
 
 const Pagination = ({ pagination, onClick }) => {
-  const { page, pages, prevRangePage, nextRangePage, totalPages } = pagination
+  const { page, pages, prevRangeLastPage, nextRangeFirstPage, totalPages } =
+    pagination
 
   return (
     pages.length > 0 && (
       <Wrapper>
-        {prevRangePage > 0 && (
+        {prevRangeLastPage > 0 && (
           <>
             <MdFirstPage onClick={() => onClick(1)} className="page" />
             <MdNavigateBefore
-              onClick={() => onClick(Number(prevRangePage))}
+              onClick={() => onClick(Number(prevRangeLastPage))}
               className="page"
             />
           </>
@@ -70,10 +71,10 @@ const Pagination = ({ pagination, onClick }) => {
             {p[0]}
           </div>
         ))}
-        {nextRangePage > 0 && (
+        {nextRangeFirstPage > 0 && (
           <>
             <MdNavigateNext
-              onClick={() => onClick(Number(nextRangePage))}
+              onClick={() => onClick(Number(nextRangeFirstPage))}
               className="page"
             />
             <MdLastPage
