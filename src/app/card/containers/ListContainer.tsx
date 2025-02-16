@@ -32,7 +32,7 @@ type SearchType = {
 const ListContainer = () => {
   useMenuCode('card', 'list')
 
-  const _qs = useQueryString(['cardTypes', 'bankName', 'categories', 'skey'])
+  const _qs = useQueryString(['cardTypes', 'bankName', 'categories'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
   const [search, setSearch] = useState<SearchType>(_qs)
 
