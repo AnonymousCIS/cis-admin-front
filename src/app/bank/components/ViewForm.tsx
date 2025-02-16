@@ -32,6 +32,16 @@ const StyledForm = styled.form<CommonType>`
       margin-bottom: 30px;
     }
   }
+
+  & > .center {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+
+    & > * {
+      display: block;
+    }
+  }
 `
 
 const ViewForm = ({
@@ -79,7 +89,7 @@ const ViewForm = ({
             <tr>
               <th>사용 여부</th>
               <td>
-                <span onClick={() => onClick('listUnderView', true)}>
+                {/* <span onClick={() => onClick('listUnderView', true)}>
                   {form?.listUnderView ? (
                     <MdRadioButtonChecked />
                   ) : (
@@ -94,6 +104,11 @@ const ViewForm = ({
                     <MdRadioButtonChecked />
                   )}
                   미사용
+                </span> */}
+                <span>
+                  {form?.open !== null && form?.open === true
+                    ? '사용'
+                    : '미사용'}
                 </span>
               </td>
             </tr>

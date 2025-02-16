@@ -1,5 +1,10 @@
 'use client'
-import React, { useCallback, useLayoutEffect, useState } from 'react'
+import React, {
+  useActionState,
+  useCallback,
+  useLayoutEffect,
+  useState,
+} from 'react'
 import ViewForm from '../components/ViewForm'
 import { BulletList } from 'react-content-loader'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
@@ -37,7 +42,18 @@ const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
 
   return (
     <>
-      {isLoading ? <Loading /> : <ViewForm form={form} onRemove={onRemove} />}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <ViewForm
+          form={form}
+          onRemove={onRemove}
+          onChange={onchange}
+          onReset={onreset}
+          onClick={onclick}
+          actionState={useActionState}
+        />
+      )}
     </>
   )
 }
