@@ -8,6 +8,7 @@ import {
 } from '@/app/global/components/Buttons'
 import { CommonType } from '@/app/global/types/StyledType'
 import colors from '@/app/global/styles/colors'
+import { MdRadioButtonUnchecked, MdRadioButtonChecked } from 'react-icons/md'
 
 const { primary, white } = colors
 
@@ -29,6 +30,16 @@ const StyledForm = styled.form<CommonType>`
 
     &:last-of-type {
       margin-bottom: 30px;
+    }
+  }
+
+  & > .center {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+
+    & > * {
+      display: block;
     }
   }
 `
@@ -71,23 +82,48 @@ const ViewForm = ({ form, onRemove }) => {
             <tr>
               <th>사용 여부</th>
               <td>
-                <span>{form?.open ?? ''}</span>
+                {/* <span onClick={() => onClick('listUnderView', true)}>
+                  {form?.listUnderView ? (
+                    <MdRadioButtonChecked />
+                  ) : (
+                    <MdRadioButtonUnchecked />
+                  )}
+                  사용
+                </span>
+                <span onClick={() => onClick('listUnderView', false)}>
+                  {form?.listUnderView ? (
+                    <MdRadioButtonUnchecked />
+                  ) : (
+                    <MdRadioButtonChecked />
+                  )}
+                  미사용
+                </span> */}
+                <span>
+                  {form?.open !== null && form?.open === true
+                    ? '사용'
+                    : '미사용'}
+                </span>
               </td>
             </tr>
           </tbody>
         </TableRows>
-        <ButtonGroup width={450} className="button-group center">
-          <BigButton type="button" color="info">
-            사용
-          </BigButton>
-          <BigButton type="button" color="primary">
-            미사용
-          </BigButton>
-        </ButtonGroup>
 
         <div className="center">
-          <a href={'/card/update/' + seq}>
-            <MediumButton type="button" color="info" width={120}>
+          <a href={'/bank/view/' + seq}>
+            <MediumButton
+              type="button"
+              color="secondary"
+              width={120}
+              //    onClick={onclick}
+            >
+              돌아가기
+            </MediumButton>
+            <MediumButton
+              type="button"
+              color="info"
+              width={120}
+              //  onClick={onclick}
+            >
               수정
             </MediumButton>
           </a>

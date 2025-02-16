@@ -14,19 +14,29 @@ const StyledForm = styled.form`
   }
 
   th:nth-of-type(2) {
-    width: 100px;
+    width: 80px;
   }
 
   th:nth-of-type(3) {
-    width: 170px;
+    width: 150px;
   }
 
   th:nth-of-type(4) {
-    width: 250px;
+    width: 220px;
   }
 
   th:nth-of-type(5) {
     width: 110px;
+  }
+
+  td:nth-of-type(1),
+  td:nth-of-type(2),
+  td:nth-of-type(3),
+  td:nth-of-type(4),
+  td:nth-of-type(5),
+  td:nth-of-type(6),
+  td:nth-of-type(7) {
+    text-align: center;
   }
 `
 
@@ -53,11 +63,11 @@ const BankItem = ({ item, onRemove }) => {
       </td>
 
       <td className="btn">
-        {/* <a href={'/bank/view/' + seq}>
+        <a href={'/bank/view/' + seq}>
           <SmallButton type="button" color="primary" width={80}>
             상세보기
           </SmallButton>
-        </a> */}
+        </a>
         <a href={'/bank/edit/' + seq}>
           <SmallButton type="button" color="info" width={80}>
             수정

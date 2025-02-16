@@ -42,7 +42,7 @@ const ListContainer = () => {
   const qs = toQueryString(search) // page=2&limit=10
 
   const { data, error, isLoading } = useRequest(
-    `/bank/api/list${qs.trim() ? '?' + qs : ''}`,
+    `/bank/api/bank/list${qs.trim() ? '?' + qs : ''}`,
   )
 
   const onChange = useCallback((e) => {
