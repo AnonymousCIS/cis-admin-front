@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useCallback, useEffect, useContext } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import LoanList from '../components/LoanList'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import LoanSearch from '../components/LoanSearch'
@@ -10,6 +10,7 @@ import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
 import LoanDeleteContainer from './LoanDeleteContainer'
 import LayerPopup from '@/app/global/components/LayerPopup'
+import useQueryString from '@/app/global/hooks/useQueryString'
 
 const Loading = () => <BulletList />
 
@@ -20,24 +21,26 @@ type SearchType = {
   loanName?: string
   categories?: string[]
   bankName?: string[]
-  check?: Map<string, Set<string>>
+  loanLimitMax?: number
+  loanLimitMin?: number
 }
 
 const LoanListContainer = () => {
   useMenuCode('loan', 'list')
 
+  const _qs = useQueryString(['loanName', 'bankName', 'categories'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
-  const [search, setSearch] = useState<SearchType>({})
+  const [search, setSearch] = useState<SearchType>(_qs)
 
   // 임시로 값 담는 곳
-  const [_search, _setSearch] = useState<SearchType>({})
+  const [_search, _setSearch] = useState<SearchType>(_qs)
 
   const [items, setItems] = useState([])
 
   const [pagination, setPagination] = useState()
 
-  const [seq, setSeq] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
+  const [seq, setSeq] = useState(null)
 
   const qs = toQueryString(search)
 
@@ -45,27 +48,13 @@ const LoanListContainer = () => {
     `/loan/api/list${qs.trim() ? '?' + qs : ''}`,
   )
 
-  /*
-  const map = new Map<string, Set<string>>()
-  const onClick = useCallback((k: string, v: string) => {
-    if (!map.has(k)) {
-      console.log(k + '라는 key가 존재하지 않아 생성')
-      map.set(k, new Set<string>())
-    }
-    map.get(k)?.add(v)
-
-    if (map.get(k).has(v)) {
-      map.get(k).delete(v)
-    } else {
-      map.get(k).add(v)
-    }
-
-    console.log('map - keys : ' + map.keys().toArray())
-
-    console.log('map - ' + k + '의 values : ' + map.get(k).size)
-    _setSearch((_search) => ({ ..._search, [k]: [...map.values()] }))
+  const onChange = useCallback((e) => {
+    _setSearch((_search) => ({ ..._search, [e.target.name]: e.target.value }))
   }, [])
-  */
+
+  const onReset = useCallback((field, value) => {
+    setSearch((_search) => ({ ..._search, [field]: value }))
+  }, [])
 
   /**
    * Set을 이용해 중복 제거 & 값을 토글 형태로 받는 공통 함수
@@ -74,13 +63,13 @@ const LoanListContainer = () => {
    */
   const addToggle = useCallback(
     (value, type) => {
-      const set = new Set(_search[type])
+      const set = new Set(_search[type] ?? [])
       if (set.has(value)) {
         set.delete(value)
       } else {
         set.add(value)
       }
-      _setSearch({ ...search, [type]: [...set.values()] })
+      _setSearch({ ..._search, [type]: [...set.values()] })
     },
     [_search, search],
   )
@@ -88,14 +77,15 @@ const LoanListContainer = () => {
   /* ✨✨추가한 부분 S */
   const onClick = useCallback(
     (field, value) => {
-      if (['bankName', 'categories'].includes(field)) {
+      if (['loanName', 'bankName', 'categories'].includes(field)) {
         addToggle(value, field)
-        _setSearch((_search) => ({ ..._search, [field]: value }))
+        // _setSearch((_search) => ({ ..._search, [field]: value }))
       } else {
         _setSearch((_search) => ({ ..._search, [field]: value }))
       }
     },
-    [addToggle, _search, search],
+    [addToggle],
+
   )
 
   const closeModal = useCallback(() => {
@@ -103,10 +93,6 @@ const LoanListContainer = () => {
     setSeq(null)
   }, [])
   /* ✨✨추가한 부분 E */
-
-  const onChange = useCallback((e) => {
-    _setSearch((_search) => ({ ..._search, [e.target.name]: e.target.value }))
-  }, [])
 
   useEffect(() => {
     if (data) {
@@ -144,6 +130,7 @@ const LoanListContainer = () => {
         onChange={onChange}
         onSubmit={onSubmit}
         onClick={onClick}
+        onReset={onReset}
       />
       {/* ✨✨onClick 추가 */}
       {isLoading ? (

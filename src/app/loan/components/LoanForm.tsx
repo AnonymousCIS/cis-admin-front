@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { MdRadioButtonUnchecked, MdRadioButtonChecked } from 'react-icons/md'
-import { Input, Textarea } from '@/app/global/components/FormComponents'
-import { BigButton } from '@/app/global/components/Buttons'
+import { Input, Textarea, Select } from '@/app/global/components/FormComponents'
+import { BigButton, ButtonGroup } from '@/app/global/components/Buttons'
 import colors from '@/app/global/styles/colors'
 import sizes from '@/app/global/styles/sizes'
 import Messages from '@/app/global/components/Messages'
@@ -11,6 +11,32 @@ import { SubTitle } from '@/app/global/components/StyledTitle'
 
 const { secondary, dark } = colors
 const { medium } = sizes
+
+const bankNameOptions = [
+  { value: 'HANKUK', label: '한국은행' },
+  { value: 'KB', label: '국민은행' },
+  { value: 'SC', label: '제일은행' },
+  { value: 'CITY', label: '한국시티은행' },
+  { value: 'HANA', label: '하나은행' },
+  { value: 'SHINHAN', label: '신한은행' },
+  { value: 'KBANK', label: 'K-뱅크' },
+  { value: 'KAKAO', label: '카카오' },
+  { value: 'TOSS', label: '토스' },
+  { value: 'SUHYUP', label: '수협은행' },
+  { value: 'BUSAN', label: '부산은행' },
+  { value: 'KYUNGNAM', label: '경남은행' },
+  { value: 'KYANGJOO', label: '광주은행' },
+  { value: 'JUNBOK', label: '전북은행' },
+  { value: 'JEJOO', label: '제주은행' },
+  { value: 'LOTTE', label: '롯데카드' },
+  { value: 'NONGHYUP', label: '농협은행' },
+  { value: 'SAMSUNG', label: '삼성카드' },
+  { value: 'HYUNDAI', label: '현대카드' },
+  { value: 'WOORI', label: '우리은행' },
+  { value: 'SINHYUP', label: '신협은행' },
+  { value: 'SAEMAEULGEUMGO', label: '새마을금고' },
+  { value: 'WOOCAEKUK', label: '우체국' },
+]
 
 const StyledForm = styled.form`
   table {
@@ -58,14 +84,15 @@ const StyledForm = styled.form`
   }
 `
 
-const LoanForm = ({ form, onClick, onChange, actionState }) => {
+const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
   const [errors, formAction, isPending] = actionState
 
   return (
     <>
       <StyledForm action={formAction} autoComplete="off">
+        <input type="hidden" name="mode" value={form?.mode ?? 'add'} />
         <input type="hidden" name="isOpen" value={form?.isOpen ?? false} />
-
+        <input type="hidden" name="seq" value={form?.seq ?? ''} />
         <input
           type="hidden"
           name="category"
@@ -127,12 +154,12 @@ const LoanForm = ({ form, onClick, onChange, actionState }) => {
             <tr>
               <th>은행명</th>
               <td>
-                <Input
-                  type="text"
+                <Select
                   name="bankName"
-                  placeholder="은행 이름을 입력해주세요."
-                  value={form?.bankName ?? ''}
+                  options={bankNameOptions}
+                  selected={form?.bankName ?? ''}
                   onChange={onChange}
+                  width={180}
                 />
                 <Messages color="danger">{errors?.bankName}</Messages>
               </td>
@@ -199,14 +226,21 @@ const LoanForm = ({ form, onClick, onChange, actionState }) => {
             </tr>
           </tbody>
         </TableCols>
-        <BigButton
-          type="submit"
-          className="submit-btn"
-          disabled={isPending}
-          width={200}
-        >
-          대출 등록
-        </BigButton>
+
+        <ButtonGroup width={450} className="button-group center">
+          <BigButton
+            type="reset"
+            color="info"
+            disabled={isPending}
+            onClick={onReset}
+          >
+            재입력
+          </BigButton>
+          <BigButton type="submit" color="dark" disabled={isPending}>
+            {form?.mode === 'edit' ? '수정' : '등록'}
+          </BigButton>
+          <Messages color="danger">{errors?.global}</Messages>
+        </ButtonGroup>
       </StyledForm>
     </>
   )
