@@ -217,6 +217,7 @@ export const deleteLoan = async (seq) => {
  */
 export const loanTrain = async () => {
   try {
+    console.log('유입')
     const res = await apiRequest('/loan/admin/train')
     console.log('res', res)
     if (res.status === 200) {
