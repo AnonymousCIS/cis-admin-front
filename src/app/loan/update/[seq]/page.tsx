@@ -1,14 +1,21 @@
 'use client'
 
 import React from 'react'
-// import loadable from '@loadable/component'
-// import { MainTitle } from '@/app/global/components/StyledTitle'
+import loadable from '@loadable/component'
 import WithUserContainer from '@/app/global/containers/WithUserContainer'
+import { MainTitle } from '@/app/global/components/StyledTitle'
 
-const LoanUpdate = () => {
+const LoanEditContainer = loadable(
+  () => import('../../containers/LoanEditContainer'),
+)
+
+const LoanUpdate = ({ params }) => {
+  const { seq } = React.use<{ seq: number }>(params)
+
   return WithUserContainer(
     <>
-      <h1>대출 수정</h1>
+      <MainTitle>대출 수정</MainTitle>
+      <LoanEditContainer seq={seq} />
     </>,
   )
 }

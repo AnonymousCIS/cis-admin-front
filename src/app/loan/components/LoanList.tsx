@@ -76,7 +76,7 @@ const LoanItem = ({ item, onRemove, onClick }) => {
         <SmallButton
           type="button"
           color="dark"
-          width={80}
+          width={120}
           onClick={() => onRemove(seq)}
         >
           삭제

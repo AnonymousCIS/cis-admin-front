@@ -8,9 +8,8 @@ import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
 import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
-import { log } from 'console'
-import LayerPopup from '@/app/global/components/LayerPopup'
 import LoanDeleteContainer from './LoanDeleteContainer'
+import LayerPopup from '@/app/global/components/LayerPopup'
 
 const Loading = () => <BulletList />
 
@@ -156,7 +155,7 @@ const LoanListContainer = () => {
       <LayerPopup
         isOpen={isOpen}
         onClose={closeModal}
-        title="카드 삭제"
+        title="대출 삭제"
         width={750}
         height={600}
       >

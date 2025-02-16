@@ -274,6 +274,14 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
               </span>
             </td>
           </tr>
+          <tr>
+            <th>한도 범위</th>
+            <td>
+              <Input type="number" placeholder="최저 한도" />
+              ~
+              <Input type="number" placeholder="최고 한도" />
+            </td>
+          </tr>
         </tbody>
       </TableCols>
       <BigButton type="submit" color="primary" width={250}>
