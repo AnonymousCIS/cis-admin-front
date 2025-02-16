@@ -2,11 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { CommonType } from '@/app/global/types/StyledType'
 import { TableCols } from '@/app/global/components/Tables'
-import { Input, Select } from '@/app/global/components/FormComponents'
+import { Input } from '@/app/global/components/FormComponents'
 // import { Input } from '@/app/global/components/FormComponents'
 // import Select from 'react-select/base'
-import { BigButton } from '@/app/global/components/Buttons'
+import { BigButton, ButtonGroup } from '@/app/global/components/Buttons'
 import { FaSearch } from 'react-icons/fa'
+import { RxReset } from 'react-icons/rx'
 import { MdCheckBoxOutlineBlank, MdOutlineCheckBox } from 'react-icons/md'
 import colors from '@/app/global/styles/colors'
 
@@ -15,8 +16,7 @@ const { white, info, dark } = colors
 const StyledForm = styled.form<CommonType>`
   margin-bottom: 35px;
 
-  button[type='submit'] {
-    display: block;
+  .button-group {
     margin: 15px auto 0;
   }
 
@@ -51,7 +51,7 @@ const StyledForm = styled.form<CommonType>`
 //   { value: 'CATEGORY', label: '카테고리' },
 // ]
 
-const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
+const CardSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
   return (
     <StyledForm onSubmit={onSubmit} autoComplete="off">
       <TableCols>
@@ -148,7 +148,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
             <th>은행명</th>
             <td className="table-check">
               <span onClick={() => onClick('bankName', 'HANKUK')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'HANKUK' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -156,7 +156,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 한국은행
               </span>
               <span onClick={() => onClick('bankName', 'KB')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'KB' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -164,7 +164,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 국민은행
               </span>
               <span onClick={() => onClick('bankName', 'SC')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'SC' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -172,7 +172,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 제일은행
               </span>
               <span onClick={() => onClick('bankName', 'CITY')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'CITY' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -180,7 +180,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 한국시티은행
               </span>
               <span onClick={() => onClick('bankName', 'HANA')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'HANA' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -188,7 +188,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 하나은행
               </span>
               <span onClick={() => onClick('bankName', 'SHINHAN')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'SHINHAN' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -196,7 +196,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 신한은행
               </span>
               <span onClick={() => onClick('bankName', 'KBANK')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'KBANK' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -204,7 +204,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 K-뱅크
               </span>
               <span onClick={() => onClick('bankName', 'KAKAO')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'KAKAO' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -212,7 +212,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 카카오
               </span>
               <span onClick={() => onClick('bankName', 'TOSS')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'TOSS' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -220,7 +220,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 토스
               </span>
               <span onClick={() => onClick('bankName', 'SUHYUP')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'SUHYUP' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -228,7 +228,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 수협은행
               </span>
               <span onClick={() => onClick('bankName', 'BUSAN')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'BUSAN' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -236,7 +236,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 부산은행
               </span>
               <span onClick={() => onClick('bankName', 'KYUNGNAM')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'KYUNGNAM' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -244,7 +244,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 경남은행
               </span>
               <span onClick={() => onClick('bankName', 'KYANGJOO')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'KYANGJOO' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -252,7 +252,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 광주은행
               </span>
               <span onClick={() => onClick('bankName', 'JUNBOK')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'JUNBOK' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -260,7 +260,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 전북은행
               </span>
               <span onClick={() => onClick('bankName', 'JEJOO')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'JEJOO' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -268,7 +268,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 제주은행
               </span>
               <span onClick={() => onClick('bankName', 'LOTTE')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'LOTTE' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -276,7 +276,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 롯데카드
               </span>
               <span onClick={() => onClick('bankName', 'NONGHYUP')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'NONGHYUP' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -284,7 +284,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 농협은행
               </span>
               <span onClick={() => onClick('bankName', 'SAMSUNG')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'SAMSUNG' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -292,7 +292,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 삼성카드
               </span>
               <span onClick={() => onClick('bankName', 'HYUNDAI')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'HYUNDAI' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -300,7 +300,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 현대카드
               </span>
               <span onClick={() => onClick('bankName', 'WOORI')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'WOORI' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -308,7 +308,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 우리은행
               </span>
               <span onClick={() => onClick('bankName', 'SINHYUP')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'SINHYUP' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -316,7 +316,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 신협은행
               </span>
               <span onClick={() => onClick('bankName', 'SAEMAEULGEUMGO')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'SAEMAEULGEUMGO' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -324,7 +324,7 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
                 새마을금고
               </span>
               <span onClick={() => onClick('bankName', 'WOOCAEKUK')}>
-                {form?.bankName == 'SHOPPING' ? (
+                {form?.bankName == 'WOOCAEKUK' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -358,10 +358,16 @@ const CardSearch = ({ form, onChange, onSubmit, onClick }) => {
           </tr>
         </tbody>
       </TableCols>
-      <BigButton type="submit" color="primary" width={250}>
-        <FaSearch />
-        검색
-      </BigButton>
+      <ButtonGroup className="button-group center" width={800}>
+        <BigButton type="reset" color="info" onClick={onReset}>
+          <RxReset />
+          검색 초기화
+        </BigButton>
+        <BigButton type="submit" color="primary">
+          <FaSearch />
+          검색
+        </BigButton>
+      </ButtonGroup>
     </StyledForm>
   )
 }

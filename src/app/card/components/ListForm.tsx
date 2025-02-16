@@ -75,7 +75,7 @@ const StyledForm = styled.form`
   }
 `
 
-const CardItem = ({ item, onRemove, onClick }) => {
+const CardItem = ({ item, onClick, onModal }) => {
   const {
     seq,
     bankNameStr,
@@ -120,19 +120,14 @@ const CardItem = ({ item, onRemove, onClick }) => {
             수정
           </SmallButton>
         </a>
-        <SmallButton
-          type="button"
-          color="dark"
-          width={80}
-          onClick={() => onRemove(seq)}
-        >
+        <SmallButton type="button" color="dark" width={80} onClick={() => onModal(seq)}>
           삭제
         </SmallButton>
       </td>
     </tr>
   )
 }
-const ListForm = ({ items, onRemove, onClick }) => {
+const ListForm = ({ items, onClick, onModal }) => {
   return (
     <>
       <StyledForm>
@@ -159,7 +154,7 @@ const ListForm = ({ items, onRemove, onClick }) => {
                 <CardItem
                   key={'card_' + item.seq}
                   item={item}
-                  onRemove={onRemove}
+                  onModal={onModal}
                   onClick={onClick}
                 />
               ))

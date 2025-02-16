@@ -110,7 +110,7 @@ export const removeCard = async (seq) => {
 
     if (res.status === 200) {
       const result = await res.json()
-      console.log('result', result)
+      // console.log('result', result)
     } else {
       return
     }

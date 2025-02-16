@@ -34,8 +34,7 @@ const StyledForm = styled.form`
   }
 `
 
-// const ModalForm = ({ form, actionState, closeModal, onRemove }) => {
-const ModalForm = ({ form, actionState, closeModal }) => {
+const ModalForm = ({ form, onRemove, actionState, closeModal }) => {
   const [errors, formAction, isPending] = actionState
   return (
     <>
@@ -110,7 +109,7 @@ const ModalForm = ({ form, actionState, closeModal }) => {
             color="dark"
             width={100}
             disabled={isPending}
-            // onClick={onRemove}
+            onClick={() => onRemove(form?.seq)}
           >
             삭제
           </BigButton>

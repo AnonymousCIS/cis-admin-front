@@ -4,7 +4,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 
 import ListForm from '../components/ListForm'
 import CardSearch from '../components/CardSearch'
-// import { removeCard } from '../services/actions'
+import { removeCard } from '../services/actions'
 
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import { toQueryString } from '@/app/global/libs/utils'
@@ -54,6 +54,10 @@ const ListContainer = () => {
     _setSearch((_search) => ({ ..._search, [e.target.name]: e.target.value }))
   }, [])
 
+  const onReset = useCallback((field, value) => {
+    setSearch((_search) => ({ ...search, [field]: value }))
+  }, [])
+
   const onClick = useCallback((field, value) => {
     if (['cardTypes', 'bankName', 'categories'].includes(field)) {
       addToggle(value, field)
@@ -82,12 +86,7 @@ const ListContainer = () => {
   )
 
   // const onSelect = useCallback((field, value) => {
-
   // })
-
-  // const onRemove = useCallback(() => {
-  //   removeCard()
-  // }, [])
 
   useEffect(() => {
     if (data) {
@@ -113,9 +112,13 @@ const ListContainer = () => {
     setSearch((search) => ({ ...search, page }))
   }, [])
 
-  const onRemove = useCallback((seq) => {
+  const onModal = useCallback((seq) => {
     setSeq(seq)
     setIsOpen(true)
+  }, [])
+
+  const onRemove = useCallback((seq) => {
+    removeCard(seq)
   }, [])
 
   const closeModal = useCallback(() => {
@@ -130,11 +133,16 @@ const ListContainer = () => {
         onChange={onChange}
         onSubmit={onSubmit}
         onClick={onClick}
+        onReset={onReset}
       />
       {isLoading ? (
         <Loading />
       ) : (
-        <ListForm items={items} onRemove={onRemove} onClick={onClick} />
+        <ListForm
+          items={items}
+          onModal={onModal}
+          onClick={onClick}
+        />
       )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
