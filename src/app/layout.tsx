@@ -29,17 +29,17 @@ export default async function RootLayout({
   return (
     <html lang="ko">
       <body id="root">
-        <StyledComponentsRegistry>
-          <UserProvider _userInfo={userInfo}>
-            <Header />
-            <main className="main-content">
-              <CommonProvider>
-                {children}
-                {/* <Footer /> */}
-              </CommonProvider>
-            </main>
-          </UserProvider>
-        </StyledComponentsRegistry>
+          <StyledComponentsRegistry>
+            <UserProvider _userInfo={userInfo}>
+              <Header />
+              <main className="main-content">
+                <CommonProvider>
+                  {children}
+                  {/* <Footer /> */}
+                </CommonProvider>
+              </main>
+            </UserProvider>
+          </StyledComponentsRegistry>
       </body>
     </html>
   )

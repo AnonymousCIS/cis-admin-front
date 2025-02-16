@@ -6,6 +6,7 @@ import React, {
   useActionState,
   useCallback,
 } from 'react'
+import { useRouter } from 'next/navigation'
 import { getCard } from '../services/actions'
 import { removeCard } from '../services/actions'
 import { BulletList } from 'react-content-loader'
@@ -23,6 +24,8 @@ const DeleteContainer = ({ seq, closeModal }: Props | undefined) => {
   const [form, setForm] = useState({})
 
   const { data, isLoading } = useRequest(`/card/api/card/view/${seq}`)
+
+  const router = useRouter()
 
   // console.log('data', data)
 
@@ -44,8 +47,8 @@ const DeleteContainer = ({ seq, closeModal }: Props | undefined) => {
     closeModal()
 
     // 새로고침 임시용 주석삭제 XX
-    // window.location.reload()
-  }, [])
+    router.reload()
+  }, [closeModal, router])
 
   return (
     <>

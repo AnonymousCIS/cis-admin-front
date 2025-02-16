@@ -102,7 +102,7 @@ const CardItem = ({ item, onClick, onModal }) => {
       <td>{limit}</td>
       <td className="check">
         <span onClick={() => onClick('isOpen', !Boolean(item?.isOpen))}>
-          {isOpen ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
+          {/* {isOpen ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용 */}
         </span>
         <span onClick={() => onClick('isOpen', !Boolean(item?.isOpen))}>
           {isOpen ? <MdRadioButtonUnchecked /> : <MdRadioButtonChecked />}{' '}

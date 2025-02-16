@@ -14,6 +14,7 @@ import Pagination from '@/app/global/components/Pagination'
 
 import LayerPopup from '@/app/global/components/LayerPopup'
 import DeleteContainer from './DeleteContainer'
+import useQueryString from '@/app/global/hooks/useQueryString'
 
 const Loading = () => <BulletList />
 
@@ -31,11 +32,12 @@ type SearchType = {
 const ListContainer = () => {
   useMenuCode('card', 'list')
 
+  const _qs = useQueryString(['cardTypes', 'bankName', 'categories'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
-  const [search, setSearch] = useState<SearchType>({})
+  const [search, setSearch] = useState<SearchType>(_qs)
 
   // 임시로 값 담는 곳
-  const [_search, _setSearch] = useState<SearchType>({})
+  const [_search, _setSearch] = useState<SearchType>(_qs)
 
   const [items, setItems] = useState([])
 
@@ -55,16 +57,7 @@ const ListContainer = () => {
   }, [])
 
   const onReset = useCallback((field, value) => {
-    setSearch((_search) => ({ ...search, [field]: value }))
-  }, [])
-
-  const onClick = useCallback((field, value) => {
-    if (['cardTypes', 'bankName', 'categories'].includes(field)) {
-      addToggle(value, field)
-      _setSearch((_search) => ({ ..._search, [field]: value }))
-    } else {
-      _setSearch((_search) => ({ ..._search, [field]: value }))
-    }
+    setSearch((_search) => ({ ..._search, [field]: value }))
   }, [])
 
   /**
@@ -74,15 +67,27 @@ const ListContainer = () => {
    */
   const addToggle = useCallback(
     (value, type) => {
-      const set = new Set(_search[type])
+      const set = new Set(_search[type] ?? [])
       if (set.has(value)) {
         set.delete(value)
       } else {
         set.add(value)
       }
-      _setSearch({ ...search, [type]: [...set.values()] })
+      _setSearch({ ..._search, [type]: [...set.values()] })
     },
     [_search],
+  )
+
+  const onClick = useCallback(
+    (field, value) => {
+      if (['cardTypes', 'bankName', 'categories'].includes(field)) {
+        addToggle(value, field)
+        //_setSearch((_search) => ({ ..._search, [field]: value }))
+      } else {
+        _setSearch((_search) => ({ ..._search, [field]: value }))
+      }
+    },
+    [addToggle],
   )
 
   // const onSelect = useCallback((field, value) => {
@@ -134,11 +139,7 @@ const ListContainer = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <ListForm
-          items={items}
-          onModal={onModal}
-          onClick={onClick}
-        />
+        <ListForm items={items} onModal={onModal} onClick={onClick} />
       )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />

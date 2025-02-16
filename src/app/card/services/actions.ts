@@ -3,7 +3,6 @@
 import { redirect } from 'next/navigation'
 import apiRequest from '@/app/global/libs/apiRequest'
 import { toQueryString } from '@/app/global/libs/utils'
-import { notFound } from 'next/navigation'
 
 /**
  * 카드 단일 등록

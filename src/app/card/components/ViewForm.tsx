@@ -99,7 +99,7 @@ const ViewForm = ({ form, onRemove }) => {
               <th>공개 여부</th>
               <td>
                 <span>
-                  {form?.open !== null && form?.isOpen === true
+                  {form?.isOpen !== null && form?.isOpen === true
                     ? '공개'
                     : '미공개'}
                 </span>
