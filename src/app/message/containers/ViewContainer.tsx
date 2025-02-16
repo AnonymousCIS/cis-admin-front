@@ -17,7 +17,7 @@ const ViewConatiner = ({ seq }) => {
         return
       }
     })()
-  }, [])
+  }, [seq])
 
   return <ViewForm data={data} />
 }

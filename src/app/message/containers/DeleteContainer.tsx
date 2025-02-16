@@ -1,5 +1,5 @@
 'use client'
-
+'@typescript-eslint/no-unused-expressions'
 import useRequest from '@/app/global/hooks/useRequest'
 import React, {
   useActionState,
@@ -26,13 +26,12 @@ const DeleteContainer = ({ seq, closeModal }: Props) => {
 
   const router = useRouter()
 
-
   useLayoutEffect(() => {
     ;(async () => {
       try {
         const message = await getMessage(seq)
         setData(message)
-        console.log('message',message)
+        console.log('message', message)
       } catch (err) {
         console.error(err)
         return
@@ -47,7 +46,7 @@ const DeleteContainer = ({ seq, closeModal }: Props) => {
       deleteMessage(seq)
       closeModal()
 
-      router.refresh
+      router.refresh()
     },
     [closeModal, router],
   )
