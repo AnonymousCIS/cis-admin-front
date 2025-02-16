@@ -60,7 +60,7 @@ const ListContainer = () => {
     [_search],
   )
 
-  const onDelete = useCallback((seq) => {
+  const onModal = useCallback((seq) => {
     setIsOpen(true)
     setSeq(seq)
   }, [])
@@ -81,7 +81,7 @@ const ListContainer = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <ListForm items={items} onChange={onChange} form={_search} />
+        <ListForm items={items} onChange={onChange} onModal={onModal} form={_search} />
       )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
