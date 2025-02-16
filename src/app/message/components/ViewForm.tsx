@@ -32,7 +32,6 @@ const StyledForm = styled.form`
 `
 
 const ViewForm = ({ data }) => {
-  console.log('data', data)
   const { subject, content, senderEmail } = data
   return (
     <>
@@ -51,10 +50,12 @@ const ViewForm = ({ data }) => {
 
             <tr>
               <th>내용</th>
-              <td
-                className="content"
-                dangerouslySetInnerHTML={{ __html: { content } }}
-              ></td>
+              <td>
+                <div
+                  className="content"
+                  dangerouslySetInnerHTML={{ __html: content }}
+                ></div>
+              </td>
             </tr>
           </tbody>
         </TableCols>

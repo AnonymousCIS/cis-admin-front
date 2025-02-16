@@ -10,7 +10,7 @@ import { redirect } from 'next/navigation'
  * @returns
  */
 export const getMessage = async (seq: number) => {
-
+  console.log('seq', seq)
   let apiUrl = process.env.API_URL + `/message/view/${seq}`
 
   const res = await apiRequest(apiUrl)
@@ -24,7 +24,7 @@ export const getMessage = async (seq: number) => {
     const { gid } = data
 
     apiUrl = process.env.API_URL + `/file/list/${gid}`
-    
+
     const _res = await apiRequest(apiUrl)
     const _result = await _res.json()
 
