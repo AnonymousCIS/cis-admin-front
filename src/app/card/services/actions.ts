@@ -6,7 +6,7 @@ import { toQueryString } from '@/app/global/libs/utils'
 import { notFound } from 'next/navigation'
 
 /**
- * 카드 생성 처리
+ * 카드 단일 등록
  *
  * @param params : QueryString 값
  * @param formData
@@ -58,7 +58,16 @@ export const processCreate = async (params, formData: FormData) => {
 
   /* Server 요청 처리 S */
   if (!hasErrors) {
-    const res = await apiRequest('/card/admin/create', 'POST', { ...form })
+    const apiUrl =
+      form.mode == 'add' ? '/card/admin/create' : '/card/admin/updates'
+
+    const reqMethod = form.mode == 'add' ? 'POST' : 'PATCH'
+
+    const qs = toQueryString({ form: [form] })
+
+    const reqBody = form.mode == 'add' ? { ...form } : qs
+
+    const res = await apiRequest(apiUrl, reqMethod, reqBody)
     console.log(form)
 
     if (res.status !== 200) {

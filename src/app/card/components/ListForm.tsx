@@ -82,7 +82,7 @@ const CardItem = ({ item, onClick, onModal }) => {
     cardName,
     cardTypeStr,
     categoryStr,
-    open,
+    isOpen,
     limit,
     annualFee,
   } = item
@@ -101,11 +101,12 @@ const CardItem = ({ item, onClick, onModal }) => {
       <td>{annualFee}</td>
       <td>{limit}</td>
       <td className="check">
-        <span onClick={() => onClick('open', !Boolean(item?.open))}>
-          {open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
+        <span onClick={() => onClick('isOpen', !Boolean(item?.isOpen))}>
+          {isOpen ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
         </span>
-        <span onClick={() => onClick('open', !Boolean(item?.open))}>
-          {open ? <MdRadioButtonUnchecked /> : <MdRadioButtonChecked />} 미사용
+        <span onClick={() => onClick('isOpen', !Boolean(item?.isOpen))}>
+          {isOpen ? <MdRadioButtonUnchecked /> : <MdRadioButtonChecked />}{' '}
+          미사용
         </span>
       </td>
 
@@ -120,7 +121,12 @@ const CardItem = ({ item, onClick, onModal }) => {
             수정
           </SmallButton>
         </a>
-        <SmallButton type="button" color="dark" width={80} onClick={() => onModal(seq)}>
+        <SmallButton
+          type="button"
+          color="dark"
+          width={80}
+          onClick={() => onModal(seq)}
+        >
           삭제
         </SmallButton>
       </td>

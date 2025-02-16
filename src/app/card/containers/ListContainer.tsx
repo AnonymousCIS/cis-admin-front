@@ -117,10 +117,6 @@ const ListContainer = () => {
     setIsOpen(true)
   }, [])
 
-  const onRemove = useCallback((seq) => {
-    removeCard(seq)
-  }, [])
-
   const closeModal = useCallback(() => {
     setIsOpen(false)
     setSeq(null)
