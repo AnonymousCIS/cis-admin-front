@@ -8,7 +8,8 @@ import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
 import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
-import { log } from 'console'
+import LoanDeleteContainer from './LoanDeleteContainer'
+import LayerPopup from '@/app/global/components/LayerPopup'
 
 const Loading = () => <BulletList />
 
@@ -44,6 +45,7 @@ const LoanListContainer = () => {
     `/loan/api/list${qs.trim() ? '?' + qs : ''}`,
   )
 
+  /*
   const map = new Map<string, Set<string>>()
   const onClick = useCallback((k: string, v: string) => {
     if (!map.has(k)) {
@@ -63,6 +65,41 @@ const LoanListContainer = () => {
     console.log('map - ' + k + '의 values : ' + map.get(k).size)
     _setSearch((_search) => ({ ..._search, [k]: [...map.values()] }))
   }, [])
+  */
+
+  /* ✨✨추가한 부분 S */
+  const onClick = useCallback((field, value) => {
+    if (['bankName', 'categories'].includes(field)) {
+      addToggle(value, field)
+      _setSearch((_search) => ({ ..._search, [field]: value }))
+    } else {
+      _setSearch((_search) => ({ ..._search, [field]: value }))
+    }
+  }, [])
+
+  /**
+   * Set을 이용해 중복 제거 & 값을 토글 형태로 받는 공통 함수
+   *
+   * 입력하는 값 & 필드명(type)
+   */
+  const addToggle = useCallback(
+    (value, type) => {
+      const set = new Set(_search[type])
+      if (set.has(value)) {
+        set.delete(value)
+      } else {
+        set.add(value)
+      }
+      _setSearch({ ...search, [type]: [...set.values()] })
+    },
+    [_search],
+  )
+
+  const closeModal = useCallback(() => {
+    setIsOpen(false)
+    setSeq(null)
+  }, [])
+  /* ✨✨추가한 부분 E */
 
   const onChange = useCallback((e) => {
     _setSearch((_search) => ({ ..._search, [e.target.name]: e.target.value }))
@@ -105,10 +142,26 @@ const LoanListContainer = () => {
         onSubmit={onSubmit}
         onClick={onClick}
       />
-      {isLoading ? <Loading /> : <LoanList items={items} onRemove={onRemove} />}
+      {/* ✨✨onClick 추가 */}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <LoanList items={items} onRemove={onRemove} onClick={onClick} />
+      )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
+      {/* ✨✨추가한 부분 S */}
+      <LayerPopup
+        isOpen={isOpen}
+        onClose={closeModal}
+        title="대출 삭제"
+        width={750}
+        height={600}
+      >
+        <LoanDeleteContainer seq={seq} closeModal={closeModal} />
+      </LayerPopup>
+      {/* ✨✨추가한 부분 E */}
     </>
   )
 }

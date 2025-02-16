@@ -19,7 +19,8 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
-const LoanView = ({ form }) => {
+// ✨✨ onDelete 추가
+const LoanView = ({ form, onDelete }) => {
   return (
     <>
       <StyledForm>
@@ -83,7 +84,8 @@ const LoanView = ({ form }) => {
           <SmallButton type="button" color="info" width={120}>
             수정
           </SmallButton>
-          <SmallButton type="button" color="dark">
+          {/* onDelete ✨✨추가 */}
+          <SmallButton type="button" color="dark" onClick={onDelete}>
             삭제
           </SmallButton>
         </ButtonGroup>

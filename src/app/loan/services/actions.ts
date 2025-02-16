@@ -1,6 +1,7 @@
 'use server'
 import { redirect } from 'next/navigation'
 import apiRequest from '@/app/global/libs/apiRequest'
+import { toQueryString } from '@/app/global/libs/utils'
 
 /**
  * Loan 생성
@@ -28,7 +29,6 @@ export const processLoan = async (params, formData: FormData) => {
   const requiredFields = {
     loanName: '대출명을 입력해주세요,',
     limit: '한도를 입력해주세요.',
-    category: '카테고리를 입력해주세요.',
     bankName: '은행명을 입력해주세요.',
     repaymentYear: '한도년도를 입력해주세오.',
     loanDescription: '대출 설명을 입력해주세요.',
@@ -37,10 +37,8 @@ export const processLoan = async (params, formData: FormData) => {
 
   for (const [field, msg] of Object.entries(requiredFields)) {
     const value = formData.get(field).toString()
-    if (
-      !form[field] ||
-      (typeof form[field] === 'string' && !form[field].trim())
-    ) {
+    //if (!form[field] || (typeof form[field] === 'string' && !form[field].trim())) {
+    if (!value || !value.trim()) {
       console.log('errors[field]' + field)
       errors[field] = errors[field] ?? []
       errors[field].push(msg)
@@ -116,7 +114,7 @@ export const getLoan = async (seq) => {
 }
 
 /**
- * 대출 삭제
+ * 대출 수정
  *
  * @param params
  * @param formData
@@ -134,7 +132,6 @@ export const updateLoan = async (params, formData: FormData) => {
 
     form[key] = _value
   }
-  const { locationAfterWriting } = await getLoan(form.seq)
 
   let redirectUrl = `/loan/list`
   /* 필수 항목 검증 S */
@@ -142,7 +139,6 @@ export const updateLoan = async (params, formData: FormData) => {
   const requiredFields = {
     loanName: '대출명은 필수항목입니다.',
     limit: '대출 한도는 필수항목입니다.',
-    category: '대출 카테고리는 필수항목입니다.',
     bankName: '은행명은 필수항목입니다.',
     repaymentYear: '상환년도는 필수항목입니다.',
     loanDescription: '대출 설명은 필수항목입니다.',
@@ -159,23 +155,21 @@ export const updateLoan = async (params, formData: FormData) => {
       hasErrors = true
     }
   }
-
   /* 필수 항목 검증 E */
 
   /* Server 처리 요청 S */
-
   if (!hasErrors) {
-    form.status = 'ALL'
-    const res = await apiRequest('/loan/admin/updates', 'POST', form)
+    const res = await apiRequest('/loan/admin/updates', 'PATCH', form)
     const result = await res.json()
+    console.log('res.json() : ' + result)
+
+    console.log('res.status의 값 : ' + res.status)
     if (res.status !== 200 || !result.success) {
-      // 게시글 등록 & 수정 실패
+      // 대출 등록 & 수정 실패
       return result.message
     } else {
-      // 게시글 등록 & 수정 성공
+      // 대출 등록 & 수정 성공
       const { seq } = result.data
-      redirectUrl =
-        locationAfterWriting === 'view' ? `/loan/view/${seq}` : redirectUrl
     }
   }
 
@@ -186,23 +180,41 @@ export const updateLoan = async (params, formData: FormData) => {
   redirect(redirectUrl)
 }
 
-export const deleteLoan = async (params, formData: FormData) => {
-  const redirectUrl = params?.redirectUrl ?? '/loan/list'
-  const seq = formData.get('seq')
+/**
+ * 대출 삭제
+ * @param params
+ * @param formData
+ */
+// export const deleteLoan = async (params, formData: FormData) => {
+export const deleteLoan = async (seq) => {
+  // const redirectUrl = params?.redirectUrl ?? '/loan/list'
+  // const seq = formData.get('seq')
+
+  // ✨✨ 추가
+  const qs = toQueryString({ seq: [seq] })
 
   try {
     const res = await apiRequest(`/loan/admin/deletes/${seq}`, 'DELETE')
-    const result = await res.status
-    if (result !== 200) {
+    // const result = await res.status
+
+    // if (result !== 200) {
+    if (res.status == 200) {
+      const result = await res.json()
       console.log('result : ' + result)
     }
   } catch (err) {
     console.error(err)
   }
 
-  redirect(redirectUrl)
+  // redirect(redirectUrl)
+  redirect('/loan/list')
 }
 
+/**
+ * 추천 대출 훈련
+ *
+ * @returns
+ */
 export const loanTrain = async () => {
   try {
     const res = await apiRequest('/loan/admin/train')
