@@ -44,7 +44,7 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
-const ViewForm = ({ form, onRemove }) => {
+const ViewForm = ({ form, onRemove, onChange, onClick }) => {
   const { seq } = form
   return (
     <>

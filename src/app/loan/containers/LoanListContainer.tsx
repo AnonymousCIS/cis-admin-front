@@ -67,16 +67,6 @@ const LoanListContainer = () => {
   }, [])
   */
 
-  /* ✨✨추가한 부분 S */
-  const onClick = useCallback((field, value) => {
-    if (['bankName', 'categories'].includes(field)) {
-      addToggle(value, field)
-      _setSearch((_search) => ({ ..._search, [field]: value }))
-    } else {
-      _setSearch((_search) => ({ ..._search, [field]: value }))
-    }
-  }, [])
-
   /**
    * Set을 이용해 중복 제거 & 값을 토글 형태로 받는 공통 함수
    *
@@ -93,6 +83,19 @@ const LoanListContainer = () => {
       _setSearch({ ...search, [type]: [...set.values()] })
     },
     [_search],
+  )
+
+  /* ✨✨추가한 부분 S */
+  const onClick = useCallback(
+    (field, value) => {
+      if (['bankName', 'categories'].includes(field)) {
+        addToggle(value, field)
+        _setSearch((_search) => ({ ..._search, [field]: value }))
+      } else {
+        _setSearch((_search) => ({ ..._search, [field]: value }))
+      }
+    },
+    [addToggle, _search],
   )
 
   const closeModal = useCallback(() => {

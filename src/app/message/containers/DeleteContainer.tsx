@@ -30,7 +30,9 @@ const DeleteContainer = ({ seq, closeModal }: Props) => {
     })()
   }, [seq])
 
-  const actionState = useActionState(deleteMessage, undefined)
+  // const actionState = useActionState(deleteMessage, undefined)
+
+  return <></>
 }
 
 export default React.memo(DeleteContainer)
