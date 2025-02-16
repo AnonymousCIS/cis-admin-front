@@ -71,7 +71,7 @@ const LoanListContainer = () => {
       }
       _setSearch({ ..._search, [type]: [...set.values()] })
     },
-    [_search],
+    [_search, search],
   )
 
   /* ✨✨추가한 부분 S */
@@ -85,6 +85,7 @@ const LoanListContainer = () => {
       }
     },
     [addToggle],
+
   )
 
   const closeModal = useCallback(() => {

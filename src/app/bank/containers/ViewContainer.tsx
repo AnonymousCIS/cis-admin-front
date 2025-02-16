@@ -24,7 +24,7 @@ const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
 
   const onRemove = useCallback(() => {
     removeBank(seq)
-  }, [])
+  }, [seq])
 
   const onChange = useCallback((e) => {
     setForm((form) => ({ ...form, [e.target.name]: e.target.value }))

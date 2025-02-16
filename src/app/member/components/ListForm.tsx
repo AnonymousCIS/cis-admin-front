@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
 import { SmallButton } from '@/app/global/components/Buttons'
+import { MdEmail } from 'react-icons/md'
 
 const StyledForm = styled.form`
   th:nth-of-type(1) {
@@ -96,7 +97,16 @@ const MemberItems = ({ item, onDeleteClick }) => {
   return (
     <tr>
       <td>{seq}</td>
-      <td>{email}</td>
+      <td>
+        <div>
+          <a href={`/message/write/${email}`}>
+            <span>
+              <MdEmail />
+            </span>
+            <span>{email}</span>
+          </a>
+        </div>
+      </td>
       <td>{name}</td>
       <td>{zipCode}</td>
       <td>{address}</td>

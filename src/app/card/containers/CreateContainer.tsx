@@ -25,12 +25,12 @@ const initialValue = {
 const CreateContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
   useMenuCode('card', 'create')
 
-  // const searchParams = useSearchParams()
+  const searchParams = useSearchParams()
 
-  // const params = { redirectUrl: searchParams.get('redirectUrl') }
+  const params = { redirectUrl: searchParams.get('redirectUrl') }
 
-  // const actionState = useActionState(processCreate, params)
-  const actionState = useActionState(processCreate, undefined)
+  const actionState = useActionState(processCreate, params)
+  // const actionState = useActionState(processCreate, undefined)
 
   const [form, setForm] = useState(initialValue)
 
