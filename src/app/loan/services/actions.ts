@@ -1,6 +1,7 @@
 'use server'
 import { redirect } from 'next/navigation'
 import apiRequest from '@/app/global/libs/apiRequest'
+import { toQueryString } from '@/app/global/libs/utils'
 
 /**
  * Loan 생성
@@ -116,7 +117,7 @@ export const getLoan = async (seq) => {
 }
 
 /**
- * 대출 삭제
+ * 대출 수정
  *
  * @param params
  * @param formData
@@ -186,23 +187,42 @@ export const updateLoan = async (params, formData: FormData) => {
   redirect(redirectUrl)
 }
 
-export const deleteLoan = async (params, formData: FormData) => {
-  const redirectUrl = params?.redirectUrl ?? '/loan/list'
-  const seq = formData.get('seq')
+/**
+ * 대출 삭제
+ * @param params 
+ * @param formData 
+ */
+// export const deleteLoan = async (params, formData: FormData) => {
+export const deleteLoan = async (seq) => {
+ 
+  // const redirectUrl = params?.redirectUrl ?? '/loan/list'
+  // const seq = formData.get('seq')
+
+  // ✨✨ 추가
+  const qs = toQueryString({ seq: [seq] })
 
   try {
     const res = await apiRequest(`/loan/admin/deletes/${seq}`, 'DELETE')
-    const result = await res.status
-    if (result !== 200) {
+    // const result = await res.status
+
+    // if (result !== 200) {
+    if (res.status == 200) {
+      const result = await res.json()
       console.log('result : ' + result)
     }
   } catch (err) {
     console.error(err)
   }
 
-  redirect(redirectUrl)
+  // redirect(redirectUrl)
+  redirect('/loan/list')
 }
 
+/**
+ * 추천 대출 훈련
+ * 
+ * @returns 
+ */
 export const loanTrain = async () => {
   try {
     const res = await apiRequest('/loan/admin/train')

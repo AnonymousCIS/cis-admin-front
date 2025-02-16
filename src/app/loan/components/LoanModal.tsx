@@ -20,7 +20,15 @@ const StyledForm = styled.form<CommonType>`
 `
 
 const LoanModal = ({ form, actionState, closeModal }) => {
-  const [formAction, isPending] = actionState
+
+  /*
+    Invalid value for prop `disabled` on <button> tag. Either remove it from the element, or pass a string or number value to keep it in the DOM. For details, see https://react.dev/link/attribute-behavior 
+  */
+  // ✨✨Button disabled 뜨던 이유 = errors 없어서 inPending이 boolean값이 아니었음
+
+  // 원본
+  // const [formAction, isPending] = actionState
+  const [errors, formAction, isPending] = actionState
 
   return (
     <>

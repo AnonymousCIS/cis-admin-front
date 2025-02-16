@@ -14,7 +14,8 @@ const StyledForm = styled.form`
   }
 `
 
-const LoanItem = ({ item, onRemove }) => {
+// ✨✨ onClick 추가
+const LoanItem = ({ item, onRemove, onClick }) => {
   const {
     seq,
     loanName,
@@ -40,10 +41,11 @@ const LoanItem = ({ item, onRemove }) => {
       <td>{interestRate}</td>
       <td>{repaymentYear}</td>
       <td>
-        <span>
+        {/* ✨✨ span에 onClick 추가 */}
+        <span onClick={() => onClick('open', !Boolean(item?.open))}>
           {open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
         </span>
-        <span>
+        <span onClick={() => onClick('open', !Boolean(item?.open))}>
           {!open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 미사용
         </span>
       </td>
@@ -84,7 +86,8 @@ const LoanItem = ({ item, onRemove }) => {
   )
 }
 
-const LoanList = ({ items, onRemove }) => {
+// ✨✨ onClick 추가
+const LoanList = ({ items, onRemove, onClick }) => {
   return (
     <>
       <StyledForm>
@@ -111,6 +114,8 @@ const LoanList = ({ items, onRemove }) => {
                   key={'loan' + item.seq}
                   item={item}
                   onRemove={onRemove}
+                  // ✨✨ onClick 추가
+                  onClick={onClick}
                 />
               ))
             ) : (
