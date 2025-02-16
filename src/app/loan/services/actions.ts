@@ -51,13 +51,21 @@ export const processLoan = async (params, formData: FormData) => {
   // 서버 요청 처리 S
 
   if (!hasErrors) {
-    const res = await apiRequest('/loan/admin/create', 'POST', form)
+    const apiUrl =
+      form.mode == 'add' ? '/loan/admin/create' : '/loan/admin/updates'
+
+    const reqMethod = form.mode == 'add' ? 'POST' : 'PATCH'
+
+    const reqBody = form.mode == 'add' ? { ...form } : [form]
+
+    const res = await apiRequest(apiUrl, reqMethod, reqBody)
+    console.log('form의 값 : ' + form)
     console.log('res.status의 값은 : ', res.status)
     console.log('form : ' + JSON.stringify(form))
 
     if (res.status !== 200) {
       const result = await res.json()
-      console.log('result', result)
+      console.log('result의 값 : ', result)
       errors = result.message
       hasErrors = true
     }
@@ -92,7 +100,7 @@ export const processLoan = async (params, formData: FormData) => {
     return errors
   }
 
-  return redirect('/loan/list')
+  return redirect(redirectUrl)
 }
 
 /**
@@ -111,73 +119,6 @@ export const getLoan = async (seq) => {
   } catch (err) {
     console.error(err)
   }
-}
-
-/**
- * 대출 수정
- *
- * @param params
- * @param formData
- * @returns
- */
-export const updateLoan = async (params, formData: FormData) => {
-  const form: any = {}
-  const errors: any = {}
-  let hasErrors = false
-
-  for (const [key, value] of formData.entries()) {
-    const _value = ['true', 'false'].includes(value.toString())
-      ? Boolean(value.toString())
-      : value.toString()
-
-    form[key] = _value
-  }
-
-  const redirectUrl = `/loan/list`
-  /* 필수 항목 검증 S */
-
-  const requiredFields = {
-    loanName: '대출명은 필수항목입니다.',
-    limit: '대출 한도는 필수항목입니다.',
-    bankName: '은행명은 필수항목입니다.',
-    repaymentYear: '상환년도는 필수항목입니다.',
-    loanDescription: '대출 설명은 필수항목입니다.',
-    interestRate: '이자율은 필수항목입니다.',
-  }
-
-  for (const [field, msg] of Object.entries(requiredFields)) {
-    if (
-      !form[field] ||
-      (typeof form[field] === 'string' && !form[field].trim())
-    ) {
-      errors[field] = errors[field] ?? []
-      errors[field].push(msg)
-      hasErrors = true
-    }
-  }
-  /* 필수 항목 검증 E */
-
-  /* Server 처리 요청 S */
-  if (!hasErrors) {
-    const res = await apiRequest('/loan/admin/updates', 'PATCH', form)
-    const result = await res.json()
-    console.log('res.json() : ' + result)
-
-    console.log('res.status의 값 : ' + res.status)
-    if (res.status !== 200 || !result.success) {
-      // 대출 등록 & 수정 실패
-      return result.message
-    } else {
-      // 대출 등록 & 수정 성공
-      const { seq } = result.data
-    }
-  }
-
-  /* Server 처리 요청 E */
-
-  if (hasErrors) return errors
-
-  redirect(redirectUrl)
 }
 
 /**

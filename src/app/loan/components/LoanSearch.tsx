@@ -4,8 +4,9 @@ import colors from '@/app/global/styles/colors'
 import { CommonType } from '@/app/global/types/StyledType'
 import { TableCols } from '@/app/global/components/Tables'
 import { Input } from '@/app/global/components/FormComponents'
-import { BigButton } from '@/app/global/components/Buttons'
+import { BigButton, ButtonGroup } from '@/app/global/components/Buttons'
 import { FaSearch } from 'react-icons/fa'
+import { RxReset } from 'react-icons/rx'
 import { MdOutlineCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
 
 const { white, info, dark, lightgray } = colors
@@ -13,7 +14,7 @@ const { white, info, dark, lightgray } = colors
 const StyledForm = styled.form<CommonType>`
   margin-bottom: 35px;
 
-  button[type='submit'] {
+  button {
     display: block;
     margin: 15px auto 0;
   }
@@ -54,7 +55,7 @@ const StyledForm = styled.form<CommonType>`
   { value: 'DESC', label: '대출 설명' },
 ] */
 
-const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
+const LoanSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
   return (
     <StyledForm onSubmit={onSubmit} autoComplete="off">
       <TableCols>
@@ -67,6 +68,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 name="skey"
                 value={form?.skey ?? ''}
                 onChange={onChange}
+                placeholder="검색어를 입력해주세요."
               />
             </td>
           </tr>
@@ -74,7 +76,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
             <th>대출 카테고리</th>
             <td>
               <span onClick={() => onClick('categories', 'CREDITLOAN')}>
-                {'CREDITLOAN'.includes(form?.categories) ? (
+                {form?.categories?.includes('CREDITLOAN') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -82,7 +84,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 신용대출
               </span>
               <span onClick={() => onClick('categories', 'MORTGAGELOAN')}>
-                {'MORTGAGELOAN'.includes(form?.categories) ? (
+                {form?.categories?.includes('MORTGAGELOAN') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -95,7 +97,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
             <th>은행명</th>
             <td>
               <span onClick={() => onClick('bankName', 'HANKUK')}>
-                {'HANKUK'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('HANKUK') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -103,7 +105,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 한국은행
               </span>
               <span onClick={() => onClick('bankName', 'KB')}>
-                {'KB'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('KB') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -111,7 +113,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 국민은행
               </span>
               <span onClick={() => onClick('bankName', 'SC')}>
-                {'SC'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('SC') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -119,7 +121,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 제일은행
               </span>
               <span onClick={() => onClick('bankName', 'CITY')}>
-                {'CITY'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('CITY') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -127,7 +129,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 한국시티은행
               </span>
               <span onClick={() => onClick('bankName', 'HANA')}>
-                {'HANA'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('HANA') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -135,7 +137,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 하나은행
               </span>
               <span onClick={() => onClick('bankName', 'SHINHAN')}>
-                {'SHINHAN'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('SHINHAN') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -143,7 +145,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 신한은행
               </span>
               <span onClick={() => onClick('bankName', 'KBANK')}>
-                {'KBANK'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('KBANK') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -151,7 +153,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 K-뱅크
               </span>
               <span onClick={() => onClick('bankName', 'KAKAO')}>
-                {'KAKAO'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('KAKAO') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -159,7 +161,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 카카오
               </span>
               <span onClick={() => onClick('bankName', 'TOSS')}>
-                {'TOSS'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('TOSS') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -167,7 +169,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 토스
               </span>
               <span onClick={() => onClick('bankName', 'SUHYUP')}>
-                {'SUHYUP'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('SUHYUP') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -175,7 +177,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 수협은행
               </span>
               <span onClick={() => onClick('bankName', 'BUSAN')}>
-                {'BUSAN'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('BUSAN') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -183,7 +185,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 부산은행
               </span>
               <span onClick={() => onClick('bankName', 'KYUNGNAM')}>
-                {'KYUNGNAM'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('KYUNGNAM') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -191,7 +193,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 경남은행
               </span>
               <span onClick={() => onClick('bankName', 'KYANGJOO')}>
-                {'KYANGJOO'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('KYANGJOO') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -199,7 +201,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 광주은행
               </span>
               <span onClick={() => onClick('bankName', 'JUNBOK')}>
-                {'JUNBOK'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('JUNBOK') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -207,7 +209,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 전북은행
               </span>
               <span onClick={() => onClick('bankName', 'JEJOO')}>
-                {'JEJOO'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('JEJOO') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -215,7 +217,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 제주은행
               </span>
               <span onClick={() => onClick('bankName', 'LOTTE')}>
-                {'LOTTE'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('LOTTE') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -223,7 +225,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 롯데카드
               </span>
               <span onClick={() => onClick('bankName', 'NONGHYUP')}>
-                {'NONGHYUP'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('NONGHYUP') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -231,7 +233,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 농협은행
               </span>
               <span onClick={() => onClick('bankName', 'SAMSUNG')}>
-                {'SAMSUNG'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('SAMSUNG') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -239,7 +241,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 삼성카드
               </span>
               <span onClick={() => onClick('bankName', 'HYUNDAI')}>
-                {'HYUNDAI'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('HYUNDAI') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -247,7 +249,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 현대카드
               </span>
               <span onClick={() => onClick('bankName', 'WOORI')}>
-                {'WOORI'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('WOORI') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -255,7 +257,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 우리은행
               </span>
               <span onClick={() => onClick('bankName', 'SINHYUP')}>
-                {'SINHYUP'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('SINHYUP') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -263,7 +265,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 신협은행
               </span>
               <span onClick={() => onClick('bankName', 'SAEMAEULGEUMGO')}>
-                {'SAEMAEULGEUMGO'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('SAEMAEULGEUMGO') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -271,7 +273,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
                 새마을금고
               </span>
               <span onClick={() => onClick('bankName', 'WOOCAEKUK')}>
-                {'WOOCAEKUK'.includes(form?.bankName) ? (
+                {form?.bankName?.includes('WOOCAEKUK') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -285,25 +287,35 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick }) => {
             <td>
               <Input
                 type="number"
-                placeholder="최저 한도"
-                name="minLimit"
                 width={150}
+                placeholder="최저 한도"
+                name="loanLimitMin"
+                value={form?.loanLimitMin ?? ''}
+                onChange={onChange}
               />
               ~
               <Input
                 type="number"
-                placeholder="최고 한도"
-                name="maxLimit"
                 width={150}
+                placeholder="최대 한도"
+                name="loanLimitMax"
+                value={form?.loanLimitMax ?? ''}
+                onChange={onChange}
               />
             </td>
           </tr>
         </tbody>
       </TableCols>
-      <BigButton type="submit" color="primary" width={250}>
-        <FaSearch />
-        검색
-      </BigButton>
+      <ButtonGroup className="button-group center" width={800}>
+        <BigButton type="reset" color="info" onClick={onReset}>
+          <RxReset />
+          검색 초기화
+        </BigButton>
+        <BigButton type="submit" color="primary" width={250}>
+          <FaSearch />
+          검색
+        </BigButton>
+      </ButtonGroup>
     </StyledForm>
   )
 }
