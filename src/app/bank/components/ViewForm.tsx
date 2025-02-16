@@ -44,14 +44,7 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
-const ViewForm = ({
-  form,
-  onRemove,
-  onChange,
-  onReset,
-  onClick,
-  actionState,
-}) => {
+const ViewForm = ({ form, onRemove }) => {
   const { seq } = form
   return (
     <>
@@ -117,7 +110,20 @@ const ViewForm = ({
 
         <div className="center">
           <a href={'/bank/view/' + seq}>
-            <MediumButton type="button" color="info" width={120}>
+            <MediumButton
+              type="button"
+              color="secondary"
+              width={120}
+              //    onClick={onclick}
+            >
+              돌아가기
+            </MediumButton>
+            <MediumButton
+              type="button"
+              color="info"
+              width={120}
+              //  onClick={onclick}
+            >
               수정
             </MediumButton>
           </a>

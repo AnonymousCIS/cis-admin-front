@@ -9,7 +9,8 @@ import ViewForm from '../components/ViewForm'
 import { BulletList } from 'react-content-loader'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import { getBank, removeBank } from '../services/actions'
-import { notFound } from 'next/navigation'
+import { notFound, useRouter } from 'next/navigation'
+
 import useRequest from '@/app/global/hooks/useRequest'
 
 const Loading = () => <BulletList />
@@ -24,6 +25,15 @@ const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
   const onRemove = useCallback(() => {
     removeBank(seq)
   }, [])
+
+  const onChange = useCallback((e) => {
+    setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
+  }, [])
+
+  const router = useRouter()
+  const onClick = () => {
+    router.push('/bank/list')
+  }
 
   useLayoutEffect(() => {
     ;(async () => {
@@ -48,10 +58,8 @@ const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
         <ViewForm
           form={form}
           onRemove={onRemove}
-          onChange={onchange}
-          onReset={onreset}
-          onClick={onclick}
-          actionState={useActionState}
+          onChange={onChange}
+          onClick={onClick}
         />
       )}
     </>
