@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { TableRows } from '@/app/global/components/Tables'
+import { TableCols } from '@/app/global/components/Tables'
 import {
   BigButton,
   ButtonGroup,
@@ -49,7 +49,7 @@ const ViewForm = ({ form, onRemove, onChange, onClick }) => {
   return (
     <>
       <StyledForm>
-        <TableRows>
+        <TableCols>
           <tbody>
             <tr>
               <th>은행 기관명</th>
@@ -106,7 +106,7 @@ const ViewForm = ({ form, onRemove, onChange, onClick }) => {
               </td>
             </tr>
           </tbody>
-        </TableRows>
+        </TableCols>
 
         <div className="center">
           <a href={'/bank/view/' + seq}>
