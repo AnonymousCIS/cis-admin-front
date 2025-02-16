@@ -20,9 +20,8 @@ const LoanViewContainer = ({
   const { isLoading } = useRequest(`/loan/view/${seq}`)
 
   const onDelete = useCallback(() => {
-
     deleteLoan(seq)
-  }, [])
+  }, [seq])
 
   useLayoutEffect(() => {
     ;(async () => {

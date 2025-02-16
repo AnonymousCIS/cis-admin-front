@@ -133,7 +133,7 @@ export const updateLoan = async (params, formData: FormData) => {
     form[key] = _value
   }
 
-  let redirectUrl = `/loan/list`
+  const redirectUrl = `/loan/list`
   /* 필수 항목 검증 S */
 
   const requiredFields = {
