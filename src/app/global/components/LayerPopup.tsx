@@ -77,7 +77,7 @@ const LayerPopup = ({
 
   return (
     isOpen && (
-      <Modal isOpen={isOpen} style={customStyles}>
+      <Modal isOpen={isOpen} style={customStyles} ariaHideApp={false}>
         <Wrapper>
           <AiOutlineCloseSquare onClick={onClose} className="close" />
           {title && <h1>{title}</h1>}
