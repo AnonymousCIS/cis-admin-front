@@ -17,4 +17,4 @@ const WritePage = ({ params }) => {
   )
 }
 
-export default WritePage
+export default React.memo(WritePage)
