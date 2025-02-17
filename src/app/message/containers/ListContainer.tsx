@@ -19,12 +19,13 @@ type SearchType = {
   page?: number
   limit?: number
   status?: 'UNREAD' | 'READ'
+  mode?: 'receive' | 'send'
 }
 
 const ListContainer = () => {
   useMenuCode('message', 'listForm')
 
-  const _qs = useQueryString(['skey', 'status'])
+  const _qs = useQueryString(['skey', 'status', 'mode'])
 
   const [search, setSearch] = useState<SearchType>(_qs)
 
@@ -98,9 +99,9 @@ const ListContainer = () => {
 
   const onClick = useCallback(
     (field, value) => {
-      if (['cardTypes', 'bankName', 'categories'].includes(field)) {
-        addToggle(value, field)
-        // _setSearch((_search) => ({ ..._search, [field]: value }))
+      if (['skey', 'status', 'mode'].includes(field)) {
+        // addToggle(value, field)
+        _setSearch((_search) => ({ ..._search, [field]: value }))
       } else {
         _setSearch((_search) => ({ ..._search, [field]: value }))
       }
@@ -110,7 +111,7 @@ const ListContainer = () => {
 
   return (
     <>
-      <Search form={_search} onChange={onChange} onSubmit={onSubmit} />
+      <Search form={_search} onChange={onChange} onSubmit={onSubmit} onClick={onClick} />
       {isLoading ? (
         <Loading />
       ) : (
