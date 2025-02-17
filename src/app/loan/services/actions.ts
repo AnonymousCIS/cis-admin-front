@@ -143,12 +143,11 @@ export const getLogView = async (seq) => {
   const qs = toQueryString({ seq: [seq] })
   try {
     const res = await apiRequest(`/loan/train/log?${qs}`, 'GET')
-
+    const result = await res.json()
     if (res.status === 200) {
-      const result = await res.json()
       console.log('result', result)
     } else {
-      return
+      return result
     }
   } catch (err) {
     console.error(err)
