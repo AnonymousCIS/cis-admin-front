@@ -1,10 +1,18 @@
 'use client'
 
-import React, { useState, useCallback, useEffect } from 'react'
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useActionState,
+} from 'react'
+import { useRouter } from 'next/navigation'
 
 import ListForm from '../components/ListForm'
 import CardSearch from '../components/CardSearch'
-import { removeCard } from '../services/actions'
+import { removeCard, getCard } from '../services/actions'
+import ModalForm from '../components/ModalForm'
 
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import { toQueryString } from '@/app/global/libs/utils'
@@ -13,7 +21,6 @@ import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
 
 import LayerPopup from '@/app/global/components/LayerPopup'
-import DeleteContainer from './DeleteContainer'
 import useQueryString from '@/app/global/hooks/useQueryString'
 
 const Loading = () => <BulletList />
@@ -32,6 +39,8 @@ type SearchType = {
 const ListContainer = () => {
   useMenuCode('card', 'list')
 
+  const router = useRouter()
+
   const _qs = useQueryString(['cardTypes', 'bankName', 'categories'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
   const [search, setSearch] = useState<SearchType>(_qs)
@@ -41,9 +50,12 @@ const ListContainer = () => {
 
   const [items, setItems] = useState([])
 
+  const [form, setForm] = useState({})
+
   const [pagination, setPagination] = useState()
 
   const [isOpen, setIsOpen] = useState(false)
+
   const [seq, setSeq] = useState(null)
 
   const qs = toQueryString(search)
@@ -59,6 +71,18 @@ const ListContainer = () => {
   const onReset = useCallback((field, value) => {
     setSearch((_search) => ({ ..._search, [field]: value }))
   }, [])
+
+  useLayoutEffect(() => {
+      ;(async () => {
+        try {
+          const card = await getCard(seq)
+          setForm(card)
+        } catch (err) {
+          console.error(err)
+        }
+      })()
+    }, [seq])
+  
 
   /**
    * Set을 이용해 중복 제거 & 값을 토글 형태로 받는 공통 함수
@@ -89,9 +113,6 @@ const ListContainer = () => {
     },
     [addToggle],
   )
-
-  // const onSelect = useCallback((field, value) => {
-  // })
 
   useEffect(() => {
     if (data) {
@@ -127,6 +148,19 @@ const ListContainer = () => {
     setSeq(null)
   }, [])
 
+  const actionState = useActionState(removeCard, undefined)
+
+  const onRemove = useCallback(
+    (seq) => {
+      removeCard(seq)
+      closeModal()
+
+      // 새로고침 임시용 주석삭제 XX
+      router.refresh()
+    },
+    [closeModal, router],
+  )
+
   return (
     <>
       <CardSearch
@@ -151,7 +185,12 @@ const ListContainer = () => {
         width={750}
         height={600}
       >
-        <DeleteContainer seq={seq} closeModal={closeModal} />
+        <ModalForm
+          form={form}
+          actionState={actionState}
+          closeModal={closeModal}
+          onRemove={onRemove}
+        />
       </LayerPopup>
     </>
   )
