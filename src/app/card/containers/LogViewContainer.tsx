@@ -6,13 +6,17 @@ import { BulletList } from 'react-content-loader'
 import useRequest from '@/app/global/hooks/useRequest'
 import LogViewItem from '../components/ViewForm'
 import { getLogView } from '../services/actions'
-import { notFound } from 'next/navigation'
+import { notFound, useSearchParams } from 'next/navigation'
 import LogViewForm from '../components/LogViewForm'
 
 const Loading = () => <BulletList />
 
 const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
   useMenuCode('card', 'log')
+
+  const searchsParam = useSearchParams()
+
+  const params = { seq: searchsParam.get('seq') }
 
   const [form, setForm] = useState([])
 
