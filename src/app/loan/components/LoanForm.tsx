@@ -99,7 +99,9 @@ const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
           value={form?.category ?? 'CREDITLOAN'}
         />
 
-        <input type="hidden" name="isOpen" value={form?.isOpen ?? false} />
+        {form?.mode === 'edit' ? (
+          <input type="hidden" name="bankName" value={form.bankNameStr} />
+        ) : null}
 
         <SubTitle>대출 등록 및 수정</SubTitle>
         <TableCols>
@@ -113,6 +115,7 @@ const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
                   placeholder="대출명을 입력해주세요."
                   value={form?.loanName ?? ''}
                   onChange={onChange}
+                  readOnly={form?.mode === 'edit'}
                 />
                 <Messages color="danger">{errors?.loanName}</Messages>
               </td>
@@ -154,13 +157,24 @@ const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
             <tr>
               <th>은행명</th>
               <td>
-                <Select
-                  name="bankName"
-                  options={bankNameOptions}
-                  selected={form?.bankName ?? ''}
-                  onChange={onChange}
-                  width={180}
-                />
+                {form?.mode === 'edit' ? (
+                  <Input
+                    name="bankName"
+                    type="text"
+                    value={form?.bankNameStr ?? ''}
+                    width={180}
+                    readOnly
+                  />
+                ) : (
+                  <Select
+                    name="bankName"
+                    options={bankNameOptions}
+                    selected={form?.bankNameStr ?? ''}
+                    onChange={onChange}
+                    width={180}
+                  />
+                )}
+
                 <Messages color="danger">{errors?.bankName}</Messages>
               </td>
             </tr>
@@ -228,17 +242,26 @@ const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
         </TableCols>
 
         <ButtonGroup width={450} className="button-group center">
-          <BigButton
-            type="reset"
-            color="info"
-            disabled={isPending}
-            onClick={onReset}
-          >
-            재입력
-          </BigButton>
-          <BigButton type="submit" color="dark" disabled={isPending}>
-            {form?.mode === 'edit' ? '수정' : '등록'}
-          </BigButton>
+          {form?.mode === 'add' ? (
+            <>
+              <BigButton
+                type="reset"
+                color="info"
+                disabled={isPending}
+                onClick={onReset}
+              >
+                재입력
+              </BigButton>
+              <BigButton type="submit" color="dark" disabled={isPending}>
+                등록
+              </BigButton>
+            </>
+          ) : (
+            <BigButton type="submit" color="dark" disabled={isPending}>
+              수정
+            </BigButton>
+          )}
+
           <Messages color="danger">{errors?.global}</Messages>
         </ButtonGroup>
       </StyledForm>

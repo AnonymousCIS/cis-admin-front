@@ -20,7 +20,6 @@ const StyledForm = styled.form<CommonType>`
 `
 
 const LoanModal = ({ form, actionState, closeModal }) => {
-
   /*
     Invalid value for prop `disabled` on <button> tag. Either remove it from the element, or pass a string or number value to keep it in the DOM. For details, see https://react.dev/link/attribute-behavior 
   */
@@ -89,16 +88,9 @@ const LoanModal = ({ form, actionState, closeModal }) => {
             </tr>
           </tbody>
         </TableCols>
-        <ButtonGroup width={450} className="button-group center">
-          <SmallButton type="button" color="info" width={120}>
-            수정
-          </SmallButton>
-          <SmallButton
-            type="submit"
-            color="dark"
-            width={120}
-            disabled={isPending}
-          >
+        
+        <ButtonGroup width={300} className="button-group center">
+          <SmallButton type="submit" color="dark" disabled={isPending}>
             삭제
           </SmallButton>
         </ButtonGroup>

@@ -10,6 +10,7 @@ import Pagination from '@/app/global/components/Pagination'
 import MemberSearch from '../components/MemberSearch'
 import LayerPopup from '@/app/global/components/LayerPopup'
 import DeleteContainer from './DeleteContainer'
+import useQueryString from '@/app/global/hooks/useQueryString'
 
 const Loading = () => <BulletList />
 type SearchType = {
@@ -20,12 +21,14 @@ type SearchType = {
 }
 
 const ListContainer = () => {
+  const _qs = useQueryString()
+
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
   useMenuCode('member', 'list')
-  const [search, setSearch] = useState<SearchType>({})
+  const [search, setSearch] = useState<SearchType>(_qs)
 
   // 임시로 값 담는 곳
-  const [_search, _setSearch] = useState<SearchType>({})
+  const [_search, _setSearch] = useState<SearchType>(_qs)
 
   const [items, setItems] = useState([])
 

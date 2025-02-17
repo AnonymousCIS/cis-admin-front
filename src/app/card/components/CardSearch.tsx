@@ -38,8 +38,13 @@ const StyledForm = styled.form<CommonType>`
   }
 
   .table-check {
-    * + * {
-      margin-left: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    span {
+      display: block;
+      cursor: default;
     }
   }
 `

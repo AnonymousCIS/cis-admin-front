@@ -31,7 +31,6 @@ const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
         console.error(err)
         //notFound()
       }
-      0
     })()
   }, [seq])
 

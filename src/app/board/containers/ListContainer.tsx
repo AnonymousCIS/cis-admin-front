@@ -33,7 +33,7 @@ type SearchType = {
   page?: number
   bid?: string
   categories?: string[]
-  statuses?: string[]
+  domainStatus?: string
 }
 
 const ListContainer = () => {
@@ -41,7 +41,7 @@ const ListContainer = () => {
 
   const router = useRouter()
 
-  const _qs = useQueryString(['bid', 'bankcategories', 'statuses'])
+  const _qs = useQueryString(['bid', 'categories', 'status'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
   const [search, setSearch] = useState<SearchType>(_qs)
 
@@ -103,7 +103,7 @@ const ListContainer = () => {
 
   const onClick = useCallback(
     (field, value) => {
-      if (['statuses', 'categories', 'bid'].includes(field)) {
+      if (['status', 'categories', 'bid'].includes(field)) {
         addToggle(value, field)
         // _setSearch((_search) => ({ ..._search, [field]: value }))
       } else {
