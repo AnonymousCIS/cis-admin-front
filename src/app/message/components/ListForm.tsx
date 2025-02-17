@@ -33,7 +33,7 @@ const StyledForm = styled.form<CommonType>`
   }
 
   th:nth-of-type(7) {
-    width: 260px;
+    width: 261px;
   }
 `
 const status = [
@@ -91,25 +91,17 @@ const ListForm = ({ form, onChange, onModal, items }) => {
                 <MdCheckBoxOutlineBlank />
               </th>
               <th>제목</th>
-              {/* <th>
-                <Select
-                  name="mode"
-                  options={mode}
-                  selected={form?.mode ?? 'SEND'}
-                  onChange={onChange}
-                  width={150}
-                />
-              </th> */}
               <th>보낸 사람 이메일</th>
               <th>받은 사람 이메일</th>
               <th>
-                <Select
+                {/* <Select
                   name="status"
                   options={status}
                   selected={form?.status ?? 'UNREAD'}
                   onChange={onChange}
                   width={150}
-                />
+                /> */}
+                열람 여부
               </th>
               <th>내용</th>
               <th></th>
