@@ -4,7 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { TableCols } from '@/app/global/components/Tables'
 import { SubTitle } from '@/app/global/components/StyledTitle'
-import { CommonType } from '@/app/global/types/styledType'
+import { CommonType } from '@/app/global/types/StyledType'
 import colors from '@/app/global/styles/colors'
 
 const { secondary, white } = colors

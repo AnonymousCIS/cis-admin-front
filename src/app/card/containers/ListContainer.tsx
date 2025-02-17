@@ -20,6 +20,8 @@ import Pagination from '@/app/global/components/Pagination'
 
 import LayerPopup from '@/app/global/components/LayerPopup'
 import useQueryString from '@/app/global/hooks/useQueryString'
+import { getCard, removeCard } from '../services/actions'
+import ModalForm from '../components/ModalForm'
 
 const Loading = () => <BulletList />
 
@@ -71,16 +73,15 @@ const ListContainer = () => {
   }, [])
 
   useLayoutEffect(() => {
-      ;(async () => {
-        try {
-          const card = await getCard(seq)
-          setForm(card)
-        } catch (err) {
-          console.error(err)
-        }
-      })()
-    }, [seq])
-  
+    ;(async () => {
+      try {
+        const card = await getCard(seq)
+        setForm(card)
+      } catch (err) {
+        console.error(err)
+      }
+    })()
+  }, [seq])
 
   /**
    * Set을 이용해 중복 제거 & 값을 토글 형태로 받는 공통 함수
