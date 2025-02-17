@@ -44,8 +44,14 @@ export const getMessage = async (seq: number) => {
   }
 }
 
+/**
+ * 쪽지 작성
+ * @param params 
+ * @param formData 
+ * @returns 
+ */
 export const writeMessage = async (params, formData: FormData) => {
-  const redirectUrl = params?.redirectUrl ?? '/message/list'
+  const redirectUrl =  '/message/list'
 
   const form: any = {}
   let errors: any = {}
@@ -58,6 +64,8 @@ export const writeMessage = async (params, formData: FormData) => {
 
     form[key] = _value
   }
+
+  console.log('form', form)
 
   // 필수 항목 검증
 
@@ -91,17 +99,18 @@ export const writeMessage = async (params, formData: FormData) => {
   //   server 처리 요청 E
 
   if (hasErrors) return errors
+
+  return redirect(redirectUrl)
 }
 
 export const deleteMessage = async (seq) => {
   const qs = toQueryString({ seq: [seq] })
 
   try {
-    const res = await apiRequest(`/message/admin/delets?${qs}`, 'DELETE')
+    const res = await apiRequest(`/message/admin/deletes?${qs}`, 'DELETE')
 
     if (res.status === 200) {
       const result = await res.json()
-      console.log('result', result)
     } else {
       return
     }
