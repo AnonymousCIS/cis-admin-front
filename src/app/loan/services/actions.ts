@@ -140,12 +140,28 @@ export const getLog = async () => {
     console.error('Error:', err)
   }
 }
+// export const getLogView = async (seq) => {
+//   try {
+
+//     const res = await apiRequest(`/loan/train/log?seq=${seq}`, 'GET')
+
+
+//     if (res.status === 200) {
+//       const result = await res.json()
+//       return result.success && result.data
+//     } else {
+//       console.error('Error fetching logs:', res.status)
+//     }
+//   } catch (err) {
+//     console.error('Error:', err)
+//   }
+// }
 export const getLogView = async (seq) => {
   try {
-
     const res = await apiRequest(`/loan/train/log?seq=${seq}`, 'GET')
-
-
+    // const res = await apiRequest(
+    //   'https://cis-email-service.koreait.xyz/admin/list',
+    // )
     if (res.status === 200) {
       const result = await res.json()
       return result.success && result.data
@@ -156,7 +172,7 @@ export const getLogView = async (seq) => {
     console.error('Error:', err)
   }
 }
-
+/**
 /**
  * 대출 삭제
  * @param params

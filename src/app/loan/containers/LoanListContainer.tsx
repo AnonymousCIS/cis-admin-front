@@ -67,7 +67,7 @@ const LoanListContainer = () => {
   }, [])
 
   const onReset = useCallback((field, value) => {
-    _setSearch(initialValue)
+    // _setSearch(initialValue)
     setSearch((_search) => ({ ..._search, [field]: value }))
   }, [])
 

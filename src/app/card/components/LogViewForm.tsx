@@ -86,7 +86,7 @@ const LogViewItem = ({ form }) => {
             <tr>
               <th>완료여부</th>
               <td>
-                <span>{form?.done ?? ''}</span>
+                <span>{form?.done ? '완료': '실패'}</span>
               </td>
             </tr>
           </tbody>

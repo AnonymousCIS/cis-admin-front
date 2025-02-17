@@ -44,10 +44,10 @@ const ListLogItem = ({ item }) => {
       <td>{createdBy}</td>
       <td>{createdAt}</td>
       <td>{count}</td>
-      <td>{done}</td>
+      <td>{done ? '완료' : '실패'}</td>
       <td>
         <div>
-          <a href={`/loan/train/log?${seq}`}>
+          <a href={`/loan/train/log/${seq}`}>
             <SmallButton type="button" color="primary" width={80}>
               조회하기
             </SmallButton>
@@ -69,7 +69,7 @@ const ListItem = ({ items }) => {
             <th>학습한 관리자</th>
             <th>학습한 시간</th>
             <th>학습 개수</th>
-            <th>done</th>
+            <th>완료여부</th>
             <th>조회하기</th>
           </tr>
         </thead>
