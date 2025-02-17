@@ -57,7 +57,6 @@ export const processCreate = async (params, formData: FormData) => {
 
   /* Server 요청 처리 S */
   if (!hasErrors) {
-    
     const apiUrl =
       form.mode == 'add' ? '/card/admin/create' : `/card/admin/updates`
 
@@ -159,6 +158,8 @@ export const getLogView = async (seq) => {
     }
   } catch (err) {
     console.error('Error:', err)
+  }
+}
 /**
  * 카드 추천 훈련
  *
