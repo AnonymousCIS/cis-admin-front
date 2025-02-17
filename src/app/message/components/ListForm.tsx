@@ -7,8 +7,7 @@ import {
   // MdRadioButtonChecked,
   // MdRadioButtonUnchecked,
 } from 'react-icons/md'
-import { Button, SmallButton } from '@/app/global/components/Buttons'
-import sizes from '@/app/global/styles/sizes'
+import { SmallButton } from '@/app/global/components/Buttons'
 import { Select } from '@/app/global/components/FormComponents'
 import { CommonType } from '@/app/global/types/StyledType'
 
@@ -48,21 +47,33 @@ const ListItem = ({ item, onModal }) => {
 
   return (
     <tr>
-      <td><MdCheckBoxOutlineBlank /></td>
+      <td>
+        <MdCheckBoxOutlineBlank />
+      </td>
       <td>{subject}</td>
       <td>{senderEmail}</td>
       <td>{receiverEmail}</td>
       <td>{status}</td>
-      <td>{content}</td>
       <td>
-      <a href={`/message/view/${seq}`}>
+        <div
+          className="content"
+          dangerouslySetInnerHTML={{ __html: content }}
+        ></div>
+      </td>
+      <td>
+        <a href={`/message/view/${seq}`}>
           <SmallButton type="button" color="primary" width={120}>
             조회
           </SmallButton>
         </a>
-          <SmallButton type="button" color="dark" width={120} onClick={() => onModal()}>
-            삭제
-          </SmallButton>
+        <SmallButton
+          type="button"
+          color="dark"
+          width={120}
+          onClick={() => onModal(seq)}
+        >
+          삭제
+        </SmallButton>
       </td>
     </tr>
   )
@@ -106,7 +117,9 @@ const ListForm = ({ form, onChange, onModal, items }) => {
           </thead>
           <tbody>
             {items ? (
-              items.map((item) => <ListItem key={item?.seq} item={item} onModal={onModal} />)
+              items.map((item) => (
+                <ListItem key={item?.seq} item={item} onModal={onModal} />
+              ))
             ) : (
               <tr>
                 <td colSpan={7} className="no-data">

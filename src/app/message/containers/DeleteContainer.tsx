@@ -1,5 +1,4 @@
 'use client'
-'@typescript-eslint/no-unused-expressions'
 import useRequest from '@/app/global/hooks/useRequest'
 import React, {
   useActionState,
@@ -11,27 +10,25 @@ import { List } from 'react-content-loader'
 import { deleteMessage, getMessage } from '../services/actions'
 import DeleteModalForm from '../components/DeleteModalForm'
 import { useRouter } from 'next/navigation'
-import useMenuCode from '@/app/global/hooks/useMenuCode'
 
 const Loading = () => <List />
 
 type Props = {
   seq: number
-  closeModal: any | undefined
+  closeModal?: any | undefined
 }
 
 const DeleteContainer = ({ seq, closeModal }: Props) => {
-  useMenuCode('message', 'delete')
-  const [data, setData] = useState({})
+  console.log('seq', seq)
+  const [data, setData] = useState([])
 
   const router = useRouter()
 
   useLayoutEffect(() => {
     ;(async () => {
       try {
-        const message = await getMessage(seq)
-        setData(message)
-        console.log('message', message)
+        const _data = await getMessage(seq)
+        setData(_data)
       } catch (err) {
         console.error(err)
         return

@@ -1,12 +1,18 @@
 'use client'
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useCallback, useLayoutEffect, useState } from 'react'
 import ViewForm from '../components/ViewForm'
-import { getMessage } from '../services/actions'
+import { deleteMessage, getMessage } from '../services/actions'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 
 const ViewConatiner = ({ seq }) => {
   useMenuCode('message', 'view')
+
   const [data, setData] = useState([])
+
+  const onDelete = useCallback(() => {
+    deleteMessage(seq)
+  }, [seq])
+  
   useLayoutEffect(() => {
     ;(async () => {
       try {
@@ -19,7 +25,7 @@ const ViewConatiner = ({ seq }) => {
     })()
   }, [seq])
 
-  return <ViewForm data={data} />
+  return <ViewForm data={data} onDelete={onDelete} />
 }
 
 export default React.memo(ViewConatiner)
