@@ -8,6 +8,7 @@ import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
 import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
+import useQueryString from '@/app/global/hooks/useQueryString'
 
 const Loading = () => <BulletList />
 
@@ -21,11 +22,13 @@ type SearchType = {
 const ConfigListContainer = () => {
   useMenuCode('board', 'configList')
 
+  const _qs = useQueryString()
+
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
-  const [search, setSearch] = useState<SearchType>({})
+  const [search, setSearch] = useState<SearchType>(_qs)
 
   // 임시로 값 담는 곳
-  const [_search, _setSearch] = useState<SearchType>({})
+  const [_search, _setSearch] = useState<SearchType>(_qs)
 
   const [items, setItems] = useState([])
 

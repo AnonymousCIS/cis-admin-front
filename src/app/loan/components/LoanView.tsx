@@ -17,6 +17,8 @@ const StyledForm = styled.form<CommonType>`
     text-align: center;
     background: ${secondary};
   }
+
+  
 `
 
 // ✨✨ onDelete 추가
@@ -80,15 +82,16 @@ const LoanView = ({ form, onDelete }) => {
             </tr>
           </tbody>
         </TableCols>
-        <ButtonGroup width={450} className="button-group center">
+
+        <a href={'/loan/update/' + form?.seq}>
           <SmallButton type="button" color="info" width={120}>
             수정
           </SmallButton>
-          {/* onDelete ✨✨추가 */}
-          <SmallButton type="button" color="dark" onClick={onDelete}>
-            삭제
-          </SmallButton>
-        </ButtonGroup>
+        </a>
+        {/* onDelete ✨✨추가 */}
+        <SmallButton type="button" color="dark" onClick={onDelete} width={120}>
+          삭제
+        </SmallButton>
       </StyledForm>
     </>
   )

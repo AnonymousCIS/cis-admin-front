@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
 import { SmallButton } from '@/app/global/components/Buttons'
 import {
+  MdCheckBox,
   MdCheckBoxOutlineBlank,
   MdRadioButtonUnchecked,
   MdRadioButtonChecked,
@@ -11,11 +12,20 @@ import {
 const StyledForm = styled.form`
   table {
     text-align: center;
+
+    span {
+      cursor: default;
+    }
+    .btn {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
   }
 `
 
 // ✨✨ onClick 추가
-const LoanItem = ({ item, onRemove, onClick }) => {
+const LoanItem = ({ item, onRemove, onClick, onToggleCheck }) => {
   const {
     seq,
     loanName,
@@ -25,58 +35,56 @@ const LoanItem = ({ item, onRemove, onClick }) => {
     repaymentYear,
     open,
     bankNameStr,
+    checked,
   } = item
 
   return (
     <tr>
       <td>
-        <span>
-          <MdCheckBoxOutlineBlank />
+        <span onClick={() => onToggleCheck(seq)}>
+          {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
         </span>
       </td>
       <td>{loanName}</td>
       <td>{bankNameStr}</td>
       <td>{categoryStr}</td>
       <td>{limit}</td>
-      <td>{interestRate}</td>
-      <td>{repaymentYear}</td>
+      <td>{interestRate}%</td>
+      <td>{repaymentYear}년</td>
       <td>
         {/* ✨✨ span에 onClick 추가 */}
-        <span onClick={() => onClick('open', !Boolean(item?.open))}>
-          {open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
+        <span>
+          {open === true ? (
+            <MdRadioButtonChecked />
+          ) : (
+            <MdRadioButtonUnchecked />
+          )}
+          사용
         </span>
-        <span onClick={() => onClick('open', !Boolean(item?.open))}>
-          {!open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 미사용
+        <span>
+          {open === false ? (
+            <MdRadioButtonChecked />
+          ) : (
+            <MdRadioButtonUnchecked />
+          )}
+          미사용
         </span>
       </td>
-      <td>
-        {/* <SmallButton type="button" color="primary" width={120} onClick={onOpen}>
-          상세보기
-        </SmallButton>
-        <LayerPopup
-          onClose={onClose}
-          isOpen={PopupOpen}
-          title="대출 상세 정보"
-          width={750}
-          height={650}
-        >
-          <h2>{seq} 상세보기</h2>
-          <LoanView form={item} seq={seq} />
-        </LayerPopup> */}
+      <td className="btn">
         <a href={'/loan/view/' + seq}>
-          <SmallButton type="button" color="primary" width={120}>
+          <SmallButton type="button" color="primary" width={80}>
             상세보기
           </SmallButton>
         </a>
         <a href={'/loan/update/' + seq}>
-          <SmallButton type="button" color="info" width={120}>
+          <SmallButton type="button" color="info" width={80}>
             수정
           </SmallButton>
         </a>
         <SmallButton
           type="button"
           color="dark"
-          width={120}
+          width={80}
           onClick={() => onRemove(seq)}
         >
           삭제
@@ -87,7 +95,7 @@ const LoanItem = ({ item, onRemove, onClick }) => {
 }
 
 // ✨✨ onClick 추가
-const LoanList = ({ items, onRemove, onClick }) => {
+const LoanList = ({ items, onRemove, onClick, onToggleCheck }) => {
   return (
     <>
       <StyledForm>
@@ -116,6 +124,7 @@ const LoanList = ({ items, onRemove, onClick }) => {
                   onRemove={onRemove}
                   // ✨✨ onClick 추가
                   onClick={onClick}
+                  onToggleCheck={onToggleCheck}
                 />
               ))
             ) : (

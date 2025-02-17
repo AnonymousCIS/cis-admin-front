@@ -16,7 +16,9 @@ import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
 import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
+import useQueryString from '@/app/global/hooks/useQueryString'
 import ModalForm from '../components/ModalForm'
+
 
 import LayerPopup from '@/app/global/components/LayerPopup'
 import { getBank, removeBank } from '../services/actions'
@@ -36,11 +38,13 @@ const ListContainer = () => {
   useMenuCode('bank', 'list')
   const router = useRouter()
 
+  const _qs = useQueryString()
+
   // 실제 Submit할때 반영, search 변경시에만 Rerendering / 서치는 검색조건을 담고있고 셋서치가 검색조건을 업데이트 해주는 함수임
-  const [search, setSearch] = useState<SearchType>({})
+  const [search, setSearch] = useState<SearchType>(_qs)
 
   // 임시로 값 담는 곳 / 입력중인것과 검색버튼 누를때적용될 값을 저장하는 걸로..
-  const [_search, _setSearch] = useState<SearchType>({})
+  const [_search, _setSearch] = useState<SearchType>(_qs)
 
   const [items, setItems] = useState([])
 

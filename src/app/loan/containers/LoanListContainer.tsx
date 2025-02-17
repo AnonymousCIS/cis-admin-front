@@ -25,8 +25,14 @@ type SearchType = {
   loanLimitMin?: number
 }
 
+type ListType = {
+  open?: boolean
+}
+
 const LoanListContainer = () => {
   useMenuCode('loan', 'list')
+
+  const [form, setForm] = useState<ListType>()
 
   const _qs = useQueryString(['loanName', 'bankName', 'categories'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
@@ -71,7 +77,7 @@ const LoanListContainer = () => {
       }
       _setSearch({ ..._search, [type]: [...set.values()] })
     },
-    [_search, search],
+    [_search],
   )
 
   /* ✨✨추가한 부분 S */
@@ -85,7 +91,6 @@ const LoanListContainer = () => {
       }
     },
     [addToggle],
-
   )
 
   const closeModal = useCallback(() => {
@@ -105,8 +110,6 @@ const LoanListContainer = () => {
     (e) => {
       e.preventDefault()
 
-      console.log('_search', _search)
-
       // Submit 했을때 Search 값을 새로운 객체로 깊은 복사해 교체하면서 Rerendering
       setSearch({ ..._search })
     },
@@ -123,6 +126,18 @@ const LoanListContainer = () => {
     setIsOpen(true)
   }, [])
 
+  const onToggleCheck = useCallback((seq) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.seq === seq ? { ...item, checked: !item.checked } : item,
+      ),
+    )
+  }, [])
+
+  /* const openClick = useCallback((field, value) => {
+    setForm((form) => ({ ...form, [field]: value }))
+  }, [])
+ */
   return (
     <>
       <LoanSearch
@@ -136,7 +151,12 @@ const LoanListContainer = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <LoanList items={items} onRemove={onRemove} onClick={onClick} />
+        <LoanList
+          items={items}
+          onRemove={onRemove}
+          onToggleCheck={onToggleCheck}
+          onClick={onClick}
+        />
       )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
