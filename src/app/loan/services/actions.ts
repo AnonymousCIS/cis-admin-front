@@ -128,7 +128,11 @@ export const getLoan = async (seq) => {
 
 export const getLog = async () => {
   try {
+<<<<<<< Updated upstream
     const res = await apiRequest('/loan/train/logs')
+=======
+    const res = await apiRequest('/loan/admin/log/list')
+>>>>>>> Stashed changes
     if (res.status === 200) {
       const result = await res.json()
       return result.success && result.data
@@ -139,10 +143,17 @@ export const getLog = async () => {
     console.error('Error:', err)
   }
 }
+<<<<<<< Updated upstream
 export const getLogView = async (seq) => {
   try {
     const res = await apiRequest(`/loan/train/log?seq=${seq}`, 'GET')
 
+=======
+
+export const getLogView = async (seq) => {
+  try {
+    const res = await apiRequest(`/lona/admin/log/view/${seq}`)
+>>>>>>> Stashed changes
     if (res.status === 200) {
       const result = await res.json()
       return result.success && result.data
@@ -153,6 +164,7 @@ export const getLogView = async (seq) => {
     console.error('Error:', err)
   }
 }
+<<<<<<< Updated upstream
 
 /**
  * 대출 삭제
@@ -202,3 +214,5 @@ export const loanTrain = async () => {
     console.error(err)
   }
 }
+=======
+>>>>>>> Stashed changes

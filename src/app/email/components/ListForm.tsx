@@ -27,8 +27,8 @@ const StyledForm = styled.form`
     width: 150px;
   }
   th:nth-of-type(6) {
-    width: 100px; 
-}
+    width: 100px;
+  }
 
   td {
     text-align: center;
@@ -47,11 +47,11 @@ const ListLogItem = ({ item }) => {
       <td>{createdAt}</td>
       <td>
         <div>
-         <a href={'/email/view/' + seq}>
-              <SmallButton type="button" color="primary" width={80}>
-                  조회하기
-              </SmallButton>
-                    </a>
+          <a href={'/email/view/' + seq}>
+            <SmallButton type="button" color="primary" width={80}>
+              조회하기
+            </SmallButton>
+          </a>
         </div>
       </td>
     </tr>
@@ -75,7 +75,9 @@ const ListItem = ({ items }) => {
         </thead>
         <tbody>
           {items && items.length > 0 ? (
-            items.map((log) => <ListLogItem key={'logs_' + log.seq} item={log} />)
+            items.map((log) => (
+              <ListLogItem key={'logs_' + log.seq} item={log} />
+            ))
           ) : (
             <tr>
               <td colSpan={5} className="no-data">
