@@ -12,7 +12,11 @@ export const menus = {
   message: [],
   bank: [
     { code: 'list', name: '계좌 목록', url: '/bank/list' },
-    { code: 'edit', name: '계좌 수정', url: '/bank/edit' },
+    {
+      code: 'transaction',
+      name: '거래 내역 목록',
+      url: '/bank/transaction/list',
+    },
   ],
   card: [
     {

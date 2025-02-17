@@ -57,7 +57,6 @@ export const processCreate = async (params, formData: FormData) => {
 
   /* Server 요청 처리 S */
   if (!hasErrors) {
-    
     const apiUrl =
       form.mode == 'add' ? '/card/admin/create' : `/card/admin/updates`
 
@@ -113,7 +112,6 @@ export const getCard = async (seq) => {
  * @returns
  */
 export const removeCard = async (seq) => {
-  
   const qs = toQueryString({ seq: [seq] })
 
   // console.log('qs', qs)
@@ -133,11 +131,41 @@ export const removeCard = async (seq) => {
   redirect('/card/list')
 }
 
+export const getLog = async () => {
+  try {
+    const res = await apiRequest('/card/train/logs')
+    if (res.status === 200) {
+      const result = await res.json()
+      return result.success && result.data
+    } else {
+      console.error('Error fetching logs:', res.status)
+    }
+  } catch (err) {
+    console.error('Error:', err)
+  }
+}
+export const getLogView = async (seq) => {
+  try {
+    const res = await apiRequest(`/card/train/log?seq=${seq}`, 'GET')
+    // const res = await apiRequest(
+    //   'https://cis-email-service.koreait.xyz/admin/list',
+    // )
+    if (res.status === 200) {
+      const result = await res.json()
+      return result.success && result.data
+    } else {
+      console.error('Error fetching logs:', res.status)
+    }
+  } catch (err) {
+    console.error('Error:', err)
+  }
+}
 /**
  * 카드 추천 훈련
  *
  * @returns
  */
+
 export const cardTrain = async () => {
   try {
     const res = await apiRequest('/card/admin/train')

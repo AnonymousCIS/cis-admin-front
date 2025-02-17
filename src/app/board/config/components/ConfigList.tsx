@@ -7,6 +7,7 @@ import {
   MdRadioButtonUnchecked,
   MdRadioButtonChecked,
 } from 'react-icons/md'
+import { Input } from '@/app/global/components/FormComponents'
 
 const StyledForm = styled.form`
   th:nth-of-type(1) {
@@ -34,7 +35,7 @@ const StyledForm = styled.form`
 `
 
 const ConfigItem = ({ item }) => {
-  const { bid, name, open } = item
+  const { bid, name, open, skin, total } = item
 
   const frontUrl = process.env.NEXT_PUBLIC_FRONT_URL + `/board/list/${bid}`
 
@@ -42,7 +43,10 @@ const ConfigItem = ({ item }) => {
     <tr>
       <td></td>
       <td>{bid}</td>
-      <td>{name}</td>
+      <td>
+        <Input />
+      </td>
+      {/* <td>{total}</td> */}
       {/* 추후 Input 넣어서 name 수정가능하게 */}
       <td>
         <span>

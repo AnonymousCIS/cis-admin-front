@@ -76,7 +76,6 @@ const categoryOptions = [
   { value: 'LIVING', label: '생활' },
 ]
 
-// const CreateForm = ({ form, onClick, onChange, actionState }) => {
 const CreateForm = ({ form, onChange, onClick, onReset, actionState }) => {
   const [errors, formAction, isPending] = actionState
 
@@ -97,6 +96,7 @@ const CreateForm = ({ form, onChange, onClick, onReset, actionState }) => {
                   name="cardName"
                   placeholder="카드명"
                   value={form?.cardName ?? ''}
+                  readOnly={form?.mode === 'edit' ? true : false}
                   onChange={onChange}
                 />
                 <Messages color="danger">{errors?.cardName}</Messages>
@@ -173,13 +173,22 @@ const CreateForm = ({ form, onChange, onClick, onReset, actionState }) => {
             <tr>
               <th>은행 종류</th>
               <td>
-                <Select
-                  name="bankName"
-                  options={bankNameOptions}
-                  selected={form?.bankName ?? ''}
-                  onChange={onChange}
-                  width={180}
-                />
+                {form?.mode === 'edit' ? (
+                  <Input
+                    type="text"
+                    name="bankName"
+                    value={form?.bankName ?? ''}
+                    onChange={onChange}
+                  />
+                ) : (
+                  <Select
+                    name="bankName"
+                    options={bankNameOptions}
+                    selected={form?.bankName ?? ''}
+                    onChange={onChange}
+                    width={180}
+                  />
+                )}
 
                 <Messages color="danger">{errors?.bankName}</Messages>
               </td>
@@ -219,14 +228,18 @@ const CreateForm = ({ form, onChange, onClick, onReset, actionState }) => {
         </TableCols>
 
         <ButtonGroup width={450} className="button-group center">
-          <BigButton
-            type="reset"
-            color="info"
-            disabled={isPending}
-            onClick={onReset}
-          >
-            재입력
-          </BigButton>
+          {form?.mode === 'edit' ? (
+            <></>
+          ) : (
+            <BigButton
+              type="reset"
+              color="info"
+              disabled={isPending}
+              onClick={onReset}
+            >
+              재입력
+            </BigButton>
+          )}
           <BigButton type="submit" color="dark" disabled={isPending}>
             {form?.mode === 'edit' ? '수정' : '등록'}
           </BigButton>

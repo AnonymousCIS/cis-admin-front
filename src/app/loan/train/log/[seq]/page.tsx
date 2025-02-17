@@ -4,18 +4,21 @@ import React from 'react'
 import loadable from '@loadable/component'
 import { MainTitle } from '@/app/global/components/StyledTitle'
 import WithUserContainer from '@/app/global/containers/WithUserContainer'
+// import { MainContentBox } from '@/app/global/components/ContentBox';
 
-const EditContainer = loadable(() => import('../containers/EditContainer'))
+const LoanLogContainer = loadable(
+  () => import('../../../containers/LoanLogContainer'),
+)
 
-const EditPage = ({ params }) => {
+const ViewPage = ({ params }) => {
   const { seq } = React.use<{ seq: number }>(params)
 
   return WithUserContainer(
     <>
-      <MainTitle>계좌수정 및 변경</MainTitle>
-      <EditContainer bid={seq} />
+      <MainTitle>대출 로그 조회</MainTitle>
+      <LoanLogContainer seq={seq} />
     </>,
   )
 }
 
-export default React.memo(EditPage)
+export default React.memo(ViewPage)

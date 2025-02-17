@@ -27,7 +27,7 @@ const StyledForm = styled.form`
       margin-bottom: 30px;
     }
   }
-  div {
+  .buttonGroup {
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -36,6 +36,7 @@ const StyledForm = styled.form`
 
 const DeleteModalForm = ({ data, actionState, closeModal, onDelete }) => {
   console.log('form',data)
+  const {subject, senderEmail, content, seq} = data
   const [errors, formAction, isPending] = actionState
   return (
     <>
@@ -45,30 +46,32 @@ const DeleteModalForm = ({ data, actionState, closeModal, onDelete }) => {
           <tbody>
             <tr>
               <th>제목</th>
-              <td>{data?.subject ?? ''}</td>
+              <td>{subject}</td>
             </tr>
 
             <tr>
               <th>보낸사람</th>
-              <td>{data?.senderEmail ?? ''}</td>
+              <td>{senderEmail}</td>
             </tr>
 
             <tr>
               <th>내용</th>
-              <td
-                className="content"
-                dangerouslySetInnerHTML={{ __html: data?.content }}
-              ></td>
+              <td>
+                <div
+                  className="content"
+                  dangerouslySetInnerHTML={{ __html: content }}
+                ></div>
+              </td>
             </tr>
           </tbody>
         </TableCols>
-        <div>
+        <div className='buttonGroup'>
         <BigButton
             type="button"
             color="dark"
             width={100}
             disabled={isPending}
-            onClick={() => onDelete(data.seq)}
+            onClick={() => onDelete(seq)}
           >
             삭제
           </BigButton>

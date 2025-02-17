@@ -34,7 +34,7 @@ const StyledForm = styled.form`
   }
 `
 
-const ModalForm = ({ form, actionState, closeModal }) => {
+const ModalForm = ({ form, actionState, closeModal, onRemove }) => {
   const [errors, formAction, isPending] = actionState
   return (
     <>
@@ -57,20 +57,9 @@ const ModalForm = ({ form, actionState, closeModal }) => {
             </tr>
 
             <tr>
-              <th>계좌 잔액</th>
+              <th>이름</th>
               <td>
-                <span>{form?.accountBalance ?? ''}</span>
-              </td>
-            </tr>
-
-            <tr>
-              <th>공개 여부</th>
-              <td>
-                <span>
-                  {form?.open !== null && form?.open === true
-                    ? '공개'
-                    : '미공개'}
-                </span>
+                <span>{form?.name ?? ''}</span>
               </td>
             </tr>
           </tbody>
@@ -81,7 +70,9 @@ const ModalForm = ({ form, actionState, closeModal }) => {
             color="dark"
             width={100}
             disabled={isPending}
-            // onClick={onRemove}
+            onClick={() => {
+              onRemove(form?.seq)
+            }}
           >
             삭제
           </BigButton>

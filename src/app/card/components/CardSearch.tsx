@@ -38,8 +38,13 @@ const StyledForm = styled.form<CommonType>`
   }
 
   .table-check {
-    * + * {
-      margin-left: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    span {
+      display: block;
+      cursor: default;
     }
   }
 `
@@ -52,7 +57,7 @@ const StyledForm = styled.form<CommonType>`
 // ]
 
 const CardSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
-  console.log('form', form)
+  // console.log('form', form)
   return (
     <StyledForm onSubmit={onSubmit} autoComplete="off">
       <TableCols>

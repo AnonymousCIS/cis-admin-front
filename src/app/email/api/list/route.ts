@@ -18,4 +18,5 @@ export async function GET(request: NextRequest) {
   }
 
   // 실패시
-  return NextResponse.json({ sucess: false })}
+  return NextResponse.json({ sucess: false })
+}
