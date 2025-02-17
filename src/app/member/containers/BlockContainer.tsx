@@ -28,8 +28,6 @@ const BlockContainer = () => {
   const [items, setItems] = useState([])
   const [pagination, setPagination] = useState()
 
-  const qs = toQueryString(search)
-
   const { data, error, isLoading } = useRequest(`/member/api/block`)
 
   const onChange = useCallback((e) => {

@@ -19,7 +19,6 @@ import Pagination from '@/app/global/components/Pagination'
 import useQueryString from '@/app/global/hooks/useQueryString'
 import ModalForm from '../components/ModalForm'
 
-
 import LayerPopup from '@/app/global/components/LayerPopup'
 import { getBank, removeBank } from '../services/actions'
 import { useRouter } from 'next/navigation'
