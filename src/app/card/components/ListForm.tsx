@@ -68,7 +68,9 @@ const StyledForm = styled.form`
     gap: 5px;
   }
 
-  .check {
+  .check > div {
+    display: flex;
+    
     span + span {
       margin-left: 15px;
     }
@@ -111,24 +113,26 @@ const CardItem = ({ item, onClick, onModal }) => {
       </td>
 
       <td className="btn">
-        <a href={'/card/view/' + seq}>
-          <SmallButton type="button" color="primary" width={80}>
-            상세보기
+        <div>
+          <a href={'/card/view/' + seq}>
+            <SmallButton type="button" color="primary" width={80}>
+              상세보기
+            </SmallButton>
+          </a>
+          <a href={'/card/update/' + seq}>
+            <SmallButton type="button" color="info" width={80}>
+              수정
+            </SmallButton>
+          </a>
+          <SmallButton
+            type="button"
+            color="dark"
+            width={80}
+            onClick={() => onModal(seq)}
+          >
+            삭제
           </SmallButton>
-        </a>
-        <a href={'/card/update/' + seq}>
-          <SmallButton type="button" color="info" width={80}>
-            수정
-          </SmallButton>
-        </a>
-        <SmallButton
-          type="button"
-          color="dark"
-          width={80}
-          onClick={() => onModal(seq)}
-        >
-          삭제
-        </SmallButton>
+        </div>
       </td>
     </tr>
   )
