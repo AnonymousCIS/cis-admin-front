@@ -12,7 +12,7 @@ import LogViewForm from '../components/LogViewForm'
 const Loading = () => <BulletList />
 
 const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
-  useMenuCode('card', 'log')
+  useMenuCode('card', 'train')
 
   const [form, setForm] = useState([])
 
