@@ -30,7 +30,7 @@ const LoanDeleteContainer = ({ seq, closeModal }: Props | undefined) => {
     })()
   }, [seq])
 
-  const actionState = useActionState(deleteLoan, undefined)
+  const actionState = useActionState(deleteLoan, seq)
 
   return (
     <>

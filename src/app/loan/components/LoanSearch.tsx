@@ -45,6 +45,18 @@ const StyledForm = styled.form<CommonType>`
   .flex {
     display: flex;
   }
+
+  .td-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    span {
+      display: block;
+      width: 81px;
+      cursor: default;
+    }
+  }
 `
 
 // LoanSearch 내부에서 정의하면 렌더링될때마다 변수가 생기므로 밖에 정의하는 것이 일반적
@@ -54,6 +66,32 @@ const StyledForm = styled.form<CommonType>`
   { value: 'BNAME', label: '은행명' },
   { value: 'DESC', label: '대출 설명' },
 ] */
+
+const bankNameOptions = [
+  { value: 'HANKUK', label: '한국은행' },
+  { value: 'KB', label: '국민은행' },
+  { value: 'SC', label: '제일은행' },
+  { value: 'CITY', label: '한국시티은행' },
+  { value: 'HANA', label: '하나은행' },
+  { value: 'SHINHAN', label: '신한은행' },
+  { value: 'KBANK', label: 'K-뱅크' },
+  { value: 'KAKAO', label: '카카오' },
+  { value: 'TOSS', label: '토스' },
+  { value: 'SUHYUP', label: '수협은행' },
+  { value: 'BUSAN', label: '부산은행' },
+  { value: 'KYUNGNAM', label: '경남은행' },
+  { value: 'KYANGJOO', label: '광주은행' },
+  { value: 'JUNBOK', label: '전북은행' },
+  { value: 'JEJOO', label: '제주은행' },
+  { value: 'LOTTE', label: '롯데카드' },
+  { value: 'NONGHYUP', label: '농협은행' },
+  { value: 'SAMSUNG', label: '삼성카드' },
+  { value: 'HYUNDAI', label: '현대카드' },
+  { value: 'WOORI', label: '우리은행' },
+  { value: 'SINHYUP', label: '신협은행' },
+  { value: 'SAEMAEULGEUMGO', label: '새마을금고' },
+  { value: 'WOOCAEKUK', label: '우체국' },
+]
 
 const LoanSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
   return (
@@ -74,7 +112,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
           </tr>
           <tr>
             <th>대출 카테고리</th>
-            <td>
+            <td className="td-flex">
               <span onClick={() => onClick('categories', 'CREDITLOAN')}>
                 {form?.categories?.includes('CREDITLOAN') ? (
                   <MdOutlineCheckBox />
@@ -95,7 +133,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
           </tr>
           <tr>
             <th>은행명</th>
-            <td>
+            <td className="td-flex">
               <span onClick={() => onClick('bankName', 'HANKUK')}>
                 {form?.bankName?.includes('HANKUK') ? (
                   <MdOutlineCheckBox />

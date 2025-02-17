@@ -99,8 +99,6 @@ const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
           value={form?.category ?? 'CREDITLOAN'}
         />
 
-        <input type="hidden" name="isOpen" value={form?.isOpen ?? false} />
-
         <SubTitle>대출 등록 및 수정</SubTitle>
         <TableCols>
           <tbody>
@@ -161,6 +159,13 @@ const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
                   onChange={onChange}
                   width={180}
                 />
+                {/* <Input
+                  name="bankName"
+                  type="text"
+                  value={form?.bankName ?? ''}
+                  width={180}
+                  readOnly
+                /> */}
                 <Messages color="danger">{errors?.bankName}</Messages>
               </td>
             </tr>

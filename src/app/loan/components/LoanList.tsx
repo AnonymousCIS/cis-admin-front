@@ -11,6 +11,12 @@ import {
 const StyledForm = styled.form`
   table {
     text-align: center;
+
+    .btn {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
   }
 `
 
@@ -26,7 +32,7 @@ const LoanItem = ({ item, onRemove, onClick }) => {
     open,
     bankNameStr,
   } = item
-
+  console.log('item', item)
   return (
     <tr>
       <td>
@@ -49,34 +55,21 @@ const LoanItem = ({ item, onRemove, onClick }) => {
           {!open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 미사용
         </span>
       </td>
-      <td>
-        {/* <SmallButton type="button" color="primary" width={120} onClick={onOpen}>
-          상세보기
-        </SmallButton>
-        <LayerPopup
-          onClose={onClose}
-          isOpen={PopupOpen}
-          title="대출 상세 정보"
-          width={750}
-          height={650}
-        >
-          <h2>{seq} 상세보기</h2>
-          <LoanView form={item} seq={seq} />
-        </LayerPopup> */}
+      <td className="btn">
         <a href={'/loan/view/' + seq}>
-          <SmallButton type="button" color="primary" width={120}>
+          <SmallButton type="button" color="primary" width={80}>
             상세보기
           </SmallButton>
         </a>
         <a href={'/loan/update/' + seq}>
-          <SmallButton type="button" color="info" width={120}>
+          <SmallButton type="button" color="info" width={80}>
             수정
           </SmallButton>
         </a>
         <SmallButton
           type="button"
           color="dark"
-          width={120}
+          width={80}
           onClick={() => onRemove(seq)}
         >
           삭제

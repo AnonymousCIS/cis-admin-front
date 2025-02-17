@@ -71,7 +71,7 @@ const LoanListContainer = () => {
       }
       _setSearch({ ..._search, [type]: [...set.values()] })
     },
-    [_search, search],
+    [_search],
   )
 
   /* ✨✨추가한 부분 S */
@@ -85,7 +85,6 @@ const LoanListContainer = () => {
       }
     },
     [addToggle],
-
   )
 
   const closeModal = useCallback(() => {
@@ -98,6 +97,7 @@ const LoanListContainer = () => {
     if (data) {
       setItems(data.data.items)
       setPagination(data.data.pagination)
+      console.log('data', data)
     }
   }, [data])
 

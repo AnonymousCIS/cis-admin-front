@@ -135,11 +135,13 @@ export const deleteLoan = async (seq) => {
   const qs = toQueryString({ seq: [seq] })
 
   try {
-    const res = await apiRequest(`/loan/admin/deletes/${seq}`, 'DELETE')
+    const res = await apiRequest(`/loan/admin/deletes?${qs}`, 'DELETE')
     // const result = await res.status
 
     // if (result !== 200) {
-    if (res.status == 200) {
+    console.log('******res.status === ' + res.status + '******')
+    if (res.status === 200) {
+      console.log('******res.status === 200 진입******')
       const result = await res.json()
       console.log('result : ' + result)
     }

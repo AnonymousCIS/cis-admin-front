@@ -90,9 +90,6 @@ const LoanModal = ({ form, actionState, closeModal }) => {
           </tbody>
         </TableCols>
         <ButtonGroup width={450} className="button-group center">
-          <SmallButton type="button" color="info" width={120}>
-            수정
-          </SmallButton>
           <SmallButton
             type="submit"
             color="dark"
