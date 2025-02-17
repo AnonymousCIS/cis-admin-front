@@ -3,6 +3,8 @@ import { redirect } from 'next/navigation'
 // import { format } from 'date-fns'
 // import { cookies } from 'next/headers'
 import apiRequest from '@/app/global/libs/apiRequest'
+import { error } from 'console'
+import { toQueryString } from '@/app/global/libs/utils'
 // import { revalidatePath } from 'next/cache'
 
 /**
@@ -111,6 +113,37 @@ export const getLoanInfo = async (seq) => {
       console.log('진입 성공')
       const result = await res.json()
       return result.success && result.data
+    } else {
+      console.error(error)
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const getLog = async () => {
+  try {
+    const res = await apiRequest('/loan/train/logs')
+    if (res.status === 200) {
+      const result = await res.json()
+      return result.success && result.data
+    } else {
+      console.error('Error fetching logs:', res.status)
+    }
+  } catch (err) {
+    console.error('Error:', err)
+  }
+}
+export const getLogView = async (seq) => {
+  const qs = toQueryString({ seq: [seq] })
+  try {
+    const res = await apiRequest(`/loan/train/log?${qs}`, 'GET')
+
+    if (res.status === 200) {
+      const result = await res.json()
+      console.log('result', result)
+    } else {
+      return
     }
   } catch (err) {
     console.error(err)

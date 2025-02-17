@@ -9,7 +9,7 @@ export default async function apiRequest(
   body?: FormData | string,
 ) {
   const apiUrl = /^http[s]?/.test(url) ? url : process.env.API_URL + url
-
+  console.log('url', url, 'apiUrl', apiUrl)
   const cookie = await cookies()
   const token = cookie.get('token')
 

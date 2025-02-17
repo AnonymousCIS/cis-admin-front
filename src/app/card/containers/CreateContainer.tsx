@@ -13,9 +13,9 @@ import useMenuCode from '@/app/global/hooks/useMenuCode'
 const CreateContainer = () => {
   useMenuCode('card', 'create')
 
-  const searchParams = useSearchParams()
+  const searchsParam = useSearchParams()
 
-  const params = { redirectUrl: searchParams.get('redirectUrl') }
+  const params = { redirectUrl: searchsParam.get('redirectUrl') }
 
   const actionState = useActionState(processCreate, params)
 
@@ -26,7 +26,7 @@ const CreateContainer = () => {
   }, [])
 
   const onReset = useCallback(() => {
-    setForm(form => ({...form}))
+    setForm((form) => ({ ...form }))
   }, [])
 
   return (
