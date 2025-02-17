@@ -10,7 +10,12 @@ import React, {
 import { useRouter } from 'next/navigation'
 
 import ListForm from '../components/ListForm'
-import CardSearch from '../components/CardSearch'
+import BoardDataSearch from '../components/BoardDataSearch'
+
+import { removeBoardData, getBoardData } from '../services/actions'
+// import ModalForm from '../components/ModalForm'
+
+import ModalBoardDataForm from '../components/ModalBoardDataForm'
 
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import { toQueryString } from '@/app/global/libs/utils'
@@ -26,20 +31,17 @@ const Loading = () => <BulletList />
 type SearchType = {
   skey?: string
   page?: number
-  limit?: number
-  cardTypes?: string[]
+  bid?: string
   categories?: string[]
-  bankName?: string[]
-  cardLimitMin?: number
-  cardLimitMax?: number
+  statuses?: string[]
 }
 
 const ListContainer = () => {
-  useMenuCode('card', 'list')
+  useMenuCode('board', 'list')
 
   const router = useRouter()
 
-  const _qs = useQueryString(['cardTypes', 'bankName', 'categories'])
+  const _qs = useQueryString(['bid', 'bankcategories', 'statuses'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
   const [search, setSearch] = useState<SearchType>(_qs)
 
@@ -59,7 +61,7 @@ const ListContainer = () => {
   const qs = toQueryString(search)
 
   const { data, error, isLoading } = useRequest(
-    `/card/api/card/list${qs.trim() ? '?' + qs : ''}`,
+    `/board/api/list${qs.trim() ? '?' + qs : ''}`,
   )
 
   const onChange = useCallback((e) => {
@@ -71,16 +73,15 @@ const ListContainer = () => {
   }, [])
 
   useLayoutEffect(() => {
-      ;(async () => {
-        try {
-          const card = await getCard(seq)
-          setForm(card)
-        } catch (err) {
-          console.error(err)
-        }
-      })()
-    }, [seq])
-  
+    ;(async () => {
+      try {
+        const boardData = await getBoardData(seq)
+        setForm(boardData)
+      } catch (err) {
+        console.error(err)
+      }
+    })()
+  }, [seq])
 
   /**
    * Set을 이용해 중복 제거 & 값을 토글 형태로 받는 공통 함수
@@ -102,7 +103,7 @@ const ListContainer = () => {
 
   const onClick = useCallback(
     (field, value) => {
-      if (['cardTypes', 'bankName', 'categories'].includes(field)) {
+      if (['statuses', 'categories', 'bid'].includes(field)) {
         addToggle(value, field)
         // _setSearch((_search) => ({ ..._search, [field]: value }))
       } else {
@@ -114,7 +115,8 @@ const ListContainer = () => {
 
   useEffect(() => {
     if (data) {
-      setItems(data.data.data)
+      setItems(data.data.items)
+      // console.log('119 데이터', data.data.items)
       setPagination(data.data.pagination)
     }
   }, [data])
@@ -146,11 +148,11 @@ const ListContainer = () => {
     setSeq(null)
   }, [])
 
-  const actionState = useActionState(removeCard, undefined)
+  const actionState = useActionState(removeBoardData, undefined)
 
   const onRemove = useCallback(
     (seq) => {
-      removeCard(seq)
+      removeBoardData(seq)
       closeModal()
 
       // 새로고침 임시용 주석삭제 XX
@@ -161,7 +163,7 @@ const ListContainer = () => {
 
   return (
     <>
-      <CardSearch
+      <BoardDataSearch
         form={_search}
         onChange={onChange}
         onSubmit={onSubmit}
@@ -179,11 +181,11 @@ const ListContainer = () => {
       <LayerPopup
         isOpen={isOpen}
         onClose={closeModal}
-        title="카드 삭제"
+        title="게시글 삭제"
         width={750}
         height={600}
       >
-        <ModalForm
+        <ModalBoardDataForm
           form={form}
           actionState={actionState}
           closeModal={closeModal}

@@ -2,21 +2,19 @@ import React from 'react'
 import styled from 'styled-components'
 import { CommonType } from '@/app/global/types/StyledType'
 import { TableCols } from '@/app/global/components/Tables'
-import { Input } from '@/app/global/components/FormComponents'
-// import { Input } from '@/app/global/components/FormComponents'
-// import Select from 'react-select/base'
-import { BigButton, ButtonGroup } from '@/app/global/components/Buttons'
+import { Input, Select } from '@/app/global/components/FormComponents'
+import { BigButton } from '@/app/global/components/Buttons'
 import { FaSearch } from 'react-icons/fa'
-import { RxReset } from 'react-icons/rx'
-import { MdCheckBoxOutlineBlank, MdOutlineCheckBox } from 'react-icons/md'
 import colors from '@/app/global/styles/colors'
+import { MdCheckBoxOutlineBlank, MdOutlineCheckBox } from 'react-icons/md'
 
-const { white, info, dark } = colors
+const { white, info, dark, lightgray } = colors
 
 const StyledForm = styled.form<CommonType>`
   margin-bottom: 35px;
 
-  .button-group {
+  button[type='submit'] {
+    display: block;
     margin: 15px auto 0;
   }
 
@@ -27,16 +25,17 @@ const StyledForm = styled.form<CommonType>`
     border-bottom: 1px solid ${white};
   }
 
-  td {
-    border-bottom: 1px solid ${info};
-  }
+  .flex {
+    display: flex;
 
-  tr:first-of-type {
-    td {
-      border-top: 1px solid ${info};
+    select {
+      margin-right: 5px;
+    }
+
+    select + input {
+      flex-grow: 1;
     }
   }
-
   .table-check {
     * + * {
       margin-left: 15px;
@@ -44,107 +43,36 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
-// configSearch 내부에서 정의하면 렌더링될때마다 변수가 생기므로 밖에 정의하는 것이 일반적
-// const options = [
-//   { value: 'ALL', label: '통합 검색' },
-//   { value: 'CARDNAME', label: '카드명' },
-//   { value: 'CATEGORY', label: '카테고리' },
-// ]
+const options = [
+  { value: 'ALL', label: '통합 검색' },
+  { value: 'ACCOUNTNUMBER', label: '계좌 번호' },
+  { value: 'DEPOSITOR', label: '예금주명' },
+  { value: 'EMAIL', label: '이메일' },
+]
 
-const CardSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
-  // console.log('form', form)
+const BankSearch = ({ form, onChange, onSubmit, onClick }) => {
   return (
     <StyledForm onSubmit={onSubmit} autoComplete="off">
       <TableCols>
         <tbody>
           <tr>
-            <th>통합 검색</th>
+            <th>검색 분류</th>
             <td className="flex">
+              <Select
+                name="sopt"
+                options={options}
+                selected={form?.sopt ?? 'ALL'}
+                onChange={onChange}
+                width={180}
+              />
               <Input
                 type="text"
                 name="skey"
                 value={form?.skey ?? ''}
                 onChange={onChange}
-                placeholder="검색어를 입력해주세요"
               />
             </td>
           </tr>
-          <tr>
-            <th>카드 종류</th>
-            <td className="table-check">
-              <span onClick={() => onClick('cardTypes', 'PersonalCheck')}>
-                {form?.cardTypes?.includes('PersonalCheck') ? (
-                  <MdOutlineCheckBox />
-                ) : (
-                  <MdCheckBoxOutlineBlank />
-                )}
-                개인 체크
-              </span>
-              <span onClick={() => onClick('cardTypes', 'PersonalCredit')}>
-                {form?.cardTypes?.includes('PersonalCredit') ? (
-                  <MdOutlineCheckBox />
-                ) : (
-                  <MdCheckBoxOutlineBlank />
-                )}
-                개인 신용
-              </span>
-              <span onClick={() => onClick('cardTypes', 'CorporateCheck')}>
-                {form?.cardTypes?.includes('CorporateCheck') ? (
-                  <MdOutlineCheckBox />
-                ) : (
-                  <MdCheckBoxOutlineBlank />
-                )}
-                법인 체크
-              </span>
-              <span onClick={() => onClick('cardTypes', 'CorporateCredit')}>
-                {form?.cardTypes?.includes('CorporateCredit') ? (
-                  <MdOutlineCheckBox />
-                ) : (
-                  <MdCheckBoxOutlineBlank />
-                )}
-                법인 신용
-              </span>
-            </td>
-          </tr>
-
-          <tr>
-            <th>카테고리</th>
-            <td className="table-check">
-              <span onClick={() => onClick('categories', 'SHOPPING')}>
-                {form?.categories?.includes('SHOPPING') ? (
-                  <MdOutlineCheckBox />
-                ) : (
-                  <MdCheckBoxOutlineBlank />
-                )}
-                SHOPPING
-              </span>
-              <span onClick={() => onClick('categories', 'LIFE')}>
-                {form?.categories?.includes('LIFE') ? (
-                  <MdOutlineCheckBox />
-                ) : (
-                  <MdCheckBoxOutlineBlank />
-                )}
-                LIFE
-              </span>
-              <span onClick={() => onClick('categories', 'TRAVEL')}>
-                {form?.categories?.includes('TRAVEL') ? (
-                  <MdOutlineCheckBox />
-                ) : (
-                  <MdCheckBoxOutlineBlank />
-                )}
-                TRAVEL
-              </span>
-              <span onClick={() => onClick('categories', 'LIVING')}>
-                {form?.categories?.includes('LIVING') ? (
-                  <MdOutlineCheckBox />
-                ) : (
-                  <MdCheckBoxOutlineBlank />
-                )}
-                LIVING
-              </span>
-            </td>
-          </tr>
-
           <tr>
             <th>은행명</th>
             <td className="table-check">
@@ -334,16 +262,15 @@ const CardSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
               </span>
             </td>
           </tr>
-
           <tr>
-            <th>카드 한도</th>
+            <th>가격</th>
             <td>
               <Input
                 type="number"
                 width={250}
                 placeholder="최소 금액"
-                name="cardLimitMin"
-                value={form?.cardLimitMin ?? ''}
+                name="payAmountMin"
+                value={form?.payAmountMin ?? ''}
                 onChange={onChange}
               />
               ~
@@ -351,26 +278,20 @@ const CardSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
                 type="number"
                 width={250}
                 placeholder="최대 금액"
-                name="cardLimitMax"
-                value={form?.cardLimitMax ?? ''}
+                name="payAmountMax"
+                value={form?.payAmountMax ?? ''}
                 onChange={onChange}
               />
             </td>
           </tr>
         </tbody>
       </TableCols>
-      <ButtonGroup className="button-group center" width={800}>
-        <BigButton type="reset" color="info" onClick={onReset}>
-          <RxReset />
-          검색 초기화
-        </BigButton>
-        <BigButton type="submit" color="primary">
-          <FaSearch />
-          검색
-        </BigButton>
-      </ButtonGroup>
+      <BigButton type="submit" color="primary" width={250}>
+        <FaSearch />
+        검색
+      </BigButton>
     </StyledForm>
   )
 }
 
-export default React.memo(CardSearch)
+export default React.memo(BankSearch)

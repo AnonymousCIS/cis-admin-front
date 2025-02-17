@@ -12,6 +12,8 @@ import { getBank, removeBank } from '../services/actions'
 import { notFound, useRouter } from 'next/navigation'
 
 import useRequest from '@/app/global/hooks/useRequest'
+import ModalForm from '../components/ModalForm'
+import LayerPopup from '@/app/global/components/LayerPopup'
 
 const Loading = () => <BulletList />
 
@@ -21,19 +23,13 @@ const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
   const [form, setForm] = useState([])
 
   const { isLoading } = useRequest(`/bank/api/bank/view/${seq}`)
+  const [isOpen, setIsOpen] = useState(false)
 
   const onRemove = useCallback(() => {
-    removeBank(seq)
-  }, [seq])
-
-  const onChange = useCallback((e) => {
-    setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
+    setIsOpen(true)
   }, [])
 
   const router = useRouter()
-  const onClick = () => {
-    router.push('/bank/list')
-  }
 
   useLayoutEffect(() => {
     ;(async () => {
@@ -50,18 +46,38 @@ const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
     notFound()
   }
 
+  const closeModal = useCallback(() => {
+    setIsOpen(false)
+  }, [])
+  const actionState = useActionState(removeBank, undefined)
+
+  const onBankRemove = useCallback(
+    (seq) => {
+      removeBank(seq)
+      closeModal()
+      router.refresh()
+    },
+    [closeModal, router],
+  )
+
   return (
     <>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <ViewForm
+      {isLoading ? <Loading /> : <ViewForm form={form} onRemove={onRemove} />}
+
+      <LayerPopup
+        isOpen={isOpen}
+        onClose={closeModal}
+        title="카드 삭제"
+        width={750}
+        height={600}
+      >
+        <ModalForm
           form={form}
-          onRemove={onRemove}
-          onChange={onChange}
-          onClick={onClick}
+          actionState={actionState}
+          closeModal={closeModal}
+          onRemove={onBankRemove}
         />
-      )}
+      </LayerPopup>
     </>
   )
 }

@@ -1,6 +1,12 @@
 'use client'
 
-import React, { useState, useCallback, useEffect } from 'react'
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useActionState,
+} from 'react'
 
 import ListForm from '../components/ListForm'
 import BankSearch from '../components/BankSearch'
@@ -11,8 +17,12 @@ import useRequest from '@/app/global/hooks/useRequest'
 import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
 import useQueryString from '@/app/global/hooks/useQueryString'
+import ModalForm from '../components/ModalForm'
 
-// import LayerPopup from '@/app/global/components/LayerPopup'
+
+import LayerPopup from '@/app/global/components/LayerPopup'
+import { getBank, removeBank } from '../services/actions'
+import { useRouter } from 'next/navigation'
 // import DeleteContainer from './DeleteContainer'
 
 const Loading = () => <BulletList />
@@ -26,6 +36,7 @@ type SearchType = {
 
 const ListContainer = () => {
   useMenuCode('bank', 'list')
+  const router = useRouter()
 
   const _qs = useQueryString()
 
@@ -41,6 +52,7 @@ const ListContainer = () => {
 
   const [isOpen, setIsOpen] = useState(false)
   const [seq, setSeq] = useState(null)
+  const [form, setForm] = useState({})
 
   const qs = toQueryString(search) // page=2&limit=10
 
@@ -59,6 +71,17 @@ const ListContainer = () => {
       setPagination(data.data.pagination)
     }
   }, [data])
+
+  useLayoutEffect(() => {
+    ;(async () => {
+      try {
+        const bank = await getBank(seq)
+        setForm(bank)
+      } catch (err) {
+        console.error(err)
+      }
+    })()
+  }, [seq])
 
   const onSubmit = useCallback(
     (e) => {
@@ -82,6 +105,21 @@ const ListContainer = () => {
     setIsOpen(true)
   }, [])
 
+  const closeModal = useCallback(() => {
+    setIsOpen(false)
+    setSeq(null)
+  }, [])
+  const actionState = useActionState(removeBank, undefined)
+
+  const onBankRemove = useCallback(
+    (seq) => {
+      removeBank(seq)
+      closeModal()
+      router.refresh()
+    },
+    [closeModal, router],
+  )
+
   return (
     <>
       <BankSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
@@ -89,6 +127,20 @@ const ListContainer = () => {
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
+      <LayerPopup
+        isOpen={isOpen}
+        onClose={closeModal}
+        title="카드 삭제"
+        width={750}
+        height={600}
+      >
+        <ModalForm
+          form={form}
+          actionState={actionState}
+          closeModal={closeModal}
+          onRemove={onBankRemove}
+        />
+      </LayerPopup>
     </>
   )
 }
