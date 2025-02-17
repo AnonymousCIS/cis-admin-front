@@ -26,7 +26,7 @@ type SearchType = {
   loanLimitMin?: number
 }
 
-const LoanListContainer = () => {
+const RecommendListContainer = () => {
   useMenuCode('loan', 'recommendlist')
 
   const _qs = useQueryString(['loanName', 'bankName', 'categories'])
@@ -157,4 +157,4 @@ const LoanListContainer = () => {
   )
 }
 
-export default React.memo(LoanListContainer)
+export default React.memo(RecommendListContainer)
