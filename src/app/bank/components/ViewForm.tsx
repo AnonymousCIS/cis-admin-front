@@ -109,7 +109,7 @@ const ViewForm = ({ form, onRemove, onChange, onClick }) => {
         </TableRows>
 
         <div className="center">
-          <a href={'/bank/view/' + seq}>
+          <a href={'/bank/list'}>
             <MediumButton
               type="button"
               color="secondary"
