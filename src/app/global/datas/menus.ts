@@ -27,6 +27,12 @@ export const menus = {
     { code: 'list', name: '대출 목록', url: '/loan/list' },
     { code: 'create', name: '대출 등록', url: '/loan/create' },
     { code: 'train', name: '대출 학습', url: '/loan/train' },
+    {
+      code: 'recommendlist',
+      name: '추천 대출목록',
+      url: '/loan/recommend/list',
+    },
+    { code: 'userlist', name: '유저 대출목록', url: '/loan/user/list' },
   ],
 }
 
