@@ -46,9 +46,12 @@ const StyledForm = styled.form`
   div {
     margin-top: 20px;
   }
+  .button-group {
+    margin-top: 20px;
+  }
 `
 const MemberItems = ({ item, onClick, onToggleCheck }) => {
-  const { member, seq, type, memberStatus, checked } = item
+  const { member, seq, type, checked } = item
   const { email, name } = member
   const member_seq = member.seq
 
@@ -88,6 +91,7 @@ const MemberItems = ({ item, onClick, onToggleCheck }) => {
 }
 
 const BlockForm = ({ form, onClick, onToggleCheck, onProcess }) => {
+  console.log('form', form)
   return (
     <StyledForm autoComplete="off">
       <TableRows>
@@ -130,7 +134,7 @@ const BlockForm = ({ form, onClick, onToggleCheck, onProcess }) => {
         </BigButton>
         <BigButton
           type="button"
-          color="danger"
+          color="dark"
           onClick={() => onProcess('delete')}
         >
           삭제

@@ -6,7 +6,8 @@ import { BulletList } from 'react-content-loader'
 import MemberSearch from '../components/MemberSearch'
 import BlockForm from '../components/BlockForm'
 import Pagination from '@/app/global/components/Pagination'
-import { blockDelete } from '../services/actions'
+import { blockDelete, blockUpdate } from '../services/actions'
+import { useRouter } from 'next/navigation'
 
 const Loading = () => <BulletList />
 type SearchType = {
@@ -18,6 +19,7 @@ type SearchType = {
 
 const BlockContainer = () => {
   useMenuCode('member', 'block')
+  const router = useRouter()
   const [search, setSearch] = useState<SearchType>({})
 
   // 임시로 값 담는 곳
@@ -74,13 +76,16 @@ const BlockContainer = () => {
     (mode) => {
       ;(async () => {
         if (mode === 'edit') {
-        } else {
+          const res = await blockUpdate(items)
+        } else if (mode === 'delete') {
           // 삭제
           const res = await blockDelete(items)
         }
       })()
+
+      router.refresh()
     },
-    [items],
+    [items, router],
   )
 
   return (
