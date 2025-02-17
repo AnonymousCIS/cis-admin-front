@@ -7,7 +7,7 @@ import Pagination from '@/app/global/components/Pagination'
 import ListItem from '../components/LogListForm'
 import { toQueryString } from '@/app/global/libs/utils'
 
-const Loading = () => <BulletList width={'30%'} />
+const Loading = () => <BulletList />
 type SearchType = {
   page?: number
   limit?: number

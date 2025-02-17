@@ -160,6 +160,8 @@ export const getLogView = async (seq) => {
     console.error('Error:', err)
   }
 }
+
+
 /**
  * 카드 추천 훈련
  *
