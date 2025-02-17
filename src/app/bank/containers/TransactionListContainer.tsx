@@ -4,7 +4,7 @@ import React, { useState, useCallback, useEffect, useLayoutEffect } from 'react'
 import useRequest from '@/app/global/hooks/useRequest'
 import { toQueryString } from '@/app/global/libs/utils'
 import { BulletList } from 'react-content-loader'
-import { getTransaction } from '../services/actions'
+import { getTransactionList } from '../services/actions'
 import BankSearch from '../components/Transaction/BankSearch'
 import Pagination from '@/app/global/components/Pagination'
 import ListForm from '../components/Transaction/ListForm'
@@ -51,7 +51,7 @@ const ListContainer = () => {
   useLayoutEffect(() => {
     ;(async () => {
       try {
-        const transaction = await getTransaction(seq)
+        const transaction = await getTransactionList(seq)
         setForm(transaction)
       } catch (err) {
         console.error(err)
@@ -70,6 +70,29 @@ const ListContainer = () => {
     },
     [_search],
   )
+  const addToggle = useCallback(
+    (value, type) => {
+      const set = new Set(_search[type] ?? [])
+      if (set.has(value)) {
+        set.delete(value)
+      } else {
+        set.add(value)
+      }
+      _setSearch({ ..._search, [type]: [...set.values()] })
+    },
+    [_search],
+  )
+  const onClick = useCallback(
+    (field, value) => {
+      if (['cardTypes', 'bankName', 'categories'].includes(field)) {
+        addToggle(value, field)
+        // _setSearch((_search) => ({ ..._search, [field]: value }))
+      } else {
+        _setSearch((_search) => ({ ..._search, [field]: value }))
+      }
+    },
+    [addToggle],
+  )
 
   const onPageClick = useCallback((page) => {
     page = page ?? 1
@@ -78,7 +101,12 @@ const ListContainer = () => {
 
   return (
     <>
-      <BankSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
+      <BankSearch
+        form={_search}
+        onChange={onChange}
+        onSubmit={onSubmit}
+        onClick={onClick}
+      />
       {!isLoading && <ListForm items={items} />}
       {/* {isLoading ? <Loading /> : <ListForm items={items} />} */}
       {pagination && (

@@ -3,6 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { CommonType } from '@/app/global/types/StyledType'
 import { TableRows } from '@/app/global/components/Tables'
+import { SmallButton } from '@/app/global/components/Buttons'
 const StyledForm = styled.form<CommonType>`
   th:nth-of-type(1) {
     width: 60px;
@@ -51,7 +52,14 @@ const TransactionItem = ({ item }) => {
         <td>{createdBy}</td>
         <td>{payAmount.toLocaleString()}원</td>
         <td suppressHydrationWarning>{createdAt}</td>
-        <td></td>
+        <td>
+          {' '}
+          <a href={'/bank/transaction/info/' + seq}>
+            <SmallButton type="button" color="primary" width={80}>
+              상세보기
+            </SmallButton>
+          </a>
+        </td>
       </tr>
     </>
   )
