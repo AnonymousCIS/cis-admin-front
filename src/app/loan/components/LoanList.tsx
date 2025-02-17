@@ -48,7 +48,7 @@ const LoanItem = ({ item, onRemove, onClick, onToggleCheck }) => {
       <td>{loanName}</td>
       <td>{bankNameStr}</td>
       <td>{categoryStr}</td>
-      <td>{limit}</td>
+      <td>{limit.toLocaleString()}원</td>
       <td>{interestRate}%</td>
       <td>{repaymentYear}년</td>
       <td>
