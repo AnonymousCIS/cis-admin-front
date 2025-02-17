@@ -47,7 +47,7 @@ const ListLogItem = ({ item }) => {
       <td>{done}</td>
       <td>
         <div>
-          <a href={'/loan/train/log'}>
+          <a href={`/loan/train/log?${seq}`}>
             <SmallButton type="button" color="primary" width={80}>
               조회하기
             </SmallButton>

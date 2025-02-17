@@ -5,7 +5,7 @@ export async function GET(request: NextRequest) {
   const qs = request.nextUrl.searchParams.toString()
 
   const apiUrl =
-    process.env.API_URL + `/email/admin/list${qs.trim() ? '?' + qs : ''}`
+    process.env.API_URL + `/loan/admin/log/list${qs.trim() ? '?' + qs : ''}`
 
   const res = await apiRequest(apiUrl)
 

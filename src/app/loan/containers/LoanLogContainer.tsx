@@ -10,8 +10,10 @@ import LogViewForm from '@/app/card/components/LogViewForm'
 
 const Loading = () => <BulletList />
 
-const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
-  useMenuCode('loan', 'log')
+const LoanLogContainer = ({
+  seq,
+}: { seq?: number | undefined } | undefined) => {
+  useMenuCode('card', 'log')
 
   const [form, setForm] = useState([])
 
@@ -32,4 +34,4 @@ const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
   }, [seq])
   return <LogViewForm form={form} />
 }
-export default React.memo(ViewContainer)
+export default React.memo(LoanLogContainer)

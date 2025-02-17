@@ -128,6 +128,7 @@ export const getLoan = async (seq) => {
 
 export const getLog = async () => {
   try {
+
     const res = await apiRequest('/loan/train/logs')
     if (res.status === 200) {
       const result = await res.json()
@@ -140,17 +141,19 @@ export const getLog = async () => {
   }
 }
 export const getLogView = async (seq) => {
-  const qs = toQueryString({ seq: [seq] })
   try {
-    const res = await apiRequest(`/loan/train/log?${qs}`, 'GET')
-    const result = await res.json()
+
+    const res = await apiRequest(`/loan/train/log?seq=${seq}`, 'GET')
+
+
     if (res.status === 200) {
-      console.log('result', result)
+      const result = await res.json()
+      return result.success && result.data
     } else {
-      return result
+      console.error('Error fetching logs:', res.status)
     }
   } catch (err) {
-    console.error(err)
+    console.error('Error:', err)
   }
 }
 
