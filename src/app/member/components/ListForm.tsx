@@ -1,8 +1,10 @@
-import React from 'react'
+'use client'
+import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
 import { SmallButton } from '@/app/global/components/Buttons'
 import { MdEmail } from 'react-icons/md'
+import MessagePopup from '@/app/global/components/MessagePopup'
 
 const StyledForm = styled.form`
   th:nth-of-type(1) {
@@ -74,7 +76,7 @@ const StyledForm = styled.form`
   }
 `
 
-const MemberItems = ({ item, onDeleteClick }) => {
+const MemberItems = ({ item, onDeleteClick, sendMessage }) => {
   const {
     seq,
     email,
@@ -97,15 +99,9 @@ const MemberItems = ({ item, onDeleteClick }) => {
   return (
     <tr>
       <td>{seq}</td>
-      <td>
-        <div>
-          <a href={`/message/write/${email}`}>
-            <span>
-              <MdEmail />
-            </span>
-            <span>{email}</span>
-          </a>
-        </div>
+      <td onClick={() => sendMessage(email)}>
+        <MdEmail />
+        <span>{email}</span>
       </td>
       <td>{name}</td>
       <td>{zipCode}</td>
@@ -141,6 +137,18 @@ const MemberItems = ({ item, onDeleteClick }) => {
 }
 
 const ListForm = ({ form, onDeleteClick }) => {
+  const [email, setEmail] = useState<string>()
+  const [isMessageOpen, setIsMessageOpen] = useState<boolean>(false)
+
+  const sendMessage = useCallback((email) => {
+    setEmail(email)
+    setIsMessageOpen(true)
+  }, [])
+
+  const onClose = useCallback(() => {
+    setIsMessageOpen(false)
+  }, [])
+
   return (
     <>
       <StyledForm>
@@ -174,6 +182,7 @@ const ListForm = ({ form, onDeleteClick }) => {
                   key={i}
                   item={item}
                   onDeleteClick={onDeleteClick}
+                  sendMessage={sendMessage}
                 />
               ))
             ) : (
@@ -186,6 +195,9 @@ const ListForm = ({ form, onDeleteClick }) => {
           </tbody>
         </TableRows>
       </StyledForm>
+      {isMessageOpen && (
+        <MessagePopup isOpen={isMessageOpen} email={email} onClose={onClose} />
+      )}
     </>
   )
 }
