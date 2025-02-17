@@ -52,7 +52,7 @@ const StyledForm = styled.form<CommonType>`
 // ]
 
 const CardSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
-  console.log('form', form)
+  // console.log('form', form)
   return (
     <StyledForm onSubmit={onSubmit} autoComplete="off">
       <TableCols>
