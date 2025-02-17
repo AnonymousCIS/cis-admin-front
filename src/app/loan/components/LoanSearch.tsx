@@ -105,7 +105,7 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
                 name="skey"
                 value={form?.skey ?? ''}
                 onChange={onChange}
-                placeholder="검색어를 입력해주세요."
+                placeholder="검색어(대출명)를 입력해주세요."
               />
             </td>
           </tr>
@@ -344,10 +344,11 @@ const LoanSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
         </tbody>
       </TableCols>
       <ButtonGroup className="button-group center" width={800}>
-        <BigButton type="reset" color="info" onClick={onReset}>
+        <BigButton type="reset" color="info" onClick={onReset} width={250}>
           <RxReset />
           검색 초기화
         </BigButton>
+
         <BigButton type="submit" color="primary" width={250}>
           <FaSearch />
           검색

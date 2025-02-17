@@ -25,7 +25,8 @@ const StyledForm = styled.form`
 `
 
 // ✨✨ onClick 추가
-const LoanItem = ({ item, onRemove, onClick, onToggleCheck }) => {
+const LoanItem = ({ item, onRemove, openClick, onToggleCheck }) => {
+  console.log('item : ' + item.open)
   const {
     seq,
     loanName,
@@ -52,21 +53,13 @@ const LoanItem = ({ item, onRemove, onClick, onToggleCheck }) => {
       <td>{interestRate}%</td>
       <td>{repaymentYear}년</td>
       <td>
-        {/* ✨✨ span에 onClick 추가 */}
-        <span>
-          {open === true ? (
-            <MdRadioButtonChecked />
-          ) : (
-            <MdRadioButtonUnchecked />
-          )}
+        {/* ✨✨ span에 onClick 추가 / 아직 제대로 작동 안 됨 */}
+        <span onClick={(_open) => openClick(open, _open)}>
+          {open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />}
           사용
         </span>
-        <span>
-          {open === false ? (
-            <MdRadioButtonChecked />
-          ) : (
-            <MdRadioButtonUnchecked />
-          )}
+        <span onClick={(_open) => openClick(open, !_open)}>
+          {!open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />}
           미사용
         </span>
       </td>
@@ -95,10 +88,11 @@ const LoanItem = ({ item, onRemove, onClick, onToggleCheck }) => {
 }
 
 // ✨✨ onClick 추가
-const LoanList = ({ items, onRemove, onClick, onToggleCheck }) => {
+const LoanList = ({ items, onRemove, openClick, onToggleCheck }) => {
   return (
     <>
       <StyledForm>
+        <input type="hidden" name="isOpen" value={items.open} />
         <TableRows>
           <thead>
             <tr>
@@ -123,7 +117,7 @@ const LoanList = ({ items, onRemove, onClick, onToggleCheck }) => {
                   item={item}
                   onRemove={onRemove}
                   // ✨✨ onClick 추가
-                  onClick={onClick}
+                  openClick={openClick}
                   onToggleCheck={onToggleCheck}
                 />
               ))
