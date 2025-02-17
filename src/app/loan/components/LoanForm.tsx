@@ -99,6 +99,10 @@ const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
           value={form?.category ?? 'CREDITLOAN'}
         />
 
+        {form?.mode === 'edit' ? (
+          <input type="hidden" name="bankName" value={form.bankNameStr} />
+        ) : null}
+
         <SubTitle>대출 등록 및 수정</SubTitle>
         <TableCols>
           <tbody>
@@ -111,6 +115,7 @@ const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
                   placeholder="대출명을 입력해주세요."
                   value={form?.loanName ?? ''}
                   onChange={onChange}
+                  readOnly={form?.mode === 'edit'}
                 />
                 <Messages color="danger">{errors?.loanName}</Messages>
               </td>
@@ -152,20 +157,24 @@ const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
             <tr>
               <th>은행명</th>
               <td>
-                <Select
-                  name="bankName"
-                  options={bankNameOptions}
-                  selected={form?.bankName ?? ''}
-                  onChange={onChange}
-                  width={180}
-                />
-                {/* <Input
-                  name="bankName"
-                  type="text"
-                  value={form?.bankName ?? ''}
-                  width={180}
-                  readOnly
-                /> */}
+                {form?.mode === 'edit' ? (
+                  <Input
+                    name="bankName"
+                    type="text"
+                    value={form?.bankNameStr ?? ''}
+                    width={180}
+                    readOnly
+                  />
+                ) : (
+                  <Select
+                    name="bankName"
+                    options={bankNameOptions}
+                    selected={form?.bankNameStr ?? ''}
+                    onChange={onChange}
+                    width={180}
+                  />
+                )}
+
                 <Messages color="danger">{errors?.bankName}</Messages>
               </td>
             </tr>

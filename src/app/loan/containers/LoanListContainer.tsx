@@ -6,7 +6,7 @@ import useMenuCode from '@/app/global/hooks/useMenuCode'
 import LoanSearch from '../components/LoanSearch'
 import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
-import { BulletList } from 'react-content-loader'
+import { BulletList, List } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
 import LoanDeleteContainer from './LoanDeleteContainer'
 import LayerPopup from '@/app/global/components/LayerPopup'
@@ -27,6 +27,14 @@ type SearchType = {
 
 type ListType = {
   open?: boolean
+}
+
+const initialValue = {
+  skey: '',
+  category: '',
+  bankName: '',
+  loanLimitMax: 1000000000,
+  loanLimitMin: 100000,
 }
 
 const LoanListContainer = () => {
@@ -59,6 +67,7 @@ const LoanListContainer = () => {
   }, [])
 
   const onReset = useCallback((field, value) => {
+    _setSearch(initialValue)
     setSearch((_search) => ({ ..._search, [field]: value }))
   }, [])
 
