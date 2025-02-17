@@ -100,3 +100,43 @@ export const removeBank = async (seq) => {
   }
   redirect('/bank/list')
 }
+
+/**
+ * 계좌 거래내역 목록 조회
+ *
+ * @param seq
+ * @returns
+ */
+export const getTransactionList = async (seq) => {
+  try {
+    const res = await apiRequest(`/transactions/view/${seq}`)
+
+    if (res.status === 200) {
+      const result = await res.json()
+      console.log('result', result)
+      return result.success && result.data
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+/**
+ * 계좌 거래내역 단일 조회
+ *
+ * @param seq
+ * @returns
+ */
+export const getTransaction = async (seq) => {
+  try {
+    const res = await apiRequest(`/bank/transactions/view/${seq}`)
+
+    if (res.status === 200) {
+      const result = await res.json()
+      console.log('result', result)
+      return result.success && result.data
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}

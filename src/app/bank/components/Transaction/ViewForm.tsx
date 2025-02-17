@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { TableRows } from '@/app/global/components/Tables'
+import { TableCols } from '@/app/global/components/Tables'
 import { MediumButton } from '@/app/global/components/Buttons'
 import { CommonType } from '@/app/global/types/StyledType'
 import colors from '@/app/global/styles/colors'
@@ -39,54 +39,61 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
-const ViewForm = ({ form, onRemove }) => {
+const ViewForm = ({ form }) => {
   return (
     <>
       <StyledForm>
-        <TableRows>
+        <TableCols>
           <tbody>
             <tr>
-              <th>은행 기관명</th>
+              <th>거래내역 ID</th>
               <td>
-                <span>{form?.bankName ?? ''}</span>
+                <span>{form?.seq ?? ''}</span>
               </td>
             </tr>
 
             <tr>
-              <th>계좌 번호</th>
+              <th>이름</th>
               <td>
-                <span>{form?.accountNumber ?? ''}</span>
+                <span>{form?.bank?.name ?? ''}</span>
               </td>
             </tr>
 
             <tr>
-              <th>예금주</th>
+              <th>이메일</th>
               <td>
-                <span>{form?.name ?? ''}</span>
+                <span>{form?.bank?.createdBy ?? ''}</span>
+              </td>
+            </tr>
+
+            <tr>
+              <th>가격</th>
+              <td>
+                <span>{form?.payAmount ?? ''}</span>
+              </td>
+            </tr>
+
+            <tr>
+              <th>거래날짜</th>
+              <td>
+                <span>{form?.createdAt ?? ''}</span>
+              </td>
+            </tr>
+
+            <tr>
+              <th>거래 은행</th>
+              <td>
+                <span>{form?.bank?.bankName ?? ''}</span>
               </td>
             </tr>
           </tbody>
-        </TableRows>
-
+        </TableCols>
         <div className="center">
-          <a href={'/bank/list'}>
-            <MediumButton
-              type="button"
-              color="secondary"
-              width={120}
-              //    onClick={onclick}
-            >
+          <a href={'/bank/transaction/list'}>
+            <MediumButton type="button" color="info" width={120}>
               돌아가기
             </MediumButton>
           </a>
-          <MediumButton
-            type="button"
-            color="dark"
-            width={120}
-            onClick={onRemove}
-          >
-            삭제
-          </MediumButton>
         </div>
       </StyledForm>
     </>
