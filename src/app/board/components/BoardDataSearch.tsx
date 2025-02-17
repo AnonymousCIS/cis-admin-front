@@ -37,8 +37,13 @@ const StyledForm = styled.form<CommonType>`
   }
 
   .table-check {
-    * + * {
-      margin-left: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    span {
+      display: block;
+      cursor: default;
     }
   }
 `
@@ -89,42 +94,40 @@ const BoardDataSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
               </span>
             </td>
           </tr>
-
           <tr>
             <th>카테고리</th>
-            <td className="table-check">
-              <span onClick={() => onClick('categories', 'SHOPPING')}>
-                {form?.categories?.includes('SHOPPING') ? (
-                  <MdOutlineCheckBox />
-                ) : (
-                  <MdCheckBoxOutlineBlank />
-                )}
-                SHOPPING
-              </span>
+            <td>
+              <Input
+                type="text"
+                name="categories"
+                value={form?.categories ?? ''}
+                onChange={onChange}
+                placeholder="게시판 분류"
+              />
             </td>
           </tr>
 
           <tr>
             <th>공개 상태</th>
-            <td>
-              <span onClick={() => onClick('statuses', 'ALL')}>
-                {form?.statuses?.includes('ALL') ? (
+            <td className="table-check">
+              <span onClick={() => onClick('domainStatus', 'ALL')}>
+                {form?.domainStatus?.includes('ALL') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
                 )}
                 ALL (전체 공개)
               </span>
-              <span onClick={() => onClick('statuses', 'SECRET')}>
-                {form?.statuses?.includes('SECRET') ? (
+              <span onClick={() => onClick('domainStatus', 'SECRET')}>
+                {form?.domainStatus?.includes('SECRET') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
                 )}
                 SECRET (비밀글 - 작성자 & 관리자)
               </span>
-              <span onClick={() => onClick('statuses', 'BLOCK')}>
-                {form?.statuses?.includes('BLOCK') ? (
+              <span onClick={() => onClick('domainStatus', 'BLOCK')}>
+                {form?.domainStatus?.includes('BLOCK') ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />

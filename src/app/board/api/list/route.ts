@@ -12,14 +12,14 @@ export async function GET(request: NextRequest) {
 
   const res = await apiRequest(apiUrl)
 
-  // console.log('res', res)
+  console.log('res', res)
 
   if (res.status === 200) {
     // 성공시
 
     const result = await res.json()
 
-    // console.log('result', res)
+    console.log('result', res)
 
     return NextResponse.json(result)
   }

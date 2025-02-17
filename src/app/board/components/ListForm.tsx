@@ -105,7 +105,7 @@ const BoardDataItem = ({ item, onClick, onModal }) => {
     viewCount,
     ipAddr,
     category,
-    domainStatus,
+    status,
     createdBy,
   } = item
 
@@ -129,24 +129,24 @@ const BoardDataItem = ({ item, onClick, onModal }) => {
       <td>{viewCount}</td>
       <td className="check">
         <div>
-          <span onClick={() => onClick('domainStatus', 'ALL')}>
-            {domainStatus == 'ALL' ? (
+          <span onClick={() => onClick('status', 'ALL')}>
+            {status == 'ALL' ? (
               <MdRadioButtonChecked />
             ) : (
               <MdRadioButtonUnchecked />
             )}
             ALL
           </span>
-          <span onClick={() => onClick('domainStatus', 'SECRET')}>
-            {domainStatus == 'SECRET' ? (
+          <span onClick={() => onClick('status', 'SECRET')}>
+            {status == 'SECRET' ? (
               <MdRadioButtonChecked />
             ) : (
               <MdRadioButtonUnchecked />
             )}
             SECRET
           </span>
-          <span onClick={() => onClick('domainStatus', 'BLOCK')}>
-            {domainStatus == 'BLOCK' ? (
+          <span onClick={() => onClick('status', 'BLOCK')}>
+            {status == 'BLOCK' ? (
               <MdRadioButtonChecked />
             ) : (
               <MdRadioButtonUnchecked />
@@ -216,8 +216,8 @@ const ListForm = ({ items, onClick, onModal }) => {
               ))
             ) : (
               <tr>
-                <td colSpan={10} className="no-data">
-                  조회 게시글 없습니다.
+                <td colSpan={13} className="no-data">
+                  조회된 게시글이 없습니다.
                 </td>
               </tr>
             )}
