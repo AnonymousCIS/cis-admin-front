@@ -233,17 +233,26 @@ const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
         </TableCols>
 
         <ButtonGroup width={450} className="button-group center">
-          <BigButton
-            type="reset"
-            color="info"
-            disabled={isPending}
-            onClick={onReset}
-          >
-            재입력
-          </BigButton>
-          <BigButton type="submit" color="dark" disabled={isPending}>
-            {form?.mode === 'edit' ? '수정' : '등록'}
-          </BigButton>
+          {form?.mode === 'add' ? (
+            <>
+              <BigButton
+                type="reset"
+                color="info"
+                disabled={isPending}
+                onClick={onReset}
+              >
+                재입력
+              </BigButton>
+              <BigButton type="submit" color="dark" disabled={isPending}>
+                등록
+              </BigButton>
+            </>
+          ) : (
+            <BigButton type="submit" color="dark" disabled={isPending}>
+              수정
+            </BigButton>
+          )}
+
           <Messages color="danger">{errors?.global}</Messages>
         </ButtonGroup>
       </StyledForm>

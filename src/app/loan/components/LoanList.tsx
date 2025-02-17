@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
 import { SmallButton } from '@/app/global/components/Buttons'
 import {
+  MdCheckBox,
   MdCheckBoxOutlineBlank,
   MdRadioButtonUnchecked,
   MdRadioButtonChecked,
@@ -12,6 +13,9 @@ const StyledForm = styled.form`
   table {
     text-align: center;
 
+    span {
+      cursor: default;
+    }
     .btn {
       display: flex;
       justify-content: center;
@@ -21,7 +25,7 @@ const StyledForm = styled.form`
 `
 
 // ✨✨ onClick 추가
-const LoanItem = ({ item, onRemove, onClick }) => {
+const LoanItem = ({ item, onRemove, onClick, onToggleCheck }) => {
   const {
     seq,
     loanName,
@@ -31,28 +35,39 @@ const LoanItem = ({ item, onRemove, onClick }) => {
     repaymentYear,
     open,
     bankNameStr,
+    checked,
   } = item
-  console.log('item', item)
+
   return (
     <tr>
       <td>
-        <span>
-          <MdCheckBoxOutlineBlank />
+        <span onClick={() => onToggleCheck(seq)}>
+          {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
         </span>
       </td>
       <td>{loanName}</td>
       <td>{bankNameStr}</td>
       <td>{categoryStr}</td>
       <td>{limit}</td>
-      <td>{interestRate}</td>
-      <td>{repaymentYear}</td>
+      <td>{interestRate}%</td>
+      <td>{repaymentYear}년</td>
       <td>
         {/* ✨✨ span에 onClick 추가 */}
-        <span onClick={() => onClick('open', !Boolean(item?.open))}>
-          {open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
+        <span>
+          {open === true ? (
+            <MdRadioButtonChecked />
+          ) : (
+            <MdRadioButtonUnchecked />
+          )}
+          사용
         </span>
-        <span onClick={() => onClick('open', !Boolean(item?.open))}>
-          {!open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 미사용
+        <span>
+          {open === false ? (
+            <MdRadioButtonChecked />
+          ) : (
+            <MdRadioButtonUnchecked />
+          )}
+          미사용
         </span>
       </td>
       <td className="btn">
@@ -80,7 +95,7 @@ const LoanItem = ({ item, onRemove, onClick }) => {
 }
 
 // ✨✨ onClick 추가
-const LoanList = ({ items, onRemove, onClick }) => {
+const LoanList = ({ items, onRemove, onClick, onToggleCheck }) => {
   return (
     <>
       <StyledForm>
@@ -109,6 +124,7 @@ const LoanList = ({ items, onRemove, onClick }) => {
                   onRemove={onRemove}
                   // ✨✨ onClick 추가
                   onClick={onClick}
+                  onToggleCheck={onToggleCheck}
                 />
               ))
             ) : (

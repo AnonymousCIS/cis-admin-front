@@ -49,11 +49,10 @@ const StyledForm = styled.form<CommonType>`
   .td-flex {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
 
     span {
       display: block;
-      width: 81px;
       cursor: default;
     }
   }

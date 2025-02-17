@@ -16,17 +16,18 @@ const Loading = () => <BulletList />
 
 const LoanDeleteContainer = ({ seq, closeModal }: Props | undefined) => {
   const [form, setForm] = useState({})
-
-  const { data, isLoading } = useRequest(`/loan/api/loan/view/${seq}`)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   useLayoutEffect(() => {
     ;(async () => {
+      setIsLoading(true)
       try {
         const loan = await getLoan(seq)
         setForm(loan)
       } catch (err) {
         console.error(err)
       }
+      setIsLoading(false)
     })()
   }, [seq])
 

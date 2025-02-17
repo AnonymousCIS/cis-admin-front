@@ -88,24 +88,12 @@ const LoanModal = ({ form, actionState, closeModal }) => {
             </tr>
           </tbody>
         </TableCols>
-        <ButtonGroup width={450} className="button-group center">
-          <SmallButton
-            type="submit"
-            color="dark"
-            width={120}
-            disabled={isPending}
-          >
+        
+        <ButtonGroup width={300} className="button-group center">
+          <SmallButton type="submit" color="dark" disabled={isPending}>
             삭제
           </SmallButton>
         </ButtonGroup>
-        <SmallButton
-          type="submit"
-          color="dark"
-          width={120}
-          disabled={isPending}
-        >
-          삭제
-        </SmallButton>
       </StyledForm>
     </>
   )
