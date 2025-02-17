@@ -1,16 +1,21 @@
 'use client'
 
 import React from 'react'
-// import loadable from '@loadable/component'
-// import { MainTitle } from '@/app/global/components/StyledTitle'
+import loadable from '@loadable/component'
+import { MainTitle } from '@/app/global/components/StyledTitle'
 import WithUserContainer from '@/app/global/containers/WithUserContainer'
+
+const RecommendListContainer = loadable(
+  () => import('../containers/RecommendListContainer'),
+)
 
 const LoanRecommendList = () => {
   return WithUserContainer(
     <>
-      <h1>추천 대출 목록</h1>
+      <MainTitle>추천 대출 목록</MainTitle>
+      <RecommendListContainer />
     </>,
   )
 }
 
-export default LoanRecommendList
+export default React.memo(LoanRecommendList)

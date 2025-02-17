@@ -44,7 +44,6 @@ export const processEdit = async (params, formData: FormData) => {
 
     if (res.status !== 200) {
       const result = await res.json()
-      console.log('result', result)
       errors = result.message
       hasErrors = true
     }
@@ -68,7 +67,6 @@ export const getBank = async (seq) => {
 
     if (res.status === 200) {
       const result = await res.json()
-      console.log('result', result)
       return result.success && result.data
     }
   } catch (err) {
@@ -91,7 +89,6 @@ export const removeBank = async (seq) => {
 
     if (res.status === 200) {
       const result = await res.json()
-      console.log('result', result)
     } else {
       return
     }
@@ -109,11 +106,10 @@ export const removeBank = async (seq) => {
  */
 export const getTransactionList = async (seq) => {
   try {
-    const res = await apiRequest(`/transactions/view/${seq}`)
+    const res = await apiRequest(`/bank/transactions/view/${seq}`)
 
     if (res.status === 200) {
       const result = await res.json()
-      console.log('result', result)
       return result.success && result.data
     }
   } catch (err) {
@@ -133,10 +129,35 @@ export const getTransaction = async (seq) => {
 
     if (res.status === 200) {
       const result = await res.json()
-      console.log('result', result)
       return result.success && result.data
     }
   } catch (err) {
     console.error(err)
   }
+}
+
+/**
+ * 계좌 거래내역 삭제.
+ * @param seq
+ * @returns
+ */
+export const removeTransaction = async (seq) => {
+  const qs = toQueryString({ seq: [seq] })
+
+  try {
+    const res = await apiRequest(
+      `/bank/admin/transaction/deletes?${qs}`,
+      'DELETE',
+    )
+
+    if (res.status === 200) {
+      const result = await res.json()
+      console.log('result', result)
+    } else {
+      return
+    }
+  } catch (err) {
+    console.error(err)
+  }
+  redirect('/bank/transaction/list')
 }

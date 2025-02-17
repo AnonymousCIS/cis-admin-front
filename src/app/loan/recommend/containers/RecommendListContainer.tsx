@@ -1,16 +1,17 @@
 'use client'
 
-import React, { useState, useCallback, useEffect, useLayoutEffect } from 'react'
-import LoanList from '../components/LoanList'
+import React, { useState, useCallback, useEffect } from 'react'
+import RecommendList from '../components/RecommendList'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
-import LoanSearch from '../components/LoanSearch'
+import RecommendSearch from '../components/RecommendSearch'
 import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
-import { BulletList, List } from 'react-content-loader'
+import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
-import LoanDeleteContainer from './LoanDeleteContainer'
+// import LoanDeleteContainer from './LoanDeleteContainer'
 import LayerPopup from '@/app/global/components/LayerPopup'
 import useQueryString from '@/app/global/hooks/useQueryString'
+import RecommendDeleteContainer from './RecommendDeleteContainer'
 
 const Loading = () => <BulletList />
 
@@ -25,14 +26,8 @@ type SearchType = {
   loanLimitMin?: number
 }
 
-type ListType = {
-  open?: boolean
-}
-
-const LoanListContainer = () => {
-  useMenuCode('loan', 'list')
-
-  const [form, setForm] = useState<ListType>()
+const RecommendListContainer = () => {
+  useMenuCode('loan', 'recommendlist')
 
   const _qs = useQueryString(['loanName', 'bankName', 'categories'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
@@ -51,17 +46,15 @@ const LoanListContainer = () => {
   const qs = toQueryString(search)
 
   const { data, error, isLoading } = useRequest(
-    `/loan/api/list${qs.trim() ? '?' + qs : ''}`,
+    `/loan/recommend/api/list${qs.trim() ? '?' + qs : ''}`,
   )
 
   const onChange = useCallback((e) => {
     _setSearch((_search) => ({ ..._search, [e.target.name]: e.target.value }))
   }, [])
 
-  const onReset = useCallback(() => {
-    _setSearch({})
-    setSearch({})
-
+  const onReset = useCallback((field, value) => {
+    setSearch((_search) => ({ ..._search, [field]: value }))
   }, [])
 
   /**
@@ -79,7 +72,7 @@ const LoanListContainer = () => {
       }
       _setSearch({ ..._search, [type]: [...set.values()] })
     },
-    [_search],
+    [_search, search],
   )
 
   /* ✨✨추가한 부분 S */
@@ -94,14 +87,6 @@ const LoanListContainer = () => {
     },
     [addToggle],
   )
-
-  const openClick = useCallback((field, value) => {
-    console.log('클릭 감지!')
-    if (['open'].includes(field)) {
-      console.log('open : ' + open)
-      setForm((form) => ({ ...form, [field]: value }))
-    }
-  }, [])
 
   const closeModal = useCallback(() => {
     setIsOpen(false)
@@ -120,6 +105,8 @@ const LoanListContainer = () => {
     (e) => {
       e.preventDefault()
 
+      console.log('_search', _search)
+
       // Submit 했을때 Search 값을 새로운 객체로 깊은 복사해 교체하면서 Rerendering
       setSearch({ ..._search })
     },
@@ -136,17 +123,9 @@ const LoanListContainer = () => {
     setIsOpen(true)
   }, [])
 
-  const onToggleCheck = useCallback((seq) => {
-    setItems((prevItems) =>
-      prevItems.map((item) =>
-        item.seq === seq ? { ...item, checked: !item.checked } : item,
-      ),
-    )
-  }, [])
-
   return (
     <>
-      <LoanSearch
+      <RecommendSearch
         form={_search}
         onChange={onChange}
         onSubmit={onSubmit}
@@ -157,16 +136,12 @@ const LoanListContainer = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <LoanList
-          items={items}
-          onRemove={onRemove}
-          onToggleCheck={onToggleCheck}
-          openClick={openClick}
-        />
+        <RecommendList items={items} onRemove={onRemove} onClick={onClick} />
       )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
+
       {/* ✨✨추가한 부분 S */}
       <LayerPopup
         isOpen={isOpen}
@@ -175,11 +150,11 @@ const LoanListContainer = () => {
         width={750}
         height={600}
       >
-        <LoanDeleteContainer seq={seq} closeModal={closeModal} />
+        <RecommendDeleteContainer seq={seq} closeModal={closeModal} />
       </LayerPopup>
       {/* ✨✨추가한 부분 E */}
     </>
   )
 }
 
-export default React.memo(LoanListContainer)
+export default React.memo(RecommendListContainer)

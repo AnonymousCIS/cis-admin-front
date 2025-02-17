@@ -9,10 +9,10 @@ const ListContainer = loadable(() => import('../containers/ListContainer'))
 
 const ListPage = () => {
   return WithUserContainer(
-    <>
+    <div>
       <MainTitle>쪽지목록</MainTitle>
       <ListContainer />
-    </>,
+    </div>,
   )
 }
 

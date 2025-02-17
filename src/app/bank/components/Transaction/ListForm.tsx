@@ -39,7 +39,7 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
-const TransactionItem = ({ item }) => {
+const TransactionItem = ({ item, onRemove }) => {
   const { bank, payAmount, seq, createdAt } = item
   const { accountNumber, bankName, name, createdBy } = bank
   return (
@@ -53,19 +53,26 @@ const TransactionItem = ({ item }) => {
         <td>{payAmount.toLocaleString()}원</td>
         <td suppressHydrationWarning>{createdAt}</td>
         <td>
-          {' '}
           <a href={'/bank/transaction/info/' + seq}>
             <SmallButton type="button" color="primary" width={80}>
               상세보기
             </SmallButton>
           </a>
+          <SmallButton
+            type="button"
+            color="primary"
+            width={80}
+            onClick={() => onRemove(seq)}
+          >
+            삭제하기
+          </SmallButton>
         </td>
       </tr>
     </>
   )
 }
 
-const ListForm = ({ items }) => {
+const ListForm = ({ items, onRemove }) => {
   return (
     <>
       <StyledForm>
@@ -85,7 +92,11 @@ const ListForm = ({ items }) => {
           <tbody>
             {items && items.length > 0 ? (
               items.map((item) => (
-                <TransactionItem key={'bank' + item.seq} item={item} />
+                <TransactionItem
+                  key={'bank' + item.seq}
+                  item={item}
+                  onRemove={onRemove}
+                />
               ))
             ) : (
               <tr>

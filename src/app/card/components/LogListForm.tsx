@@ -44,7 +44,7 @@ const ListLogItem = ({ item }) => {
       <td>{createdBy}</td>
       <td>{createdAt}</td>
       <td>{count}</td>
-      <td>{done}</td>
+      <td>{done ? '완료' : '실패'}</td>
       <td>
         <div>
           <a href={`/card/train/log/${seq}`}>

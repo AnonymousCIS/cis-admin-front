@@ -5,19 +5,19 @@ import loadable from '@loadable/component'
 import { MainTitle } from '@/app/global/components/StyledTitle'
 import WithUserContainer from '@/app/global/containers/WithUserContainer'
 
-const LoanViewContainer = loadable(
-  () => import('../../containers/LoanViewContainer'),
+const LoanLogContainer = loadable(
+  () => import('../../containers/LoanLogContainer'),
 )
 
-const LoanView = ({ params }) => {
+const ViewPage = ({ params }) => {
   const { seq } = React.use<{ seq: number }>(params)
 
   return WithUserContainer(
     <>
-      <MainTitle>대출 단일 조회</MainTitle>
-      <LoanViewContainer seq={seq} />
+      <MainTitle>대출 로그 조회</MainTitle>
+      <LoanLogContainer seq={seq} />
     </>,
   )
 }
 
-export default React.memo(LoanView)
+export default React.memo(ViewPage)

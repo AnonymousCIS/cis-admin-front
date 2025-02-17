@@ -82,11 +82,14 @@ const LogViewItem = ({ form }) => {
                 <span>{form?.count ?? ''}</span>
               </td>
             </tr>
-
             <tr>
               <th>완료여부</th>
               <td>
-                <span>{form?.done ?? ''}</span>
+              <span>
+                  {form?.done !== null && form?.done === true
+                    ? '완료'
+                    : '실패'}
+                </span>
               </td>
             </tr>
           </tbody>

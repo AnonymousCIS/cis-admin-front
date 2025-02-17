@@ -7,14 +7,14 @@ import Pagination from '@/app/global/components/Pagination'
 import ListItem from '../components/LogListForm'
 import { toQueryString } from '@/app/global/libs/utils'
 
-const Loading = () => <BulletList width={'30%'} />
+const Loading = () => <BulletList />
 type SearchType = {
   page?: number
   limit?: number
 }
 
 const ListSearchContainer = () => {
-  useMenuCode('card', 'list')
+  useMenuCode('card', 'train')
 
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
   const [search, setSearch] = useState<SearchType>({})
