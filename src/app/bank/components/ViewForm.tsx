@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
-import { BigButton, ButtonGroup } from '@/app/global/components/Buttons'
-import { CommonType } from '@/app/global/types/styledType'
+import { MediumButton } from '@/app/global/components/Buttons'
+import { CommonType } from '@/app/global/types/StyledType'
 import colors from '@/app/global/styles/colors'
 
 const { primary, white } = colors
@@ -27,9 +27,19 @@ const StyledForm = styled.form<CommonType>`
       margin-bottom: 30px;
     }
   }
+
+  & > .center {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+
+    & > * {
+      display: block;
+    }
+  }
 `
 
-const ViewForm = ({ form }) => {
+const ViewForm = ({ form, onRemove }) => {
   return (
     <>
       <StyledForm>
@@ -55,30 +65,29 @@ const ViewForm = ({ form }) => {
                 <span>{form?.name ?? ''}</span>
               </td>
             </tr>
-
-            <tr>
-              <th>계좌 비밀번호</th>
-              <td>
-                <span>{form?.password ?? ''}</span>
-              </td>
-            </tr>
-
-            <tr>
-              <th>사용 여부</th>
-              <td>
-                <span>{form?.open ?? ''}</span>
-              </td>
-            </tr>
           </tbody>
         </TableRows>
-        <ButtonGroup width={450} className="button-group center">
-          <BigButton type="button" color="info">
-            사용
-          </BigButton>
-          <BigButton type="button" color="primary">
-            미사용
-          </BigButton>
-        </ButtonGroup>
+
+        <div className="center">
+          <a href={'/bank/list'}>
+            <MediumButton
+              type="button"
+              color="secondary"
+              width={120}
+              //    onClick={onclick}
+            >
+              돌아가기
+            </MediumButton>
+          </a>
+          <MediumButton
+            type="button"
+            color="dark"
+            width={120}
+            onClick={onRemove}
+          >
+            삭제
+          </MediumButton>
+        </div>
       </StyledForm>
     </>
   )

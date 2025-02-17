@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import { buttonColors } from '../styles/colors'
 import sizes from '../styles/sizes'
-import type { CommonType } from '../types/styledType'
+import type { CommonType } from '../types/StyledType'
 
 const { dark } = buttonColors
 const { tiny, small, normal, medium, big, extra } = sizes

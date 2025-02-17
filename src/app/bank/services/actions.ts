@@ -1,6 +1,7 @@
 'use server'
 import { redirect } from 'next/navigation'
 import apiRequest from '@/app/global/libs/apiRequest'
+import { toQueryString } from '@/app/global/libs/utils'
 
 export const processEdit = async (params, formData: FormData) => {
   const redirectUrl = params?.redirectUrl ?? '/bank/list'
@@ -64,6 +65,71 @@ export const processEdit = async (params, formData: FormData) => {
 export const getBank = async (seq) => {
   try {
     const res = await apiRequest(`/bank/view/${seq}`)
+
+    if (res.status === 200) {
+      const result = await res.json()
+      console.log('result', result)
+      return result.success && result.data
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+/**
+ * 계좌 단일 & 목록 일괄 삭제 처리
+ *
+ * @param params
+ * @param formData
+ * @returns
+ */
+export const removeBank = async (seq) => {
+  const qs = toQueryString({ seq: [seq] })
+
+  try {
+    const res = await apiRequest(`/bank/admin/removes?${qs}`, 'DELETE')
+
+    if (res.status === 200) {
+      const result = await res.json()
+      console.log('result', result)
+    } else {
+      return
+    }
+  } catch (err) {
+    console.error(err)
+  }
+  redirect('/bank/list')
+}
+
+/**
+ * 계좌 거래내역 목록 조회
+ *
+ * @param seq
+ * @returns
+ */
+export const getTransactionList = async (seq) => {
+  try {
+    const res = await apiRequest(`/transactions/view/${seq}`)
+
+    if (res.status === 200) {
+      const result = await res.json()
+      console.log('result', result)
+      return result.success && result.data
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+/**
+ * 계좌 거래내역 단일 조회
+ *
+ * @param seq
+ * @returns
+ */
+export const getTransaction = async (seq) => {
+  try {
+    const res = await apiRequest(`/bank/transactions/view/${seq}`)
 
     if (res.status === 200) {
       const result = await res.json()

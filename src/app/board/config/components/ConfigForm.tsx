@@ -7,7 +7,7 @@ import { BigButton, ButtonGroup } from '@/app/global/components/Buttons'
 import Messages from '@/app/global/components/Messages'
 import { SubTitle } from '@/app/global/components/StyledTitle'
 import colors from '@/app/global/styles/colors'
-import { CommonType } from '@/app/global/types/styledType'
+import { CommonType } from '@/app/global/types/StyledType'
 
 const { primary, white } = colors
 

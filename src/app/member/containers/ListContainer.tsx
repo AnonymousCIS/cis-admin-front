@@ -8,6 +8,8 @@ import useRequest from '@/app/global/hooks/useRequest'
 import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
 import MemberSearch from '../components/MemberSearch'
+import LayerPopup from '@/app/global/components/LayerPopup'
+import DeleteContainer from './DeleteContainer'
 
 const Loading = () => <BulletList />
 type SearchType = {
@@ -29,6 +31,9 @@ const ListContainer = () => {
 
   const [pagination, setPagination] = useState()
 
+  const [isopen, setIsOpen] = useState<boolean>(false)
+  const [seq, setSeq] = useState(null)
+
   const qs = toQueryString(search)
 
   const { data, error, isLoading } = useRequest(
@@ -40,12 +45,13 @@ const ListContainer = () => {
   }, [])
 
   useEffect(() => {
-    if (data) {
+    if (data?.success) {
       setItems(data.data.data)
       setPagination(data.data.pagination)
       console.log(data.data.data)
     }
   }, [data])
+  console.log('data', data)
 
   const onSubmit = useCallback(
     (e) => {
@@ -59,13 +65,37 @@ const ListContainer = () => {
     page = page ?? 1
     setSearch((search) => ({ ...search, page }))
   }, [])
+
+  const handleDeleteClick = useCallback((seq) => {
+    setSeq(seq)
+    setIsOpen(true)
+  }, [])
+
+  const closeModal = useCallback(() => {
+    setIsOpen(false)
+    setSeq(null)
+  }, [])
+
   return (
     <>
       <MemberSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
-      {isLoading ? <Loading /> : <ListForm form={items} />}
+      {isLoading || !data?.success ? (
+        <Loading />
+      ) : (
+        <ListForm form={items} onDeleteClick={handleDeleteClick} />
+      )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
+      <LayerPopup
+        isOpen={isopen}
+        onClose={closeModal}
+        title="회원 삭제"
+        width={750}
+        height={650}
+      >
+        <DeleteContainer seq={seq} closeModal={closeModal} />
+      </LayerPopup>
     </>
   )
 }

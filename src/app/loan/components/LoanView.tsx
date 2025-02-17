@@ -1,15 +1,26 @@
 import React from 'react'
 import styled from 'styled-components'
-// import colors from '@/app/global/styles/colors'
-import { CommonType } from '@/app/global/types/styledType'
+import colors from '@/app/global/styles/colors'
+import { CommonType } from '@/app/global/types/StyledType'
 import { TableCols } from '@/app/global/components/Tables'
 import { SmallButton, ButtonGroup } from '@/app/global/components/Buttons'
 
-// const { primary, white } = colors
+const { secondary } = colors
 
-const StyledForm = styled.form<CommonType>``
+const StyledForm = styled.form<CommonType>`
+  table {
+    margin-bottom: 30px;
+  }
 
-const LoanView = ({ form }) => {
+  th {
+    width: 150px;
+    text-align: center;
+    background: ${secondary};
+  }
+`
+
+// ✨✨ onDelete 추가
+const LoanView = ({ form, onDelete }) => {
   return (
     <>
       <StyledForm>
@@ -70,10 +81,11 @@ const LoanView = ({ form }) => {
           </tbody>
         </TableCols>
         <ButtonGroup width={450} className="button-group center">
-          <SmallButton type="button" color="secondary">
+          <SmallButton type="button" color="info" width={120}>
             수정
           </SmallButton>
-          <SmallButton type="button" color="dark">
+          {/* onDelete ✨✨추가 */}
+          <SmallButton type="button" color="dark" onClick={onDelete}>
             삭제
           </SmallButton>
         </ButtonGroup>

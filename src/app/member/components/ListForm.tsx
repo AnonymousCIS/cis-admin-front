@@ -2,11 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
 import { SmallButton } from '@/app/global/components/Buttons'
-import {
-  MdCheckBoxOutlineBlank,
-  MdRadioButtonUnchecked,
-  MdRadioButtonChecked,
-} from 'react-icons/md'
+import { MdEmail } from 'react-icons/md'
 
 const StyledForm = styled.form`
   th:nth-of-type(1) {
@@ -78,7 +74,7 @@ const StyledForm = styled.form`
   }
 `
 
-const MemberItems = ({ item }) => {
+const MemberItems = ({ item, onDeleteClick }) => {
   const {
     seq,
     email,
@@ -101,7 +97,16 @@ const MemberItems = ({ item }) => {
   return (
     <tr>
       <td>{seq}</td>
-      <td>{email}</td>
+      <td>
+        <div>
+          <a href={`/message/write/${email}`}>
+            <span>
+              <MdEmail />
+            </span>
+            <span>{email}</span>
+          </a>
+        </div>
+      </td>
       <td>{name}</td>
       <td>{zipCode}</td>
       <td>{address}</td>
@@ -121,18 +126,21 @@ const MemberItems = ({ item }) => {
               수정
             </SmallButton>
           </a>
-          <a href={'/member/delete/' + seq}>
-            <SmallButton type="button" color="dark" width={80}>
-              삭제하기
-            </SmallButton>
-          </a>
+          <SmallButton
+            type="button"
+            color="dark"
+            width={80}
+            onClick={() => onDeleteClick(seq)}
+          >
+            삭제하기
+          </SmallButton>
         </div>
       </td>
     </tr>
   )
 }
 
-const ListForm = ({ form }) => {
+const ListForm = ({ form, onDeleteClick }) => {
   return (
     <>
       <StyledForm>
@@ -161,7 +169,13 @@ const ListForm = ({ form }) => {
           </thead>
           <tbody>
             {form ? (
-              form.map((item, i) => <MemberItems key={i} item={item} />)
+              form.map((item, i) => (
+                <MemberItems
+                  key={i}
+                  item={item}
+                  onDeleteClick={onDeleteClick}
+                />
+              ))
             ) : (
               <tr>
                 <td colSpan={14} className="no-data">

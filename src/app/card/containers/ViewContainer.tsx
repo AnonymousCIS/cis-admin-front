@@ -19,7 +19,7 @@ const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
 
   const onRemove = useCallback(() => {
     removeCard(seq)
-  }, [])
+  }, [seq])
 
   useLayoutEffect(() => {
     ;(async () => {

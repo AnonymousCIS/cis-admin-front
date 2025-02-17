@@ -3,8 +3,8 @@ import styled from 'styled-components'
 
 import { Input, Select, Textarea } from '@/app/global/components/FormComponents'
 import { TableCols } from '@/app/global/components/Tables'
-import { CommonType } from '@/app/global/types/styledType'
-
+import { CommonType } from '@/app/global/types/StyledType'
+import { MdRadioButtonUnchecked, MdRadioButtonChecked } from 'react-icons/md'
 import { BigButton, ButtonGroup } from '@/app/global/components/Buttons'
 import { SubTitle } from '@/app/global/components/StyledTitle'
 
@@ -77,12 +77,15 @@ const categoryOptions = [
 ]
 
 // const CreateForm = ({ form, onClick, onChange, actionState }) => {
-const CreateForm = ({ form, onChange, onReset, actionState }) => {
+const CreateForm = ({ form, onChange, onClick, onReset, actionState }) => {
   const [errors, formAction, isPending] = actionState
 
   return (
     <>
       <StyledForm action={formAction} autoComplete="off">
+        <input type="hidden" name="mode" value={form?.mode ?? 'add'} />
+        <input type="hidden" name="isOpen" value={form?.isOpen ?? false} />
+        <input type="hidden" name="seq" value={form?.seq ?? ''} />
         <SubTitle>카드 설정</SubTitle>
         <TableCols>
           <tbody>
@@ -101,13 +104,36 @@ const CreateForm = ({ form, onChange, onReset, actionState }) => {
             </tr>
 
             <tr>
+              <th>공개 상태</th>
+              <td>
+                <span onClick={() => onClick('isOpen', true)}>
+                  {form?.isOpen ? (
+                    <MdRadioButtonChecked />
+                  ) : (
+                    <MdRadioButtonUnchecked />
+                  )}
+                  공개
+                </span>
+                <span onClick={() => onClick('isOpen', false)}>
+                  {form?.isOpen ? (
+                    <MdRadioButtonUnchecked />
+                  ) : (
+                    <MdRadioButtonChecked />
+                  )}
+                  미공개
+                </span>
+              </td>
+            </tr>
+
+            <tr>
               <th>연회비</th>
               <td>
                 <Input
                   type="number"
                   name="annualFee"
-                  value={form?.annualFee ?? 20000}
+                  value={form?.annualFee ?? ''}
                   onChange={onChange}
+                  placeholder="1,000 이상 30,000 이하로 입력"
                 />
 
                 <Messages color="danger">{errors?.annualFee}</Messages>
@@ -120,8 +146,9 @@ const CreateForm = ({ form, onChange, onReset, actionState }) => {
                 <Input
                   type="number"
                   name="limit"
-                  value={form?.limit ?? 2000000}
+                  value={form?.limit ?? ''}
                   onChange={onChange}
+                  placeholder="1,000,000 이상 100,000,000 이하로 입력"
                 />
 
                 <Messages color="danger">{errors?.limit}</Messages>

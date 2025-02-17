@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import apiRequest from '@/app/global/libs/apiRequest'
 
-export async function GET(request: NextRequest, { params }) {
+export async function GET(request: NextRequest) {
   const qs = request.nextUrl.searchParams.toString()
 
   const apiUrl = process.env.API_URL + `/card/list${qs.trim() ? '?' + qs : ''}`
@@ -12,6 +12,8 @@ export async function GET(request: NextRequest, { params }) {
     // 성공시
 
     const result = await res.json()
+
+    // console.log('result', res)
 
     return NextResponse.json(result)
   }

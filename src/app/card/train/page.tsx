@@ -5,15 +5,15 @@ import loadable from '@loadable/component'
 import { MainTitle } from '@/app/global/components/StyledTitle'
 import WithUserContainer from '@/app/global/containers/WithUserContainer'
 
-const EditContainer = loadable(() => import('../containers/EditContainer'))
+const TrainContainer = loadable(() => import('../containers/TrainContainer'))
 
-const CreatePage = () => {
+const UpdatePage = () => {
   return WithUserContainer(
     <>
-      <MainTitle>계좌수정 및 변경</MainTitle>
-      <EditContainer />
+      <MainTitle>머신러닝 학습</MainTitle>
+      <TrainContainer />
     </>,
   )
 }
 
-export default CreatePage
+export default React.memo(UpdatePage)

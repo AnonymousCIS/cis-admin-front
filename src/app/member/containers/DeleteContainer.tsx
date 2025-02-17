@@ -6,9 +6,14 @@ import { BulletList } from 'react-content-loader'
 import useRequest from '@/app/global/hooks/useRequest'
 import DeleteForm from '../components/DeleteForm'
 
+type Props = {
+  seq?: any | undefined
+  closeModal: any | undefined
+}
+
 const Loading = () => <BulletList />
 
-const EditContainer = ({ seq }: { seq?: any | undefined } | undefined) => {
+const DeleteContainer = ({ seq, closeModal }: Props | undefined) => {
   const [form, setForm] = useState({})
 
   const { data, isLoading } = useRequest(`/member/api/info/${seq}`)
@@ -33,10 +38,14 @@ const EditContainer = ({ seq }: { seq?: any | undefined } | undefined) => {
       {isLoading ? (
         <Loading />
       ) : (
-        <DeleteForm form={form} actionState={actionState} />
+        <DeleteForm
+          form={form}
+          actionState={actionState}
+          closeModal={closeModal}
+        />
       )}
     </>
   )
 }
 
-export default React.memo(EditContainer)
+export default React.memo(DeleteContainer)

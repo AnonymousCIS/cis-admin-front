@@ -2,48 +2,92 @@ import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
 import { SmallButton } from '@/app/global/components/Buttons'
-import { MdCheckBoxOutlineBlank } from 'react-icons/md'
+import {
+  MdCheckBoxOutlineBlank,
+  MdRadioButtonUnchecked,
+  MdRadioButtonChecked,
+} from 'react-icons/md'
 
-const StyledForm = styled.form``
+const StyledForm = styled.form`
+  table {
+    text-align: center;
+  }
+`
 
-const LoanItem = ({ item }) => {
+// ✨✨ onClick 추가
+const LoanItem = ({ item, onRemove, onClick }) => {
   const {
+    seq,
     loanName,
-    bankName,
-    category,
+    categoryStr,
     limit,
     interestRate,
     repaymentYear,
-    isOpen,
+    open,
+    bankNameStr,
   } = item
 
   return (
     <tr>
-      <td></td>
+      <td>
+        <span>
+          <MdCheckBoxOutlineBlank />
+        </span>
+      </td>
       <td>{loanName}</td>
-      <td>{bankName}</td>
-      <td>{category}</td>
+      <td>{bankNameStr}</td>
+      <td>{categoryStr}</td>
       <td>{limit}</td>
       <td>{interestRate}</td>
       <td>{repaymentYear}</td>
-      <td>{isOpen}</td>
       <td>
-        <a href="#">
+        {/* ✨✨ span에 onClick 추가 */}
+        <span onClick={() => onClick('open', !Boolean(item?.open))}>
+          {open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
+        </span>
+        <span onClick={() => onClick('open', !Boolean(item?.open))}>
+          {!open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 미사용
+        </span>
+      </td>
+      <td>
+        {/* <SmallButton type="button" color="primary" width={120} onClick={onOpen}>
+          상세보기
+        </SmallButton>
+        <LayerPopup
+          onClose={onClose}
+          isOpen={PopupOpen}
+          title="대출 상세 정보"
+          width={750}
+          height={650}
+        >
+          <h2>{seq} 상세보기</h2>
+          <LoanView form={item} seq={seq} />
+        </LayerPopup> */}
+        <a href={'/loan/view/' + seq}>
+          <SmallButton type="button" color="primary" width={120}>
+            상세보기
+          </SmallButton>
+        </a>
+        <a href={'/loan/update/' + seq}>
           <SmallButton type="button" color="info" width={120}>
             수정
           </SmallButton>
         </a>
-        <a href="#">
-          <SmallButton type="button" color="dark" width={120}>
-            삭제
-          </SmallButton>
-        </a>
+        <SmallButton
+          type="button"
+          color="dark"
+          width={120}
+          onClick={() => onRemove(seq)}
+        >
+          삭제
+        </SmallButton>
       </td>
     </tr>
   )
 }
 
-const LoanList = ({ items }) => {
+// ✨✨ onClick 추가
+const LoanList = ({ items, onRemove, onClick }) => {
   return (
     <>
       <StyledForm>
@@ -66,12 +110,18 @@ const LoanList = ({ items }) => {
           <tbody>
             {items && items.length > 0 ? (
               items.map((item) => (
-                <LoanItem key={'config_' + item.bid} item={item} />
+                <LoanItem
+                  key={'loan' + item.seq}
+                  item={item}
+                  onRemove={onRemove}
+                  // ✨✨ onClick 추가
+                  onClick={onClick}
+                />
               ))
             ) : (
               <tr>
                 <td colSpan={9} className="no-data">
-                  조회 게시판이 없습니다.
+                  대출 목록이 없습니다.
                 </td>
               </tr>
             )}

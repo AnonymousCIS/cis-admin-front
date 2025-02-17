@@ -2,9 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { TableCols } from '@/app/global/components/Tables'
 import { MediumButton } from '@/app/global/components/Buttons'
-import { CommonType } from '@/app/global/types/styledType'
+import { CommonType } from '@/app/global/types/StyledType'
 import colors from '@/app/global/styles/colors'
-import Messages from '@/app/global/components/Messages'
 
 const { primary, white } = colors
 
@@ -100,7 +99,7 @@ const ViewForm = ({ form, onRemove }) => {
               <th>공개 여부</th>
               <td>
                 <span>
-                  {form?.open !== null && form?.open === true
+                  {form?.isOpen !== null && form?.isOpen === true
                     ? '공개'
                     : '미공개'}
                 </span>

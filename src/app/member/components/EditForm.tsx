@@ -37,11 +37,6 @@ const StyledForm = styled.form`
   }
 `
 
-const options = [
-  { value: 'USER', label: '유저' },
-  { value: 'ADMIN', label: 'ADMIN' },
-]
-
 const EditForm = ({ form, onClick, onChange, actionState, onReset }) => {
   const [errors, formAction, isPending] = actionState
   return (
@@ -54,7 +49,7 @@ const EditForm = ({ form, onClick, onChange, actionState, onReset }) => {
       <input
         type="hidden"
         name="_authorities"
-        value={form?._authorities ?? 'list'}
+        value={form?._authorities ?? 'USER'}
       />
       <SubTitle>유저 설정</SubTitle>
       <TableCols>

@@ -66,7 +66,7 @@ const MemberItems = ({ item, onClick, onToggleCheck }) => {
       <td>{type}</td>
       <td>
         <span onClick={() => onClick(seq, 'memberStatus', 'ALL')}>
-          {memberStatus === 'ALL' ? (
+          {item?.memberStatus === 'ALL' ? (
             <MdRadioButtonChecked />
           ) : (
             <MdRadioButtonUnchecked />
@@ -74,7 +74,7 @@ const MemberItems = ({ item, onClick, onToggleCheck }) => {
           ALL
         </span>
         <span onClick={() => onClick(seq, 'memberStatus', 'BLOCK')}>
-          {memberStatus === 'BLOCK' ? (
+          {item?.memberStatus === 'BLOCK' ? (
             <MdRadioButtonChecked />
           ) : (
             <MdRadioButtonUnchecked />
@@ -87,9 +87,9 @@ const MemberItems = ({ item, onClick, onToggleCheck }) => {
   )
 }
 
-const BlockForm = ({ form, onClick, onToggleCheck }) => {
+const BlockForm = ({ form, onClick, onToggleCheck, onProcess }) => {
   return (
-    <StyledForm>
+    <StyledForm autoComplete="off">
       <TableRows>
         <thead>
           <tr>
@@ -125,10 +125,14 @@ const BlockForm = ({ form, onClick, onToggleCheck }) => {
         </tbody>
       </TableRows>
       <ButtonGroup width={450} className="button-group center">
-        <BigButton type="submit" color="info">
+        <BigButton type="button" color="info" onClick={() => onProcess('edit')}>
           수정
         </BigButton>
-        <BigButton type="submit" color="danger">
+        <BigButton
+          type="button"
+          color="danger"
+          onClick={() => onProcess('delete')}
+        >
           삭제
         </BigButton>
       </ButtonGroup>

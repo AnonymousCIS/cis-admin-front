@@ -8,28 +8,39 @@ import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
 import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
+import LoanDeleteContainer from './LoanDeleteContainer'
+import LayerPopup from '@/app/global/components/LayerPopup'
+import useQueryString from '@/app/global/hooks/useQueryString'
 
 const Loading = () => <BulletList />
 
 type SearchType = {
-  sopt?: string
   skey?: string
   page?: number
   limit?: number
+  loanName?: string
+  categories?: string[]
+  bankName?: string[]
+  loanLimitMax?: number
+  loanLimitMin?: number
 }
 
 const LoanListContainer = () => {
   useMenuCode('loan', 'list')
 
+  const _qs = useQueryString(['loanName', 'bankName', 'categories'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
-  const [search, setSearch] = useState<SearchType>({})
+  const [search, setSearch] = useState<SearchType>(_qs)
 
   // 임시로 값 담는 곳
-  const [_search, _setSearch] = useState<SearchType>({})
+  const [_search, _setSearch] = useState<SearchType>(_qs)
 
   const [items, setItems] = useState([])
 
   const [pagination, setPagination] = useState()
+
+  const [isOpen, setIsOpen] = useState(false)
+  const [seq, setSeq] = useState(null)
 
   const qs = toQueryString(search)
 
@@ -41,11 +52,52 @@ const LoanListContainer = () => {
     _setSearch((_search) => ({ ..._search, [e.target.name]: e.target.value }))
   }, [])
 
+  const onReset = useCallback((field, value) => {
+    setSearch((_search) => ({ ..._search, [field]: value }))
+  }, [])
+
+  /**
+   * Set을 이용해 중복 제거 & 값을 토글 형태로 받는 공통 함수
+   *
+   * 입력하는 값 & 필드명(type)
+   */
+  const addToggle = useCallback(
+    (value, type) => {
+      const set = new Set(_search[type] ?? [])
+      if (set.has(value)) {
+        set.delete(value)
+      } else {
+        set.add(value)
+      }
+      _setSearch({ ..._search, [type]: [...set.values()] })
+    },
+    [_search, search],
+  )
+
+  /* ✨✨추가한 부분 S */
+  const onClick = useCallback(
+    (field, value) => {
+      if (['loanName', 'bankName', 'categories'].includes(field)) {
+        addToggle(value, field)
+        // _setSearch((_search) => ({ ..._search, [field]: value }))
+      } else {
+        _setSearch((_search) => ({ ..._search, [field]: value }))
+      }
+    },
+    [addToggle],
+
+  )
+
+  const closeModal = useCallback(() => {
+    setIsOpen(false)
+    setSeq(null)
+  }, [])
+  /* ✨✨추가한 부분 E */
+
   useEffect(() => {
     if (data) {
       setItems(data.data.items)
       setPagination(data.data.pagination)
-      console.log(data)
     }
   }, [data])
 
@@ -66,13 +118,40 @@ const LoanListContainer = () => {
     setSearch((search) => ({ ...search, page }))
   }, [])
 
+  const onRemove = useCallback((seq) => {
+    setSeq(seq)
+    setIsOpen(true)
+  }, [])
+
   return (
     <>
-      <LoanSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
-      {isLoading ? <Loading /> : <LoanList items={items} />}
+      <LoanSearch
+        form={_search}
+        onChange={onChange}
+        onSubmit={onSubmit}
+        onClick={onClick}
+        onReset={onReset}
+      />
+      {/* ✨✨onClick 추가 */}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <LoanList items={items} onRemove={onRemove} onClick={onClick} />
+      )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
+      {/* ✨✨추가한 부분 S */}
+      <LayerPopup
+        isOpen={isOpen}
+        onClose={closeModal}
+        title="대출 삭제"
+        width={750}
+        height={600}
+      >
+        <LoanDeleteContainer seq={seq} closeModal={closeModal} />
+      </LayerPopup>
+      {/* ✨✨추가한 부분 E */}
     </>
   )
 }

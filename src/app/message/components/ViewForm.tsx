@@ -1,11 +1,9 @@
-'use client'
-
-import { SmallButton } from '@/app/global/components/Buttons'
 import { TableCols } from '@/app/global/components/Tables'
 import React from 'react'
 import styled from 'styled-components'
 import colors from '@/app/global/styles/colors'
-const {primary, white} = colors
+import { SmallButton } from '@/app/global/components/Buttons'
+const { primary, white } = colors
 
 const StyledForm = styled.form`
   table {
@@ -33,7 +31,8 @@ const StyledForm = styled.form`
   }
 `
 
-const ViewForm = () => {
+const ViewForm = ({ data }) => {
+  const { subject, content, senderEmail } = data
   return (
     <>
       <StyledForm>
@@ -41,20 +40,30 @@ const ViewForm = () => {
           <tbody>
             <tr>
               <th>제목</th>
-              <td>3123</td>
+              <td>{subject}</td>
             </tr>
 
             <tr>
               <th>보낸사람</th>
-              <td>123</td>
+              <td>{senderEmail}</td>
             </tr>
 
             <tr>
               <th>내용</th>
-              <td className='content'></td>
+              <td>
+                <div
+                  className="content"
+                  dangerouslySetInnerHTML={{ __html: content }}
+                ></div>
+              </td>
             </tr>
           </tbody>
         </TableCols>
+        <a href={'/message/deletes'}>
+          <SmallButton type="button" color="dark" width={120}>
+            삭제
+          </SmallButton>
+        </a>
       </StyledForm>
     </>
   )

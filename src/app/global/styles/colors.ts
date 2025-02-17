@@ -12,6 +12,7 @@ const colors = {
   light: '#f8f9fa',
   dark: '#1B262C',
   white: '#fff',
+  lightgray: 'rgb(180, 180, 180)',
 }
 
 export const buttonColors = {

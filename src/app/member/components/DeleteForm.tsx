@@ -35,7 +35,7 @@ const StyledForm = styled.form`
   }
 `
 
-const DeleteForm = ({ form, actionState }) => {
+const DeleteForm = ({ form, actionState, closeModal }) => {
   const [errors, formAction, isPending] = actionState
   return (
     <StyledForm action={formAction} autoComplete="off">
@@ -98,16 +98,15 @@ const DeleteForm = ({ form, actionState }) => {
         <BigButton type="submit" color="dark" width={100} disabled={isPending}>
           삭제
         </BigButton>
-        <a href={'/member/list'}>
-          <BigButton
-            type="button"
-            color="info"
-            width={100}
-            disabled={isPending}
-          >
-            취소
-          </BigButton>
-        </a>
+        <BigButton
+          type="button"
+          color="info"
+          width={100}
+          disabled={isPending}
+          onClick={closeModal}
+        >
+          취소
+        </BigButton>
       </div>
     </StyledForm>
   )

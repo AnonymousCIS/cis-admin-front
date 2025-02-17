@@ -220,6 +220,8 @@ export const getUserInfo = async () => {
       const result = await res.json()
 
       return result.success && result.data
+    } else {
+      // cookie.set('token', '')
     }
   } catch (err) {
     // cookie.delete('token')
@@ -337,6 +339,11 @@ export const updateMember = async (params, formData: FormData) => {
   /* 2. Server 요청 처리 E*/
 }
 
+/**
+ * 회원 삭제
+ * @param params
+ * @param formData
+ */
 export const deleteMember = async (params, formData: FormData) => {
   const redirectUrl = params?.redirectUrl ?? '/member/list'
   const seq = formData.get('seq')
@@ -356,4 +363,12 @@ export const deleteMember = async (params, formData: FormData) => {
   revalidatePath('/', 'layout')
 
   redirect(redirectUrl)
+}
+
+export const blockDelete = async (items) => {
+  const _items = items.filter((item) => item.checked)
+
+  const apiUrl = process.env.API_URL + `/member/admin/status`
+
+  const res = await apiRequest(apiUrl, 'PATCH', _items)
 }

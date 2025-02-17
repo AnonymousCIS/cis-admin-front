@@ -1,8 +1,7 @@
 'use server'
 import { redirect } from 'next/navigation'
-// import { format } from 'date-fns'
-// import { cookies } from 'next/headers'
 import apiRequest from '@/app/global/libs/apiRequest'
+
 import { error } from 'console'
 import { toQueryString } from '@/app/global/libs/utils'
 // import { revalidatePath } from 'next/cache'
@@ -33,7 +32,6 @@ export const processLoan = async (params, formData: FormData) => {
   const requiredFields = {
     loanName: '대출명을 입력해주세요,',
     limit: '한도를 입력해주세요.',
-    category: '카테고리를 입력해주세요.',
     bankName: '은행명을 입력해주세요.',
     repaymentYear: '한도년도를 입력해주세오.',
     loanDescription: '대출 설명을 입력해주세요.',
@@ -41,10 +39,9 @@ export const processLoan = async (params, formData: FormData) => {
   }
 
   for (const [field, msg] of Object.entries(requiredFields)) {
-    if (
-      !form[field] ||
-      (typeof form[field] === 'string' && !form[field].trim())
-    ) {
+    const value = formData.get(field).toString()
+    //if (!form[field] || (typeof form[field] === 'string' && !form[field].trim())) {
+    if (!value || !value.trim()) {
       console.log('errors[field]' + field)
       errors[field] = errors[field] ?? []
       errors[field].push(msg)
@@ -57,13 +54,21 @@ export const processLoan = async (params, formData: FormData) => {
   // 서버 요청 처리 S
 
   if (!hasErrors) {
-    const res = await apiRequest('/loan/admin/create', 'POST', form)
+    const apiUrl =
+      form.mode == 'add' ? '/loan/admin/create' : '/loan/admin/updates'
+
+    const reqMethod = form.mode == 'add' ? 'POST' : 'PATCH'
+
+    const reqBody = form.mode == 'add' ? { ...form } : [form]
+
+    const res = await apiRequest(apiUrl, reqMethod, reqBody)
+    console.log('form의 값 : ' + form)
     console.log('res.status의 값은 : ', res.status)
-    console.log('form : ' + JSON.stringify(form))
+    console.log('form : ' + form)
 
     if (res.status !== 200) {
       const result = await res.json()
-      console.log('result', result)
+      console.log('result의 값 : ', result)
       errors = result.message
       hasErrors = true
     }
@@ -98,14 +103,14 @@ export const processLoan = async (params, formData: FormData) => {
     return errors
   }
 
-  return redirect('/loan/list')
+  return redirect(redirectUrl)
 }
 
 /**
  * 대출 상세 조회
  *
  */
-export const getLoanInfo = async (seq) => {
+export const getLoan = async (seq) => {
   try {
     const res = await apiRequest(`/loan/view/${seq}`)
     console.log('res.status : ' + res.status)
@@ -145,6 +150,55 @@ export const getLogView = async (seq) => {
     } else {
       return
     }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+/**
+ * 대출 삭제
+ * @param params
+ * @param formData
+ */
+// export const deleteLoan = async (params, formData: FormData) => {
+export const deleteLoan = async (seq) => {
+  // const redirectUrl = params?.redirectUrl ?? '/loan/list'
+  // const seq = formData.get('seq')
+
+  // ✨✨ 추가
+  const qs = toQueryString({ seq: [seq] })
+
+  try {
+    const res = await apiRequest(`/loan/admin/deletes/${seq}`, 'DELETE')
+    // const result = await res.status
+
+    // if (result !== 200) {
+    if (res.status == 200) {
+      const result = await res.json()
+      console.log('result : ' + result)
+    }
+  } catch (err) {
+    console.error(err)
+  }
+
+  // redirect(redirectUrl)
+  redirect('/loan/list')
+}
+
+/**
+ * 추천 대출 훈련
+ *
+ * @returns
+ */
+export const loanTrain = async () => {
+  try {
+    console.log('유입')
+    const res = await apiRequest('/loan/admin/train')
+    console.log('res', res)
+    if (res.status === 200) {
+      return '훈련 완료'
+    }
+    // return result.success && result.data
   } catch (err) {
     console.error(err)
   }

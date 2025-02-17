@@ -7,6 +7,8 @@ import useRequest from '@/app/global/hooks/useRequest'
 import { List } from 'react-content-loader'
 import Search from '../components/Search'
 import Pagination from '@/app/global/components/Pagination'
+import LayerPopup from '@/app/global/components/LayerPopup'
+import DeleteContainer from './DeleteContainer'
 
 const Loading = () => <List />
 
@@ -15,7 +17,6 @@ type SearchType = {
   skey?: string
   page?: number
   limit?: number
-  mode?: 'SEND' | 'RECEIVE'
   status?: 'UNREAD' | 'READ'
 }
 
@@ -31,6 +32,9 @@ const ListContainer = () => {
 
   const [pagination, setPagination] = useState()
 
+  const [isOpen, setIsOpen] = useState(false)
+  const [seq, setSeq] = useState(null)
+
   const qs = toQueryString(search)
 
   const { data, error, isLoading } = useRequest(
@@ -45,34 +49,52 @@ const ListContainer = () => {
     if (data) {
       setItems(data.data.items)
       setPagination(data.data.pagination)
-      console.log('data', data)
     }
   }, [data])
 
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault()
-
-      console.log('_search', _search)
-
       setSearch({ ..._search })
     },
     [_search],
   )
 
+  const onModal = useCallback((seq) => {
+    setIsOpen(true)
+    setSeq(seq)
+  }, [])
+
+  const closeModal = useCallback(() => {
+    setIsOpen(false)
+    setSeq(null)
+  }, [])
+
   const onPageClick = useCallback((page) => {
     page = page ?? 1
     setSearch((search) => ({ ...search, page }))
   }, [])
-  console.log('items', items)
 
   return (
     <>
       <Search form={_search} onChange={onChange} onSubmit={onSubmit} />
-      {isLoading ? <Loading /> : <ListForm items={items} onChange={onChange} form={_search} />}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <ListForm items={items} onChange={onChange} onModal={onModal} form={_search} />
+      )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
+      <LayerPopup
+      isOpen={isOpen}
+      onClose={closeModal}
+      title='쪽지 삭제'
+      width={750}
+      height={600}
+      >
+        <DeleteContainer seq={seq} closeModal={closeModal} />
+      </LayerPopup>
     </>
   )
 }

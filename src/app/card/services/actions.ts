@@ -3,10 +3,9 @@
 import { redirect } from 'next/navigation'
 import apiRequest from '@/app/global/libs/apiRequest'
 import { toQueryString } from '@/app/global/libs/utils'
-import { notFound } from 'next/navigation'
 
 /**
- * 카드 생성 처리
+ * 카드 단일 등록
  *
  * @param params : QueryString 값
  * @param formData
@@ -58,13 +57,24 @@ export const processCreate = async (params, formData: FormData) => {
 
   /* Server 요청 처리 S */
   if (!hasErrors) {
-    const res = await apiRequest('/card/admin/create', 'POST', { ...form })
-    console.log(form)
+    
+    const apiUrl =
+      form.mode == 'add' ? '/card/admin/create' : `/card/admin/updates`
+
+    const reqMethod = form.mode == 'add' ? 'POST' : 'PATCH'
+
+    const reqBody = form.mode == 'add' ? { ...form } : [form]
+
+    // console.log('reqBody', reqBody)
+
+    const res = await apiRequest(apiUrl, reqMethod, reqBody)
+    // console.log(form)
+    // console.log('res', res)
 
     if (res.status !== 200) {
       // 검증 실패시
       const result = await res.json()
-      console.log('result', result)
+      // console.log('result', result)
       errors = result.message
       hasErrors = true
     }
@@ -105,12 +115,14 @@ export const getCard = async (seq) => {
 export const removeCard = async (seq) => {
   const qs = toQueryString({ seq: [seq] })
 
+  // console.log('qs', qs)
+
   try {
     const res = await apiRequest(`/card/admin/removes?${qs}`, 'DELETE')
 
     if (res.status === 200) {
       const result = await res.json()
-      console.log('result', result)
+      // console.log('result', result)
     } else {
       return
     }
@@ -147,5 +159,20 @@ export const getLogView = async (seq) => {
     }
   } catch (err) {
     console.error('Error:', err)
+/**
+ * 카드 추천 훈련
+ *
+ * @returns
+ */
+export const cardTrain = async () => {
+  try {
+    const res = await apiRequest('/card/admin/train')
+    console.log('res', res)
+    if (res.status === 200) {
+      return '훈련 완료'
+    }
+    // return result.success && result.data
+  } catch (err) {
+    console.error(err)
   }
 }
