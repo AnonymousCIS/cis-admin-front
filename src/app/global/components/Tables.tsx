@@ -53,6 +53,10 @@ export const TableRows = styled.table`
       padding: 10px;
     }
 
+    td + td {
+      border-left: 1px solid ${secondary};
+    }
+
     tr:nth-of-type(2n) {
       td {
         background: #f8f8f8;

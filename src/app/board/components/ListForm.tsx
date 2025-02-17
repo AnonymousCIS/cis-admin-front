@@ -14,27 +14,27 @@ const StyledForm = styled.form`
   }
 
   th:nth-of-type(2) {
-    width: 80px;
+    width: 190px;
   }
 
   th:nth-of-type(3) {
-    width: 100px;
+    width: 120px;
   }
 
   th:nth-of-type(4) {
-    width: 100px;
+    width: 150px;
   }
 
   th:nth-of-type(5) {
-    width: 100px;
+    width: 110px;
   }
 
   th:nth-of-type(6) {
-    width: 100px;
+    width: 140px;
   }
 
   th:nth-of-type(7) {
-    width: 80px;
+    width: 90px;
   }
 
   th:nth-of-type(8) {
@@ -42,12 +42,24 @@ const StyledForm = styled.form`
   }
 
   th:nth-of-type(9) {
-    width: 140px;
+    width: 110px;
   }
 
   th:nth-of-type(10) {
-    width: 300px;
+    width: 230px;
   }
+
+  th:nth-of-type(11) {
+    width: 190px;
+  }
+
+  th:nth-of-type(12) {
+    width: 200px;
+  }
+
+  //   th:nth-of-type(13) {
+  //     width: 150px;
+  //   }
 
   td:nth-of-type(1),
   td:nth-of-type(2),
@@ -58,17 +70,24 @@ const StyledForm = styled.form`
   td:nth-of-type(7),
   td:nth-of-type(8),
   td:nth-of-type(9),
-  td:nth-of-type(10) {
+  td:nth-of-type(10),
+  td:nth-of-type(11),
+  td:nth-of-type(12),
+  td:nth-of-type(13) {
     text-align: center;
   }
 
+  /*
   .btn {
     display: flex;
     justify-content: center;
     gap: 5px;
   }
+    */
 
-  .check {
+  .check > div {
+    display: flex;
+
     span + span {
       margin-left: 15px;
     }
@@ -109,34 +128,36 @@ const BoardDataItem = ({ item, onClick, onModal }) => {
       <td>{category}</td>
       <td>{viewCount}</td>
       <td className="check">
-        <span onClick={() => onClick('domainStatus', 'ALL')}>
-          {domainStatus == 'ALL' ? (
-            <MdRadioButtonUnchecked />
-          ) : (
-            <MdRadioButtonChecked />
-          )}
-          ALL
-        </span>
-        <span onClick={() => onClick('domainStatus', 'SECRET')}>
-          {domainStatus == 'SECRET' ? (
-            <MdRadioButtonUnchecked />
-          ) : (
-            <MdRadioButtonChecked />
-          )}
-          SECRET
-        </span>
-        <span onClick={() => onClick('domainStatus', 'BLOCK')}>
-          {domainStatus == 'BLOCK' ? (
-            <MdRadioButtonUnchecked />
-          ) : (
-            <MdRadioButtonChecked />
-          )}
-          BLOCK
-        </span>
+        <div>
+          <span onClick={() => onClick('domainStatus', 'ALL')}>
+            {domainStatus == 'ALL' ? (
+              <MdRadioButtonChecked />
+            ) : (
+              <MdRadioButtonUnchecked />
+            )}
+            ALL
+          </span>
+          <span onClick={() => onClick('domainStatus', 'SECRET')}>
+            {domainStatus == 'SECRET' ? (
+              <MdRadioButtonChecked />
+            ) : (
+              <MdRadioButtonUnchecked />
+            )}
+            SECRET
+          </span>
+          <span onClick={() => onClick('domainStatus', 'BLOCK')}>
+            {domainStatus == 'BLOCK' ? (
+              <MdRadioButtonChecked />
+            ) : (
+              <MdRadioButtonUnchecked />
+            )}
+            BLOCK
+          </span>
+        </div>
       </td>
 
       <td className="btn">
-        <a href={'/card/view/' + seq}>
+        <a href={'/board/view/' + seq}>
           <SmallButton type="button" color="primary" width={80}>
             상세보기
           </SmallButton>
@@ -176,7 +197,7 @@ const ListForm = ({ items, onClick, onModal }) => {
               <th>작성자</th>
               <th>작성자 이메일</th>
               <th>작성자 IP</th>
-              <th>공지사항</th>
+              <th>공지</th>
               <th>카테고리</th>
               <th>조회수</th>
               <th>상태</th>
