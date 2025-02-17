@@ -32,7 +32,7 @@ const ListSearchContainer = () => {
   )
   useEffect(() => {
     if (data) {
-      setItems(data.data.items)
+      setItems(data.data.data)
       setPagination(data.data.pagination)
     }
   }, [data])

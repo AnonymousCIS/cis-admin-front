@@ -14,10 +14,6 @@ const Loading = () => <BulletList />
 const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
   useMenuCode('card', 'log')
 
-  const searchsParam = useSearchParams()
-
-  const params = { seq: searchsParam.get('seq') }
-
   const [form, setForm] = useState([])
 
   useLayoutEffect(() => {

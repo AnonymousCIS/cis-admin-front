@@ -7,16 +7,18 @@ import WithUserContainer from '@/app/global/containers/WithUserContainer'
 // import { MainContentBox } from '@/app/global/components/ContentBox';
 
 const LoanLogContainer = loadable(
-  () => import('../../containers/LoanLogContainer'),
+  () => import('../../../containers/LoanLogContainer'),
 )
 
-const ListPage = () => {
+const ViewPage = ({ params }) => {
+  const { seq } = React.use<{ seq: number }>(params)
+
   return WithUserContainer(
     <>
-      <MainTitle>대출 로그 목록 조회</MainTitle>
-      <LoanLogContainer />
+      <MainTitle>대출 로그 조회</MainTitle>
+      <LoanLogContainer seq={seq} />
     </>,
   )
 }
 
-export default React.memo(ListPage)
+export default React.memo(ViewPage)

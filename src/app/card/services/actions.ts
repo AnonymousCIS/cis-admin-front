@@ -146,7 +146,7 @@ export const getLog = async () => {
 }
 export const getLogView = async (seq) => {
   try {
-    const res = await apiRequest(`/card/train/log/${seq}`)
+    const res = await apiRequest(`/card/train/log?seq=${seq}`, 'GET')
     // const res = await apiRequest(
     //   'https://cis-email-service.koreait.xyz/admin/list',
     // )
