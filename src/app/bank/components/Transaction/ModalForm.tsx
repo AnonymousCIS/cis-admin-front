@@ -1,11 +1,11 @@
-import { BigButton } from '@/app/global/components/Buttons'
-import { SubTitle } from '@/app/global/components/StyledTitle'
-import { TableCols } from '@/app/global/components/Tables'
 import React from 'react'
-import styled from 'styled-components'
+import { TableCols } from '@/app/global/components/Tables'
+import { SubTitle } from '@/app/global/components/StyledTitle'
 import colors from '@/app/global/styles/colors'
+import { BigButton } from '@/app/global/components/Buttons'
+import styled from 'styled-components'
 
-const {primary, white} = colors
+const { primary, white } = colors
 
 const StyledForm = styled.form`
   table {
@@ -27,51 +27,59 @@ const StyledForm = styled.form`
       margin-bottom: 30px;
     }
   }
-  .buttonGroup {
+  div {
     display: flex;
     justify-content: center;
     gap: 20px;
   }
 `
 
-const DeleteModalForm = ({ data, actionState, closeModal, onDelete }) => {
-  console.log('form',data)
-  const {subject, senderEmail, content, seq} = data
+const ModalForm = ({ form, actionState, closeModal, onRemove }) => {
+  console.log('form', form)
   const [errors, formAction, isPending] = actionState
   return (
     <>
       <StyledForm action={formAction} autoComplete="off">
-        <SubTitle>쪽지</SubTitle>
+        <SubTitle>계좌 상세</SubTitle>
         <TableCols>
           <tbody>
             <tr>
-              <th>제목</th>
-              <td>{subject}</td>
-            </tr>
-
-            <tr>
-              <th>보낸사람</th>
-              <td>{senderEmail}</td>
-            </tr>
-
-            <tr>
-              <th>내용</th>
+              <th>거래 ID</th>
               <td>
-                <div
-                  className="content"
-                  dangerouslySetInnerHTML={{ __html: content }}
-                ></div>
+                <span>{form?.seq ?? ''}</span>
+              </td>
+            </tr>
+
+            <tr>
+              <th>은행 기관명</th>
+              <td>
+                <span>{form?.bank?.bankName ?? ''}</span>
+              </td>
+            </tr>
+
+            <tr>
+              <th>이름</th>
+              <td>
+                <span>{form?.bank?.name ?? ''}</span>
+              </td>
+            </tr>
+            <tr>
+              <th>가격</th>
+              <td>
+                <span>{form?.payAmount ?? ''}</span>
               </td>
             </tr>
           </tbody>
         </TableCols>
-        <div className='buttonGroup'>
-        <BigButton
-            type="button"
+        <div>
+          <BigButton
+            type="submit"
             color="dark"
             width={100}
             disabled={isPending}
-            onClick={() => onDelete(seq)}
+            onClick={() => {
+              onRemove(form?.seq)
+            }}
           >
             삭제
           </BigButton>
@@ -90,4 +98,4 @@ const DeleteModalForm = ({ data, actionState, closeModal, onDelete }) => {
   )
 }
 
-export default React.memo(DeleteModalForm)
+export default React.memo(ModalForm)

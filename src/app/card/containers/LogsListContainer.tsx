@@ -14,7 +14,7 @@ type SearchType = {
 }
 
 const ListSearchContainer = () => {
-  useMenuCode('card', 'list')
+  useMenuCode('card', 'train')
 
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
   const [search, setSearch] = useState<SearchType>({})

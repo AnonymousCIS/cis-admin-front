@@ -366,9 +366,41 @@ export const deleteMember = async (params, formData: FormData) => {
 }
 
 export const blockDelete = async (items) => {
+  const redirectUrl = '/member/block'
   const _items = items.filter((item) => item.checked)
 
-  const apiUrl = process.env.API_URL + `/member/admin/status`
+  console.log('_items', _items)
 
-  const res = await apiRequest(apiUrl, 'PATCH', _items)
+  const apiUrl = process.env.API_URL + `/member/admin/statuses/deletes`
+
+  try {
+    const res = await apiRequest(apiUrl, 'PATCH', { data: _items })
+    console.log('res', res)
+    const result = await res.status
+    if (result !== 200) {
+      console.log('이상발생')
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const blockUpdate = async (items) => {
+  const _items = items.filter((item) => item.checked)
+  console.log('_items', _items)
+  const apiUrl = process.env.API_URL + `/member/admin/statuses`
+  const apiUrl2 = 'https://localhost:3011/member/admin/statuses'
+
+  try {
+    const res = await apiRequest(apiUrl2, 'PATCH', { data: _items })
+    console.log('res', res)
+    const result = await res.status
+    const message = await res.json()
+    if (result !== 200) {
+      console.log('message', message)
+      console.log('이상발생')
+    }
+  } catch (err) {
+    console.error(err)
+  }
 }

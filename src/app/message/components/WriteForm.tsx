@@ -41,19 +41,20 @@ const StyledForm = styled.form`
 const WriteForm = ({
   form,
   email,
-  onClick,
   onChange,
   actionState,
   //   onEditor,
   //   onEditorImage,
 }) => {
   const [errors, formAction, isPending] = actionState
+  email = email.replace('40', '')
+  console.log('errors', errors)
+  console.log('form', form)
+  console.log('email', email)
+  console.log('name', name)
   return (
     <>
-      <StyledForm>
-        <SmallButton type="button" color="primary" width={120}>
-          보내기
-        </SmallButton>
+      <StyledForm action={formAction}>
         <TableCols>
           <tbody>
             <tr>
@@ -63,9 +64,9 @@ const WriteForm = ({
                 <input
                   type="hidden"
                   name="receiverEmail"
-                  value={form?.receiverEmail ?? ''}
+                  value={form?.receiverEmail ?? email}
                 />
-                <Messages color="danger">{errors?.receiverEmail}</Messages>
+                <Messages color="danger">{errors?.email}</Messages>
               </td>
             </tr>
             <tr>
@@ -78,6 +79,7 @@ const WriteForm = ({
                   onChange={onChange}
                   placeholder="제목"
                 />
+              <Messages color="danger">{errors?.subject}</Messages>
               </td>
             </tr>
             <tr>
@@ -92,10 +94,17 @@ const WriteForm = ({
                     placeholder="내용"
                   />
                 </div>
+                <Messages color="danger">{errors?.content}</Messages>
               </td>
             </tr>
           </tbody>
         </TableCols>
+        <SmallButton type="submit" color="primary" width={120} disabled={isPending} >
+          보내기
+        </SmallButton>
+        <SmallButton type='button' color='info' width={120}>
+          취소
+        </SmallButton>
       </StyledForm>
     </>
   )

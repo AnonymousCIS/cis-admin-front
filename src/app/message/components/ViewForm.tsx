@@ -3,9 +3,10 @@ import React from 'react'
 import styled from 'styled-components'
 import colors from '@/app/global/styles/colors'
 import { SmallButton } from '@/app/global/components/Buttons'
+import { CommonType } from '@/app/global/types/StyledType'
 const { primary, white } = colors
 
-const StyledForm = styled.form`
+const StyledForm = styled.form<CommonType>`
   table {
     margin-bottom: 30px;
 
@@ -31,8 +32,8 @@ const StyledForm = styled.form`
   }
 `
 
-const ViewForm = ({ data }) => {
-  const { subject, content, senderEmail } = data
+const ViewForm = ({ data, onDelete }) => {
+  const { subject, content, senderEmail, seq } = data
   return (
     <>
       <StyledForm>
@@ -59,11 +60,9 @@ const ViewForm = ({ data }) => {
             </tr>
           </tbody>
         </TableCols>
-        <a href={'/message/deletes'}>
-          <SmallButton type="button" color="dark" width={120}>
-            삭제
-          </SmallButton>
-        </a>
+        <SmallButton type="button" color="dark" width={120} onClick={onDelete}>
+          삭제
+        </SmallButton>
       </StyledForm>
     </>
   )
