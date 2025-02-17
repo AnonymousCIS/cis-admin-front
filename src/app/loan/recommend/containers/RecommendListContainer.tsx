@@ -11,6 +11,7 @@ import Pagination from '@/app/global/components/Pagination'
 // import LoanDeleteContainer from './LoanDeleteContainer'
 import LayerPopup from '@/app/global/components/LayerPopup'
 import useQueryString from '@/app/global/hooks/useQueryString'
+import RecommendDeleteContainer from './RecommendDeleteContainer'
 
 const Loading = () => <BulletList />
 
@@ -25,7 +26,7 @@ type SearchType = {
   loanLimitMin?: number
 }
 
-const LoanListContainer = () => {
+const RecommendListContainer = () => {
   useMenuCode('loan', 'recommendlist')
 
   const _qs = useQueryString(['loanName', 'bankName', 'categories'])
@@ -140,8 +141,20 @@ const LoanListContainer = () => {
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
+
+      {/* ✨✨추가한 부분 S */}
+      <LayerPopup
+        isOpen={isOpen}
+        onClose={closeModal}
+        title="대출 삭제"
+        width={750}
+        height={600}
+      >
+        <RecommendDeleteContainer seq={seq} closeModal={closeModal} />
+      </LayerPopup>
+      {/* ✨✨추가한 부분 E */}
     </>
   )
 }
 
-export default React.memo(LoanListContainer)
+export default React.memo(RecommendListContainer)
