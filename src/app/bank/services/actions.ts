@@ -100,3 +100,23 @@ export const removeBank = async (seq) => {
   }
   redirect('/bank/list')
 }
+
+/**
+ * 계좌 단일 조회
+ *
+ * @param seq
+ * @returns
+ */
+export const getTransaction = async (seq) => {
+  try {
+    const res = await apiRequest(`/transactions/view/${seq}`)
+
+    if (res.status === 200) {
+      const result = await res.json()
+      console.log('result', result)
+      return result.success && result.data
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}

@@ -1,27 +1,13 @@
 'use client'
-
-import React, {
-  useState,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useActionState,
-} from 'react'
-
-import ListForm from '../components/ListForm'
-import BankSearch from '../components/BankSearch'
-
 import useMenuCode from '@/app/global/hooks/useMenuCode'
-import { toQueryString } from '@/app/global/libs/utils'
+import React, { useState, useCallback, useEffect, useLayoutEffect } from 'react'
 import useRequest from '@/app/global/hooks/useRequest'
+import { toQueryString } from '@/app/global/libs/utils'
 import { BulletList } from 'react-content-loader'
+import { getTransaction } from '../services/actions'
+import BankSearch from '../components/Transaction/BankSearch'
 import Pagination from '@/app/global/components/Pagination'
-import ModalForm from '../components/ModalForm'
-
-import LayerPopup from '@/app/global/components/LayerPopup'
-import { getBank, removeBank } from '../services/actions'
-import { useRouter } from 'next/navigation'
-// import DeleteContainer from './DeleteContainer'
+import ListForm from '../components/Transaction/ListForm'
 
 const Loading = () => <BulletList />
 
@@ -33,27 +19,21 @@ type SearchType = {
 }
 
 const ListContainer = () => {
-  useMenuCode('bank', 'list')
-  const router = useRouter()
-
-  // 실제 Submit할때 반영, search 변경시에만 Rerendering / 서치는 검색조건을 담고있고 셋서치가 검색조건을 업데이트 해주는 함수임
+  useMenuCode('bank', 'transaction')
   const [search, setSearch] = useState<SearchType>({})
-
-  // 임시로 값 담는 곳 / 입력중인것과 검색버튼 누를때적용될 값을 저장하는 걸로..
   const [_search, _setSearch] = useState<SearchType>({})
 
   const [items, setItems] = useState([])
 
   const [pagination, setPagination] = useState()
 
-  const [isOpen, setIsOpen] = useState(false)
   const [seq, setSeq] = useState(null)
   const [form, setForm] = useState({})
 
   const qs = toQueryString(search) // page=2&limit=10
 
   const { data, error, isLoading } = useRequest(
-    `/bank/api/bank/list${qs.trim() ? '?' + qs : ''}`,
+    `/bank/api/Transaction/list${qs.trim() ? '?' + qs : ''}`,
   )
 
   const onChange = useCallback((e) => {
@@ -71,8 +51,8 @@ const ListContainer = () => {
   useLayoutEffect(() => {
     ;(async () => {
       try {
-        const bank = await getBank(seq)
-        setForm(bank)
+        const transaction = await getTransaction(seq)
+        setForm(transaction)
       } catch (err) {
         console.error(err)
       }
@@ -96,47 +76,14 @@ const ListContainer = () => {
     setSearch((search) => ({ ...search, page }))
   }, []) // 클릭한 페이지번호를 서치로..
 
-  const onRemove = useCallback((seq) => {
-    setSeq(seq)
-    setIsOpen(true)
-  }, [])
-
-  const closeModal = useCallback(() => {
-    setIsOpen(false)
-    setSeq(null)
-  }, [])
-  const actionState = useActionState(removeBank, undefined)
-
-  const onBankRemove = useCallback(
-    (seq) => {
-      removeBank(seq)
-      closeModal()
-      router.refresh()
-    },
-    [closeModal, router],
-  )
-
   return (
     <>
       <BankSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
-      {isLoading ? <Loading /> : <ListForm items={items} onRemove={onRemove} />}
+      {!isLoading && <ListForm items={items} />}
+      {/* {isLoading ? <Loading /> : <ListForm items={items} />} */}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
-      <LayerPopup
-        isOpen={isOpen}
-        onClose={closeModal}
-        title="카드 삭제"
-        width={750}
-        height={600}
-      >
-        <ModalForm
-          form={form}
-          actionState={actionState}
-          closeModal={closeModal}
-          onRemove={onBankRemove}
-        />
-      </LayerPopup>
     </>
   )
 }

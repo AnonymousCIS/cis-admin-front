@@ -1,14 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
-import {
-  BigButton,
-  ButtonGroup,
-  MediumButton,
-} from '@/app/global/components/Buttons'
+import { MediumButton } from '@/app/global/components/Buttons'
 import { CommonType } from '@/app/global/types/StyledType'
 import colors from '@/app/global/styles/colors'
-import { MdRadioButtonUnchecked, MdRadioButtonChecked } from 'react-icons/md'
 
 const { primary, white } = colors
 
@@ -44,8 +39,7 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
-const ViewForm = ({ form, onRemove, onChange, onClick }) => {
-  const { seq } = form
+const ViewForm = ({ form, onRemove }) => {
   return (
     <>
       <StyledForm>
@@ -71,40 +65,6 @@ const ViewForm = ({ form, onRemove, onChange, onClick }) => {
                 <span>{form?.name ?? ''}</span>
               </td>
             </tr>
-
-            <tr>
-              <th>계좌 비밀번호</th>
-              <td>
-                <span>{form?.password ?? ''}</span>
-              </td>
-            </tr>
-
-            <tr>
-              <th>사용 여부</th>
-              <td>
-                {/* <span onClick={() => onClick('listUnderView', true)}>
-                  {form?.listUnderView ? (
-                    <MdRadioButtonChecked />
-                  ) : (
-                    <MdRadioButtonUnchecked />
-                  )}
-                  사용
-                </span>
-                <span onClick={() => onClick('listUnderView', false)}>
-                  {form?.listUnderView ? (
-                    <MdRadioButtonUnchecked />
-                  ) : (
-                    <MdRadioButtonChecked />
-                  )}
-                  미사용
-                </span> */}
-                <span>
-                  {form?.open !== null && form?.open === true
-                    ? '사용'
-                    : '미사용'}
-                </span>
-              </td>
-            </tr>
           </tbody>
         </TableRows>
 
@@ -117,14 +77,6 @@ const ViewForm = ({ form, onRemove, onChange, onClick }) => {
               //    onClick={onclick}
             >
               돌아가기
-            </MediumButton>
-            <MediumButton
-              type="button"
-              color="info"
-              width={120}
-              //  onClick={onclick}
-            >
-              수정
             </MediumButton>
           </a>
           <MediumButton
