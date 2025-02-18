@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
-import { MdCheckBoxOutlineBlank } from 'react-icons/md'
+import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
 import { SmallButton } from '@/app/global/components/Buttons'
 
 const StyledForm = styled.form`
@@ -49,16 +49,18 @@ const StyledForm = styled.form`
   }
 `
 
-const BankItem = ({ item, onRemove }) => {
-  const { seq, bankName, accountNumber, name } = item
+const BankItem = ({ item, onRemove, onToggleCheck }) => {
+  const { seq, bankNameStr, accountNumber, name, checked } = item
 
   return (
     <tr>
       <td>
-        <MdCheckBoxOutlineBlank />
+        <span onClick={() => onToggleCheck(seq)}>
+          {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        </span>
       </td>
       <td>{seq}</td>
-      <td>{bankName}</td>
+      <td>{bankNameStr}</td>
       <td>{accountNumber}</td>
       <td>{name}</td>
 
@@ -85,7 +87,8 @@ const BankItem = ({ item, onRemove }) => {
   )
 }
 
-const ListForm = ({ items, onRemove }) => {
+const ListForm = ({ items, onRemove, onToggleCheck, onAllToggleCheck }) => {
+  const { AllCehcked } = items
   return (
     <>
       <StyledForm>
@@ -93,7 +96,9 @@ const ListForm = ({ items, onRemove }) => {
           <thead>
             <tr>
               <th>
-                <MdCheckBoxOutlineBlank />
+                <span onClick={() => onAllToggleCheck()}>
+                  {AllCehcked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+                </span>
               </th>
               <th>등록번호</th>
               <th>은행 기관명</th>
@@ -110,6 +115,7 @@ const ListForm = ({ items, onRemove }) => {
                   key={'bank' + item.seq}
                   item={item}
                   onRemove={onRemove}
+                  onToggleCheck={onToggleCheck}
                 />
               ))
             ) : (

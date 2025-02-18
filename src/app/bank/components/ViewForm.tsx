@@ -43,12 +43,13 @@ const ViewForm = ({ form, onRemove }) => {
   return (
     <>
       <StyledForm>
+        <input type="hidden" name="bankName" value={form?.bankName} />
         <TableRows>
           <tbody>
             <tr>
               <th>은행 기관명</th>
               <td>
-                <span>{form?.bankName ?? ''}</span>
+                <span>{form?.bankNameStr ?? ''}</span>
               </td>
             </tr>
 
