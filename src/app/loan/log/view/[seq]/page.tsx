@@ -12,3 +12,5 @@ const ViewPage = ({ params }) => {
     </>
   )
 }
+
+export default React.memo(ViewPage)

@@ -97,21 +97,23 @@ const ListContainer = () => {
     [_search],
   )
 
-  const onClick = useCallback(
-    (field, value) => {
-      if (['skey', 'status', 'mode'].includes(field)) {
-        // addToggle(value, field)
-        _setSearch((_search) => ({ ..._search, [field]: value }))
-      } else {
-        _setSearch((_search) => ({ ..._search, [field]: value }))
-      }
-    },
-    [addToggle],
-  )
+  const onClick = useCallback((field, value) => {
+    if (['skey', 'status', 'mode'].includes(field)) {
+      // addToggle(value, field)
+      _setSearch((_search) => ({ ..._search, [field]: value }))
+    } else {
+      _setSearch((_search) => ({ ..._search, [field]: value }))
+    }
+  }, [])
 
   return (
     <>
-      <Search form={_search} onChange={onChange} onSubmit={onSubmit} onClick={onClick} />
+      <Search
+        form={_search}
+        onChange={onChange}
+        onSubmit={onSubmit}
+        onClick={onClick}
+      />
       {isLoading ? (
         <Loading />
       ) : (
