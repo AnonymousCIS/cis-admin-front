@@ -21,11 +21,13 @@ type Props = {
 const DeleteContainer = ({ seq, closeModal }: Props) => {
   console.log('seq', seq)
   const [data, setData] = useState([])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const router = useRouter()
 
   useLayoutEffect(() => {
     ;(async () => {
+      setIsLoading(true)
       try {
         const _data = await getMessage(seq)
         setData(_data)
@@ -33,6 +35,7 @@ const DeleteContainer = ({ seq, closeModal }: Props) => {
         console.error(err)
         return
       }
+      setIsLoading(false)
     })()
   }, [seq])
 
@@ -50,12 +53,16 @@ const DeleteContainer = ({ seq, closeModal }: Props) => {
 
   return (
     <>
-      <DeleteModalForm
-        data={data}
-        actionState={actionState}
-        onDelete={onDelete}
-        closeModal={closeModal}
-      />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <DeleteModalForm
+          data={data}
+          actionState={actionState}
+          onDelete={onDelete}
+          closeModal={closeModal}
+        />
+      )}
     </>
   )
 }

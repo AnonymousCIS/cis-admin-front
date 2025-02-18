@@ -48,10 +48,6 @@ const WriteForm = ({
 }) => {
   const [errors, formAction, isPending] = actionState
   email = email.replace('40', '')
-  console.log('errors', errors)
-  console.log('form', form)
-  console.log('email', email)
-  console.log('name', name)
   return (
     <>
       <StyledForm action={formAction}>

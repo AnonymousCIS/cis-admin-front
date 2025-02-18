@@ -60,6 +60,11 @@ const ViewForm = ({ data, onDelete }) => {
             </tr>
           </tbody>
         </TableCols>
+        <a href={`/message/list`}>
+          <SmallButton type="button" color="primary" width={120}>
+            뒤로가기
+          </SmallButton>
+        </a>
         <SmallButton type="button" color="dark" width={120} onClick={onDelete}>
           삭제
         </SmallButton>
