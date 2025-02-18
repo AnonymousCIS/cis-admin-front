@@ -72,7 +72,7 @@ const RecommendListContainer = () => {
       }
       _setSearch({ ..._search, [type]: [...set.values()] })
     },
-    [_search, search],
+    [_search],
   )
 
   /* ✨✨추가한 부분 S */
