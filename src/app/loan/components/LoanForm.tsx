@@ -100,7 +100,7 @@ const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
         />
 
         {form?.mode === 'edit' ? (
-          <input type="hidden" name="bankName" value={form.bankNameStr} />
+          <input type="hidden" name="bankName" value={form.bankName} />
         ) : null}
 
         <SubTitle>대출 등록 및 수정</SubTitle>
@@ -115,7 +115,7 @@ const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
                   placeholder="대출명을 입력해주세요."
                   value={form?.loanName ?? ''}
                   onChange={onChange}
-                  readOnly={form?.mode === 'edit'}
+                  readOnly={form?.mode === 'edit' ? true : false}
                 />
                 <Messages color="danger">{errors?.loanName}</Messages>
               </td>
@@ -161,7 +161,7 @@ const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
                   <Input
                     name="bankName"
                     type="text"
-                    value={form?.bankNameStr ?? ''}
+                    value={form?.bankName ?? ''}
                     width={180}
                     readOnly
                   />
@@ -169,7 +169,7 @@ const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
                   <Select
                     name="bankName"
                     options={bankNameOptions}
-                    selected={form?.bankNameStr}
+                    selected={form?.bankName}
                     onChange={onChange}
                     width={180}
                   />

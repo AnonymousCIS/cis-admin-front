@@ -49,6 +49,7 @@ export const processLoan = async (params, formData: FormData) => {
     }
   }
 
+  console.log(form)
   // 필수 항목 검증 E
 
   // 서버 요청 처리 S
@@ -56,9 +57,9 @@ export const processLoan = async (params, formData: FormData) => {
   if (!hasErrors) {
     console.log('form.mode : ' + form.mode)
     const apiUrl =
-      form.mode === 'add' ? '/loan/admin/create' : '/loan/admin/updates'
+      form.mode == 'add' ? '/loan/admin/create' : '/loan/admin/updates'
 
-    const reqMethod = form.mode === 'add' ? 'POST' : 'PATCH'
+    const reqMethod = form.mode == 'add' ? 'POST' : 'PATCH'
 
     console.log('reqMethod : ' + reqMethod)
 
@@ -68,8 +69,14 @@ export const processLoan = async (params, formData: FormData) => {
 
     const res = await apiRequest(apiUrl, reqMethod, reqBody)
 
+    console.log(res)
+
     if (res.status !== 200) {
+      console.log(res.status)
       const result = await res.json()
+
+      console.log(result)
+
       errors = result.message
       hasErrors = true
     }
