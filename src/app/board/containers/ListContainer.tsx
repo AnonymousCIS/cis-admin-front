@@ -124,6 +124,7 @@ const ListContainer = () => {
 
   useEffect(() => {
     if (data) {
+      // console.log('데이터', data)
       setItems(data.data.items)
       setPagination(data.data.pagination)
     }
@@ -167,6 +168,20 @@ const ListContainer = () => {
     [closeModal, router],
   )
 
+  const onToggleCheck = useCallback((seq) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.seq === seq ? { ...item, checked: !item.checked } : item,
+      ),
+    )
+  }, [])
+
+  const onAllToggleCheck = useCallback(() => {
+    setItems((prevItems) =>
+      prevItems.map((item) => ({ ...item, checked: !item.checked })),
+    )
+  }, [])
+
   return (
     <>
       <BoardDataSearch
@@ -179,7 +194,13 @@ const ListContainer = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <ListForm items={items} onModal={onModal} onClick={onClick} />
+        <ListForm
+          items={items}
+          onModal={onModal}
+          onClick={onClick}
+          onToggleCheck={onToggleCheck}
+          onAllToggleCheck={onAllToggleCheck}
+        />
       )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />

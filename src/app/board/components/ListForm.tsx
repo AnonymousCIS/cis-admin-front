@@ -5,6 +5,7 @@ import {
   MdCheckBoxOutlineBlank,
   MdRadioButtonUnchecked,
   MdRadioButtonChecked,
+  MdCheckBox,
 } from 'react-icons/md'
 import { SmallButton } from '@/app/global/components/Buttons'
 
@@ -96,7 +97,7 @@ const StyledForm = styled.form`
   }
 `
 
-const BoardDataItem = ({ item, onClick, onModal }) => {
+const BoardDataItem = ({ item, onClick, onModal, onToggleCheck }) => {
   const {
     seq,
     config,
@@ -111,6 +112,7 @@ const BoardDataItem = ({ item, onClick, onModal }) => {
     createdBy,
     recommendCount,
     commentCount,
+    checked,
   } = item
 
   const _content = content.replace(/<[^>]*>?/gm, '')
@@ -120,7 +122,9 @@ const BoardDataItem = ({ item, onClick, onModal }) => {
   return (
     <tr>
       <td>
-        <MdCheckBoxOutlineBlank />
+        <span onClick={() => onToggleCheck(seq)}>
+          {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        </span>
       </td>
       <td>{seq}</td>
       <td>{config.bid}</td>
@@ -188,7 +192,14 @@ const BoardDataItem = ({ item, onClick, onModal }) => {
   )
 }
 
-const ListForm = ({ items, onClick, onModal }) => {
+const ListForm = ({
+  items,
+  onClick,
+  onModal,
+  onToggleCheck,
+  onAllToggleCheck,
+}) => {
+  const { AllCehcked } = items
   return (
     <>
       <StyledForm>
@@ -196,7 +207,9 @@ const ListForm = ({ items, onClick, onModal }) => {
           <thead>
             <tr>
               <th>
-                <MdCheckBoxOutlineBlank />
+                <span onClick={() => onAllToggleCheck()}>
+                  {AllCehcked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+                </span>
               </th>
               <th>게시글 ID</th>
               <th>게시판 ID</th>
@@ -222,6 +235,7 @@ const ListForm = ({ items, onClick, onModal }) => {
                   item={item}
                   onModal={onModal}
                   onClick={onClick}
+                  onToggleCheck={onToggleCheck}
                 />
               ))
             ) : (
