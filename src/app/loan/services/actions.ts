@@ -128,7 +128,6 @@ export const getLoan = async (seq) => {
 
 export const getLog = async () => {
   try {
-
     const res = await apiRequest('/loan/train/logs')
     if (res.status === 200) {
       const result = await res.json()
@@ -144,7 +143,6 @@ export const getLog = async () => {
 //   try {
 
 //     const res = await apiRequest(`/loan/train/log?seq=${seq}`, 'GET')
-
 
 //     if (res.status === 200) {
 //       const result = await res.json()
@@ -183,8 +181,12 @@ export const deleteLoan = async (seq) => {
   // const redirectUrl = params?.redirectUrl ?? '/loan/list'
   // const seq = formData.get('seq')
 
+  seq = Array.isArray(seq) ? [seq] : seq
+
+  console.log('seq의 값은 : ' + seq)
+
   // ✨✨ 추가
-  const qs = toQueryString({ seq: [seq] })
+  const qs = toQueryString({ seq })
 
   try {
     const res = await apiRequest(`/loan/admin/deletes?${qs}`, 'DELETE')

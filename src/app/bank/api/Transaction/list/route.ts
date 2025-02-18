@@ -8,9 +8,6 @@ export async function GET(request: NextRequest) {
     process.env.API_URL + `/bank/transactions/list${qs.trim() ? '?' + qs : ''}`
 
   const res = await apiRequest(apiUrl)
-
-  console.log('res', res)
-
   if (res.status === 200) {
     // 성공시
 

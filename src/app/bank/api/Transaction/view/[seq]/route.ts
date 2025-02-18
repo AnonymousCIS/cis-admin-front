@@ -8,8 +8,6 @@ export async function GET(request: NextRequest) {
   const apiUrl = process.env.API_URL + `/bank/transactions/view/${seq}`
   const res = await apiRequest(apiUrl)
 
-  console.log('res', res)
-
   if (res.status === 200) {
     // 성공시
 

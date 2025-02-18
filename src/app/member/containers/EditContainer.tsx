@@ -53,6 +53,8 @@ const EditContainer = ({ seq }: { seq?: any | undefined } | undefined) => {
     })()
   }, [seq])
 
+  console.log('form', form)
+
   if (!form) {
     notFound()
   }

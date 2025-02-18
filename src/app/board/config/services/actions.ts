@@ -48,7 +48,6 @@ export const updateBoard = async (params, formData: FormData) => {
   /* Server 요청 처리 S */
   if (!hasErrors) {
     const res = await apiRequest('/board/admin/config/save', 'POST', form)
-    console.log(form)
 
     if (res.status !== 200) {
       const result = await res.json()

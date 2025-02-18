@@ -32,8 +32,11 @@ type SearchType = {
   skey?: string
   page?: number
   bid?: string
-  categories?: string[]
+  categories?: string
   domainStatus?: string
+  // recommendCount?: number
+  // commentCount?: number
+  // comment?: object
 }
 
 const ListContainer = () => {
@@ -57,6 +60,13 @@ const ListContainer = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   const [seq, setSeq] = useState(null)
+
+  const [sort, setSort] = useState<string>()
+
+  const onSortChange = useCallback((e) => {
+    const sort = e.target.value
+    setSearch((search) => ({ ...search, sort }))
+  }, [])
 
   const qs = toQueryString(search)
 
@@ -105,7 +115,6 @@ const ListContainer = () => {
     (field, value) => {
       if (['status', 'categories', 'bid'].includes(field)) {
         addToggle(value, field)
-        // _setSearch((_search) => ({ ..._search, [field]: value }))
       } else {
         _setSearch((_search) => ({ ..._search, [field]: value }))
       }
@@ -116,7 +125,6 @@ const ListContainer = () => {
   useEffect(() => {
     if (data) {
       setItems(data.data.items)
-      // console.log('119 데이터', data.data.items)
       setPagination(data.data.pagination)
     }
   }, [data])
@@ -124,8 +132,6 @@ const ListContainer = () => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault()
-
-      console.log('_search', _search)
 
       // Submit 했을때 Search 값을 새로운 객체로 깊은 복사해 교체하면서 Rerendering
       setSearch({ ..._search })

@@ -1,11 +1,11 @@
 'use client'
 
 import React, { useLayoutEffect, useState, useActionState } from 'react'
-import { getLoan } from '../services/actions'
-import { deleteLoan } from '../services/actions'
+import { getCard } from '../services/actions'
+import { deleteCard } from '../services/actions'
 import { BulletList } from 'react-content-loader'
 import useRequest from '@/app/global/hooks/useRequest'
-import LoanModal from '../components/LoanModal'
+import RecommendModal from '../components/RecommendModal'
 
 type Props = {
   seq?: number | undefined
@@ -14,7 +14,7 @@ type Props = {
 
 const Loading = () => <BulletList />
 
-const LoanDeleteContainer = ({ seq, closeModal }: Props | undefined) => {
+const CardDeleteContainer = ({ seq, closeModal }: Props | undefined) => {
   const [form, setForm] = useState({})
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -22,8 +22,8 @@ const LoanDeleteContainer = ({ seq, closeModal }: Props | undefined) => {
     ;(async () => {
       setIsLoading(true)
       try {
-        const loan = await getLoan(seq)
-        setForm(loan)
+        const card = await getCard(seq)
+        setForm(card)
       } catch (err) {
         console.error(err)
       }
@@ -31,14 +31,14 @@ const LoanDeleteContainer = ({ seq, closeModal }: Props | undefined) => {
     })()
   }, [seq])
 
-  const actionState = useActionState(deleteLoan, seq)
+  const actionState = useActionState(deleteCard, seq)
 
   return (
     <>
       {isLoading ? (
         <Loading />
       ) : (
-        <LoanModal
+        <RecommendModal
           form={form}
           actionState={actionState}
           closeModal={closeModal}
@@ -48,4 +48,4 @@ const LoanDeleteContainer = ({ seq, closeModal }: Props | undefined) => {
   )
 }
 
-export default React.memo(LoanDeleteContainer)
+export default React.memo(CardDeleteContainer)

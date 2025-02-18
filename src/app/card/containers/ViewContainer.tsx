@@ -25,7 +25,6 @@ const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
     ;(async () => {
       try {
         const card = await getCard(seq)
-        // console.log('card', card)
         setForm(card)
       } catch (err) {
         console.error(err)

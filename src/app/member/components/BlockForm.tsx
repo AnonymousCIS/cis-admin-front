@@ -90,15 +90,23 @@ const MemberItems = ({ item, onClick, onToggleCheck }) => {
   )
 }
 
-const BlockForm = ({ form, onClick, onToggleCheck, onProcess }) => {
-  console.log('form', form)
+const BlockForm = ({
+  form,
+  onClick,
+  onToggleCheck,
+  onProcess,
+  onAllToggleCheck,
+}) => {
+  const { checked } = form
   return (
     <StyledForm autoComplete="off">
       <TableRows>
         <thead>
           <tr>
             <th>
-              <MdCheckBoxOutlineBlank />
+              <span onClick={() => onAllToggleCheck()}>
+                {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+              </span>
             </th>
             <th>회원번호</th>
             <th>도메인번호</th>

@@ -5,13 +5,13 @@ import loadable from '@loadable/component'
 import { MainTitle } from '@/app/global/components/StyledTitle'
 import WithUserContainer from '@/app/global/containers/WithUserContainer'
 
-const ListContainer = loadable(() => import('../../containers/ListContainer'))
+const RecommendList = loadable(() => import('../containers/RecommendList'))
 
 const RecommendListPage = () => {
   return WithUserContainer(
     <>
       <MainTitle>추천 카드 목록</MainTitle>
-      <ListContainer />
+      <RecommendList />
     </>,
   )
 }

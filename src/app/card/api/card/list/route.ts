@@ -13,8 +13,6 @@ export async function GET(request: NextRequest) {
 
     const result = await res.json()
 
-    // console.log('result', res)
-
     return NextResponse.json(result)
   }
 

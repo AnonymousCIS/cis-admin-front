@@ -64,16 +64,11 @@ export const processCreate = async (params, formData: FormData) => {
 
     const reqBody = form.mode == 'add' ? { ...form } : [form]
 
-    // console.log('reqBody', reqBody)
-
     const res = await apiRequest(apiUrl, reqMethod, reqBody)
-    // console.log(form)
-    // console.log('res', res)
 
     if (res.status !== 200) {
       // 검증 실패시
       const result = await res.json()
-      // console.log('result', result)
       errors = result.message
       hasErrors = true
     }
@@ -114,14 +109,11 @@ export const getCard = async (seq) => {
 export const removeCard = async (seq) => {
   const qs = toQueryString({ seq: [seq] })
 
-  // console.log('qs', qs)
-
   try {
     const res = await apiRequest(`/card/admin/removes?${qs}`, 'DELETE')
 
     if (res.status === 200) {
       const result = await res.json()
-      // console.log('result', result)
     } else {
       return
     }
@@ -161,7 +153,6 @@ export const getLogView = async (seq) => {
   }
 }
 
-
 /**
  * 카드 추천 훈련
  *
@@ -171,7 +162,6 @@ export const getLogView = async (seq) => {
 export const cardTrain = async () => {
   try {
     const res = await apiRequest('/card/admin/train')
-    console.log('res', res)
     if (res.status === 200) {
       return '훈련 완료'
     }
