@@ -62,13 +62,18 @@ export const processCreate = async (params, formData: FormData) => {
 
     const reqMethod = form.mode == 'add' ? 'POST' : 'PATCH'
 
+    // console.log('reqMethod', reqMethod)
+
     const reqBody = form.mode == 'add' ? { ...form } : [form]
 
     const res = await apiRequest(apiUrl, reqMethod, reqBody)
 
+    // console.log('res', res)
+
     if (res.status !== 200) {
       // 검증 실패시
       const result = await res.json()
+      // console.log('result', result)
       errors = result.message
       hasErrors = true
     }
