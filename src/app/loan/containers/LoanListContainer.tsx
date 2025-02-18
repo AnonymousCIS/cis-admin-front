@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useLayoutEffect } from 'react'
 import LoanList from '../components/LoanList'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import LoanSearch from '../components/LoanSearch'
@@ -27,14 +27,6 @@ type SearchType = {
 
 type ListType = {
   open?: boolean
-}
-
-const initialValue = {
-  skey: '',
-  category: '',
-  bankName: '',
-  loanLimitMax: 1000000000,
-  loanLimitMin: 100000,
 }
 
 const LoanListContainer = () => {
@@ -66,9 +58,10 @@ const LoanListContainer = () => {
     _setSearch((_search) => ({ ..._search, [e.target.name]: e.target.value }))
   }, [])
 
-  const onReset = useCallback((field, value) => {
-    // _setSearch(initialValue)
-    setSearch((_search) => ({ ..._search, [field]: value }))
+  const onReset = useCallback(() => {
+    _setSearch({})
+    setSearch({})
+
   }, [])
 
   /**
@@ -101,6 +94,14 @@ const LoanListContainer = () => {
     },
     [addToggle],
   )
+
+  const openClick = useCallback((field, value) => {
+    console.log('클릭 감지!')
+    if (['open'].includes(field)) {
+      console.log('open : ' + open)
+      setForm((form) => ({ ...form, [field]: value }))
+    }
+  }, [])
 
   const closeModal = useCallback(() => {
     setIsOpen(false)
@@ -143,10 +144,6 @@ const LoanListContainer = () => {
     )
   }, [])
 
-  /* const openClick = useCallback((field, value) => {
-    setForm((form) => ({ ...form, [field]: value }))
-  }, [])
- */
   return (
     <>
       <LoanSearch
@@ -164,7 +161,7 @@ const LoanListContainer = () => {
           items={items}
           onRemove={onRemove}
           onToggleCheck={onToggleCheck}
-          onClick={onClick}
+          openClick={openClick}
         />
       )}
       {pagination && (

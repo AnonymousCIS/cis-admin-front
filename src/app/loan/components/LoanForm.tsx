@@ -169,7 +169,7 @@ const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
                   <Select
                     name="bankName"
                     options={bankNameOptions}
-                    selected={form?.bankNameStr ?? ''}
+                    selected={form?.bankNameStr}
                     onChange={onChange}
                     width={180}
                   />
