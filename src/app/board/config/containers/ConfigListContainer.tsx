@@ -46,9 +46,9 @@ const ConfigListContainer = () => {
 
   useEffect(() => {
     if (data) {
+      // console.log('data', data)
       setItems(data.data.items)
       setPagination(data.data.pagination)
-      console.log(data)
     }
   }, [data])
 

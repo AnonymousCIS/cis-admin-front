@@ -14,7 +14,7 @@ const StyledForm = styled.form`
   }
 
   th:nth-of-type(2) {
-    width: 190px;
+    width: 110px;
   }
 
   th:nth-of-type(3) {
@@ -22,15 +22,15 @@ const StyledForm = styled.form`
   }
 
   th:nth-of-type(4) {
-    width: 150px;
+    width: 200px;
   }
 
   th:nth-of-type(5) {
-    width: 110px;
+    width: 250px;
   }
 
   th:nth-of-type(6) {
-    width: 140px;
+    width: 110px;
   }
 
   th:nth-of-type(7) {
@@ -42,24 +42,24 @@ const StyledForm = styled.form`
   }
 
   th:nth-of-type(9) {
-    width: 110px;
+    width: 60px;
   }
 
   th:nth-of-type(10) {
-    width: 230px;
+    width: 100px;
   }
 
   th:nth-of-type(11) {
-    width: 190px;
+    width: 90px;
   }
 
   th:nth-of-type(12) {
-    width: 200px;
+    width: 90px;
   }
 
-  //   th:nth-of-type(13) {
-  //     width: 150px;
-  //   }
+  th:nth-of-type(13) {
+    width: 90px;
+  }
 
   td:nth-of-type(1),
   td:nth-of-type(2),
@@ -73,7 +73,9 @@ const StyledForm = styled.form`
   td:nth-of-type(10),
   td:nth-of-type(11),
   td:nth-of-type(12),
-  td:nth-of-type(13) {
+  td:nth-of-type(13),
+  td:nth-of-type(14),
+  td:nth-of-type(15) {
     text-align: center;
   }
 
@@ -107,9 +109,13 @@ const BoardDataItem = ({ item, onClick, onModal }) => {
     category,
     status,
     createdBy,
+    recommendCount,
+    commentCount,
   } = item
 
   const _content = content.replace(/<[^>]*>?/gm, '')
+
+  const _notice = notice ? '✅' : ''
 
   return (
     <tr>
@@ -124,9 +130,11 @@ const BoardDataItem = ({ item, onClick, onModal }) => {
       <td>{poster}</td>
       <td>{createdBy}</td>
       <td>{ipAddr}</td>
-      <td>{notice}</td>
+      <td>{_notice}</td>
       <td>{category}</td>
       <td>{viewCount}</td>
+      <td>{recommendCount}</td>
+      <td>{commentCount}</td>
       <td className="check">
         <div>
           <span onClick={() => onClick('status', 'ALL')}>
@@ -200,6 +208,8 @@ const ListForm = ({ items, onClick, onModal }) => {
               <th>공지</th>
               <th>카테고리</th>
               <th>조회수</th>
+              <th>추천수</th>
+              <th>댓글수</th>
               <th>상태</th>
               <th>관리</th>
             </tr>

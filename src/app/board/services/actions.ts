@@ -6,9 +6,9 @@ import { toQueryString } from '@/app/global/libs/utils'
 
 /**
  * 게시글 단일 조회
- * 
- * @param seq 
- * @returns 
+ *
+ * @param seq
+ * @returns
  */
 export const getBoardData = async (seq) => {
   try {
@@ -25,12 +25,11 @@ export const getBoardData = async (seq) => {
 
 /**
  * 게시글 단일 & 목록 일괄 삭제 처리
- * 
- * @param seq 
- * @returns 
+ *
+ * @param seq
+ * @returns
  */
 export const removeBoardData = async (seq) => {
-  
   const qs = toQueryString({ seq: [seq] })
 
   // console.log('qs', qs)

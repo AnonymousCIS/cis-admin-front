@@ -32,8 +32,11 @@ type SearchType = {
   skey?: string
   page?: number
   bid?: string
-  categories?: string[]
+  categories?: string
   domainStatus?: string
+  // recommendCount?: number
+  // commentCount?: number
+  // comment?: object
 }
 
 const ListContainer = () => {
@@ -57,6 +60,13 @@ const ListContainer = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   const [seq, setSeq] = useState(null)
+
+  const [sort, setSort] = useState<string>()
+
+  const onSortChange = useCallback((e) => {
+    const sort = e.target.value
+    setSearch((search) => ({ ...search, sort }))
+  }, [])
 
   const qs = toQueryString(search)
 
@@ -105,7 +115,6 @@ const ListContainer = () => {
     (field, value) => {
       if (['status', 'categories', 'bid'].includes(field)) {
         addToggle(value, field)
-        // _setSearch((_search) => ({ ..._search, [field]: value }))
       } else {
         _setSearch((_search) => ({ ..._search, [field]: value }))
       }

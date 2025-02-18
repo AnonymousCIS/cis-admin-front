@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { CommonType } from '@/app/global/types/StyledType'
 import { TableCols } from '@/app/global/components/Tables'
-import { Input } from '@/app/global/components/FormComponents'
+import { Input, Select } from '@/app/global/components/FormComponents'
 
 import { BigButton, ButtonGroup } from '@/app/global/components/Buttons'
 import { FaSearch } from 'react-icons/fa'
@@ -46,7 +46,35 @@ const StyledForm = styled.form<CommonType>`
       cursor: default;
     }
   }
+
+  .flex {
+    display: flex;
+
+    select {
+      margin-right: 5px;
+    }
+
+    select + input {
+      flex-grow: 1;
+    }
+  }
 `
+
+// BoardDataSearch 내부에서 정의하면 렌더링될때마다 변수가 생기므로 밖에 정의하는 것이 일반적
+const options = [
+  { value: 'ALL', label: '통합 검색' },
+  { value: 'SUBJECT_CONTENT', label: '제목 + 내용' },
+  { value: 'SUBJECT', label: '제목' },
+  { value: 'CONTENT', label: '내용' },
+  { value: 'POSTER', label: '작성자' },
+  // { value: 'COMMENT', label: '댓글 내용' },
+]
+
+const sortOptions = [
+  { value: 'viewCount', label: '조회수' },
+  { value: 'recommendCount', label: '추천수' },
+  { value: 'commentCount', label: '댓글수' },
+]
 
 const BoardDataSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
   return (
@@ -54,14 +82,20 @@ const BoardDataSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
       <TableCols>
         <tbody>
           <tr>
-            <th>통합 검색</th>
+            <th>검색 분류</th>
             <td className="flex">
+              <Select
+                name="sopt"
+                options={options}
+                selected={form?.sopt ?? 'ALL'}
+                onChange={onChange}
+                width={180}
+              />
               <Input
                 type="text"
                 name="skey"
                 value={form?.skey ?? ''}
                 onChange={onChange}
-                placeholder="검색어를 입력해주세요"
               />
             </td>
           </tr>
@@ -110,24 +144,24 @@ const BoardDataSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
           <tr>
             <th>공개 상태</th>
             <td className="table-check">
-              <span onClick={() => onClick('domainStatus', 'ALL')}>
-                {form?.domainStatus?.includes('ALL') ? (
+              <span onClick={() => onClick('status', 'ALL')}>
+                {form?.status == 'ALL' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
                 )}
                 ALL (전체 공개)
               </span>
-              <span onClick={() => onClick('domainStatus', 'SECRET')}>
-                {form?.domainStatus?.includes('SECRET') ? (
+              <span onClick={() => onClick('status', 'SECRET')}>
+                {form?.status == 'SECRET' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
                 )}
                 SECRET (비밀글 - 작성자 & 관리자)
               </span>
-              <span onClick={() => onClick('domainStatus', 'BLOCK')}>
-                {form?.domainStatus?.includes('BLOCK') ? (
+              <span onClick={() => onClick('status', 'BLOCK')}>
+                {form?.status == 'BLOCK' ? (
                   <MdOutlineCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -148,6 +182,13 @@ const BoardDataSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
           검색
         </BigButton>
       </ButtonGroup>
+      <Select
+        name="sort"
+        options={sortOptions}
+        selected={form?.sort ?? ''}
+        onChange={onChange}
+        width={180}
+      />
     </StyledForm>
   )
 }
