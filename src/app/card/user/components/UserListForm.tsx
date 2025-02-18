@@ -102,7 +102,6 @@ const UserCardList = ({ items, onRemove, onClick }) => {
               <th>연회비</th>
               <th>추천 시간</th>
               <th>한도</th>
-              <th>공개 여부</th>
               <th></th>
             </tr>
           </thead>

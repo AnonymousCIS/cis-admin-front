@@ -75,12 +75,6 @@ const CardView = ({ form, onDelete }) => {
             </tr>
           </tbody>
         </TableCols>
-
-        <a href={'/card/update/' + form?.seq}>
-          <SmallButton type="button" color="info" width={120}>
-            수정
-          </SmallButton>
-        </a>
         {/* onDelete ✨✨추가 */}
         <SmallButton type="button" color="dark" onClick={onDelete} width={120}>
           삭제
