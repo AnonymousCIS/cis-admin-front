@@ -1,5 +1,11 @@
 'use client'
-import React, { useCallback, useState, useEffect } from 'react'
+import React, {
+  useCallback,
+  useState,
+  useEffect,
+  useActionState,
+  useLayoutEffect,
+} from 'react'
 import ListForm from '../components/ListForm'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import { toQueryString } from '@/app/global/libs/utils'
@@ -8,8 +14,10 @@ import { List } from 'react-content-loader'
 import Search from '../components/Search'
 import Pagination from '@/app/global/components/Pagination'
 import LayerPopup from '@/app/global/components/LayerPopup'
-import DeleteContainer from './DeleteContainer'
 import useQueryString from '@/app/global/hooks/useQueryString'
+import DeleteModalForm from '../components/DeleteModalForm'
+import { deleteMessage, getMessage } from '../services/actions'
+import { useRouter } from 'next/navigation'
 
 const Loading = () => <List />
 
@@ -97,6 +105,34 @@ const ListContainer = () => {
     setSearch((search) => ({ ...search, page }))
   }, [])
 
+  const [form, setForm] = useState([])
+
+  const router = useRouter()
+
+  useLayoutEffect(() => {
+    ;(async () => {
+      try {
+        const _form = await getMessage(seq)
+        setForm(_form)
+      } catch (err) {
+        console.error(err)
+        return
+      }
+    })()
+  }, [seq])
+
+  const actionState = useActionState(deleteMessage, undefined)
+
+  const onDelete = useCallback(
+    (seq) => {
+      deleteMessage(seq)
+      closeModal()
+
+      router.refresh()
+    },
+    [closeModal, router],
+  )
+
   return (
     <>
       <Search form={_search} onChange={onChange} onSubmit={onSubmit} />
@@ -120,7 +156,12 @@ const ListContainer = () => {
         width={750}
         height={600}
       >
-        <DeleteContainer seq={seq} closeModal={closeModal} />
+        <DeleteModalForm
+          form={form}
+          actionState={actionState}
+          onDelete={onDelete}
+          closeModal={closeModal}
+        />
       </LayerPopup>
     </>
   )

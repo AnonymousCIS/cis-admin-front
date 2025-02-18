@@ -34,9 +34,8 @@ const StyledForm = styled.form`
   }
 `
 
-const DeleteModalForm = ({ data, actionState, closeModal, onDelete }) => {
-  // console.log('form',data)
-  const { subject, senderEmail, content, seq } = data
+const DeleteModalForm = ({ form, actionState, closeModal, onDelete }) => {
+  console.log('form1',form)
   const [errors, formAction, isPending] = actionState
   return (
     <>
@@ -46,12 +45,12 @@ const DeleteModalForm = ({ data, actionState, closeModal, onDelete }) => {
           <tbody>
             <tr>
               <th>제목</th>
-              <td>{subject}</td>
+              <td>{form?.subject ?? ''}</td>
             </tr>
 
             <tr>
               <th>보낸사람</th>
-              <td>{senderEmail}</td>
+              <td>{form?.senderEmail ?? ''}</td>
             </tr>
 
             <tr>
@@ -59,7 +58,7 @@ const DeleteModalForm = ({ data, actionState, closeModal, onDelete }) => {
               <td>
                 <div
                   className="content"
-                  dangerouslySetInnerHTML={{ __html: content }}
+                  dangerouslySetInnerHTML={{ __html: form?.content ?? '' }}
                 ></div>
               </td>
             </tr>
@@ -71,7 +70,7 @@ const DeleteModalForm = ({ data, actionState, closeModal, onDelete }) => {
             color="dark"
             width={100}
             disabled={isPending}
-            onClick={() => onDelete(seq)}
+            onClick={() => onDelete(form?.seq)}
           >
             삭제
           </BigButton>
