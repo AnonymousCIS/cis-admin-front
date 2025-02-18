@@ -46,12 +46,12 @@ export const getMessage = async (seq: number) => {
 
 /**
  * 쪽지 작성
- * @param params 
- * @param formData 
- * @returns 
+ * @param params
+ * @param formData
+ * @returns
  */
 export const writeMessage = async (params, formData: FormData) => {
-  const redirectUrl =  '/message/list'
+  const redirectUrl = '/message/list'
 
   const form: any = {}
   let errors: any = {}
@@ -64,9 +64,6 @@ export const writeMessage = async (params, formData: FormData) => {
 
     form[key] = _value
   }
-
-  console.log('form', form)
-
   // 필수 항목 검증
 
   const requiredFields = {

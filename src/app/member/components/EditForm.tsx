@@ -51,6 +51,11 @@ const EditForm = ({ form, onClick, onChange, actionState, onReset }) => {
         name="_authorities"
         value={form?._authorities ?? 'USER'}
       />
+      <input
+        type="hidden"
+        name="memberCondition"
+        value={form?.memberCondition ?? 'ACTIVE'}
+      />
       <SubTitle>유저 설정</SubTitle>
       <TableCols>
         <tbody>

@@ -248,6 +248,7 @@ export const getMember = async (seq) => {
 }
 
 export const updateMember = async (params, formData: FormData) => {
+  console.log('formData', formData)
   const redirectUrl = params?.redirectUrl ?? '/member/list'
   const form: any = {
     optionalTerms: [],
@@ -310,6 +311,7 @@ export const updateMember = async (params, formData: FormData) => {
     errors.phoneNumber.push('휴대폰번호를 입력하세요')
     hasErrors = true
   }
+  console.log('form', form)
 
   /* 1. 필수항목 검증 E */
 
@@ -318,9 +320,31 @@ export const updateMember = async (params, formData: FormData) => {
   if (!hasErrors) {
     try {
       const res = await apiRequest('/member/admin/update', 'PATCH', form)
-      console.log('res', res)
       const result = await res.status
       if (result !== 200) {
+        errors.global = errors.global ?? []
+        errors.global.push('정보가 잘못되었습니다.')
+        hasErrors = true
+      }
+
+      const memberCondition =
+        form.memberCondition === 'ACTIVE' ? 'ALL' : 'BLOCK'
+      const blockUrl = memberCondition === 'BLOCK' ? 'block' : 'unblock'
+      const email =
+        blockUrl === 'block'
+          ? form.email
+          : `${form.email}?status=${memberCondition}`
+      // console.log('blockUrl', blockUrl)
+      // console.log('email', email)
+      const res2 = await apiRequest(
+        `/member/admin/${blockUrl}/${email}`,
+        'PATCH',
+      )
+      const result2 = await res2.status
+      const result3 = await res2.json()
+      console.log('result2', result2)
+      console.log('result3', result3)
+      if (result2 !== 200) {
         errors.global = errors.global ?? []
         errors.global.push('정보가 잘못되었습니다.')
         hasErrors = true
@@ -367,7 +391,16 @@ export const deleteMember = async (params, formData: FormData) => {
 
 export const blockDelete = async (items) => {
   const redirectUrl = '/member/block'
-  const _items = items.filter((item) => item.checked)
+  const _items = items
+    .map((item) => {
+      item.member.authorities_ = [...item.member._authorities]
+      delete item.member._authorities
+      item.status = item.memberStatus
+      delete item.memberStatus
+
+      return item
+    })
+    .filter((item) => item.checked)
 
   console.log('_items', _items)
 
@@ -386,13 +419,22 @@ export const blockDelete = async (items) => {
 }
 
 export const blockUpdate = async (items) => {
-  const _items = items.filter((item) => item.checked)
+  const _items = items
+    .map((item) => {
+      item.member.authorities_ = [...item.member._authorities]
+      delete item.member._authorities
+      item.status = item.memberStatus
+      delete item.memberStatus
+
+      return item
+    })
+    .filter((item) => item.checked)
   console.log('_items', _items)
   const apiUrl = process.env.API_URL + `/member/admin/statuses`
-  const apiUrl2 = 'https://localhost:3011/member/admin/statuses'
+  //const apiUrl2 = 'https://localhost:3011/member/admin/statuses'
 
   try {
-    const res = await apiRequest(apiUrl2, 'PATCH', { data: _items })
+    const res = await apiRequest(apiUrl, 'PATCH', { data: _items })
     console.log('res', res)
     const result = await res.status
     const message = await res.json()

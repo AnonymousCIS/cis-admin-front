@@ -124,8 +124,6 @@ const ListContainer = () => {
     (e) => {
       e.preventDefault()
 
-      console.log('_search', _search)
-
       // Submit 했을때 Search 값을 새로운 객체로 깊은 복사해 교체하면서 Rerendering
       setSearch({ ..._search })
     },
@@ -160,6 +158,24 @@ const ListContainer = () => {
     [closeModal, router],
   )
 
+  const onToggleCheck = useCallback((seq) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.seq === seq ? { ...item, checked: !item.checked } : item,
+      ),
+    )
+  }, [])
+
+  const onAllToggleCheck = useCallback(() => {
+    setItems((prevItems) =>
+      prevItems.map((item) => ({
+        ...item,
+        AllCehcked: !item.AllCehcked,
+        checked: !item.AllCehcked,
+      })),
+    )
+  }, [])
+
   return (
     <>
       <CardSearch
@@ -172,7 +188,13 @@ const ListContainer = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <ListForm items={items} onModal={onModal} onClick={onClick} />
+        <ListForm
+          items={items}
+          onModal={onModal}
+          onClick={onClick}
+          onAllToggleCheck={onAllToggleCheck}
+          onToggleCheck={onToggleCheck}
+        />
       )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />

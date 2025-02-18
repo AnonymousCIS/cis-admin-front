@@ -48,15 +48,12 @@ const ConfigListContainer = () => {
     if (data) {
       setItems(data.data.items)
       setPagination(data.data.pagination)
-      console.log(data)
     }
   }, [data])
 
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault()
-
-      console.log('_search', _search)
 
       // Submit 했을때 Search 값을 새로운 객체로 깊은 복사해 교체하면서 Rerendering
       setSearch({ ..._search })

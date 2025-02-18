@@ -9,7 +9,6 @@ export default async function apiRequest(
   body?: any,
 ) {
   const apiUrl = /^http[s]?/.test(url) ? url : process.env.API_URL + url
-  // console.log('url', url, 'apiUrl', apiUrl)
   const cookie = await cookies()
   const token = cookie.get('token')
 
@@ -18,7 +17,6 @@ export default async function apiRequest(
   const options: RequestInit = {
     method,
   }
-  // console.log('body', body)
 
   if (token && token.value && token.value?.trim()) {
     headers = {
@@ -41,9 +39,5 @@ export default async function apiRequest(
   }
 
   if (headers) options.headers = headers
-
-  // console.log('headers', headers)
-  // console.log('options', options)
-
   return fetch(apiUrl, options)
 }

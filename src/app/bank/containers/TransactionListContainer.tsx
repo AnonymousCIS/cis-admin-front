@@ -54,23 +54,19 @@ const ListContainer = () => {
 
   useEffect(() => {
     if (data) {
-      console.log('data', data)
       setItems(data.data.items)
       setPagination(data.data.pagination)
     }
   }, [data])
 
   const onRemove = useCallback((seq) => {
-    console.log('seq', seq)
     setSeq(seq)
     setIsOpen(true)
-    console.log('여기니?')
   }, [])
 
   useLayoutEffect(() => {
     ;(async () => {
       try {
-        console.log('유입')
         const transaction = await getTransactionList(seq)
         setForm(transaction)
       } catch (err) {
@@ -82,8 +78,6 @@ const ListContainer = () => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault()
-
-      console.log('_search', _search)
 
       // Submit 했을때 Search 값을 새로운 객체로 깊은 복사해 교체하면서 Rerendering
       setSearch({ ..._search })

@@ -170,7 +170,7 @@ const ListForm = ({ form, onDeleteClick }) => {
               <th>회원상태</th>
               <th>가입일</th>
               <th>비밀번호 수정일</th>
-              <th>탈퇴유무</th>
+              <th>탈퇴일시</th>
               <th>권한</th>
               <th></th>
             </tr>

@@ -20,39 +20,35 @@ const TrainContainer = () => {
   const [insert, setInsert] = useState<boolean>(false)
 
   const onProcess = useCallback(() => {
-    console.log('유입')
     ;(async () => {
       const message = await cardTrain()
       setInsert(true)
-      console.log('message', message)
-
-
       window.location.reload()
     })()
   }, [])
 
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
   const [search, setSearch] = useState<SearchType>({})
-  
+
   // 임시로 값 담는 곳
   const [_search, _setSearch] = useState<SearchType>({})
-  
+
   const [items, setItems] = useState([])
-  
+
   const [pagination, setPagination] = useState()
   const qs = toQueryString(search)
-  
+
   const { data, error, isLoading } = useRequest(
     `/card/api/card/logs${qs.trim() ? '?' + qs : ''}`,
   )
-  
+
   useEffect(() => {
     if (data) {
       setItems(data.data.data)
       setPagination(data.data.pagination)
     }
   }, [data])
-  
+
   const onPageClick = useCallback((page) => {
     page = page ?? 1
     setSearch((search) => ({ ...search, page }))
