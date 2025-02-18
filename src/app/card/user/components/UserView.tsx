@@ -21,7 +21,7 @@ const StyledForm = styled.form<CommonType>`
 
 // ✨✨ onDelete 추가
 const CardView = ({ form, onDelete }) => {
-  console.log('form', form)
+  // console.log('form', form)
   return (
     <>
       <StyledForm>

@@ -5,7 +5,7 @@ import React from 'react'
 import styled from 'styled-components'
 import colors from '@/app/global/styles/colors'
 
-const {primary, white} = colors
+const { primary, white } = colors
 
 const StyledForm = styled.form`
   table {
@@ -35,8 +35,8 @@ const StyledForm = styled.form`
 `
 
 const DeleteModalForm = ({ data, actionState, closeModal, onDelete }) => {
-  console.log('form',data)
-  const {subject, senderEmail, content, seq} = data
+  // console.log('form',data)
+  const { subject, senderEmail, content, seq } = data
   const [errors, formAction, isPending] = actionState
   return (
     <>
@@ -65,8 +65,8 @@ const DeleteModalForm = ({ data, actionState, closeModal, onDelete }) => {
             </tr>
           </tbody>
         </TableCols>
-        <div className='buttonGroup'>
-        <BigButton
+        <div className="buttonGroup">
+          <BigButton
             type="button"
             color="dark"
             width={100}

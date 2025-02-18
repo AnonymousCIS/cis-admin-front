@@ -248,7 +248,7 @@ export const getMember = async (seq) => {
 }
 
 export const updateMember = async (params, formData: FormData) => {
-  console.log('formData', formData)
+  // console.log('formData', formData)
   const redirectUrl = params?.redirectUrl ?? '/member/list'
   const form: any = {
     optionalTerms: [],
@@ -311,7 +311,7 @@ export const updateMember = async (params, formData: FormData) => {
     errors.phoneNumber.push('휴대폰번호를 입력하세요')
     hasErrors = true
   }
-  console.log('form', form)
+  // console.log('form', form)
 
   /* 1. 필수항목 검증 E */
 
@@ -342,8 +342,8 @@ export const updateMember = async (params, formData: FormData) => {
       )
       const result2 = await res2.status
       const result3 = await res2.json()
-      console.log('result2', result2)
-      console.log('result3', result3)
+      // console.log('result2', result2)
+      // console.log('result3', result3)
       if (result2 !== 200) {
         errors.global = errors.global ?? []
         errors.global.push('정보가 잘못되었습니다.')
@@ -371,14 +371,14 @@ export const updateMember = async (params, formData: FormData) => {
 export const deleteMember = async (params, formData: FormData) => {
   const redirectUrl = params?.redirectUrl ?? '/member/list'
   const seq = formData.get('seq')
-  console.log('seq', seq)
+  // console.log('seq', seq)
 
   try {
     const res = await apiRequest(`/member/admin/delete/${seq}`, 'DELETE')
-    console.log('res', res)
+    // console.log('res', res)
     const result = await res.status
     if (result !== 200) {
-      console.log('이상발생')
+      // console.log('이상발생')
     }
   } catch (err) {
     console.error(err)
@@ -402,16 +402,16 @@ export const blockDelete = async (items) => {
     })
     .filter((item) => item.checked)
 
-  console.log('_items', _items)
+  // console.log('_items', _items)
 
   const apiUrl = process.env.API_URL + `/member/admin/statuses/deletes`
 
   try {
     const res = await apiRequest(apiUrl, 'PATCH', { data: _items })
-    console.log('res', res)
+    // console.log('res', res)
     const result = await res.status
     if (result !== 200) {
-      console.log('이상발생')
+      // console.log('이상발생')
     }
   } catch (err) {
     console.error(err)
@@ -429,18 +429,18 @@ export const blockUpdate = async (items) => {
       return item
     })
     .filter((item) => item.checked)
-  console.log('_items', _items)
+  // console.log('_items', _items)
   const apiUrl = process.env.API_URL + `/member/admin/statuses`
   //const apiUrl2 = 'https://localhost:3011/member/admin/statuses'
 
   try {
     const res = await apiRequest(apiUrl, 'PATCH', { data: _items })
-    console.log('res', res)
+    // console.log('res', res)
     const result = await res.status
     const message = await res.json()
     if (result !== 200) {
-      console.log('message', message)
-      console.log('이상발생')
+      // console.log('message', message)
+      // console.log('이상발생')
     }
   } catch (err) {
     console.error(err)

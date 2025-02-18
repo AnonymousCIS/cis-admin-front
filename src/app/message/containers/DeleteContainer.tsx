@@ -19,7 +19,7 @@ type Props = {
 }
 
 const DeleteContainer = ({ seq, closeModal }: Props) => {
-  console.log('seq', seq)
+  // console.log('seq', seq)
   const [data, setData] = useState([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
 

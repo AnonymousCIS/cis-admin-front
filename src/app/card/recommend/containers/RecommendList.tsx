@@ -98,7 +98,7 @@ const RecommendListContainer = () => {
     if (data) {
       setItems(data.data.data)
       setPagination(data.data.pagination)
-      console.log('data', data)
+      // console.log('data', data)
     }
   }, [data])
 
@@ -106,7 +106,7 @@ const RecommendListContainer = () => {
     (e) => {
       e.preventDefault()
 
-      console.log('_search', _search)
+      // console.log('_search', _search)
 
       // Submit 했을때 Search 값을 새로운 객체로 깊은 복사해 교체하면서 Rerendering
       setSearch({ ..._search })
