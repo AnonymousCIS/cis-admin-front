@@ -101,6 +101,24 @@ const ListContainer = () => {
     setIsOpen(true)
   }, [])
 
+  const onToggleCheck = useCallback((seq) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.seq === seq ? { ...item, checked: !item.checked } : item,
+      ),
+    )
+  }, [])
+
+  const onAllToggleCheck = useCallback(() => {
+    setItems((prevItems) =>
+      prevItems.map((item) => ({
+        ...item,
+        AllCehcked: !item.AllCehcked,
+        checked: !item.AllCehcked,
+      })),
+    )
+  }, [])
+
   const closeModal = useCallback(() => {
     setIsOpen(false)
     setSeq(null)

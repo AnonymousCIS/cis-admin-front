@@ -52,6 +52,7 @@ const StyledForm = styled.form`
 const BankItem = ({ item, onRemove, onToggleCheck }) => {
   const { seq, bankNameStr, accountNumber, name, checked } = item
 
+
   return (
     <tr>
       <td>
@@ -88,12 +89,38 @@ const BankItem = ({ item, onRemove, onToggleCheck }) => {
 }
 
 const ListForm = ({ items, onRemove, onToggleCheck, onAllToggleCheck }) => {
+
   const { AllCehcked } = items
+
   return (
-    <>
-      <StyledForm>
-        <TableRows>
-          <thead>
+    <StyledForm autoComplete="off">
+      <TableRows>
+        <thead>
+          <tr>
+            <th>
+              <span onClick={() => onAllToggleCheck()}>
+                {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+              </span>
+            </th>
+            <th>등록번호</th>
+            <th>은행 기관명</th>
+            <th>계좌 번호</th>
+            <th>예금주</th>
+            <th>관리</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {items && items.length > 0 ? (
+            items.map((item) => (
+              <BankItem
+                key={'bank' + item.seq}
+                item={item}
+                onRemove={onRemove}
+                onToggleCheck={onToggleCheck}
+              />
+            ))
+          ) : (
             <tr>
               <th>
                 <span onClick={() => onAllToggleCheck()}>
