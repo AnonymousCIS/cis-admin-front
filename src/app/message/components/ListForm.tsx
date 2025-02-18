@@ -3,7 +3,10 @@ import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
 // import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
 import {
+  MdRadioButtonUnchecked,
+  MdRadioButtonChecked,
   MdCheckBoxOutlineBlank,
+  MdCheckBox,
   // MdRadioButtonChecked,
   // MdRadioButtonUnchecked,
 } from 'react-icons/md'
@@ -55,14 +58,17 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
-const ListItem = ({ item, onModal }) => {
-  const { subject, status, content, seq, senderEmail, receiverEmail } = item
+const ListItem = ({ item, onModal, onToggleCheck }) => {
+  const { subject, status, content, seq, senderEmail, receiverEmail, checked } =
+    item
   // console.log('item', item)
 
   return (
     <tr>
       <td>
-        <MdCheckBoxOutlineBlank />
+        <span onClick={() => onToggleCheck(seq)}>
+          {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        </span>
       </td>
       <td>{subject}</td>
       <td>{senderEmail}</td>
@@ -93,7 +99,8 @@ const ListItem = ({ item, onModal }) => {
   )
 }
 
-const ListForm = ({ onModal, items }) => {
+const ListForm = ({ onModal, items, onToggleCheck, onAllToggleCheck }) => {
+  const { checked } = items
   // console.log('items', items)
   return (
     <>
@@ -102,7 +109,9 @@ const ListForm = ({ onModal, items }) => {
           <thead>
             <tr>
               <th>
-                <MdCheckBoxOutlineBlank />
+                <span onClick={() => onAllToggleCheck()}>
+                  {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+                </span>
               </th>
               <th>제목</th>
               <th>보낸 사람 이메일</th>
@@ -115,7 +124,12 @@ const ListForm = ({ onModal, items }) => {
           <tbody>
             {items ? (
               items.map((item) => (
-                <ListItem key={item?.seq} item={item} onModal={onModal} />
+                <ListItem
+                  key={item?.seq}
+                  item={item}
+                  onModal={onModal}
+                  onToggleCheck={onToggleCheck}
+                />
               ))
             ) : (
               <tr>
