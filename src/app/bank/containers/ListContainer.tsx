@@ -101,6 +101,24 @@ const ListContainer = () => {
     setIsOpen(true)
   }, [])
 
+  const onToggleCheck = useCallback((seq) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.seq === seq ? { ...item, checked: !item.checked } : item,
+      ),
+    )
+  }, [])
+
+  const onAllToggleCheck = useCallback(() => {
+    setItems((prevItems) =>
+      prevItems.map((item) => ({
+        ...item,
+        AllCehcked: !item.AllCehcked,
+        checked: !item.AllCehcked,
+      })),
+    )
+  }, [])
+
   const closeModal = useCallback(() => {
     setIsOpen(false)
     setSeq(null)
@@ -116,10 +134,37 @@ const ListContainer = () => {
     [closeModal, router],
   )
 
+  const onToggleCheck = useCallback((seq) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.seq === seq ? { ...item, checked: !item.checked } : item,
+      ),
+    )
+  }, [])
+
+  const onAllToggleCheck = useCallback(() => {
+    setItems((prevItems) =>
+      prevItems.map((item) => ({
+        ...item,
+        AllCehcked: !item.AllCehcked,
+        checked: !item.AllCehcked,
+      })),
+    )
+  }, [])
+
   return (
     <>
       <BankSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
-      {isLoading ? <Loading /> : <ListForm items={items} onRemove={onRemove} />}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <ListForm
+          items={items}
+          onRemove={onRemove}
+          onToggleCheck={onToggleCheck}
+          onAllToggleCheck={onAllToggleCheck}
+        />
+      )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}

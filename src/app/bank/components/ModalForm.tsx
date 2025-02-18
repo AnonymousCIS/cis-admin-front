@@ -39,6 +39,7 @@ const ModalForm = ({ form, actionState, closeModal, onRemove }) => {
   return (
     <>
       <StyledForm action={formAction} autoComplete="off">
+        <input type="hidden" name="bankName" value={form?.bankName} />
         <SubTitle>계좌 상세</SubTitle>
         <TableCols>
           <tbody>
@@ -52,7 +53,7 @@ const ModalForm = ({ form, actionState, closeModal, onRemove }) => {
             <tr>
               <th>은행 기관명</th>
               <td>
-                <span>{form?.bankName ?? ''}</span>
+                <span>{form?.bankNameStr ?? ''}</span>
               </td>
             </tr>
 

@@ -3,7 +3,10 @@ import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
 // import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
 import {
+  MdRadioButtonUnchecked,
+  MdRadioButtonChecked,
   MdCheckBoxOutlineBlank,
+  MdCheckBox,
   // MdRadioButtonChecked,
   // MdRadioButtonUnchecked,
 } from 'react-icons/md'
@@ -49,13 +52,15 @@ const StyledForm = styled.form<CommonType>`
 `
 
 const ListItem = ({ item, onModal }) => {
-  const { subject, status, content, seq, senderEmail, receiverEmail, deletedBySender, deletedByReceiver, notice } = item
+  const { subject, status, content, seq, senderEmail, receiverEmail, deletedBySender, deletedByReceiver, notice, checked } = item
   // console.log('item', item)
 
   return (
     <tr>
       <td>
-        <MdCheckBoxOutlineBlank />
+        <span onClick={() => onToggleCheck(seq)}>
+          {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        </span>
       </td>
       <td style={{textAlign: 'center'}}>{notice === true ? 'O' : ''}</td>
       <td>{subject}</td>
@@ -89,8 +94,10 @@ const ListItem = ({ item, onModal }) => {
   )
 }
 
-const ListForm = ({ onModal, items }) => {
-  console.log('items', items)
+
+const ListForm = ({ onModal, items, onToggleCheck, onAllToggleCheck }) => {
+  const { checked } = items
+  // console.log('items', items)
   return (
     <>
       <StyledForm>
@@ -98,7 +105,9 @@ const ListForm = ({ onModal, items }) => {
           <thead>
             <tr>
               <th>
-                <MdCheckBoxOutlineBlank />
+                <span onClick={() => onAllToggleCheck()}>
+                  {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+                </span>
               </th>
               <th>공지</th>
               <th>제목</th>
@@ -114,7 +123,12 @@ const ListForm = ({ onModal, items }) => {
           <tbody>
             {items.length ? (
               items.map((item) => (
-                <ListItem key={item?.seq} item={item} onModal={onModal} />
+                <ListItem
+                  key={item?.seq}
+                  item={item}
+                  onModal={onModal}
+                  onToggleCheck={onToggleCheck}
+                />
               ))
             ) : (
               <tr>
