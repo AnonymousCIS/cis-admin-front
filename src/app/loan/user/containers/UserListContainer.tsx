@@ -1,9 +1,9 @@
 'use client'
 
-import React, { useState, useCallback, useEffect, useLayoutEffect } from 'react'
-import RecommendList from '../components/RecommendList'
+import React, { useState, useCallback, useEffect } from 'react'
+
 import useMenuCode from '@/app/global/hooks/useMenuCode'
-import RecommendSearch from '../components/RecommendSearch'
+
 import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
 import { BulletList } from 'react-content-loader'
@@ -11,8 +11,9 @@ import Pagination from '@/app/global/components/Pagination'
 // import LoanDeleteContainer from './LoanDeleteContainer'
 import LayerPopup from '@/app/global/components/LayerPopup'
 import useQueryString from '@/app/global/hooks/useQueryString'
-import RecommendDeleteContainer from './RecommendDeleteContainer'
-import { getLoan } from '../services/actions'
+import UserDeleteContainer from './UserDeleteContainer'
+import UserSearch from '../components/UserSearch'
+import UserListForm from '../components/UserListForm'
 
 const Loading = () => <BulletList />
 
@@ -27,10 +28,8 @@ type SearchType = {
   loanLimitMin?: number
 }
 
-const RecommendListContainer = () => {
-  useMenuCode('loan', 'recommendlist')
-
-  const [form, setForm] = useState({})
+const UserListContainer = () => {
+useMenuCode('loan', 'user')
 
   const _qs = useQueryString(['loanName', 'bankName', 'categories'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
@@ -49,7 +48,7 @@ const RecommendListContainer = () => {
   const qs = toQueryString(search)
 
   const { data, error, isLoading } = useRequest(
-    `/loan/recommend/api/list${qs.trim() ? '?' + qs : ''}`,
+    `/loan/user/api/list${qs.trim() ? '?' + qs : ''}`,
   )
 
   const onChange = useCallback((e) => {
@@ -60,17 +59,6 @@ const RecommendListContainer = () => {
     _setSearch({})
     setSearch({})
   }, [])
-
-  useLayoutEffect(() => {
-    ;(async () => {
-      try {
-        const loan = await getLoan(seq)
-        setForm(loan)
-      } catch (err) {
-        console.error(err)
-      }
-    })()
-  }, [seq])
 
   /**
    * Set을 이용해 중복 제거 & 값을 토글 형태로 받는 공통 함수
@@ -111,11 +99,11 @@ const RecommendListContainer = () => {
 
   useEffect(() => {
     if (data) {
-      console.log('data', data)
-      setItems(data.data.items)
-      setPagination(data.data.pagination)
+      console.log('API Response Data:', data);
+      // setItems(data.data.items);
+      // setPagination(data.data.pagination);
     }
-  }, [data])
+  }, [data]);
 
   const onSubmit = useCallback(
     (e) => {
@@ -139,23 +127,9 @@ const RecommendListContainer = () => {
     setIsOpen(true)
   }, [])
 
-  const onToggleCheck = useCallback((seq) => {
-    setItems((prevItems) =>
-      prevItems.map((item) =>
-        item.seq === seq ? { ...item, checked: !item.checked } : item,
-      ),
-    )
-  }, [])
-
-  const onAllToggleCheck = useCallback(() => {
-    setItems((prevItems) =>
-      prevItems.map((item) => ({ ...item, checked: !item.checked })),
-    )
-  }, [])
-
   return (
     <>
-      <RecommendSearch
+      <UserSearch
         form={_search}
         onChange={onChange}
         onSubmit={onSubmit}
@@ -166,7 +140,7 @@ const RecommendListContainer = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <RecommendList items={items} onRemove={onRemove} onClick={onClick} />
+        <UserListForm items={items} onRemove={onRemove} onClick={onClick} />
       )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
@@ -180,11 +154,11 @@ const RecommendListContainer = () => {
         width={750}
         height={600}
       >
-        <RecommendDeleteContainer seq={seq} closeModal={closeModal} />
+        <UserDeleteContainer seq={seq} closeModal={closeModal} />
       </LayerPopup>
       {/* ✨✨추가한 부분 E */}
     </>
   )
 }
 
-export default React.memo(RecommendListContainer)
+export default React.memo(UserListContainer)
