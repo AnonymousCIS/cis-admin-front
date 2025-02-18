@@ -5,6 +5,7 @@ import {
   MdCheckBoxOutlineBlank,
   MdRadioButtonUnchecked,
   MdRadioButtonChecked,
+  MdCheckBox,
 } from 'react-icons/md'
 import { SmallButton } from '@/app/global/components/Buttons'
 
@@ -70,14 +71,14 @@ const StyledForm = styled.form`
 
   .check > div {
     display: flex;
-    
+
     span + span {
       margin-left: 15px;
     }
   }
 `
 
-const CardItem = ({ item, onClick, onModal }) => {
+const CardItem = ({ item, onClick, onModal, onToggleCheck }) => {
   const {
     seq,
     bankNameStr,
@@ -87,13 +88,16 @@ const CardItem = ({ item, onClick, onModal }) => {
     isOpen,
     limit,
     annualFee,
+    checked,
   } = item
 
   // const frontUrl = process.env.NEXT_PUBLIC_FRONT_URL + `/card/list`
   return (
     <tr>
       <td>
-        <MdCheckBoxOutlineBlank />
+        <span onClick={() => onToggleCheck(seq)}>
+          {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        </span>
       </td>
       <td>{seq}</td>
       <td>{cardName}</td>
@@ -137,7 +141,14 @@ const CardItem = ({ item, onClick, onModal }) => {
     </tr>
   )
 }
-const ListForm = ({ items, onClick, onModal }) => {
+const ListForm = ({
+  items,
+  onClick,
+  onModal,
+  onAllToggleCheck,
+  onToggleCheck,
+}) => {
+  const { AllCehcked } = items
   return (
     <>
       <StyledForm>
@@ -145,7 +156,9 @@ const ListForm = ({ items, onClick, onModal }) => {
           <thead>
             <tr>
               <th>
-                <MdCheckBoxOutlineBlank />
+                <span onClick={() => onAllToggleCheck()}>
+                  {AllCehcked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+                </span>
               </th>
               <th>카드 ID</th>
               <th>카드명</th>
@@ -166,6 +179,7 @@ const ListForm = ({ items, onClick, onModal }) => {
                   item={item}
                   onModal={onModal}
                   onClick={onClick}
+                  onToggleCheck={onToggleCheck}
                 />
               ))
             ) : (

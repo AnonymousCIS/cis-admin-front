@@ -35,7 +35,6 @@ const StyledForm = styled.form`
 `
 
 const ModalForm = ({ form, actionState, closeModal, onRemove }) => {
-  console.log('form', form)
   const [errors, formAction, isPending] = actionState
   return (
     <>

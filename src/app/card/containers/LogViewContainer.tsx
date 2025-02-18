@@ -20,7 +20,6 @@ const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
     ;(async () => {
       try {
         const log = await getLogView(seq)
-        console.log('log', log)
         if (!log) notFound()
         else {
           setForm(log)

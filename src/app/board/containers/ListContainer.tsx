@@ -116,7 +116,6 @@ const ListContainer = () => {
   useEffect(() => {
     if (data) {
       setItems(data.data.items)
-      // console.log('119 데이터', data.data.items)
       setPagination(data.data.pagination)
     }
   }, [data])
@@ -124,8 +123,6 @@ const ListContainer = () => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault()
-
-      console.log('_search', _search)
 
       // Submit 했을때 Search 값을 새로운 객체로 깊은 복사해 교체하면서 Rerendering
       setSearch({ ..._search })

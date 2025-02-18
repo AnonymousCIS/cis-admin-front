@@ -20,7 +20,6 @@ const TransactionViewContainer = ({ seq }) => {
     ;(async () => {
       try {
         const bank = await getTransaction(seq)
-        console.log('bank', bank)
         setForm(bank)
       } catch (err) {
         console.error(err)

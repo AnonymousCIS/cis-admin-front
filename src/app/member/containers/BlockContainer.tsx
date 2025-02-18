@@ -8,6 +8,8 @@ import BlockForm from '../components/BlockForm'
 import Pagination from '@/app/global/components/Pagination'
 import { blockDelete, blockUpdate } from '../services/actions'
 import { useRouter } from 'next/navigation'
+import LayerPopup from '@/app/global/components/LayerPopup'
+import ModalForm from '../components/ModalForm'
 
 const Loading = () => <BulletList />
 type SearchType = {
@@ -27,6 +29,8 @@ const BlockContainer = () => {
 
   const [items, setItems] = useState([])
   const [pagination, setPagination] = useState()
+  const [isOpen, setIsOpen] = useState(false)
+  const [title, setTitle] = useState<string>('edit')
 
   const { data, error, isLoading } = useRequest(`/member/api/block`)
 
@@ -38,6 +42,7 @@ const BlockContainer = () => {
     if (data) {
       setItems(data.data.data)
       setPagination(data.data.pagination)
+      console.log('data.data.data', data.data.data)
     }
   }, [data])
 
@@ -70,6 +75,10 @@ const BlockContainer = () => {
     )
   }, [])
 
+  const closeModal = useCallback(() => {
+    setIsOpen(false)
+  }, [])
+
   const onProcess = useCallback(
     (mode) => {
       ;(async () => {
@@ -80,11 +89,28 @@ const BlockContainer = () => {
           const res = await blockDelete(items)
         }
       })()
-
+      closeModal()
       router.refresh()
     },
-    [items, router],
+    [closeModal, items, router],
   )
+
+  const openModal = useCallback((title) => {
+    setTitle(title)
+    setIsOpen(true)
+  }, [])
+
+  const onAllToggleCheck = useCallback(() => {
+    setItems((prevItems) =>
+      prevItems.map((item) => ({
+        ...item,
+        AllCehcked: !item.AllCehcked,
+        checked: !item.AllCehcked,
+      })),
+    )
+  }, [])
+
+  console.log('item', items)
 
   return (
     <>
@@ -96,12 +122,26 @@ const BlockContainer = () => {
           form={items}
           onClick={onClick}
           onToggleCheck={onToggleCheck}
-          onProcess={onProcess}
+          onProcess={openModal}
+          onAllToggleCheck={onAllToggleCheck}
         />
       )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
+      <LayerPopup
+        isOpen={isOpen}
+        onClose={closeModal}
+        title="카드 삭제"
+        width={750}
+        height={600}
+      >
+        <ModalForm
+          closeModal={closeModal}
+          onProcess={onProcess}
+          title={title}
+        />
+      </LayerPopup>
     </>
   )
 }
