@@ -25,7 +25,7 @@ const StyledForm = styled.form`
 `
 
 // ✨✨ onClick 추가
-const LoanItem = ({ item, onRemove, openClick, onToggleCheck }) => {
+const LoanItem = ({ item, onModal, openClick, onToggleCheck }) => {
   const {
     seq,
     loanName,
@@ -63,24 +63,26 @@ const LoanItem = ({ item, onRemove, openClick, onToggleCheck }) => {
         </span>
       </td>
       <td className="btn">
-        <a href={'/loan/view/' + seq}>
-          <SmallButton type="button" color="primary" width={80}>
-            상세보기
+        <div>
+          <a href={'/loan/view/' + seq}>
+            <SmallButton type="button" color="primary" width={80}>
+              상세보기
+            </SmallButton>
+          </a>
+          <a href={'/loan/update/' + seq}>
+            <SmallButton type="button" color="info" width={80}>
+              수정
+            </SmallButton>
+          </a>
+          <SmallButton
+            type="button"
+            color="dark"
+            width={80}
+            onClick={() => onModal(seq)}
+          >
+            삭제
           </SmallButton>
-        </a>
-        <a href={'/loan/update/' + seq}>
-          <SmallButton type="button" color="info" width={80}>
-            수정
-          </SmallButton>
-        </a>
-        <SmallButton
-          type="button"
-          color="dark"
-          width={80}
-          onClick={() => onRemove(seq)}
-        >
-          삭제
-        </SmallButton>
+        </div>
       </td>
     </tr>
   )
@@ -89,24 +91,24 @@ const LoanItem = ({ item, onRemove, openClick, onToggleCheck }) => {
 // ✨✨ onClick 추가
 const LoanList = ({
   items,
-  onRemove,
-  onAllRemove,
   onClick,
+  onModal,
   onToggleCheck,
   onAllToggleCheck,
   actionState,
 }) => {
-  const [errors, formAction, isPending] = actionState
+  const { AllCehcked } = items
+  const { error, formState, isPending } = actionState
 
   return (
     <>
-      <StyledForm action={formAction}>
+      <StyledForm action={formState}>
         <input type="hidden" name="isOpen" value={items.open} />
         <TableRows>
           <thead>
             <tr>
               <th onClick={() => onAllToggleCheck()}>
-                <MdCheckBoxOutlineBlank />
+                {AllCehcked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
               </th>
 
               <th>대출명</th>
@@ -123,9 +125,9 @@ const LoanList = ({
             {items && items.length > 0 ? (
               items.map((item) => (
                 <LoanItem
-                  key={'loan' + item.seq}
+                  key={'loan_' + item.seq}
                   item={item}
-                  onRemove={onRemove}
+                  onModal={onModal}
                   // ✨✨ onClick 추가
                   openClick={onClick}
                   onToggleCheck={onToggleCheck}
@@ -142,23 +144,14 @@ const LoanList = ({
         </TableRows>
         <SmallButton
           type="submit"
-          color="dark"
+          color="info"
           width={160}
-          onClick={() => onRemove()}
+          onClick={() => actionState()}
           disabled={isPending}
         >
           삭제
         </SmallButton>
       </StyledForm>
-      <SmallButton
-        type="submit"
-        color="info"
-        width={160}
-        onClick={() => onAllRemove()}
-        disabled={isPending}
-      >
-        삭제
-      </SmallButton>
     </>
   )
 }
