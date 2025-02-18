@@ -10,6 +10,24 @@ import {
 import { SmallButton } from '@/app/global/components/Buttons'
 import { Select } from '@/app/global/components/FormComponents'
 import { CommonType } from '@/app/global/types/StyledType'
+import colors from '@/app/global/styles/colors'
+import classNames from 'classnames'
+const { white, dark, secondary } = colors
+
+const StyledTab = styled.ul<CommonType>`
+  display: inline-flex;
+  cursor: pointer;
+  background: ${white};
+  color: ${dark};
+  .on {
+    background: ${secondary};
+    color: ${white};
+  }
+  li {
+    padding: 12px;
+    border: 1px solid ${secondary};
+  }
+`
 
 const StyledForm = styled.form<CommonType>`
   th:nth-of-type(1) {
@@ -36,14 +54,10 @@ const StyledForm = styled.form<CommonType>`
     width: 261px;
   }
 `
-const status = [
-  { value: 'READ', label: '읽은 메세지' },
-  { value: 'UNREAD', label: '안읽은 메세지' },
-]
 
 const ListItem = ({ item, onModal }) => {
   const { subject, status, content, seq, senderEmail, receiverEmail } = item
-  console.log('item', item)
+  // console.log('item', item)
 
   return (
     <tr>
@@ -79,7 +93,7 @@ const ListItem = ({ item, onModal }) => {
   )
 }
 
-const ListForm = ({ form, onChange, onModal, items }) => {
+const ListForm = ({ onModal, items }) => {
   console.log('items', items)
   return (
     <>
@@ -93,16 +107,7 @@ const ListForm = ({ form, onChange, onModal, items }) => {
               <th>제목</th>
               <th>보낸 사람 이메일</th>
               <th>받은 사람 이메일</th>
-              <th>
-                {/* <Select
-                  name="status"
-                  options={status}
-                  selected={form?.status ?? 'UNREAD'}
-                  onChange={onChange}
-                  width={150}
-                /> */}
-                열람 여부
-              </th>
+              <th>열람 여부</th>
               <th>내용</th>
               <th></th>
             </tr>

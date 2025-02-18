@@ -10,7 +10,7 @@ import { redirect } from 'next/navigation'
  * @returns
  */
 export const getMessage = async (seq: number) => {
-  console.log('seq', seq)
+  // console.log('seq', seq)
   let apiUrl = process.env.API_URL + `/message/view/${seq}`
 
   const res = await apiRequest(apiUrl)
@@ -64,6 +64,10 @@ export const writeMessage = async (params, formData: FormData) => {
 
     form[key] = _value
   }
+
+
+  // console.log('form', form)
+
   // 필수 항목 검증
 
   const requiredFields = {
