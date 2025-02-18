@@ -12,7 +12,7 @@ const Loading = () => <BulletList />
 const LoanViewContainer = ({
   seq,
 }: { seq?: number | undefined } | undefined) => {
-  useMenuCode('loan', 'list')
+  useMenuCode('loan', 'view')
 
   const [form, setForm] = useState([])
 

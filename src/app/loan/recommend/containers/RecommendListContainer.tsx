@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useLayoutEffect } from 'react'
 import RecommendList from '../components/RecommendList'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import RecommendSearch from '../components/RecommendSearch'
@@ -12,6 +12,7 @@ import Pagination from '@/app/global/components/Pagination'
 import LayerPopup from '@/app/global/components/LayerPopup'
 import useQueryString from '@/app/global/hooks/useQueryString'
 import RecommendDeleteContainer from './RecommendDeleteContainer'
+import { getLoan } from '../services/actions'
 
 const Loading = () => <BulletList />
 
@@ -28,6 +29,8 @@ type SearchType = {
 
 const RecommendListContainer = () => {
   useMenuCode('loan', 'recommendlist')
+
+  const [form, setForm] = useState({})
 
   const _qs = useQueryString(['loanName', 'bankName', 'categories'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
@@ -46,7 +49,7 @@ const RecommendListContainer = () => {
   const qs = toQueryString(search)
 
   const { data, error, isLoading } = useRequest(
-    `/loan/api/recommend/list${qs.trim() ? '?' + qs : ''}`,
+    `/loan/recommend/api/list${qs.trim() ? '?' + qs : ''}`,
   )
 
   const onChange = useCallback((e) => {
@@ -57,6 +60,17 @@ const RecommendListContainer = () => {
     _setSearch({})
     setSearch({})
   }, [])
+
+  useLayoutEffect(() => {
+    ;(async () => {
+      try {
+        const loan = await getLoan(seq)
+        setForm(loan)
+      } catch (err) {
+        console.error(err)
+      }
+    })()
+  }, [seq])
 
   /**
    * Set을 이용해 중복 제거 & 값을 토글 형태로 받는 공통 함수
@@ -122,6 +136,20 @@ const RecommendListContainer = () => {
   const onRemove = useCallback((seq) => {
     setSeq(seq)
     setIsOpen(true)
+  }, [])
+
+  const onToggleCheck = useCallback((seq) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.seq === seq ? { ...item, checked: !item.checked } : item,
+      ),
+    )
+  }, [])
+
+  const onAllToggleCheck = useCallback(() => {
+    setItems((prevItems) =>
+      prevItems.map((item) => ({ ...item, checked: !item.checked })),
+    )
   }, [])
 
   return (

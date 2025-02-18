@@ -1,4 +1,4 @@
-'use cl'
+'use client'
 
 import React, {
   useState,
@@ -17,9 +17,7 @@ import Pagination from '@/app/global/components/Pagination'
 import LayerPopup from '@/app/global/components/LayerPopup'
 import useQueryString from '@/app/global/hooks/useQueryString'
 import { getLoan, deleteLoan } from '../services/actions'
-import { MdWarning } from 'react-icons/md'
 import LoanModal from '../components/LoanModal'
-import { SmallButton } from '@/app/global/components/Buttons'
 import { useRouter } from 'next/navigation'
 
 const Loading = () => <BulletList />
@@ -40,8 +38,6 @@ const LoanListContainer = () => {
   const router = useRouter()
 
   const [form, setForm] = useState({})
-
-  const actionState = useActionState(deleteLoan, undefined)
 
   const _qs = useQueryString(['loanName', 'bankName', 'categories'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
@@ -71,6 +67,17 @@ const LoanListContainer = () => {
     _setSearch({})
     setSearch({})
   }, [])
+
+  useLayoutEffect(() => {
+    ;(async () => {
+      try {
+        const loan = await getLoan(seq)
+        setForm(loan)
+      } catch (err) {
+        console.error(err)
+      }
+    })()
+  }, [seq])
 
   /**
    * Set을 이용해 중복 제거 & 값을 토글 형태로 받는 공통 함수
@@ -103,21 +110,6 @@ const LoanListContainer = () => {
     [addToggle],
   )
 
-  useLayoutEffect(() => {
-    ;(async () => {
-      try {
-        const loan = await getLoan(seq)
-        setForm(loan)
-      } catch (err) {
-        console.error(err)
-      }
-    })()
-  }, [seq])
-
-  const closeModal = useCallback(() => {
-    setIsOpen(false)
-    setSeq(null)
-  }, [])
   /* ✨✨추가한 부분 E */
 
   useEffect(() => {
@@ -142,14 +134,30 @@ const LoanListContainer = () => {
     setSearch((search) => ({ ...search, page }))
   }, [])
 
-  const onRemove = useCallback((seq) => {
+  const onModal = useCallback((seq) => {
     setSeq(seq)
     setIsOpen(true)
   }, [])
 
+  const closeModal = useCallback(() => {
+    setIsOpen(false)
+    setSeq(null)
+  }, [])
+
+  const actionState = useActionState(deleteLoan, undefined)
+
+  const onRemove = useCallback(
+    (seq) => {
+      deleteLoan(seq)
+      closeModal()
+
+      router.refresh()
+    },
+    [closeModal, router],
+  )
+
   const onAllRemove = useCallback(() => {
     const seqs = items.filter((item) => item.checked).map((item) => item.seq)
-    // console.log('seqs : ' + seqs)
     ;(async () => {
       await deleteLoan(seqs)
       setItems((items) => items.filter((item) => !seqs.includes(item.seq)))
@@ -187,12 +195,11 @@ const LoanListContainer = () => {
         <>
           <LoanList
             items={items}
-            onRemove={onRemove}
-            onAllRemove={onAllRemove}
+            onModal={onModal}
+            onClick={onClick}
             onToggleCheck={onToggleCheck}
             onAllToggleCheck={onAllToggleCheck}
-            onClick={onClick}
-            actionState={actionState}
+            actionState={onAllRemove}
           />
         </>
       )}
@@ -207,12 +214,11 @@ const LoanListContainer = () => {
         width={500}
         height={600}
       >
-        <MdWarning />
-        정말 삭제하시겠습니까?
         <LoanModal
           form={form}
           actionState={actionState}
-          onRemove={onAllRemove}
+          closeModal={closeModal}
+          onRemove={onRemove}
         />
       </LayerPopup>
       {/* ✨✨추가한 부분 E */}

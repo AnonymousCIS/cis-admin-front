@@ -4,6 +4,7 @@ import colors from '@/app/global/styles/colors'
 import { CommonType } from '@/app/global/types/StyledType'
 import { TableCols } from '@/app/global/components/Tables'
 import { SmallButton, ButtonGroup } from '@/app/global/components/Buttons'
+import { MdWarning } from 'react-icons/md'
 
 const { secondary } = colors
 
@@ -19,7 +20,7 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
-const LoanModal = ({ form, onRemove, actionState }) => {
+const LoanModal = ({ form, onRemove, actionState, closeModal }) => {
   /*
     Invalid value for prop `disabled` on <button> tag. Either remove it from the element, or pass a string or number value to keep it in the DOM. For details, see https://react.dev/link/attribute-behavior 
   */
@@ -31,7 +32,7 @@ const LoanModal = ({ form, onRemove, actionState }) => {
 
   return (
     <>
-      <StyledForm action={formAction} autoComplete='off'>
+      <StyledForm action={formAction} autoComplete="off">
         <TableCols>
           <tbody>
             <tr>
@@ -43,25 +44,25 @@ const LoanModal = ({ form, onRemove, actionState }) => {
             <tr>
               <th>대출 한도</th>
               <td>
-                <span>{form?.limit ?? ''}</span>
+                <span>{form?.limit.toLocaleString() ?? ''}원</span>
               </td>
             </tr>
             <tr>
               <th>대출 카테고리</th>
               <td>
-                <span>{form?.category ?? ''}</span>
+                <span>{form?.categoryStr ?? ''}</span>
               </td>
             </tr>
             <tr>
               <th>은행명</th>
               <td>
-                <span>{form?.bankName ?? ''}</span>
+                <span>{form?.bankNameStr ?? ''}</span>
               </td>
             </tr>
             <tr>
               <th>상환년도</th>
               <td>
-                <span>{form?.repaymentYear ?? ''}</span>
+                <span>{form?.repaymentYear ?? ''}년</span>
               </td>
             </tr>
             <tr>
@@ -73,7 +74,7 @@ const LoanModal = ({ form, onRemove, actionState }) => {
             <tr>
               <th>이자율</th>
               <td>
-                <span>{form?.interestRate ?? ''}</span>
+                <span>{form?.interestRate ?? ''}%</span>
               </td>
             </tr>
             <tr>
@@ -88,10 +89,27 @@ const LoanModal = ({ form, onRemove, actionState }) => {
             </tr>
           </tbody>
         </TableCols>
-        
+        <div>
+          <MdWarning />
+          정말 삭제하시겠습니까?
+        </div>
+
         <ButtonGroup width={300} className="button-group center">
-          <SmallButton type="submit" color="dark" disabled={isPending} onClick={() => onRemove(form?.seq)}>
+          <SmallButton
+            type="submit"
+            color="dark"
+            disabled={isPending}
+            onClick={() => onRemove(form?.seq)}
+          >
             삭제
+          </SmallButton>
+          <SmallButton
+            type="button"
+            color="info"
+            disabled={isPending}
+            onClick={closeModal}
+          >
+            취소
           </SmallButton>
         </ButtonGroup>
       </StyledForm>

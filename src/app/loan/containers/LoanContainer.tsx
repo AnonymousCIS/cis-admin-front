@@ -13,7 +13,7 @@ import { getLoan } from '../services/actions'
 
 const initialValue = {
   mode: 'add',
-  isOpen: false,
+  open: false,
   category: 'CREDITLOAN',
 }
 
@@ -22,7 +22,19 @@ const LoanContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
 
   const [form, setForm] = useState(initialValue)
 
-  const actionState = useActionState(processLoan, undefined)
+  const actionState = useActionState(processLoan, seq)
+
+  const onChange = useCallback((e) => {
+    setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
+  }, [])
+
+  const onClick = useCallback((field, value) => {
+    setForm((form) => ({ ...form, [field]: value }))
+  }, [])
+
+  const onReset = useCallback(() => {
+    setForm(initialValue)
+  }, [])
 
   useLayoutEffect(() => {
     ;(async () => {
@@ -37,18 +49,6 @@ const LoanContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
       }
     })()
   }, [seq])
-
-  const onChange = useCallback((e) => {
-    setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
-  }, [])
-
-  const onClick = useCallback((field, value) => {
-    setForm((form) => ({ ...form, [field]: value }))
-  }, [])
-
-  const onReset = useCallback(() => {
-    setForm(initialValue)
-  }, [])
 
   return (
     <LoanForm

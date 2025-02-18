@@ -54,49 +54,26 @@ export const processLoan = async (params, formData: FormData) => {
   // 서버 요청 처리 S
 
   if (!hasErrors) {
+    console.log('form.mode : ' + form.mode)
     const apiUrl =
-      form.mode == 'add' ? '/loan/admin/create' : '/loan/admin/updates'
+      form.mode === 'add' ? '/loan/admin/create' : '/loan/admin/updates'
 
-    const reqMethod = form.mode == 'add' ? 'POST' : 'PATCH'
+    const reqMethod = form.mode === 'add' ? 'POST' : 'PATCH'
+
+    console.log('reqMethod : ' + reqMethod)
 
     const reqBody = form.mode == 'add' ? { ...form } : [form]
 
+    console.log(reqBody)
+
     const res = await apiRequest(apiUrl, reqMethod, reqBody)
-    // console.log('form의 값 : ' + form)
-    // console.log('res.status의 값은 : ', res.status)
-    // console.log('form : ' + form)
 
     if (res.status !== 200) {
       const result = await res.json()
-      // console.log('result의 값 : ', result)
       errors = result.message
       hasErrors = true
     }
   }
-  // 서버 요청 처리 E
-
-  /* Server 요청 처리 S */
-  /* if (!hasErrors) {
-    const apiUrl = process.env.API_URL + '/loan/config/create'
-
-    try {
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-      })
-
-      if (res.status !== 200) {
-        // 검증 실패시
-        const result = await res.json()
-        errors = result.message
-      }
-    } catch (err) {
-      console.error(err)
-    }
-  } */
   /* Server 요청 처리 E */
 
   if (hasErrors) {
@@ -181,23 +158,28 @@ export const deleteLoan = async (seq) => {
   // const redirectUrl = params?.redirectUrl ?? '/loan/list'
   // const seq = formData.get('seq')
 
-  seq = Array.isArray(seq) ? [seq] : seq
-
   // console.log('seq의 값은 : ' + seq)
 
+  console.log('매개변수 seq : ' + typeof seq)
+
   // ✨✨ 추가
-  const qs = toQueryString({ seq })
+  const qs = toQueryString({ seq: [seq] })
+
+  console.log('Query String:', qs)
 
   try {
     const res = await apiRequest(`/loan/admin/deletes?${qs}`, 'DELETE')
     // const result = await res.status
 
     // if (result !== 200) {
-    // console.log('******res.status === ' + res.status + '******')
+    console.log('******res.status === ' + res.status + '******')
     if (res.status === 200) {
       // console.log('******res.status === 200 진입******')
       const result = await res.json()
+      console.log('Response body:', result)
       // console.log('result : ' + result)
+    } else {
+      return
     }
   } catch (err) {
     console.error(err)
