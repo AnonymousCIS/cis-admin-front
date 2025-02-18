@@ -104,6 +104,7 @@ export const cardTrain = async () => {
     console.error(err)
   }
 }
+
 export const getUserCard = async (seq) => {
   try {
     // console.log('seq', seq)

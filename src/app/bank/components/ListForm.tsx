@@ -1,12 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
-import {
-  MdRadioButtonUnchecked,
-  MdRadioButtonChecked,
-  MdCheckBoxOutlineBlank,
-  MdCheckBox,
-} from 'react-icons/md'
+import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
 import { SmallButton } from '@/app/global/components/Buttons'
 
 const StyledForm = styled.form`
@@ -55,7 +50,8 @@ const StyledForm = styled.form`
 `
 
 const BankItem = ({ item, onRemove, onToggleCheck }) => {
-  const { seq, bankName, accountNumber, name, checked } = item
+  const { seq, bankNameStr, accountNumber, name, checked } = item
+
 
   return (
     <tr>
@@ -65,7 +61,7 @@ const BankItem = ({ item, onRemove, onToggleCheck }) => {
         </span>
       </td>
       <td>{seq}</td>
-      <td>{bankName}</td>
+      <td>{bankNameStr}</td>
       <td>{accountNumber}</td>
       <td>{name}</td>
 
@@ -93,7 +89,9 @@ const BankItem = ({ item, onRemove, onToggleCheck }) => {
 }
 
 const ListForm = ({ items, onRemove, onToggleCheck, onAllToggleCheck }) => {
-  const { checked } = items
+
+  const { AllCehcked } = items
+
   return (
     <StyledForm autoComplete="off">
       <TableRows>
@@ -124,14 +122,40 @@ const ListForm = ({ items, onRemove, onToggleCheck, onAllToggleCheck }) => {
             ))
           ) : (
             <tr>
-              <td colSpan={5} className="no-data">
-                조회 가능한 계좌가 없습니다.
-              </td>
+              <th>
+                <span onClick={() => onAllToggleCheck()}>
+                  {AllCehcked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+                </span>
+              </th>
+              <th>등록번호</th>
+              <th>은행 기관명</th>
+              <th>계좌 번호</th>
+              <th>예금주</th>
+              <th>관리</th>
+              <th></th>
             </tr>
-          )}
-        </tbody>
-      </TableRows>
-    </StyledForm>
+          </thead>
+          <tbody>
+            {items && items.length > 0 ? (
+              items.map((item) => (
+                <BankItem
+                  key={'bank' + item.seq}
+                  item={item}
+                  onRemove={onRemove}
+                  onToggleCheck={onToggleCheck}
+                />
+              ))
+            ) : (
+              <tr>
+                <td colSpan={5} className="no-data">
+                  조회 가능한 계좌가 없습니다.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </TableRows>
+      </StyledForm>
+    </>
   )
 }
 
