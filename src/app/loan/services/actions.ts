@@ -177,11 +177,13 @@ export const getLogView = async (seq) => {
  * @param formData
  */
 // export const deleteLoan = async (params, formData: FormData) => {
-export const deleteLoan = async (seq: number | any[]) => {
+export const deleteLoan = async (seq) => {
   // const redirectUrl = params?.redirectUrl ?? '/loan/list'
   // const seq = formData.get('seq')
 
   seq = Array.isArray(seq) ? [seq] : seq
+
+  console.log('seq의 값은 : ' + seq)
 
   // ✨✨ 추가
   const qs = toQueryString({ seq })

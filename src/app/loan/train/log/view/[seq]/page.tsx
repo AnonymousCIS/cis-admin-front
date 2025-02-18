@@ -7,7 +7,7 @@ import WithUserContainer from '@/app/global/containers/WithUserContainer'
 // import { MainContentBox } from '@/app/global/components/ContentBox';
 
 const LoanLogContainer = loadable(
-  () => import('../../../containers/LoanLogContainer'),
+  () => import('../../../../containers/LoanLogContainer'),
 )
 
 const ViewPage = ({ params }) => {

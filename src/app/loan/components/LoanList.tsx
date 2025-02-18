@@ -100,7 +100,7 @@ const LoanList = ({
 
   return (
     <>
-      <StyledForm action={actionState}>
+      <StyledForm action={formAction}>
         <input type="hidden" name="isOpen" value={items.open} />
         <TableRows>
           <thead>
@@ -144,11 +144,21 @@ const LoanList = ({
           type="submit"
           color="dark"
           width={160}
-          onClick={() => onAllRemove()}
+          onClick={() => onRemove()}
+          disabled={isPending}
         >
           삭제
         </SmallButton>
       </StyledForm>
+      <SmallButton
+        type="submit"
+        color="info"
+        width={160}
+        onClick={() => onAllRemove()}
+        disabled={isPending}
+      >
+        삭제
+      </SmallButton>
     </>
   )
 }

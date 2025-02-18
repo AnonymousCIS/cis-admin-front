@@ -20,6 +20,7 @@ import { getLoan, deleteLoan } from '../services/actions'
 import { MdWarning } from 'react-icons/md'
 import LoanModal from '../components/LoanModal'
 import { SmallButton } from '@/app/global/components/Buttons'
+import { useRouter } from 'next/navigation'
 
 const Loading = () => <BulletList />
 
@@ -36,8 +37,11 @@ type SearchType = {
 
 const LoanListContainer = () => {
   useMenuCode('loan', 'list')
+  const router = useRouter()
 
   const [form, setForm] = useState({})
+
+  const actionState = useActionState(deleteLoan, undefined)
 
   const _qs = useQueryString(['loanName', 'bankName', 'categories'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
@@ -150,7 +154,8 @@ const LoanListContainer = () => {
       await deleteLoan(seqs)
       setItems((items) => items.filter((item) => !seqs.includes(item.seq)))
     })()
-  }, [items])
+    router.refresh()
+  }, [items, router])
 
   const onToggleCheck = useCallback((seq) => {
     setItems((prevItems) =>
@@ -165,10 +170,6 @@ const LoanListContainer = () => {
       prevItems.map((item) => ({ ...item, checked: !item.checked })),
     )
   }, [])
-
-  const actionState = useActionState(deleteLoan, seq)
-
-  console.log(seq)
 
   return (
     <>
@@ -208,7 +209,11 @@ const LoanListContainer = () => {
       >
         <MdWarning />
         정말 삭제하시겠습니까?
-        <LoanModal form={form} actionState={actionState} onRemove={onRemove} />
+        <LoanModal
+          form={form}
+          actionState={actionState}
+          onRemove={onAllRemove}
+        />
       </LayerPopup>
       {/* ✨✨추가한 부분 E */}
     </>
