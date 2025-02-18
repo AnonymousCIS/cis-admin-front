@@ -46,15 +46,16 @@ const RecommendListContainer = () => {
   const qs = toQueryString(search)
 
   const { data, error, isLoading } = useRequest(
-    `/loan/recommend/api/list${qs.trim() ? '?' + qs : ''}`,
+    `/loan/api/recommend/list${qs.trim() ? '?' + qs : ''}`,
   )
 
   const onChange = useCallback((e) => {
     _setSearch((_search) => ({ ..._search, [e.target.name]: e.target.value }))
   }, [])
 
-  const onReset = useCallback((field, value) => {
-    setSearch((_search) => ({ ..._search, [field]: value }))
+  const onReset = useCallback(() => {
+    _setSearch({})
+    setSearch({})
   }, [])
 
   /**

@@ -15,7 +15,7 @@ const StyledForm = styled.form`
 `
 
 // ✨✨ onClick 추가
-const LoanItem = ({ item, onRemove, onClick }) => {
+const RecommendLoanItem = ({ item, onRemove, onClick }) => {
   const {
     seq,
     loanName,
@@ -87,7 +87,7 @@ const LoanItem = ({ item, onRemove, onClick }) => {
 }
 
 // ✨✨ onClick 추가
-const LoanList = ({ items, onRemove, onClick }) => {
+const RecommendLoanList = ({ items, onRemove, onClick }) => {
   return (
     <>
       <StyledForm>
@@ -110,7 +110,7 @@ const LoanList = ({ items, onRemove, onClick }) => {
           <tbody>
             {items && items.length > 0 ? (
               items.map((item) => (
-                <LoanItem
+                <RecommendLoanItem
                   key={'loan' + item.seq}
                   item={item}
                   onRemove={onRemove}
@@ -132,4 +132,4 @@ const LoanList = ({ items, onRemove, onClick }) => {
   )
 }
 
-export default React.memo(LoanList)
+export default React.memo(RecommendLoanList)

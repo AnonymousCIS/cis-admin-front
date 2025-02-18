@@ -13,7 +13,7 @@ const Loading = () => <BulletList />
 const LoanLogContainer = ({
   seq,
 }: { seq?: number | undefined } | undefined) => {
-  useMenuCode('card', 'log')
+  useMenuCode('loan', 'log')
 
   const [form, setForm] = useState([])
 

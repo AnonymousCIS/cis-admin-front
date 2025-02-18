@@ -19,7 +19,7 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
-const LoanModal = ({ form, actionState, closeModal }) => {
+const LoanModal = ({ form, onRemove, actionState }) => {
   /*
     Invalid value for prop `disabled` on <button> tag. Either remove it from the element, or pass a string or number value to keep it in the DOM. For details, see https://react.dev/link/attribute-behavior 
   */
@@ -31,7 +31,7 @@ const LoanModal = ({ form, actionState, closeModal }) => {
 
   return (
     <>
-      <StyledForm action={formAction}>
+      <StyledForm action={formAction} autoComplete='off'>
         <TableCols>
           <tbody>
             <tr>
@@ -90,7 +90,7 @@ const LoanModal = ({ form, actionState, closeModal }) => {
         </TableCols>
         
         <ButtonGroup width={300} className="button-group center">
-          <SmallButton type="submit" color="dark" disabled={isPending}>
+          <SmallButton type="submit" color="dark" disabled={isPending} onClick={() => onRemove(form?.seq)}>
             삭제
           </SmallButton>
         </ButtonGroup>

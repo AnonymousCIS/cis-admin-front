@@ -1,16 +1,25 @@
-'use client'
+'use cl'
 
-import React, { useState, useCallback, useEffect, useLayoutEffect } from 'react'
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+  useActionState,
+  useLayoutEffect,
+} from 'react'
 import LoanList from '../components/LoanList'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import LoanSearch from '../components/LoanSearch'
 import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
-import { BulletList, List } from 'react-content-loader'
+import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
-import LoanDeleteContainer from './LoanDeleteContainer'
 import LayerPopup from '@/app/global/components/LayerPopup'
 import useQueryString from '@/app/global/hooks/useQueryString'
+import { getLoan, deleteLoan } from '../services/actions'
+import { MdWarning } from 'react-icons/md'
+import LoanModal from '../components/LoanModal'
+import { SmallButton } from '@/app/global/components/Buttons'
 
 const Loading = () => <BulletList />
 
@@ -25,14 +34,10 @@ type SearchType = {
   loanLimitMin?: number
 }
 
-type ListType = {
-  open?: boolean
-}
-
 const LoanListContainer = () => {
   useMenuCode('loan', 'list')
 
-  const [form, setForm] = useState<ListType>()
+  const [form, setForm] = useState({})
 
   const _qs = useQueryString(['loanName', 'bankName', 'categories'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
@@ -61,7 +66,6 @@ const LoanListContainer = () => {
   const onReset = useCallback(() => {
     _setSearch({})
     setSearch({})
-
   }, [])
 
   /**
@@ -95,13 +99,16 @@ const LoanListContainer = () => {
     [addToggle],
   )
 
-  const openClick = useCallback((field, value) => {
-    console.log('클릭 감지!')
-    if (['open'].includes(field)) {
-      console.log('open : ' + open)
-      setForm((form) => ({ ...form, [field]: value }))
-    }
-  }, [])
+  useLayoutEffect(() => {
+    ;(async () => {
+      try {
+        const loan = await getLoan(seq)
+        setForm(loan)
+      } catch (err) {
+        console.error(err)
+      }
+    })()
+  }, [seq])
 
   const closeModal = useCallback(() => {
     setIsOpen(false)
@@ -136,6 +143,15 @@ const LoanListContainer = () => {
     setIsOpen(true)
   }, [])
 
+  const onAllRemove = useCallback(() => {
+    const seqs = items.filter((item) => item.checked).map((item) => item.seq)
+    console.log('seqs : ' + seqs)
+    ;(async () => {
+      await deleteLoan(seqs)
+      setItems((items) => items.filter((item) => !seqs.includes(item.seq)))
+    })()
+  }, [items])
+
   const onToggleCheck = useCallback((seq) => {
     setItems((prevItems) =>
       prevItems.map((item) =>
@@ -143,6 +159,16 @@ const LoanListContainer = () => {
       ),
     )
   }, [])
+
+  const onAllToggleCheck = useCallback(() => {
+    setItems((prevItems) =>
+      prevItems.map((item) => ({ ...item, checked: !item.checked })),
+    )
+  }, [])
+
+  const actionState = useActionState(deleteLoan, seq)
+
+  console.log(seq)
 
   return (
     <>
@@ -157,12 +183,17 @@ const LoanListContainer = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <LoanList
-          items={items}
-          onRemove={onRemove}
-          onToggleCheck={onToggleCheck}
-          openClick={openClick}
-        />
+        <>
+          <LoanList
+            items={items}
+            onRemove={onRemove}
+            onAllRemove={onAllRemove}
+            onToggleCheck={onToggleCheck}
+            onAllToggleCheck={onAllToggleCheck}
+            onClick={onClick}
+            actionState={actionState}
+          />
+        </>
       )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
@@ -172,10 +203,12 @@ const LoanListContainer = () => {
         isOpen={isOpen}
         onClose={closeModal}
         title="대출 삭제"
-        width={750}
+        width={500}
         height={600}
       >
-        <LoanDeleteContainer seq={seq} closeModal={closeModal} />
+        <MdWarning />
+        정말 삭제하시겠습니까?
+        <LoanModal form={form} actionState={actionState} onRemove={onRemove} />
       </LayerPopup>
       {/* ✨✨추가한 부분 E */}
     </>

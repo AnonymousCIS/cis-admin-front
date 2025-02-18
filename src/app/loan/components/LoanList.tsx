@@ -26,7 +26,6 @@ const StyledForm = styled.form`
 
 // ✨✨ onClick 추가
 const LoanItem = ({ item, onRemove, openClick, onToggleCheck }) => {
-  console.log('item : ' + item.open)
   const {
     seq,
     loanName,
@@ -88,17 +87,28 @@ const LoanItem = ({ item, onRemove, openClick, onToggleCheck }) => {
 }
 
 // ✨✨ onClick 추가
-const LoanList = ({ items, onRemove, openClick, onToggleCheck }) => {
+const LoanList = ({
+  items,
+  onRemove,
+  onAllRemove,
+  onClick,
+  onToggleCheck,
+  onAllToggleCheck,
+  actionState,
+}) => {
+  const [errors, formAction, isPending] = actionState
+
   return (
     <>
-      <StyledForm>
+      <StyledForm action={actionState}>
         <input type="hidden" name="isOpen" value={items.open} />
         <TableRows>
           <thead>
             <tr>
-              <th>
+              <th onClick={() => onAllToggleCheck()}>
                 <MdCheckBoxOutlineBlank />
               </th>
+
               <th>대출명</th>
               <th>은행명</th>
               <th>대출 카테고리</th>
@@ -117,7 +127,7 @@ const LoanList = ({ items, onRemove, openClick, onToggleCheck }) => {
                   item={item}
                   onRemove={onRemove}
                   // ✨✨ onClick 추가
-                  openClick={openClick}
+                  openClick={onClick}
                   onToggleCheck={onToggleCheck}
                 />
               ))
@@ -130,6 +140,14 @@ const LoanList = ({ items, onRemove, openClick, onToggleCheck }) => {
             )}
           </tbody>
         </TableRows>
+        <SmallButton
+          type="submit"
+          color="dark"
+          width={160}
+          onClick={() => onAllRemove()}
+        >
+          삭제
+        </SmallButton>
       </StyledForm>
     </>
   )

@@ -220,16 +220,16 @@ const LoanForm = ({ form, onClick, onChange, actionState, onReset }) => {
             <tr>
               <th>사용여부</th>
               <td>
-                <span onClick={() => onClick('isOpen', true)}>
-                  {form?.isOpen === true ? (
+                <span onClick={() => onClick('open', true)}>
+                  {form?.open === true ? (
                     <MdRadioButtonChecked />
                   ) : (
                     <MdRadioButtonUnchecked />
                   )}
                   사용
                 </span>
-                <span onClick={() => onClick('isOpen', false)}>
-                  {form?.isOpen === false ? (
+                <span onClick={() => onClick('open', false)}>
+                  {form?.open === false ? (
                     <MdRadioButtonChecked />
                   ) : (
                     <MdRadioButtonUnchecked />
