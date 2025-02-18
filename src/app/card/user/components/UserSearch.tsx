@@ -55,13 +55,7 @@ const StyledForm = styled.form<CommonType>`
   { value: 'DESC', label: '대출 설명' },
 ] */
 
-const CardRecommendSearch = ({
-  form,
-  onChange,
-  onSubmit,
-  onClick,
-  onReset,
-}) => {
+const userCardSearch = ({ form, onChange, onSubmit, onClick, onReset }) => {
   return (
     <StyledForm onSubmit={onSubmit} autoComplete="off">
       <TableCols>
@@ -382,4 +376,4 @@ const CardRecommendSearch = ({
   )
 }
 
-export default React.memo(CardRecommendSearch)
+export default React.memo(userCardSearch)

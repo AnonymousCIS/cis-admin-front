@@ -26,6 +26,16 @@ export const menus = {
     },
     { code: 'create', name: '카드 등록', url: '/card/create' },
     { code: 'train', name: '카드 학습', url: '/card/train' },
+    {
+      code: 'recommendlist',
+      name: '카드 추천 목록',
+      url: '/card/recommend/list',
+    },
+    {
+      code: 'user',
+      name: '유저 카드 목록',
+      url: '/card/user/list',
+    },
   ],
   loan: [
     { code: 'list', name: '대출 목록', url: '/loan/list' },
