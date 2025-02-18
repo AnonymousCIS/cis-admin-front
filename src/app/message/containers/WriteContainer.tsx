@@ -10,7 +10,7 @@ const WriteContainer = ({
 }: { email?: string | undefined } | undefined) => {
   const name = email.replace('%', '@')
   const [form, setForm] = useState({})
-  console.log('form', form)
+  // console.log('form', form)
 
   const onChange = useCallback((e) => {
     setForm((data) => ({ ...data, [e.target.name]: e.target.value }))
