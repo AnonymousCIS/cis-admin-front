@@ -14,13 +14,7 @@ const StyledForm = styled.form`
   }
 `
 
-// ✨✨ onClick 추가
-<<<<<<< Updated upstream
-const LoanItem = ({ item, onRemove, onClick }) => {
-=======
-const RecommendLoanItem = ({ item, onRemove, onClick }) => {
-  const {loan} = item
->>>>>>> Stashed changes
+const UserLoanItem = ({ item, onRemove, onClick }) => {
   const {
     seq,
     loanName,
@@ -28,8 +22,9 @@ const RecommendLoanItem = ({ item, onRemove, onClick }) => {
     limit,
     interestRate,
     repaymentYear,
+    open,
     bankNameStr,
-  } = loan
+  } = item
 
   return (
     <tr>
@@ -38,13 +33,21 @@ const RecommendLoanItem = ({ item, onRemove, onClick }) => {
           <MdCheckBoxOutlineBlank />
         </span>
       </td>
-      <td>{seq}</td>
       <td>{loanName}</td>
       <td>{bankNameStr}</td>
       <td>{categoryStr}</td>
       <td>{limit}</td>
       <td>{interestRate}</td>
       <td>{repaymentYear}</td>
+      <td>
+        {/* ✨✨ span에 onClick 추가 */}
+        <span onClick={() => onClick('open', !Boolean(item?.open))}>
+          {open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용
+        </span>
+        <span onClick={() => onClick('open', !Boolean(item?.open))}>
+          {!open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 미사용
+        </span>
+      </td>
       <td>
         {/* <SmallButton type="button" color="primary" width={120} onClick={onOpen}>
           상세보기
@@ -59,14 +62,9 @@ const RecommendLoanItem = ({ item, onRemove, onClick }) => {
           <h2>{seq} 상세보기</h2>
           <LoanView form={item} seq={seq} />
         </LayerPopup> */}
-        <a href={'/loan/recommend/view/' + seq}>
+        <a href={'/loan/view/' + seq}>
           <SmallButton type="button" color="primary" width={120}>
             상세보기
-          </SmallButton>
-        </a>
-        <a href={'/loan/update/' + seq}>
-          <SmallButton type="button" color="info" width={120}>
-            수정
           </SmallButton>
         </a>
         <SmallButton
@@ -83,7 +81,7 @@ const RecommendLoanItem = ({ item, onRemove, onClick }) => {
 }
 
 // ✨✨ onClick 추가
-const LoanList = ({ items, onRemove, onClick }) => {
+const UserLoanList = ({ items, onRemove, onClick }) => {
   return (
     <>
       <StyledForm>
@@ -93,20 +91,20 @@ const LoanList = ({ items, onRemove, onClick }) => {
               <th>
                 <MdCheckBoxOutlineBlank />
               </th>
-              <th>번호</th>
               <th>대출명</th>
               <th>은행명</th>
               <th>대출 카테고리</th>
               <th>최대 한도</th>
               <th>금리</th>
               <th>상환년도</th>
+              <th>사용 가능 여부</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             {items && items.length > 0 ? (
               items.map((item) => (
-                <LoanItem
+                <UserLoanItem
                   key={'loan' + item.seq}
                   item={item}
                   onRemove={onRemove}
@@ -128,4 +126,4 @@ const LoanList = ({ items, onRemove, onClick }) => {
   )
 }
 
-export default React.memo(LoanList)
+export default React.memo(UserLoanList)

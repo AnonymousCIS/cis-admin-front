@@ -110,6 +110,7 @@ const LoanListContainer = () => {
 
   useEffect(() => {
     if (data) {
+      console.log('API Response Data:', data);
       setItems(data.data.items)
       setPagination(data.data.pagination)
     }

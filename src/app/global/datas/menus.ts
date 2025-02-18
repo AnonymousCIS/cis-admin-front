@@ -36,7 +36,7 @@ export const menus = {
       name: '추천 대출목록',
       url: '/loan/recommend/list',
     },
-    { code: 'userlist', name: '유저 대출목록', url: '/loan/user/list' },
+    { code: 'user', name: '유저 대출목록', url: '/loan/user/list' },
   ],
 }
 

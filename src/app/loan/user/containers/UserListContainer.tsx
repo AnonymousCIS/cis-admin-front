@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useState, useCallback, useEffect } from 'react'
-import RecommendList from '../components/RecommendList'
+
 import useMenuCode from '@/app/global/hooks/useMenuCode'
-import RecommendSearch from '../components/RecommendSearch'
+
 import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
 import { BulletList } from 'react-content-loader'
@@ -11,6 +11,9 @@ import Pagination from '@/app/global/components/Pagination'
 // import LoanDeleteContainer from './LoanDeleteContainer'
 import LayerPopup from '@/app/global/components/LayerPopup'
 import useQueryString from '@/app/global/hooks/useQueryString'
+import UserDeleteContainer from './UserDeleteContainer'
+import UserSearch from '../components/UserSearch'
+import UserListForm from '../components/UserListForm'
 
 const Loading = () => <BulletList />
 
@@ -25,8 +28,8 @@ type SearchType = {
   loanLimitMin?: number
 }
 
-const LoanListContainer = () => {
-  useMenuCode('loan', 'recommendlist')
+const UserListContainer = () => {
+useMenuCode('loan', 'user')
 
   const _qs = useQueryString(['loanName', 'bankName', 'categories'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
@@ -45,15 +48,16 @@ const LoanListContainer = () => {
   const qs = toQueryString(search)
 
   const { data, error, isLoading } = useRequest(
-    `/loan/recommend/api/list${qs.trim() ? '?' + qs : ''}`,
+    `/loan/user/api/list${qs.trim() ? '?' + qs : ''}`,
   )
 
   const onChange = useCallback((e) => {
     _setSearch((_search) => ({ ..._search, [e.target.name]: e.target.value }))
   }, [])
 
-  const onReset = useCallback((field, value) => {
-    setSearch((_search) => ({ ..._search, [field]: value }))
+  const onReset = useCallback(() => {
+    _setSearch({})
+    setSearch({})
   }, [])
 
   /**
@@ -71,7 +75,7 @@ const LoanListContainer = () => {
       }
       _setSearch({ ..._search, [type]: [...set.values()] })
     },
-    [_search, search],
+    [_search],
   )
 
   /* ✨✨추가한 부분 S */
@@ -95,7 +99,7 @@ const LoanListContainer = () => {
 
   useEffect(() => {
     if (data) {
-      console.log('API Response Data:', data);  // 데이터 로그 확인
+      console.log('API Response Data:', data);
       setItems(data.data.items);
       setPagination(data.data.pagination);
     }
@@ -105,7 +109,7 @@ const LoanListContainer = () => {
     (e) => {
       e.preventDefault()
 
-      console.log('_search', _search)
+      // console.log('_search', _search)
 
       // Submit 했을때 Search 값을 새로운 객체로 깊은 복사해 교체하면서 Rerendering
       setSearch({ ..._search })
@@ -125,7 +129,7 @@ const LoanListContainer = () => {
 
   return (
     <>
-      <RecommendSearch
+      <UserSearch
         form={_search}
         onChange={onChange}
         onSubmit={onSubmit}
@@ -136,13 +140,25 @@ const LoanListContainer = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <RecommendList items={items} onRemove={onRemove} onClick={onClick} />
+        <UserListForm items={items} onRemove={onRemove} onClick={onClick} />
       )}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
+
+      {/* ✨✨추가한 부분 S */}
+      <LayerPopup
+        isOpen={isOpen}
+        onClose={closeModal}
+        title="대출 삭제"
+        width={750}
+        height={600}
+      >
+        <UserDeleteContainer seq={seq} closeModal={closeModal} />
+      </LayerPopup>
+      {/* ✨✨추가한 부분 E */}
     </>
   )
 }
 
-export default React.memo(LoanListContainer)
+export default React.memo(UserListContainer)

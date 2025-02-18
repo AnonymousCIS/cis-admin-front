@@ -1,16 +1,10 @@
 'use client'
 
 import React, { useLayoutEffect, useState, useActionState } from 'react'
-<<<<<<< Updated upstream:src/app/loan/containers/LoanDeleteContainer.tsx
-import { getLoan } from '../services/actions'
-import { deleteLoan } from '../services/actions'
-=======
-import { getUserCard } from '../services/actions'
-import { deleteCard } from '../services/actions'
->>>>>>> Stashed changes:src/app/card/user/containers/UserDeleteContainer.tsx
+import { deleteLoan, getUserLoan } from '../services/actions'
 import { BulletList } from 'react-content-loader'
-import useRequest from '@/app/global/hooks/useRequest'
-import LoanModal from '../components/LoanModal'
+import UserModal from '../components/UserModal'
+
 
 type Props = {
   seq?: number | undefined
@@ -19,7 +13,7 @@ type Props = {
 
 const Loading = () => <BulletList />
 
-const LoanDeleteContainer = ({ seq, closeModal }: Props | undefined) => {
+const CardDeleteContainer = ({ seq, closeModal }: Props | undefined) => {
   const [form, setForm] = useState({})
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -27,8 +21,8 @@ const LoanDeleteContainer = ({ seq, closeModal }: Props | undefined) => {
     ;(async () => {
       setIsLoading(true)
       try {
-        const loan = await getLoan(seq)
-        setForm(loan)
+        const card = await getUserLoan(seq)
+        setForm(card)
       } catch (err) {
         console.error(err)
       }
@@ -36,14 +30,14 @@ const LoanDeleteContainer = ({ seq, closeModal }: Props | undefined) => {
     })()
   }, [seq])
 
-  const actionState = useActionState(deleteCard, seq)
+  const actionState = useActionState(deleteLoan, seq)
 
   return (
     <>
       {isLoading ? (
         <Loading />
       ) : (
-        <LoanModal
+        <UserModal
           form={form}
           actionState={actionState}
           closeModal={closeModal}
@@ -53,4 +47,4 @@ const LoanDeleteContainer = ({ seq, closeModal }: Props | undefined) => {
   )
 }
 
-export default React.memo(LoanDeleteContainer)
+export default React.memo(CardDeleteContainer)

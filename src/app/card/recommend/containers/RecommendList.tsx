@@ -11,6 +11,7 @@ import Pagination from '@/app/global/components/Pagination'
 // import LoanDeleteContainer from './LoanDeleteContainer'
 import LayerPopup from '@/app/global/components/LayerPopup'
 import useQueryString from '@/app/global/hooks/useQueryString'
+import RecommendDeleteContainer from '@/app/loan/recommend/containers/RecommendDeleteContainer'
 
 const Loading = () => <BulletList />
 
@@ -18,17 +19,17 @@ type SearchType = {
   skey?: string
   page?: number
   limit?: number
-  loanName?: string
+  cardName?: string
   categories?: string[]
   bankName?: string[]
-  loanLimitMax?: number
-  loanLimitMin?: number
+  cardLimitMax?: number
+  cardLimitMin?: number
 }
 
-const LoanListContainer = () => {
-  useMenuCode('loan', 'recommendlist')
+const RecommendListContainer = () => {
+  useMenuCode('card', 'recommendlist')
 
-  const _qs = useQueryString(['loanName', 'bankName', 'categories'])
+  const _qs = useQueryString(['cardName', 'bankName', 'categories'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
   const [search, setSearch] = useState<SearchType>(_qs)
 
@@ -45,7 +46,7 @@ const LoanListContainer = () => {
   const qs = toQueryString(search)
 
   const { data, error, isLoading } = useRequest(
-    `/loan/recommend/api/list${qs.trim() ? '?' + qs : ''}`,
+    `/card/recommend/api/list${qs.trim() ? '?' + qs : ''}`,
   )
 
   const onChange = useCallback((e) => {
@@ -71,13 +72,13 @@ const LoanListContainer = () => {
       }
       _setSearch({ ..._search, [type]: [...set.values()] })
     },
-    [_search, search],
+    [_search],
   )
 
   /* ✨✨추가한 부분 S */
   const onClick = useCallback(
     (field, value) => {
-      if (['loanName', 'bankName', 'categories'].includes(field)) {
+      if (['cardName', 'bankName', 'categories'].includes(field)) {
         addToggle(value, field)
         // _setSearch((_search) => ({ ..._search, [field]: value }))
       } else {
@@ -95,17 +96,18 @@ const LoanListContainer = () => {
 
   useEffect(() => {
     if (data) {
-      console.log('API Response Data:', data);  // 데이터 로그 확인
-      setItems(data.data.items);
-      setPagination(data.data.pagination);
+      console.log('API Response Data:', data);
+      setItems(data.data.data)
+      setPagination(data.data.pagination)
+      // console.log('data', data)
     }
-  }, [data]);
+  }, [data])
 
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault()
 
-      console.log('_search', _search)
+      // console.log('_search', _search)
 
       // Submit 했을때 Search 값을 새로운 객체로 깊은 복사해 교체하면서 Rerendering
       setSearch({ ..._search })
@@ -141,8 +143,20 @@ const LoanListContainer = () => {
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
+
+      {/* ✨✨추가한 부분 S */}
+      <LayerPopup
+        isOpen={isOpen}
+        onClose={closeModal}
+        title="카드 삭제"
+        width={750}
+        height={600}
+      >
+        <RecommendDeleteContainer seq={seq} closeModal={closeModal} />
+      </LayerPopup>
+      {/* ✨✨추가한 부분 E */}
     </>
   )
 }
 
-export default React.memo(LoanListContainer)
+export default React.memo(RecommendListContainer)
