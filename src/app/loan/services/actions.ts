@@ -42,7 +42,7 @@ export const processLoan = async (params, formData: FormData) => {
     const value = formData.get(field).toString()
     //if (!form[field] || (typeof form[field] === 'string' && !form[field].trim())) {
     if (!value || !value.trim()) {
-      console.log('errors[field]' + field)
+      // console.log('errors[field]' + field)
       errors[field] = errors[field] ?? []
       errors[field].push(msg)
       hasErrors = true
@@ -62,13 +62,13 @@ export const processLoan = async (params, formData: FormData) => {
     const reqBody = form.mode == 'add' ? { ...form } : [form]
 
     const res = await apiRequest(apiUrl, reqMethod, reqBody)
-    console.log('form의 값 : ' + form)
-    console.log('res.status의 값은 : ', res.status)
-    console.log('form : ' + form)
+    // console.log('form의 값 : ' + form)
+    // console.log('res.status의 값은 : ', res.status)
+    // console.log('form : ' + form)
 
     if (res.status !== 200) {
       const result = await res.json()
-      console.log('result의 값 : ', result)
+      // console.log('result의 값 : ', result)
       errors = result.message
       hasErrors = true
     }
@@ -113,9 +113,9 @@ export const processLoan = async (params, formData: FormData) => {
 export const getLoan = async (seq) => {
   try {
     const res = await apiRequest(`/loan/view/${seq}`)
-    console.log('res.status : ' + res.status)
+    // console.log('res.status : ' + res.status)
     if (res.status === 200) {
-      console.log('진입 성공')
+      // console.log('진입 성공')
       const result = await res.json()
       return result.success && result.data
     } else {
@@ -183,7 +183,7 @@ export const deleteLoan = async (seq) => {
 
   seq = Array.isArray(seq) ? [seq] : seq
 
-  console.log('seq의 값은 : ' + seq)
+  // console.log('seq의 값은 : ' + seq)
 
   // ✨✨ 추가
   const qs = toQueryString({ seq })
@@ -193,11 +193,11 @@ export const deleteLoan = async (seq) => {
     // const result = await res.status
 
     // if (result !== 200) {
-    console.log('******res.status === ' + res.status + '******')
+    // console.log('******res.status === ' + res.status + '******')
     if (res.status === 200) {
-      console.log('******res.status === 200 진입******')
+      // console.log('******res.status === 200 진입******')
       const result = await res.json()
-      console.log('result : ' + result)
+      // console.log('result : ' + result)
     }
   } catch (err) {
     console.error(err)
@@ -214,9 +214,9 @@ export const deleteLoan = async (seq) => {
  */
 export const loanTrain = async () => {
   try {
-    console.log('유입')
+    // console.log('유입')
     const res = await apiRequest('/loan/admin/train')
-    console.log('res', res)
+    // console.log('res', res)
     if (res.status === 200) {
       return '훈련 완료'
     }

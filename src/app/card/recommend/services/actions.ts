@@ -15,7 +15,7 @@ export const getCard = async (seq) => {
     const res = await apiRequest(`/card/view/${seq}`)
     console.log('res.status : ' + res.status)
     if (res.status === 200) {
-      console.log('진입 성공')
+      // console.log('진입 성공')
       const result = await res.json()
       return result.success && result.data
     } else {
@@ -72,11 +72,11 @@ export const deleteCard = async (seq) => {
     // const result = await res.status
 
     // if (result !== 200) {
-    console.log('******res.status === ' + res.status + '******')
+    // console.log('******res.status === ' + res.status + '******')
     if (res.status === 200) {
-      console.log('******res.status === 200 진입******')
+      // console.log('******res.status === 200 진입******')
       const result = await res.json()
-      console.log('result : ' + result)
+      // console.log('result : ' + result)
     }
   } catch (err) {
     console.error(err)
@@ -93,9 +93,9 @@ export const deleteCard = async (seq) => {
  */
 export const cardTrain = async () => {
   try {
-    console.log('유입')
+    // console.log('유입')
     const res = await apiRequest('/card/admin/train')
-    console.log('res', res)
+    // console.log('res', res)
     if (res.status === 200) {
       return '훈련 완료'
     }

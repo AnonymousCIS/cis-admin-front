@@ -94,7 +94,7 @@ const ListItem = ({ item, onModal }) => {
 }
 
 const ListForm = ({ onModal, items }) => {
-  console.log('items', items)
+  // console.log('items', items)
   return (
     <>
       <StyledForm>

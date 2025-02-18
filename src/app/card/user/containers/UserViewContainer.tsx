@@ -1,3 +1,5 @@
+'use client'
+'@typescript-eslint/no-unused-expressions'
 import React, { useLayoutEffect, useState, useCallback } from 'react'
 import useMenuCode from '@/app/global/hooks/useMenuCode'
 import { getUserCard } from '../services/actions'
@@ -26,13 +28,13 @@ const LoanViewContainer = ({
     ;(async () => {
       try {
         const card = await getUserCard(seq)
-        console.log('card', card)
+        // console.log('card', card)
         if (!card) notFound
         else {
           setForm(card)
         }
       } catch (err) {
-        console.log(err)
+        console.error(err)
         notFound()
       }
     })()

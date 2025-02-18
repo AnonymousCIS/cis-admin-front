@@ -21,7 +21,7 @@ const LoanLogContainer = ({
     ;(async () => {
       try {
         const log = await getLogView(seq)
-        console.log('log', log)
+        // console.log('log', log)
         if (!log) notFound()
         else {
           setForm(log)

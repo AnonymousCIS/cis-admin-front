@@ -51,10 +51,10 @@ const ListContainer = () => {
     if (data?.success) {
       setItems(data.data.data)
       setPagination(data.data.pagination)
-      console.log(data.data.data)
+      // console.log(data.data.data)
     }
   }, [data])
-  console.log('data', data)
+  // console.log('data', data)
 
   const onSubmit = useCallback(
     (e) => {

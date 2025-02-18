@@ -47,7 +47,7 @@ const status = [
   { value: 'READ', label: '열람' },
 ]
 const Search = ({ form, onChange, onSubmit }) => {
-  console.log("form", form)
+  // console.log("form", form)
   return (
     <StyledForm onSubmit={onSubmit} autoComplete="off">
       <TableCols>

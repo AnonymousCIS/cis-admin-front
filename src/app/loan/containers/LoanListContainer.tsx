@@ -149,7 +149,7 @@ const LoanListContainer = () => {
 
   const onAllRemove = useCallback(() => {
     const seqs = items.filter((item) => item.checked).map((item) => item.seq)
-    console.log('seqs : ' + seqs)
+    // console.log('seqs : ' + seqs)
     ;(async () => {
       await deleteLoan(seqs)
       setItems((items) => items.filter((item) => !seqs.includes(item.seq)))

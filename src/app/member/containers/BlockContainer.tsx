@@ -42,7 +42,7 @@ const BlockContainer = () => {
     if (data) {
       setItems(data.data.data)
       setPagination(data.data.pagination)
-      console.log('data.data.data', data.data.data)
+      // console.log('data.data.data', data.data.data)
     }
   }, [data])
 
@@ -110,7 +110,7 @@ const BlockContainer = () => {
     )
   }, [])
 
-  console.log('item', items)
+  // console.log('item', items)
 
   return (
     <>

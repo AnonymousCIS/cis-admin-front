@@ -4,7 +4,7 @@ import apiRequest from '@/app/global/libs/apiRequest'
 export async function GET(request: NextRequest) {
   const seq = request.nextUrl.pathname.split('/').pop()
   const apiUrl = process.env.API_URL + `/member/info/${seq}`
-  console.log('apiUrl', apiUrl)
+  // console.log('apiUrl', apiUrl)
   const res = await apiRequest(apiUrl)
   if (res.status === 200) {
     // 성공시

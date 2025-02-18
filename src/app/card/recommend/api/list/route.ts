@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   const res = await apiRequest(apiUrl)
 
   if (res.status === 200) {
-    console.log('유입성공')
+    // console.log('유입성공')
     const result = await res.json()
 
     return NextResponse.json(result)

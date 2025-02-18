@@ -20,42 +20,42 @@ const TrainContainer = () => {
   const [insert, setInsert] = useState<boolean>(false)
 
   const onProcess = useCallback(() => {
-    console.log('유입')
+    // console.log('유입')
     ;(async () => {
       const message = await loanTrain()
       setInsert(true)
-      console.log('message', message)
+      // console.log('message', message)
 
       window.location.reload()
     })()
   }, [])
 
- // 실제 Submit할때 반영, search 변경시에만 Rerendering
- const [search, setSearch] = useState<SearchType>({})
+  // 실제 Submit할때 반영, search 변경시에만 Rerendering
+  const [search, setSearch] = useState<SearchType>({})
 
- // 임시로 값 담는 곳
- const [_search, _setSearch] = useState<SearchType>({})
+  // 임시로 값 담는 곳
+  const [_search, _setSearch] = useState<SearchType>({})
 
- const [items, setItems] = useState([])
+  const [items, setItems] = useState([])
 
- const [pagination, setPagination] = useState()
- const qs = toQueryString(search)
+  const [pagination, setPagination] = useState()
+  const qs = toQueryString(search)
 
- const { data, error, isLoading } = useRequest(
-   `/loan/api/logs${qs.trim() ? '?' + qs : ''}`,
- )
+  const { data, error, isLoading } = useRequest(
+    `/loan/api/logs${qs.trim() ? '?' + qs : ''}`,
+  )
 
- useEffect(() => {
-   if (data) {
-     setItems(data.data.items)
-     setPagination(data.data.pagination)
-   }
- }, [data])
+  useEffect(() => {
+    if (data) {
+      setItems(data.data.items)
+      setPagination(data.data.pagination)
+    }
+  }, [data])
 
- const onPageClick = useCallback((page) => {
-   page = page ?? 1
-   setSearch((search) => ({ ...search, page }))
- }, [])
+  const onPageClick = useCallback((page) => {
+    page = page ?? 1
+    setSearch((search) => ({ ...search, page }))
+  }, [])
   return (
     <>
       <TrainForm onProcess={onProcess} />
@@ -66,6 +66,5 @@ const TrainContainer = () => {
     </>
   )
 }
-
 
 export default React.memo(TrainContainer)

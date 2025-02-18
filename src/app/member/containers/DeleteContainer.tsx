@@ -18,7 +18,7 @@ const DeleteContainer = ({ seq, closeModal }: Props | undefined) => {
 
   const { data, isLoading } = useRequest(`/member/api/info/${seq}`)
 
-  console.log('data', data)
+  // console.log('data', data)
 
   useLayoutEffect(() => {
     ;(async () => {
