@@ -1,7 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
-import { MdCheckBoxOutlineBlank } from 'react-icons/md'
+import {
+  MdRadioButtonUnchecked,
+  MdRadioButtonChecked,
+  MdCheckBoxOutlineBlank,
+  MdCheckBox,
+} from 'react-icons/md'
 import { SmallButton } from '@/app/global/components/Buttons'
 
 const StyledForm = styled.form`
@@ -49,13 +54,15 @@ const StyledForm = styled.form`
   }
 `
 
-const BankItem = ({ item, onRemove }) => {
-  const { seq, bankName, accountNumber, name } = item
+const BankItem = ({ item, onRemove, onToggleCheck }) => {
+  const { seq, bankName, accountNumber, name, checked } = item
 
   return (
     <tr>
       <td>
-        <MdCheckBoxOutlineBlank />
+        <span onClick={() => onToggleCheck(seq)}>
+          {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        </span>
       </td>
       <td>{seq}</td>
       <td>{bankName}</td>
@@ -85,44 +92,46 @@ const BankItem = ({ item, onRemove }) => {
   )
 }
 
-const ListForm = ({ items, onRemove }) => {
+const ListForm = ({ items, onRemove, onToggleCheck, onAllToggleCheck }) => {
+  const { checked } = items
   return (
-    <>
-      <StyledForm>
-        <TableRows>
-          <thead>
+    <StyledForm autoComplete="off">
+      <TableRows>
+        <thead>
+          <tr>
+            <th>
+              <span onClick={() => onAllToggleCheck()}>
+                {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+              </span>
+            </th>
+            <th>등록번호</th>
+            <th>은행 기관명</th>
+            <th>계좌 번호</th>
+            <th>예금주</th>
+            <th>관리</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {items && items.length > 0 ? (
+            items.map((item) => (
+              <BankItem
+                key={'bank' + item.seq}
+                item={item}
+                onRemove={onRemove}
+                onToggleCheck={onToggleCheck}
+              />
+            ))
+          ) : (
             <tr>
-              <th>
-                <MdCheckBoxOutlineBlank />
-              </th>
-              <th>등록번호</th>
-              <th>은행 기관명</th>
-              <th>계좌 번호</th>
-              <th>예금주</th>
-              <th>관리</th>
-              <th></th>
+              <td colSpan={5} className="no-data">
+                조회 가능한 계좌가 없습니다.
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {items && items.length > 0 ? (
-              items.map((item) => (
-                <BankItem
-                  key={'bank' + item.seq}
-                  item={item}
-                  onRemove={onRemove}
-                />
-              ))
-            ) : (
-              <tr>
-                <td colSpan={5} className="no-data">
-                  조회 가능한 계좌가 없습니다.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </TableRows>
-      </StyledForm>
-    </>
+          )}
+        </tbody>
+      </TableRows>
+    </StyledForm>
   )
 }
 
