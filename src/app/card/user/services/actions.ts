@@ -60,7 +60,7 @@ export const getLogView = async (seq) => {
  * @param formData
  */
 // export const deleteLoan = async (params, formData: FormData) => {
-export const deleteCard = async (seq) => {
+export const deleteLoan = async (seq) => {
   // const redirectUrl = params?.redirectUrl ?? '/loan/list'
   // const seq = formData.get('seq')
 
@@ -100,6 +100,24 @@ export const cardTrain = async () => {
       return '훈련 완료'
     }
     // return result.success && result.data
+  } catch (err) {
+    console.error(err)
+  }
+}
+export const getUserCard = async (seq) => {
+  try {
+    console.log('seq', seq)
+    const res = await apiRequest(`/card/user/view/${seq}`)
+    const result = await res.json()
+    console.log('result', result)
+    console.log('res', res)
+    if (res.status === 200) {
+      console.log('진입 성공')
+      return result.success && result.data
+    } else {
+      console.log('진입 실패')
+      console.error(error)
+    }
   } catch (err) {
     console.error(err)
   }
