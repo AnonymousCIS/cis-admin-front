@@ -99,7 +99,7 @@ const ListForm = ({ items, onRemove, onToggleCheck, onAllToggleCheck }) => {
           <tr>
             <th>
               <span onClick={() => onAllToggleCheck()}>
-                {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+                {AllCehcked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
               </span>
             </th>
             <th>등록번호</th>
@@ -122,40 +122,14 @@ const ListForm = ({ items, onRemove, onToggleCheck, onAllToggleCheck }) => {
             ))
           ) : (
             <tr>
-              <th>
-                <span onClick={() => onAllToggleCheck()}>
-                  {AllCehcked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
-                </span>
-              </th>
-              <th>등록번호</th>
-              <th>은행 기관명</th>
-              <th>계좌 번호</th>
-              <th>예금주</th>
-              <th>관리</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {items && items.length > 0 ? (
-              items.map((item) => (
-                <BankItem
-                  key={'bank' + item.seq}
-                  item={item}
-                  onRemove={onRemove}
-                  onToggleCheck={onToggleCheck}
-                />
-              ))
-            ) : (
-              <tr>
-                <td colSpan={5} className="no-data">
-                  조회 가능한 계좌가 없습니다.
+                <td colSpan={10} className="no-data">
+                  조회 카드가 없습니다.
                 </td>
               </tr>
-            )}
-          </tbody>
-        </TableRows>
-      </StyledForm>
-    </>
+          )}
+        </tbody>
+      </TableRows>
+    </StyledForm>
   )
 }
 
