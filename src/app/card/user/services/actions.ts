@@ -10,49 +10,49 @@ import { toQueryString } from '@/app/global/libs/utils'
  * 카드 상세 조회
  *
  */
-export const getCard = async (seq) => {
-  try {
-    const res = await apiRequest(`/card/view/${seq}`)
-    // console.log('res.status : ' + res.status)
-    if (res.status === 200) {
-      // console.log('진입 성공')
-      const result = await res.json()
-      return result.success && result.data
-    } else {
-      console.error(error)
-    }
-  } catch (err) {
-    console.error(err)
-  }
-}
+// export const getCard = async (seq) => {
+//   try {
+//     const res = await apiRequest(`/card/view/${seq}`)
+//     // console.log('res.status : ' + res.status)
+//     if (res.status === 200) {
+//       // console.log('진입 성공')
+//       const result = await res.json()
+//       return result.success && result.data
+//     } else {
+//       console.error(error)
+//     }
+//   } catch (err) {
+//     console.error(err)
+//   }
+// }
 
-export const getLog = async () => {
-  try {
-    const res = await apiRequest('/card/train/logs')
-    if (res.status === 200) {
-      const result = await res.json()
-      return result.success && result.data
-    } else {
-      console.error('Error fetching logs:', res.status)
-    }
-  } catch (err) {
-    console.error('Error:', err)
-  }
-}
-export const getLogView = async (seq) => {
-  try {
-    const res = await apiRequest(`/card/train/log?seq=${seq}`, 'GET')
+// export const getLog = async () => {
+//   try {
+//     const res = await apiRequest('/card/train/logs')
+//     if (res.status === 200) {
+//       const result = await res.json()
+//       return result.success && result.data
+//     } else {
+//       console.error('Error fetching logs:', res.status)
+//     }
+//   } catch (err) {
+//     console.error('Error:', err)
+//   }
+// }
+// export const getLogView = async (seq) => {
+//   try {
+//     const res = await apiRequest(`/card/train/log?seq=${seq}`, 'GET')
 
-    if (res.status === 200) {
-      const result = await res.json()
-      return result.success && result.data
-    } else {
-      console.error('Error fetching logs:', res.status)
-    }
-  } catch (err) {
-    console.error('Error:', err)
-  }
-}
+//     if (res.status === 200) {
+//       const result = await res.json()
+//       return result.success && result.data
+//     } else {
+//       console.error('Error fetching logs:', res.status)
+//     }
+//   } catch (err) {
+//     console.error('Error:', err)
+//   }
+// }
 
 /**
  * 카드 삭제
@@ -68,7 +68,7 @@ export const deleteLoan = async (seq) => {
   const qs = toQueryString({ seq: [seq] })
 
   try {
-    const res = await apiRequest(`/card/admin/deletes?${qs}`, 'DELETE')
+    const res = await apiRequest(`/card/user/removes?${qs}`, 'DELETE')
     // const result = await res.status
 
     // if (result !== 200) {
@@ -91,27 +91,27 @@ export const deleteLoan = async (seq) => {
  *
  * @returns
  */
-export const cardTrain = async () => {
-  try {
-    // console.log('유입')
-    const res = await apiRequest('/card/admin/train')
-    // console.log('res', res)
-    if (res.status === 200) {
-      return '훈련 완료'
-    }
-    // return result.success && result.data
-  } catch (err) {
-    console.error(err)
-  }
-}
+// export const cardTrain = async () => {
+//   try {
+//     // console.log('유입')
+//     const res = await apiRequest('/card/admin/train')
+//     // console.log('res', res)
+//     if (res.status === 200) {
+//       return '훈련 완료'
+//     }
+//     // return result.success && result.data
+//   } catch (err) {
+//     console.error(err)
+//   }
+// }
 
 export const getUserCard = async (seq) => {
   try {
     // console.log('seq', seq)
     const res = await apiRequest(`/card/user/view/${seq}`)
     const result = await res.json()
-    // console.log('result', result)
-    // console.log('res', res)
+    console.log('result', result)
+    console.log('res', res)
     if (res.status === 200) {
       // console.log('진입 성공')
       return result.success && result.data

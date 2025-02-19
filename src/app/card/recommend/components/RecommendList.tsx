@@ -16,9 +16,8 @@ const StyledForm = styled.form`
 
 // ✨✨ onClick 추가
 const CardItem = ({ item, onRemove, onClick }) => {
-  const { card, email } = item
+  const { card, email, seq } = item
   const {
-    seq,
     bankNameStr,
     cardName,
     cardTypeStr,

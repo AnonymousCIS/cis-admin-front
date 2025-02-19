@@ -12,7 +12,7 @@ import { toQueryString } from '@/app/global/libs/utils'
  */
 export const getLoan = async (seq) => {
   try {
-    const res = await apiRequest(`/loan/view/${seq}`)
+    const res = await apiRequest(`/loan/recommend/view/${seq}`)
     // console.log('res.status : ' + res.status)
     if (res.status === 200) {
       // console.log('진입 성공')
@@ -23,34 +23,6 @@ export const getLoan = async (seq) => {
     }
   } catch (err) {
     console.error(err)
-  }
-}
-
-export const getLog = async () => {
-  try {
-    const res = await apiRequest('/loan/train/logs')
-    if (res.status === 200) {
-      const result = await res.json()
-      return result.success && result.data
-    } else {
-      console.error('Error fetching logs:', res.status)
-    }
-  } catch (err) {
-    console.error('Error:', err)
-  }
-}
-export const getLogView = async (seq) => {
-  try {
-    const res = await apiRequest(`/loan/train/log?seq=${seq}`, 'GET')
-
-    if (res.status === 200) {
-      const result = await res.json()
-      return result.success && result.data
-    } else {
-      console.error('Error fetching logs:', res.status)
-    }
-  } catch (err) {
-    console.error('Error:', err)
   }
 }
 
@@ -68,7 +40,7 @@ export const deleteLoan = async (seq) => {
   const qs = toQueryString({ seq: [seq] })
 
   try {
-    const res = await apiRequest(`/loan/admin/deletes?${qs}`, 'DELETE')
+    const res = await apiRequest(`/loan/recommend/delete?${qs}`, 'DELETE')
     // const result = await res.status
 
     // if (result !== 200) {
@@ -84,23 +56,4 @@ export const deleteLoan = async (seq) => {
 
   // redirect(redirectUrl)
   redirect('/loan/list')
-}
-
-/**
- * 추천 대출 훈련
- *
- * @returns
- */
-export const loanTrain = async () => {
-  try {
-    // console.log('유입')
-    const res = await apiRequest('/loan/admin/train')
-    // console.log('res', res)
-    if (res.status === 200) {
-      return '훈련 완료'
-    }
-    // return result.success && result.data
-  } catch (err) {
-    console.error(err)
-  }
 }

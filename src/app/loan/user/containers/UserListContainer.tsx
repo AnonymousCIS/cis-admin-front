@@ -29,7 +29,7 @@ type SearchType = {
 }
 
 const UserListContainer = () => {
-useMenuCode('loan', 'user')
+  useMenuCode('loan', 'user')
 
   const _qs = useQueryString(['loanName', 'bankName', 'categories'])
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
@@ -99,11 +99,11 @@ useMenuCode('loan', 'user')
 
   useEffect(() => {
     if (data) {
-      console.log('API Response Data:', data);
-      // setItems(data.data.items);
-      // setPagination(data.data.pagination);
+      console.log('API Response Data:', data)
+      // setItems(data.data.items)
+      // setPagination(data.data.pagination)
     }
-  }, [data]);
+  }, [data])
 
   const onSubmit = useCallback(
     (e) => {

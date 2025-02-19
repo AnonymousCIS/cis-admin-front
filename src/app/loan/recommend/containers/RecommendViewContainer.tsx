@@ -17,7 +17,7 @@ const LoanViewContainer = ({
   const [form, setForm] = useState([])
 
   // 추가 ✨✨
-  const { isLoading } = useRequest(`/loan/RecommendView/${seq}`)
+  const { isLoading } = useRequest(`/loan/Recommend/view/${seq}`)
 
   const onDelete = useCallback(() => {
     deleteLoan(seq)
