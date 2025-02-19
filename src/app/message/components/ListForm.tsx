@@ -51,8 +51,19 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
-const ListItem = ({ item, onModal }) => {
-  const { subject, status, content, seq, senderEmail, receiverEmail, deletedBySender, deletedByReceiver, notice, checked } = item
+const ListItem = ({ item, onModal, onToggleCheck }) => {
+  const {
+    subject,
+    status,
+    content,
+    seq,
+    senderEmail,
+    receiverEmail,
+    deletedBySender,
+    deletedByReceiver,
+    notice,
+    checked,
+  } = item
   // console.log('item', item)
 
   return (
@@ -62,13 +73,17 @@ const ListItem = ({ item, onModal }) => {
           {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
         </span>
       </td>
-      <td style={{textAlign: 'center'}}>{notice === true ? 'O' : ''}</td>
+      <td style={{ textAlign: 'center' }}>{notice === true ? 'O' : ''}</td>
       <td>{subject}</td>
       <td>{senderEmail}</td>
       <td>{receiverEmail}</td>
       <td>{status}</td>
-      <td style={{textAlign: 'center'}}>{deletedBySender === false ? 'X' : 'O'}</td>
-      <td style={{textAlign: 'center'}}>{deletedByReceiver === false ? 'X' : 'O'}</td>
+      <td style={{ textAlign: 'center' }}>
+        {deletedBySender === false ? 'X' : 'O'}
+      </td>
+      <td style={{ textAlign: 'center' }}>
+        {deletedByReceiver === false ? 'X' : 'O'}
+      </td>
       <td>
         <div
           className="content"
@@ -93,7 +108,6 @@ const ListItem = ({ item, onModal }) => {
     </tr>
   )
 }
-
 
 const ListForm = ({ onModal, items, onToggleCheck, onAllToggleCheck }) => {
   const { checked } = items
