@@ -12,20 +12,28 @@ import {
 const StyledForm = styled.form`
   table {
     text-align: center;
+    margin-bottom: 20px;
 
     span {
       cursor: default;
     }
+
     .btn {
       display: flex;
       justify-content: center;
       gap: 10px;
     }
   }
+
+  & > div {
+    display: flex;
+    justify-content: right;
+  }
 `
 
 // ✨✨ onClick 추가
 const LoanItem = ({ item, onModal, openClick, onToggleCheck }) => {
+  console.log('item : ' + item.open)
   const {
     seq,
     loanName,
@@ -54,11 +62,11 @@ const LoanItem = ({ item, onModal, openClick, onToggleCheck }) => {
       <td>{repaymentYear}년</td>
       <td>
         {/* ✨✨ span에 onClick 추가 / 아직 제대로 작동 안 됨 */}
-        <span onClick={() => openClick(open, true)}>
+        <span onClick={() => openClick(seq, true)}>
           {open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />}
           사용
         </span>
-        <span onClick={() => openClick(open, false)}>
+        <span onClick={() => openClick(seq, false)}>
           {!open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />}
           미사용
         </span>
@@ -143,15 +151,17 @@ const LoanList = ({
             )}
           </tbody>
         </TableRows>
-        <SmallButton
-          type="button"
-          color="info"
-          width={160}
-          onClick={() => onAllRemoveModal()}
-          disabled={isPending}
-        >
-          삭제
-        </SmallButton>
+        <div>
+          <SmallButton
+            type="button"
+            color="primary"
+            width={160}
+            onClick={() => onAllRemoveModal()}
+            disabled={isPending}
+          >
+            삭제
+          </SmallButton>
+        </div>
       </StyledForm>
     </>
   )

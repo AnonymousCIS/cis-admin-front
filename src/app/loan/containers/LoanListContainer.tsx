@@ -113,14 +113,11 @@ const LoanListContainer = () => {
     [addToggle],
   )
 
-  const openClick = useCallback((k, v) => {
+  const openClick = useCallback((seq, value) => {
     console.log('클릭 확인')
-    console.log('field : ' + k)
-    console.log('value : ' + v)
-    if (k !== v) {
-      k = !k
-      console.log(k)
-    }
+    setItems((Items) =>
+      Items.map((item) => (item.seq === seq ? { ...item, open: value } : item)),
+    )
   }, [])
 
   /* ✨✨추가한 부분 E */
