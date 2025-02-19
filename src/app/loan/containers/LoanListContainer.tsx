@@ -16,7 +16,7 @@ import { BulletList } from 'react-content-loader'
 import Pagination from '@/app/global/components/Pagination'
 import LayerPopup from '@/app/global/components/LayerPopup'
 import useQueryString from '@/app/global/hooks/useQueryString'
-import { getLoan, deleteLoan } from '../services/actions'
+import { getLoan, deleteLoan, processLoan } from '../services/actions'
 import LoanModal from '../components/LoanModal'
 import { useRouter } from 'next/navigation'
 import { ButtonGroup, SmallButton } from '@/app/global/components/Buttons'
@@ -113,11 +113,16 @@ const LoanListContainer = () => {
     [addToggle],
   )
 
-  const openClick = useCallback((seq, value) => {
+  const openClick = useCallback(async (seq, value) => {
     console.log('클릭 확인')
-    setItems((Items) =>
-      Items.map((item) => (item.seq === seq ? { ...item, open: value } : item)),
+    setItems((items) =>
+      items.map((item) => (item.seq === seq ? { ...item, open: value } : item)),
     )
+    /* try {
+      const loan = await processLoan({}, formData)
+    } catch (err) {
+      console.error(err)
+    } */
   }, [])
 
   /* ✨✨추가한 부분 E */

@@ -38,14 +38,16 @@ export const processLoan = async (params, formData: FormData) => {
     interestRate: '이자율을 입력해주세요.',
   }
 
-  for (const [field, msg] of Object.entries(requiredFields)) {
-    const value = formData.get(field).toString()
-    //if (!form[field] || (typeof form[field] === 'string' && !form[field].trim())) {
-    if (!value || !value.trim()) {
-      // console.log('errors[field]' + field)
-      errors[field] = errors[field] ?? []
-      errors[field].push(msg)
-      hasErrors = true
+  if (form.mode !== 'editOpen') {
+    for (const [field, msg] of Object.entries(requiredFields)) {
+      const value = formData.get(field).toString()
+      //if (!form[field] || (typeof form[field] === 'string' && !form[field].trim())) {
+      if (!value || !value.trim()) {
+        // console.log('errors[field]' + field)
+        errors[field] = errors[field] ?? []
+        errors[field].push(msg)
+        hasErrors = true
+      }
     }
   }
 
@@ -67,6 +69,10 @@ export const processLoan = async (params, formData: FormData) => {
     console.log(reqBody)
 
     const res = await apiRequest(apiUrl, reqMethod, reqBody)
+
+    // console.log('form의 값 : ' + form)
+    // console.log('res.status의 값은 : ', res.status)
+    // console.log('form : ' + form)
 
     if (res.status !== 200) {
       const result = await res.json()
@@ -103,10 +109,38 @@ export const getLoan = async (seq) => {
   }
 }
 
+/* 
+export const openChange = async (seq) => {
+  const loan = await getLoan(seq)
+
+  for (const [key, value] of loan.open) {
+    // if (key.includes('$ACTION')) continue
+
+    const _value: boolean = value
+
+    loan[key] = _value
+  }
+
+  try {
+    const res = await apiRequest('/loan/admin/updates', 'PATCH', loan)
+    console.log('loan의 값 : ' + loan)
+    console.log('res.status의 값은 : ', res.status)
+    console.log('loan : ' + loan)
+    if (res.status === 200) {
+      const result = await res.json()
+      return result.success && result.data
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
+ */
+
 export const getLog = async () => {
   try {
     const res = await apiRequest('/loan/train/logs')
     if (res.status === 200) {
+      console.log('****유입****')
       const result = await res.json()
       return result.success && result.data
     } else {

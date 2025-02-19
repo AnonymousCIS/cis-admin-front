@@ -33,7 +33,6 @@ const StyledForm = styled.form`
 
 // ✨✨ onClick 추가
 const LoanItem = ({ item, onModal, openClick, onToggleCheck }) => {
-  console.log('item : ' + item.open)
   const {
     seq,
     loanName,
