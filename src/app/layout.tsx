@@ -14,6 +14,12 @@ import './globals.css'
 //   min-height: 600px;
 // `
 
+declare global {
+  interface Window {
+    daum: any
+  }
+}
+
 export const metadata: Metadata = {
   title: 'ADMIN - Pintech Project',
   description: 'ADMIN - 카드 & 대출 추천 사이트',

@@ -11,6 +11,7 @@ import { updateMember } from '../services/actions'
 import { BulletList } from 'react-content-loader'
 import useRequest from '@/app/global/hooks/useRequest'
 import { notFound } from 'next/navigation'
+import useAddress from '@/app/global/hooks/useAddress'
 
 const Loading = () => <BulletList />
 
@@ -59,6 +60,10 @@ const EditContainer = ({ seq }: { seq?: any | undefined } | undefined) => {
     notFound()
   }
 
+  const onSelectAddress = useAddress((data) => {
+    setForm((form) => ({ ...form, ...data }))
+  })
+
   return (
     <>
       {isLoading ? (
@@ -70,6 +75,7 @@ const EditContainer = ({ seq }: { seq?: any | undefined } | undefined) => {
           onClick={onClick}
           actionState={actionState}
           onReset={onReset}
+          onSelectAddress={onSelectAddress}
         />
       )}
     </>
