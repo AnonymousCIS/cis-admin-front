@@ -45,6 +45,7 @@ const LoanItem = ({ item, onModal, openClick, onToggleCheck }) => {
           {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
         </span>
       </td>
+      <td>{seq}</td>
       <td>{loanName}</td>
       <td>{bankNameStr}</td>
       <td>{categoryStr}</td>
@@ -53,11 +54,11 @@ const LoanItem = ({ item, onModal, openClick, onToggleCheck }) => {
       <td>{repaymentYear}년</td>
       <td>
         {/* ✨✨ span에 onClick 추가 / 아직 제대로 작동 안 됨 */}
-        <span onClick={(_open) => openClick(open, _open)}>
+        <span onClick={() => openClick(open, true)}>
           {open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />}
           사용
         </span>
-        <span onClick={(_open) => openClick(open, !_open)}>
+        <span onClick={() => openClick(open, false)}>
           {!open ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />}
           미사용
         </span>
@@ -91,8 +92,9 @@ const LoanItem = ({ item, onModal, openClick, onToggleCheck }) => {
 // ✨✨ onClick 추가
 const LoanList = ({
   items,
-  onClick,
+  openClick,
   onModal,
+  onAllRemoveModal,
   onToggleCheck,
   onAllToggleCheck,
   actionState,
@@ -103,14 +105,13 @@ const LoanList = ({
   return (
     <>
       <StyledForm action={formState}>
-        <input type="hidden" name="isOpen" value={items.open} />
         <TableRows>
           <thead>
             <tr>
               <th onClick={() => onAllToggleCheck()}>
                 {AllCehcked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
               </th>
-
+              <th>대출번호</th>
               <th>대출명</th>
               <th>은행명</th>
               <th>대출 카테고리</th>
@@ -129,7 +130,7 @@ const LoanList = ({
                   item={item}
                   onModal={onModal}
                   // ✨✨ onClick 추가
-                  openClick={onClick}
+                  openClick={openClick}
                   onToggleCheck={onToggleCheck}
                 />
               ))
@@ -143,10 +144,10 @@ const LoanList = ({
           </tbody>
         </TableRows>
         <SmallButton
-          type="submit"
+          type="button"
           color="info"
           width={160}
-          onClick={() => actionState()}
+          onClick={() => onAllRemoveModal()}
           disabled={isPending}
         >
           삭제

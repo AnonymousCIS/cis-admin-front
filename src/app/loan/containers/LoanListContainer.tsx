@@ -19,6 +19,7 @@ import useQueryString from '@/app/global/hooks/useQueryString'
 import { getLoan, deleteLoan } from '../services/actions'
 import LoanModal from '../components/LoanModal'
 import { useRouter } from 'next/navigation'
+import { ButtonGroup, SmallButton } from '@/app/global/components/Buttons'
 
 const Loading = () => <BulletList />
 
@@ -51,6 +52,8 @@ const LoanListContainer = () => {
   const [pagination, setPagination] = useState()
 
   const [isOpen, setIsOpen] = useState(false)
+  const [isAllRemoveOpen, setIsAllRemoveOpen] = useState(false)
+
   const [seq, setSeq] = useState(null)
 
   const qs = toQueryString(search)
@@ -110,6 +113,16 @@ const LoanListContainer = () => {
     [addToggle],
   )
 
+  const openClick = useCallback((k, v) => {
+    console.log('클릭 확인')
+    console.log('field : ' + k)
+    console.log('value : ' + v)
+    if (k !== v) {
+      k = !k
+      console.log(k)
+    }
+  }, [])
+
   /* ✨✨추가한 부분 E */
 
   useEffect(() => {
@@ -144,6 +157,14 @@ const LoanListContainer = () => {
     setSeq(null)
   }, [])
 
+  const onAllRemoveModal = useCallback(() => {
+    setIsAllRemoveOpen(true)
+  }, [])
+
+  const closeAllRemoveModal = useCallback(() => {
+    setIsAllRemoveOpen(false)
+  }, [])
+
   const actionState = useActionState(deleteLoan, undefined)
 
   const onRemove = useCallback(
@@ -162,8 +183,10 @@ const LoanListContainer = () => {
       await deleteLoan(seqs)
       setItems((items) => items.filter((item) => !seqs.includes(item.seq)))
     })()
+    closeAllRemoveModal()
+
     router.refresh()
-  }, [items, router])
+  }, [closeAllRemoveModal, items, router])
 
   const onToggleCheck = useCallback((seq) => {
     setItems((prevItems) =>
@@ -196,7 +219,8 @@ const LoanListContainer = () => {
           <LoanList
             items={items}
             onModal={onModal}
-            onClick={onClick}
+            onAllRemoveModal={onAllRemoveModal}
+            openClick={openClick}
             onToggleCheck={onToggleCheck}
             onAllToggleCheck={onAllToggleCheck}
             actionState={onAllRemove}
@@ -220,6 +244,38 @@ const LoanListContainer = () => {
           closeModal={closeModal}
           onRemove={onRemove}
         />
+      </LayerPopup>
+
+      <LayerPopup
+        isOpen={isAllRemoveOpen}
+        onClose={closeAllRemoveModal}
+        title="대출 일괄 삭제"
+        width={400}
+        height={250}
+      >
+        <>
+          {items.filter((item) => item.checked).length}
+          <span>
+            개의 데이터를 선택하셨습니다.
+            <p>정말 삭제하시겠습니까?</p>
+          </span>
+          <ButtonGroup width={300} className="button-group center">
+            <SmallButton
+              type="button"
+              color="dark"
+              onClick={() => onAllRemove()}
+            >
+              삭제
+            </SmallButton>
+            <SmallButton
+              type="button"
+              color="info"
+              onClick={closeAllRemoveModal}
+            >
+              취소
+            </SmallButton>
+          </ButtonGroup>
+        </>
       </LayerPopup>
       {/* ✨✨추가한 부분 E */}
     </>

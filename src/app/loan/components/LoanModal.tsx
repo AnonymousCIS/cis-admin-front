@@ -6,7 +6,7 @@ import { TableCols } from '@/app/global/components/Tables'
 import { SmallButton, ButtonGroup } from '@/app/global/components/Buttons'
 import { MdWarning } from 'react-icons/md'
 
-const { secondary } = colors
+const { secondary, danger } = colors
 
 const StyledForm = styled.form<CommonType>`
   table {
@@ -17,6 +17,12 @@ const StyledForm = styled.form<CommonType>`
     width: 150px;
     text-align: center;
     background: ${secondary};
+  }
+
+  div {
+    text-align: center;
+    margin-bottom: 20px;
+    color: ${danger};
   }
 `
 
@@ -91,7 +97,8 @@ const LoanModal = ({ form, onRemove, actionState, closeModal }) => {
         </TableCols>
         <div>
           <MdWarning />
-          정말 삭제하시겠습니까?
+          <span>정말 삭제하시겠습니까?</span>
+          <p>삭제한 대출은 복구할 수 없습니다.</p>
         </div>
 
         <ButtonGroup width={300} className="button-group center">
