@@ -3,7 +3,11 @@ import { TableCols } from '@/app/global/components/Tables'
 import { SubTitle } from '@/app/global/components/StyledTitle'
 import colors from '@/app/global/styles/colors'
 import { Input, Select } from '@/app/global/components/FormComponents'
-import { BigButton, ButtonGroup } from '@/app/global/components/Buttons'
+import {
+  BigButton,
+  ButtonGroup,
+  SmallButton,
+} from '@/app/global/components/Buttons'
 import styled from 'styled-components'
 import {
   MdCheckBoxOutlineBlank,
@@ -29,6 +33,17 @@ const StyledForm = styled.form`
       & > * + * {
         margin-left: 20px;
       }
+      .row {
+        display: flex;
+        gap: 10px;
+        button {
+          width: 200px;
+          height: 40px;
+        }
+      }
+      .input: {
+        flex-glow: 3;
+      }
     }
 
     &:last-of-type {
@@ -37,7 +52,14 @@ const StyledForm = styled.form`
   }
 `
 
-const EditForm = ({ form, onClick, onChange, actionState, onReset }) => {
+const EditForm = ({
+  form,
+  onClick,
+  onChange,
+  actionState,
+  onReset,
+  onSelectAddress,
+}) => {
   const [errors, formAction, isPending] = actionState
   return (
     <StyledForm action={formAction} autoComplete="off">
@@ -113,12 +135,18 @@ const EditForm = ({ form, onClick, onChange, actionState, onReset }) => {
           <tr>
             <th>우편번호</th>
             <td>
-              <Input
-                type="text"
-                name="zipCode"
-                value={form?.zipCode ?? ''}
-                onChange={onChange}
-              />
+              <div className="row">
+                <Input
+                  type="text"
+                  name="zipCode"
+                  value={form?.zipCode ?? ''}
+                  onChange={onChange}
+                  readOnly={true}
+                />
+                <SmallButton type="button" onClick={onSelectAddress}>
+                  주소 검색
+                </SmallButton>
+              </div>
             </td>
           </tr>
 
@@ -130,6 +158,7 @@ const EditForm = ({ form, onClick, onChange, actionState, onReset }) => {
                 name="address"
                 value={form?.address ?? ''}
                 onChange={onChange}
+                readOnly={true}
               />
             </td>
           </tr>

@@ -104,8 +104,8 @@ const CardItem = ({ item, onClick, onModal, onToggleCheck }) => {
       <td>{bankNameStr}</td>
       <td>{cardTypeStr}</td>
       <td>{categoryStr}</td>
-      <td>{annualFee}</td>
-      <td>{limit}</td>
+      <td>{annualFee.toLocaleString()}</td>
+      <td>{limit.toLocaleString()}</td>
       <td className="check">
         <span onClick={() => onClick('isOpen', !Boolean(item?.isOpen))}>
           {/* {isOpen ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />} 사용 */}

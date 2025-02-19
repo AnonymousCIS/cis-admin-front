@@ -42,9 +42,9 @@ const CardItem = ({ item, onRemove, onClick }) => {
       <td>{bankNameStr}</td>
       <td>{cardTypeStr}</td>
       <td>{categoryStr}</td>
-      <td>{limit}</td>
+      <td>{annualFee.toLocaleString()}</td>
       <td>{createdAt}</td>
-      <td>{annualFee}</td>
+      <td>{limit.toLocaleString()}</td>
       <td>
         {/* ✨✨ span에 onClick 추가 */}
         <span onClick={() => onClick('isOpen', !Boolean(item?.isOpen))}>
