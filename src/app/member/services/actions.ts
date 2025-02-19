@@ -133,6 +133,10 @@ export const processJoin = async (params, formData: FormData) => {
 export const processLogin = async (params, formData: FormData) => {
   const redirectUrl = params?.redirectUrl ?? '/'
 
+  const form: any = {
+    email: '',
+    password: '',
+  }
   let errors: any = {}
 
   let hasErrors = false
@@ -158,22 +162,32 @@ export const processLogin = async (params, formData: FormData) => {
 
   /* Server 요청 처리 S */
   if (!hasErrors) {
-    const apiUrl = process.env.API_URL + '/member/login'
-
     try {
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      })
+      // const res = await fetch(apiUrl, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({ email, password }),
+      // })
 
-      const result = await res.json()
+      form.email = formData.get('email').toString()
+      form.password = formData.get('password').toString()
+      const res = await apiRequest('/member/login', 'POST', form)
+      let result: any = { success: false }
+      const cookie = await cookies()
+      try {
+        result = await res.json()
+      } catch (e) {
+        const date = new Date()
+        date.setDate(date.getDate() - 1)
+        cookie.set('token', '', {
+          expires: date,
+        })
+      }
 
       if (res.status === 200 && result.success) {
         // 회원 인증 성공
-        const cookie = await cookies()
 
         cookie.set('token', result.data, {
           // httpOnly true 하지 않으면 JavaScript로 토큰 탈취 가능
@@ -194,7 +208,6 @@ export const processLogin = async (params, formData: FormData) => {
     }
   }
   /* Server 요청 처리 E */
-
   if (hasErrors) return errors
 
   // 캐시 비우기
@@ -203,7 +216,6 @@ export const processLogin = async (params, formData: FormData) => {
   // 로그인 성공시 이동
   redirect(redirectUrl)
 }
-
 /**
  * 로그인한 회원 정보 조회
  *
