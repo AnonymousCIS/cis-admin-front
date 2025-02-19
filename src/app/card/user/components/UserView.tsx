@@ -20,8 +20,8 @@ const StyledForm = styled.form<CommonType>`
 `
 
 // ✨✨ onDelete 추가
-const CardView = ({ form, onDelete }) => {
-  // console.log('form', form)
+const UserView = ({ form, onDelete }) => {
+  console.log('form', form)
   return (
     <>
       <StyledForm>
@@ -30,37 +30,37 @@ const CardView = ({ form, onDelete }) => {
             <tr>
               <th>카드명</th>
               <td>
-                <span>{form?.cardName ?? ''}</span>
+                <span>{form?.card?.cardName ?? ''}</span>
               </td>
             </tr>
             <tr>
               <th>은행명</th>
               <td>
-                <span>{form?.bankNameStr ?? ''}</span>
+                <span>{form?.card?.bankNameStr ?? ''}</span>
               </td>
             </tr>
             <tr>
               <th>카드종류</th>
               <td>
-                <span>{form?.cardTypeStr ?? ''}</span>
+                <span>{form?.card?.cardTypeStr ?? ''}</span>
               </td>
             </tr>
             <tr>
               <th>카테고리</th>
               <td>
-                <span>{form?.categoryStr ?? ''}</span>
+                <span>{form?.card?.categoryStr ?? ''}</span>
               </td>
             </tr>
             <tr>
               <th>연회비</th>
               <td>
-                <span>{form?.annualFee ?? ''}</span>
+                <span>{form?.card?.annualFee ?? ''}</span>
               </td>
             </tr>
             <tr>
               <th>한도</th>
               <td>
-                <span>{form?.limit ?? ''}</span>
+                <span>{form?.card?.limit ?? ''}</span>
               </td>
             </tr>
             <tr>
@@ -84,4 +84,4 @@ const CardView = ({ form, onDelete }) => {
   )
 }
 
-export default React.memo(CardView)
+export default React.memo(UserView)
